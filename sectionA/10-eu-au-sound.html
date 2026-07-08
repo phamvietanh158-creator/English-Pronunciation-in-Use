@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 10 - Old town /əʊ/ và /aʊ/</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            padding: 20px 15px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, #1a2a6c, #2d4373);
+            color: white;
+            padding: 24px 28px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 30px rgba(26, 42, 108, 0.3);
+        }
+
+        .header .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header .lesson-number {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 4px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-top: 8px;
+        }
+
+        .header h1 .eu {
+            color: #5dade2;
+        }
+        .header h1 .au {
+            color: #af7ac5;
+        }
+
+        .header .sub {
+            font-size: 16px;
+            opacity: 0.85;
+            margin-top: 4px;
+        }
+
+        .header .nav-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: #f1c40f;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .header .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== SECTION ===== */
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 22px 26px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a2a6c;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .section-title .badge {
+            background: #eef2f7;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 2px 14px;
+            border-radius: 30px;
+            color: #2c3e50;
+        }
+
+        .section-title .badge.audio {
+            background: #d5f5e3;
+            color: #1a6e4a;
+        }
+
+        .section-title .badge.tip {
+            background: #fef9e7;
+            color: #7d6608;
+        }
+
+        .section-title .badge.geo {
+            background: #d6eaf8;
+            color: #1a4a7a;
+        }
+
+        .section p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
+        .section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .ipa-text {
+            font-family: 'Courier New', monospace;
+            color: #c0392b;
+            background: #fff5f5;
+            padding: 2px 12px;
+            border-radius: 6px;
+            font-size: 17px;
+            display: inline-block;
+        }
+
+        .vi-text {
+            color: #27ae60;
+            font-style: italic;
+            background: #f0faf5;
+            padding: 8px 14px;
+            border-radius: 8px;
+            margin: 6px 0 12px;
+            border-left: 3px solid #27ae60;
+        }
+
+        .vi-text-sm {
+            color: #27ae60;
+            font-style: italic;
+            font-size: 14px;
+            margin: 4px 0 8px;
+            padding-left: 6px;
+        }
+
+        /* ===== IPA BADGE LỚN ===== */
+        .ipa-badge-large {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 14px;
+            border: 2px solid #e2e8f0;
+            margin: 12px 0;
+        }
+
+        .ipa-badge-large .sound-box {
+            text-align: center;
+            padding: 10px 24px;
+            border-radius: 12px;
+            min-width: 120px;
+        }
+
+        .ipa-badge-large .sound-box.eu {
+            background: #eaf4f9;
+            border: 2px solid #5dade2;
+        }
+
+        .ipa-badge-large .sound-box.au {
+            background: #f5eef8;
+            border: 2px solid #af7ac5;
+        }
+
+        .ipa-badge-large .sound-box .ipa {
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+
+        .ipa-badge-large .sound-box .ipa.eu-ipa {
+            color: #2980b9;
+        }
+
+        .ipa-badge-large .sound-box .ipa.au-ipa {
+            color: #8e44ad;
+        }
+
+        .ipa-badge-large .sound-box .label {
+            font-size: 14px;
+            color: #5a6a7a;
+            margin-top: 4px;
+        }
+
+        .ipa-badge-large .sound-box .example {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .ipa-badge-large .arrow-between {
+            display: flex;
+            align-items: center;
+            font-size: 28px;
+            color: #bdc3c7;
+        }
+
+        /* ===== STORY BOX ===== */
+        .story-box {
+            background: #f8fafc;
+            border-left: 4px solid #1a2a6c;
+            padding: 18px 22px;
+            border-radius: 10px;
+            margin: 12px 0;
+            font-size: 17px;
+            line-height: 2.2;
+            color: #1a2a3a;
+        }
+
+        .story-box .highlight-eu {
+            color: #2980b9;
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-color: #5dade2;
+            text-underline-offset: 3px;
+        }
+
+        .story-box .highlight-au {
+            color: #8e44ad;
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-color: #af7ac5;
+            text-underline-offset: 3px;
+        }
+
+        .story-box .stress {
+            font-weight: 700;
+            color: #c0392b;
+        }
+
+        /* ===== WORD GRID ===== */
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .word-card {
+            background: #f8fafc;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .word-card:hover {
+            border-color: #b0c4de;
+            background: #f1f5f9;
+        }
+
+        .word-card .word {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a2a3a;
+        }
+
+        .word-card .word.eu-word {
+            color: #2980b9;
+        }
+
+        .word-card .word.au-word {
+            color: #8e44ad;
+        }
+
+        .word-card .ipa-small {
+            font-size: 15px;
+            color: #c0392b;
+            font-family: 'Courier New', monospace;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .word-card .sound-tag {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 1px 12px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .word-card .sound-tag.eu-tag {
+            background: #d6eaf8;
+            color: #1a4a7a;
+        }
+
+        .word-card .sound-tag.au-tag {
+            background: #e8daef;
+            color: #6c3483;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: scale(1.03);
+            opacity: 0.9;
+        }
+
+        .btn-success {
+            background: #27ae60;
+        }
+        .btn-success:hover {
+            background: #219a52;
+        }
+
+        .btn-warning {
+            background: #f39c12;
+        }
+        .btn-warning:hover {
+            background: #d68910;
+        }
+
+        .btn-purple {
+            background: #8e44ad;
+        }
+        .btn-purple:hover {
+            background: #7d3c98;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+        }
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-teal {
+            background: #1abc9c;
+        }
+        .btn-teal:hover {
+            background: #16a085;
+        }
+
+        .btn-eu {
+            background: #2980b9;
+        }
+        .btn-eu:hover {
+            background: #1a6a8a;
+        }
+
+        .btn-au {
+            background: #8e44ad;
+        }
+        .btn-au:hover {
+            background: #6c3483;
+        }
+
+        .btn-small {
+            font-size: 12px;
+            padding: 5px 14px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        /* ===== EXERCISE ===== */
+        .exercise-box {
+            background: #fafcff;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin: 12px 0;
+        }
+
+        .exercise-box .ex-title {
+            font-weight: 700;
+            color: #1a2a6c;
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .result-box {
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-top: 12px;
+            font-weight: 600;
+            display: none;
+            line-height: 2;
+            font-size: 15px;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-box.correct {
+            background: #d5f5e3;
+            border: 2px solid #27ae60;
+            color: #1a6e4a;
+        }
+
+        .result-box.wrong {
+            background: #fadbd8;
+            border: 2px solid #e74c3c;
+            color: #922b21;
+        }
+
+        .result-box.partial {
+            background: #fef9e7;
+            border: 2px solid #f39c12;
+            color: #7d6608;
+        }
+
+        .result-box.info {
+            background: #d6eaf8;
+            border: 2px solid #2980b9;
+            color: #1a4a7a;
+        }
+
+        .result-box .highlight-eu-ans {
+            color: #2980b9;
+            font-weight: 700;
+        }
+
+        .result-box .highlight-au-ans {
+            color: #8e44ad;
+            font-weight: 700;
+        }
+
+        /* ===== TIP BOX ===== */
+        .tip-box {
+            background: #fef9e7;
+            border: 2px solid #f7dc6f;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 12px 0;
+        }
+
+        .tip-box .tip-title {
+            font-weight: 700;
+            color: #7d6608;
+            font-size: 16px;
+        }
+
+        .tip-box .tip-content {
+            font-size: 15px;
+            color: #5a4a1a;
+            line-height: 1.9;
+        }
+
+        .tip-box .tip-content .tip-eu {
+            color: #2980b9;
+            font-weight: 600;
+        }
+
+        .tip-box .tip-content .tip-au {
+            color: #8e44ad;
+            font-weight: 600;
+        }
+
+        /* ===== GEO BOX ===== */
+        .geo-box {
+            background: #eafaf1;
+            border: 2px solid #1abc9c;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 12px 0;
+        }
+
+        .geo-box .geo-title {
+            font-weight: 700;
+            color: #1a6e4a;
+            font-size: 16px;
+        }
+
+        .geo-box .geo-content {
+            font-size: 15px;
+            color: #1a4a3a;
+            line-height: 1.9;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 650px) {
+            .container {
+                padding: 0;
+            }
+            .header {
+                padding: 18px 16px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+            .section {
+                padding: 16px 14px;
+            }
+            .story-box {
+                font-size: 15px;
+                padding: 14px 16px;
+            }
+            .ipa-badge-large {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            .ipa-badge-large .arrow-between {
+                transform: rotate(90deg);
+            }
+            .word-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 420px) {
+            .word-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 14px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 999;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* ===== PHONETIC CHART ===== */
+        .phonetic-chart {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            margin: 12px 0;
+        }
+
+        .phonetic-chart .chart-item {
+            text-align: center;
+        }
+
+        .phonetic-chart .chart-item .mouth-icon {
+            font-size: 40px;
+        }
+
+        .phonetic-chart .chart-item .desc {
+            font-size: 13px;
+            color: #5a6a7a;
+            margin-top: 4px;
+            max-width: 150px;
+        }
+
+        .phonetic-chart .chart-item .desc .highlight-eu-chart {
+            color: #2980b9;
+            font-weight: 600;
+        }
+
+        .phonetic-chart .chart-item .desc .highlight-au-chart {
+            color: #8e44ad;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="top-row">
+            <span class="lesson-number">📚 Bài 10</span>
+            <span style="font-size:13px;opacity:0.7;">Section A · Sounds and spelling</span>
+        </div>
+        <h1>🏘️ <span class="eu">Old</span> <span class="au">town</span></h1>
+        <div class="sub">/əʊ/ và /aʊ/ — Phân biệt âm "ÂU" và "AO"</div>
+        <a href="../index.html" class="nav-link">← Về trang chủ</a>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- IPA BADGE LỚN + HƯỚNG DẪN PHÁT ÂM -->
+    <!-- ================================================================ -->
+    <div class="section">
+        <div class="section-title">
+            🎯 Target sounds — Âm mục tiêu
+            <span class="badge audio">🔊 Có audio</span>
+        </div>
+
+        <div class="ipa-badge-large">
+            <div class="sound-box eu">
+                <div class="ipa eu-ipa">/əʊ/</div>
+                <div class="label">Âm "ÂU" (giọng Anh-Anh)</div>
+                <div class="example">no, home, phone, boat</div>
+                <button class="btn btn-eu btn-small" onclick="speakText('oh sound, as in no, home, phone, boat', 0.7)">🔊 Nghe</button>
+            </div>
+
+            <div class="arrow-between">⇄</div>
+
+            <div class="sound-box au">
+                <div class="ipa au-ipa">/aʊ/</div>
+                <div class="label">Âm "AO"</div>
+                <div class="example">now, town, loud, mouth</div>
+                <button class="btn btn-au btn-small" onclick="speakText('ow sound, as in now, town, loud, mouth', 0.7)">🔊 Nghe</button>
+            </div>
+        </div>
+
+        <div class="phonetic-chart">
+            <div class="chart-item">
+                <div class="mouth-icon">👄</div>
+                <div class="desc">
+                    <span class="highlight-eu-chart">/əʊ/</span><br>
+                    Miệng mở vừa → tròn dần<br>
+                    <em>như "ÂU" trong tiếng Việt</em>
+                </div>
+            </div>
+            <div class="chart-item">
+                <div class="mouth-icon">👄</div>
+                <div class="desc">
+                    <span class="highlight-au-chart">/aʊ/</span><br>
+                    Miệng mở rộng → tròn dần<br>
+                    <em>như "AO" trong tiếng Việt</em>
+                </div>
+            </div>
+        </div>
+
+        <div class="vi-text">
+            🇻🇳 <strong>Mẹo phân biệt:</strong>
+            <br>• <strong>/əʊ/</strong> (ÂU): bắt đầu với miệng mở vừa, lưỡi ở vị trí trung lập (giống "ơ"), sau đó tròn môi dần.
+            <br>• <strong>/aʊ/</strong> (AO): bắt đầu với miệng mở rộng (giống "a"), sau đó tròn môi dần.
+            <br>🎯 Cả hai đều kết thúc với môi tròn, nhưng <strong>điểm bắt đầu khác nhau</strong>!
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="speakText('The difference between oh sound and ow sound. Oh as in no, home, phone. Ow as in now, town, loud.', 0.7)">🔊 Nghe so sánh 2 âm</button>
+            <button class="btn btn-success" onclick="speakText('The difference between oh sound and ow sound. Oh as in no, home, phone. Ow as in now, town, loud.', 0.4)">🐢 Nghe chậm</button>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- TỪ VỰNG CƠ BẢN -->
+    <!-- ================================================================ -->
+    <div class="section">
+        <div class="section-title">
+            📦 Vocabulary — Từ vựng
+            <span class="badge">/əʊ/ và /aʊ/</span>
+        </div>
+
+        <p><strong>Nhóm 1: /əʊ/ (ÂU) — thường viết là <span style="color:#2980b9;">o, ow, oa, oe</span></strong></p>
+        <div class="word-grid" id="euWords">
+            <!-- JS sẽ render -->
+        </div>
+
+        <p style="margin-top:16px;"><strong>Nhóm 2: /aʊ/ (AO) — thường viết là <span style="color:#8e44ad;">ow, ou</span></strong></p>
+        <div class="word-grid" id="auWords">
+            <!-- JS sẽ render -->
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- CÂU CHUYỆN MẪU (SÁCH) -->
+    <!-- ================================================================ -->
+    <div class="section">
+        <div class="section-title">
+            📖 Story — Old town
+            <span class="badge audio">🔊 Có audio</span>
+        </div>
+
+        <p><strong>Listen and repeat. Notice the /əʊ/ and /aʊ/ sounds.</strong>
+        <br>🇻🇳 <em>Nghe và lặp lại. Chú ý đến âm /əʊ/ và /aʊ/.</em></p>
+
+        <div class="story-box" id="storyBox">
+            It's an <span class="highlight-eu">old</span> <span class="highlight-au">town</span> <span class="highlight-eu">down</span> on the <span class="highlight-eu">coast</span>.
+            The <span class="highlight-eu">houses</span> are built with <span class="highlight-eu">stone</span>.
+            You can get there by train, <span class="highlight-eu">coach</span> or <span class="highlight-eu">boat</span>.
+            In winter there's a lot of <span class="highlight-eu">snow</span> and sometimes <span class="highlight-eu">over</span> the <span class="highlight-eu">road</span> is <span class="highlight-eu">closed</span>.
+        </div>
+
+        <div class="ipa-row" style="background:#f8fafc;padding:10px 16px;border-radius:10px;margin:6px 0 12px;border:1px solid #e2e8f0;line-height:2;">
+            <span style="font-family:'Courier New',monospace;color:#c0392b;font-size:16px;">
+                /ɪts ən <span style="color:#2980b9;font-weight:700;">əʊld</span> <span style="color:#8e44ad;font-weight:700;">taʊn</span> <span style="color:#2980b9;font-weight:700;">daʊn</span> ɒn ðə <span style="color:#2980b9;font-weight:700;">kəʊst</span>. 
+                ðə <span style="color:#2980b9;font-weight:700;">ˈhaʊ.zɪz</span> ɑː bɪlt wɪð <span style="color:#2980b9;font-weight:700;">stəʊn</span>. 
+                ju kæn ɡet ðeə baɪ treɪn, <span style="color:#2980b9;font-weight:700;">kəʊtʃ</span> ɔː <span style="color:#2980b9;font-weight:700;">bəʊt</span>. 
+                ɪn ˈwɪn.tər ðeəz ə lɒt əv <span style="color:#2980b9;font-weight:700;">snəʊ</span> ænd ˈsʌm.taɪmz <span style="color:#2980b9;font-weight:700;">ˈəʊ.vər</span> ðə <span style="color:#2980b9;font-weight:700;">rəʊd</span> ɪz <span style="color:#2980b9;font-weight:700;">kləʊzd</span>/
+            </span>
+            <div style="color:#27ae60;font-style:italic;font-size:15px;margin-top:4px;">
+                🇻🇳 Đó là một <span style="color:#2980b9;font-weight:700;">thị trấn</span> <span style="color:#8e44ad;font-weight:700;">cổ</span> <span style="color:#2980b9;font-weight:700;">nằm</span> trên <span style="color:#2980b9;font-weight:700;">bờ biển</span>.
+                Những <span style="color:#2980b9;font-weight:700;">ngôi nhà</span> được xây bằng <span style="color:#2980b9;font-weight:700;">đá</span>.
+                Bạn có thể đến đó bằng tàu hỏa, <span style="color:#2980b9;font-weight:700;">xe khách</span> hoặc <span style="color:#2980b9;font-weight:700;">thuyền</span>.
+                Vào mùa đông có rất nhiều <span style="color:#2980b9;font-weight:700;">tuyết</span> và đôi khi <span style="color:#2980b9;font-weight:700;">trên</span> <span style="color:#2980b9;font-weight:700;">con đường</span> bị <span style="color:#2980b9;font-weight:700;">đóng</span> lại.
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakText(document.getElementById('storyBox').innerText, 0.75)">🔊 Nghe câu chuyện</button>
+            <button class="btn btn-success" onclick="speakText(document.getElementById('storyBox').innerText, 0.45)">🐢 Nghe chậm</button>
+            <button class="btn btn-warning" onclick="speakText('It\'s an old town down on the coast. The houses are built with stone. You can get there by train, coach or boat. In winter there\'s a lot of snow and sometimes over the road is closed.', 0.7)">🔊 Nghe từng câu</button>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- KINH NGHIỆM THỰC TẾ TỪ DEEPSEEK -->
+    <!-- ================================================================ -->
+    <div class="section" style="border:2px solid #f39c12;">
+        <div class="section-title">
+            💡 Kinh nghiệm thực tế — Cách phân biệt /əʊ/ và /aʊ/
+            <span class="badge tip">🔥 Quan trọng</span>
+        </div>
+
+        <div class="tip-box">
+            <div class="tip-title">🎯 5 bước để phân biệt /əʊ/ và /aʊ/</div>
+            <div class="tip-content">
+
+                <p><strong>1. Hiểu sự khác nhau về vị trí miệng</strong><br>
+                🇻🇳 <span class="tip-eu">/əʊ/</span> (ÂU): miệng <strong>mở vừa</strong>, lưỡi ở giữa (như "ơ") → tròn môi dần.<br>
+                🇻🇳 <span class="tip-au">/aʊ/</span> (AO): miệng <strong>mở rộng</strong>, lưỡi hạ thấp (như "a") → tròn môi dần.<br>
+                <span class="ipa-text">/ðə ˈdɪf.ər.əns ɪz ɪn ðə ˈstɑː.tɪŋ pəˈzɪʃ.ən əv ðə mʌθ/</span></p>
+
+                <p><strong>2. Luyện với cặp từ tối thiểu (minimal pairs)</strong><br>
+                🇻🇳 Tập nói các cặp từ sau, cảm nhận sự khác biệt:<br>
+                <span style="font-size:18px;font-weight:600;">
+                    <span style="color:#2980b9;">no</span> — <span style="color:#8e44ad;">now</span> &nbsp;|&nbsp;
+                    <span style="color:#2980b9;">boat</span> — <span style="color:#8e44ad;">bout</span> &nbsp;|&nbsp;
+                    <span style="color:#2980b9;">coat</span> — <span style="color:#8e44ad;">cow</span> &nbsp;|&nbsp;
+                    <span style="color:#2980b9;">bone</span> — <span style="color:#8e44ad;">brown</span>
+                </span><br>
+                <span class="ipa-text">/nəʊ/ — /naʊ/ | /bəʊt/ — /baʊt/ | /kəʊt/ — /kaʊ/ | /bəʊn/ — /braʊn/</span></p>
+
+                <p><strong>3. Ghi nhớ quy tắc chính tả</strong><br>
+                🇻🇳 <span class="tip-eu">/əʊ/</span> thường được viết là: <strong>o</strong> (no, home), <strong>ow</strong> (know, show), <strong>oa</strong> (boat, coat), <strong>oe</strong> (toe, hoe)<br>
+                🇻🇳 <span class="tip-au">/aʊ/</span> thường được viết là: <strong>ow</strong> (now, town), <strong>ou</strong> (loud, mouth, about)</p>
+
+                <p><strong>4. Nghe và bắt chước người bản xứ</strong><br>
+                🇻🇳 Nghe nhiều video, podcast tiếng Anh. Chú ý khi họ nói các từ có 2 âm này. <strong>Bắt chước</strong> cách họ mở miệng.<br>
+                <span class="ipa-text">/lɪs.ən tə ˈneɪ.tɪv ˈspiː.kərz | ˈkəʊ.pi ðeə ˈmaʊθ muv.mənt/</span></p>
+
+                <p><strong>5. Tự ghi âm và so sánh</strong><br>
+                🇻🇳 Ghi âm giọng mình khi đọc các cặp từ. Nghe lại và <strong>so sánh</strong> với bản gốc. Đây là cách nhanh nhất để sửa lỗi!<br>
+                <span class="ipa-text">/ˈrek.ɔːd jɔːs.elf | kəmˈpeər wɪð ði ˈɒr.dʒɪ.nəl/</span></p>
+
+            </div>
+        </div>
+
+        <div class="tip-box" style="border-color:#5dade2;background:#eaf4f9;">
+            <div class="tip-title">📝 Mẹo nhớ nhanh — "ÂU" vs "AO"</div>
+            <div class="tip-content">
+                <p>🇻🇳 <strong>Mẹo 1:</strong> Âm <span class="tip-eu">/əʊ/</span> giống tiếng Việt <strong>"ÂU"</strong> (như "âu yếm") — miệng không mở to lắm.<br>
+                🇻🇳 <strong>Mẹo 2:</strong> Âm <span class="tip-au">/aʊ/</span> giống tiếng Việt <strong>"AO"</strong> (như "ao làng") — miệng mở rộng, tạo khoang rộng hơn.<br>
+                🇻🇳 <strong>Mẹo 3:</strong> Với <span class="tip-eu">/əʊ/</span>, môi <strong>tròn dần</strong> từ vị trí trung lập. Với <span class="tip-au">/aʊ/</span>, miệng <strong>mở rộng</strong> trước rồi mới tròn dần.</p>
+                <p style="margin-top:8px;">
+                    <span class="ipa-text">/ˈmem.ə.raɪz ðiːz ruːlz | ˈpræk.tɪs ˈev.ri deɪ/</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="speakText('The difference between oh sound and ow sound. For oh sound, mouth is mid-open and lips round gradually. For ow sound, mouth is wide open then lips round gradually. Remember the rules. Practice every day.', 0.7)">🔊 Nghe toàn bộ kinh nghiệm</button>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- CÂU CUỘC SỐNG -->
+    <!-- ================================================================ -->
+    <div class="section" style="border:2px solid #27ae60;">
+        <div class="section-title">
+            🌱 Câu ví dụ — Cuộc sống hàng ngày
+            <span class="badge" style="background:#d5f5e3;color:#1a6e4a;">🏠 Life</span>
+        </div>
+
+        <div id="lifeSentences">
+            <!-- JS sẽ render -->
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-teal" onclick="speakAllLife()">🔊 Nghe tất cả câu cuộc sống</button>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- CÂU ĐỊA KỸ THUẬT -->
+    <!-- ================================================================ -->
+    <div class="section" style="border:2px solid #1abc9c;">
+        <div class="section-title">
+            🏗️ Câu ví dụ — Địa kỹ thuật & Cơ học đất
+            <span class="badge geo">🪨 Geotech</span>
+        </div>
+
+        <div class="geo-box">
+            <div class="geo-title">🪨 Từ vựng địa kỹ thuật với /əʊ/ và /aʊ/</div>
+            <div class="geo-content">
+                • <span style="color:#2980b9;font-weight:700;">load</span> /ləʊd/ — tải trọng &nbsp;|&nbsp;
+                <span style="color:#8e44ad;font-weight:700;">ground</span> /ɡraʊnd/ — nền đất<br>
+                • <span style="color:#2980b9;font-weight:700;">slope</span> /sləʊp/ — mái dốc &nbsp;|&nbsp;
+                <span style="color:#8e44ad;font-weight:700;">around</span> /əˈraʊnd/ — xung quanh<br>
+                • <span style="color:#2980b9;font-weight:700;">stone</span> /stəʊn/ — đá &nbsp;|&nbsp;
+                <span style="color:#8e44ad;font-weight:700;">foundation</span> /faʊnˈdeɪ.ʃən/ — nền móng<br>
+                • <span style="color:#2980b9;font-weight:700;">borehole</span> /ˈbɔː.həʊl/ — lỗ khoan &nbsp;|&nbsp;
+                <span style="color:#8e44ad;font-weight:700;">amount</span> /əˈmaʊnt/ — lượng
+            </div>
+        </div>
+
+        <div id="geotechSentences">
+            <!-- JS sẽ render -->
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-teal" onclick="speakAllGeo()">🔊 Nghe tất cả câu địa kỹ thuật</button>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- BÀI TẬP 10.1 (SÁCH) -->
+    <!-- ================================================================ -->
+    <div class="section">
+        <div class="section-title">
+            📝 Exercise 10.1 — Circle the odd one
+            <span class="badge">Bài tập sách</span>
+        </div>
+
+        <p><strong>Circle the word with a different vowel sound.</strong>
+        <br>🇻🇳 <em>Khoanh tròn từ có âm khác biệt.</em></p>
+
+        <div id="ex101Container"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-success" onclick="checkExercise101()">✅ Kiểm tra</button>
+            <button class="btn btn-warning" onclick="resetExercise101()">🔄 Làm lại</button>
+            <button class="btn btn-purple" onclick="speakAllWords101()">🔊 Nghe tất cả từ</button>
+        </div>
+        <div id="result101" class="result-box"></div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- BÀI TẬP 10.2 (SÁCH) -->
+    <!-- ================================================================ -->
+    <div class="section">
+        <div class="section-title">
+            📝 Exercise 10.2 — Fill in the blanks
+            <span class="badge">Bài tập sách</span>
+        </div>
+
+        <p><strong>Complete the text with words from the box. All missing words have <span style="color:#2980b9;">/əʊ/</span> or <span style="color:#8e44ad;">/aʊ/</span>.</strong>
+        <br>🇻🇳 <em>Hoàn thành đoạn văn với các từ trong hộp. Tất cả từ còn thiếu đều có âm /əʊ/ hoặc /aʊ/.</em></p>
+
+        <div class="word-bank" id="wordBank102"></div>
+
+        <div class="gap-fill" id="gapFill102">
+            It's an <span class="blank" data-answer="old"></span> 
+            <span class="blank" data-answer="town"></span> 
+            <span class="blank" data-answer="down"></span> 
+            on the <span class="blank" data-answer="coast"></span>.
+            The <span class="blank" data-answer="houses"></span> are built with 
+            <span class="blank" data-answer="stone"></span>.
+            You can get there by train, <span class="blank" data-answer="coach"></span> or 
+            <span class="blank" data-answer="boat"></span>.
+            In winter there's a lot of <span class="blank" data-answer="snow"></span> 
+            and sometimes <span class="blank" data-answer="over"></span> the 
+            <span class="blank" data-answer="road"></span> is <span class="blank" data-answer="closed"></span>.
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-success" onclick="checkExercise102()">✅ Kiểm tra</button>
+            <button class="btn btn-warning" onclick="resetExercise102()">🔄 Làm lại</button>
+            <button class="btn btn-purple" onclick="speakText(document.getElementById('gapFill102').innerText.replace(/<[^>]*>/g, ''), 0.75)">🔊 Nghe đoạn văn</button>
+        </div>
+        <div id="result102" class="result-box"></div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- BÀI TẬP MỞ RỘNG 1: PHÂN BIỆT ÂM -->
+    <!-- ================================================================ -->
+    <div class="section" style="border:2px solid #2980b9;">
+        <div class="section-title">
+            🎯 Bài tập mở rộng 1 — Phân biệt /əʊ/ và /aʊ/
+            <span class="badge" style="background:#d6eaf8;color:#1a4a7a;">🔊 Listening</span>
+        </div>
+
+        <p><strong>Listen and choose the correct sound for each word.</strong>
+        <br>🇻🇳 <em>Nghe và chọn âm đúng cho mỗi từ.</em></p>
+
+        <div id="bonus1Container"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-success" onclick="checkBonus1()">✅ Kiểm tra</button>
+            <button class="btn btn-warning" onclick="resetBonus1()">🔄 Làm lại</button>
+        </div>
+        <div id="resultBonus1" class="result-box"></div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- BÀI TẬP MỞ RỘNG 2: ĐIỀN TỪ VÀO CÂU -->
+    <!-- ================================================================ -->
+    <div class="section" style="border:2px solid #8e44ad;">
+        <div class="section-title">
+            📝 Bài tập mở rộng 2 — Điền từ vào câu
+            <span class="badge" style="background:#e8daef;color:#6c3483;">✍️ Writing</span>
+        </div>
+
+        <p><strong>Choose the correct word to complete each sentence.</strong>
+        <br>🇻🇳 <em>Chọn từ đúng để hoàn thành mỗi câu.</em></p>
+
+        <div id="bonus2Container"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-success" onclick="checkBonus2()">✅ Kiểm tra</button>
+            <button class="btn btn-warning" onclick="resetBonus2()">🔄 Làm lại</button>
+        </div>
+        <div id="resultBonus2" class="result-box"></div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- BÀI TẬP MỞ RỘNG 3: ĐỌC CÂU -->
+    <!-- ================================================================ -->
+    <div class="section" style="border:2px solid #f39c12;">
+        <div class="section-title">
+            🗣️ Bài tập mở rộng 3 — Đọc câu
+            <span class="badge" style="background:#fef9e7;color:#7d6608;">🎤 Speaking</span>
+        </div>
+
+        <p><strong>Read these sentences aloud. Pay attention to <span style="color:#2980b9;">/əʊ/</span> and <span style="color:#8e44ad;">/aʊ/</span>.</strong>
+        <br>🇻🇳 <em>Đọc to các câu sau. Chú ý đến âm /əʊ/ và /aʊ/.</em></p>
+
+        <div id="bonus3Container"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakAllBonus3()">🔊 Nghe tất cả câu</button>
+            <button class="btn btn-success" onclick="speakAllBonus3Slow()">🐢 Nghe chậm</button>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- BÀI TẬP MỞ RỘNG 4: TÌM LỖI SAI -->
+    <!-- ================================================================ -->
+    <div class="section" style="border:2px solid #e74c3c;">
+        <div class="section-title">
+            🔍 Bài tập mở rộng 4 — Tìm lỗi sai
+            <span class="badge" style="background:#fadbd8;color:#922b21;">🔎 Error correction</span>
+        </div>
+
+        <p><strong>Find the word that is pronounced incorrectly in each group.</strong>
+        <br>🇻🇳 <em>Tìm từ được phát âm sai trong mỗi nhóm.</em></p>
+
+        <div id="bonus4Container"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-success" onclick="checkBonus4()">✅ Kiểm tra</button>
+            <button class="btn btn-warning" onclick="resetBonus4()">🔄 Làm lại</button>
+        </div>
+        <div id="resultBonus4" class="result-box"></div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- TỔNG KẾT -->
+    <!-- ================================================================ -->
+    <div class="section" style="border:2px solid #1a2a6c;">
+        <div class="section-title">
+            📌 Tổng kết — Những điều cần nhớ
+            <span class="badge" style="background:#eef2f7;color:#2c3e50;">✅ Checklist</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:15px;line-height:2;">
+            <div style="background:#f8fafc;padding:12px 16px;border-radius:10px;border-left:4px solid #2980b9;">
+                ✅ <strong>/əʊ/ (ÂU)</strong><br>
+                <span style="font-size:13px;color:#5a6a7a;">miệng mở vừa → tròn dần</span><br>
+                <span style="font-size:13px;color:#5a6a7a;">no, home, phone, boat</span>
+            </div>
+            <div style="background:#f8fafc;padding:12px 16px;border-radius:10px;border-left:4px solid #8e44ad;">
+                ✅ <strong>/aʊ/ (AO)</strong><br>
+                <span style="font-size:13px;color:#5a6a7a;">miệng mở rộng → tròn dần</span><br>
+                <span style="font-size:13px;color:#5a6a7a;">now, town, loud, mouth</span>
+            </div>
+            <div style="background:#f8fafc;padding:12px 16px;border-radius:10px;">
+                ✅ <strong>Quy tắc viết</strong><br>
+                <span style="font-size:13px;color:#5a6a7a;">/əʊ/ = o, ow, oa, oe</span><br>
+                <span style="font-size:13px;color:#5a6a7a;">/aʊ/ = ow, ou</span>
+            </div>
+            <div style="background:#f8fafc;padding:12px 16px;border-radius:10px;">
+                ✅ <strong>Luyện tập</strong><br>
+                <span style="font-size:13px;color:#5a6a7a;">Nghe + bắt chước + ghi âm</span><br>
+                <span style="font-size:13px;color:#5a6a7a;">Làm bài tập đa dạng</span>
+            </div>
+        </div>
+
+        <div class="btn-group" style="margin-top:14px;">
+            <button class="btn btn-danger" onclick="speakText('Oh sound, mouth mid-open to round. Ow sound, mouth wide open to round. Oh is written as o, ow, oa, oe. Ow is written as ow, ou. Listen, copy, record. Practice with different exercises.', 0.7)">🔊 Nghe toàn bộ checklist</button>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div style="text-align:center;padding:20px 0 10px;color:#95a5a6;font-size:14px;border-top:1px solid #e2e8f0;margin-top:10px;">
+        <p>🔊 <strong>Mẹo:</strong> Phân biệt <span style="color:#2980b9;font-weight:700;">/əʊ/</span> và <span style="color:#8e44ad;font-weight:700;">/aʊ/</span> bằng cách chú ý vị trí bắt đầu của miệng!</p>
+        <p style="margin-top:4px;font-size:13px;"><a href="../index.html" style="color:#1a2a6c;font-weight:600;">← Về trang chủ</a></p>
+    </div>
+
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<script>
+    // ================================================================
+    // DỮ LIỆU
+    // ================================================================
+
+    const euWords = [
+        { word: 'no', ipa: '/nəʊ/' },
+        { word: 'cold', ipa: '/kəʊld/' },
+        { word: 'post', ipa: '/pəʊst/' },
+        { word: 'close', ipa: '/kləʊz/' },
+        { word: 'drove', ipa: '/drəʊv/' },
+        { word: 'home', ipa: '/həʊm/' },
+        { word: 'phone', ipa: '/fəʊn/' },
+        { word: 'know', ipa: '/nəʊ/' },
+        { word: 'low', ipa: '/ləʊ/' },
+        { word: 'show', ipa: '/ʃəʊ/' },
+        { word: 'slow', ipa: '/sləʊ/' },
+        { word: 'boat', ipa: '/bəʊt/' },
+        { word: 'toe', ipa: '/təʊ/' },
+        { word: 'stone', ipa: '/stəʊn/' },
+        { word: 'coast', ipa: '/kəʊst/' },
+        { word: 'coach', ipa: '/kəʊtʃ/' }
+    ];
+
+    const auWords = [
+        { word: 'how', ipa: '/haʊ/' },
+        { word: 'now', ipa: '/naʊ/' },
+        { word: 'brown', ipa: '/braʊn/' },
+        { word: 'cow', ipa: '/kaʊ/' },
+        { word: 'town', ipa: '/taʊn/' },
+        { word: 'down', ipa: '/daʊn/' },
+        { word: 'out', ipa: '/aʊt/' },
+        { word: 'about', ipa: '/əˈbaʊt/' },
+        { word: 'loud', ipa: '/laʊd/' },
+        { word: 'mouth', ipa: '/maʊθ/' },
+        { word: 'sound', ipa: '/saʊnd/' },
+        { word: 'pound', ipa: '/paʊnd/' },
+        { word: 'ground', ipa: '/ɡraʊnd/' },
+        { word: 'around', ipa: '/əˈraʊnd/' },
+        { word: 'foundation', ipa: '/faʊnˈdeɪ.ʃən/' }
+    ];
+
+    // Câu cuộc sống
+    const lifeSentences = [
+        { eng: 'I have no idea what to do now.', ipa: '/aɪ hæv nəʊ aɪˈdɪə wɒt tə duː naʊ/', meaning: 'Tôi không biết phải làm gì bây giờ.', highlight: ['no', 'now'] },
+        { eng: 'I know how to cook this dish.', ipa: '/aɪ nəʊ haʊ tə kʊk ðɪs dɪʃ/', meaning: 'Tôi biết cách nấu món này.', highlight: ['know', 'how'] },
+        { eng: 'Please close the window. It\'s cold outside.', ipa: '/pliːz kləʊz ðə ˈwɪn.dəʊ. ɪts kəʊld ˌaʊtˈsaɪd/', meaning: 'Làm ơn đóng cửa sổ. Bên ngoài lạnh.', highlight: ['close', 'cold', 'out'] },
+        { eng: 'She drove home in the snow.', ipa: '/ʃiː drəʊv həʊm ɪn ðə snəʊ/', meaning: 'Cô ấy lái xe về nhà trong tuyết.', highlight: ['drove', 'home', 'snow'] },
+        { eng: 'Your phone is ringing. Can you hear the sound?', ipa: '/jɔː fəʊn ɪz ˈrɪŋ.ɪŋ. kæn ju hɪə ðə saʊnd/', meaning: 'Điện thoại của bạn đang kêu. Bạn có nghe thấy âm thanh không?', highlight: ['phone', 'sound'] },
+        { eng: 'I found a brown dog on the ground.', ipa: '/aɪ faʊnd ə braʊn dɒɡ ɒn ðə ɡraʊnd/', meaning: 'Tôi tìm thấy một con chó màu nâu trên mặt đất.', highlight: ['found', 'brown', 'ground'] },
+        { eng: 'How much does it cost to go by boat?', ipa: '/haʊ mʌtʃ dʌz ɪt kɒst tə ɡəʊ baɪ bəʊt/', meaning: 'Đi thuyền tốn bao nhiêu tiền?', highlight: ['How', 'boat'] },
+        { eng: 'Don\'t shout so loud! People are sleeping.', ipa: '/dəʊnt ʃaʊt səʊ laʊd. ˈpiː.pəl ɑː ˈsliː.pɪŋ/', meaning: 'Đừng la to thế! Mọi người đang ngủ.', highlight: ['loud'] },
+        { eng: 'We live in a small town near the coast.', ipa: '/wiː lɪv ɪn ə smɔːl taʊn nɪə ðə kəʊst/', meaning: 'Chúng tôi sống ở một thị trấn nhỏ gần bờ biển.', highlight: ['town', 'coast'] }
+    ];
+
+    // Câu địa kỹ thuật
+    const geotechSentences = [
+        { eng: 'The load on the foundation is very heavy.', ipa: '/ðə ləʊd ɒn ðə faʊnˈdeɪ.ʃən ɪz ˈver.i ˈhev.i/', meaning: 'Tải trọng lên nền móng rất nặng.', highlight: ['load', 'foundation'] },
+        { eng: 'The slope of the ground is too steep.', ipa: '/ðə sləʊp əv ðə ɡraʊnd ɪz tuː stiːp/', meaning: 'Mái dốc của nền đất quá dốc.', highlight: ['slope', 'ground'] },
+        { eng: 'We drilled a borehole down to 20 meters.', ipa: '/wiː drɪld ə ˈbɔː.həʊl daʊn tə ˈtwen.ti ˈmiː.təz/', meaning: 'Chúng tôi khoan một lỗ khoan xuống 20 mét.', highlight: ['borehole', 'down'] },
+        { eng: 'Check the soil around the construction site.', ipa: '/tʃek ðə sɔɪl əˈraʊnd ðə kənˈstrʌk.ʃən saɪt/', meaning: 'Kiểm tra đất xung quanh khu vực xây dựng.', highlight: ['around'] },
+        { eng: 'The total amount of settlement must be calculated.', ipa: '/ðə ˈtəʊ.təl əˈmaʊnt əv ˈset.l̩.mənt mʌst bi ˈkæl.kju.leɪ.tɪd/', meaning: 'Tổng lượng lún phải được tính toán.', highlight: ['amount'] },
+        { eng: 'The stone layer is found below the soft clay.', ipa: '/ðə stəʊn ˈleɪ.ər ɪz faʊnd bɪˈləʊ ðə sɒft kleɪ/', meaning: 'Lớp đá được tìm thấy bên dưới lớp sét mềm.', highlight: ['stone', 'found', 'below'] },
+        { eng: 'The water level is low, so the ground is stable.', ipa: '/ðə ˈwɔː.tər ˈlev.əl ɪz ləʊ, səʊ ðə ɡraʊnd ɪz ˈsteɪ.bəl/', meaning: 'Mực nước thấp, nên nền đất ổn định.', highlight: ['low', 'ground'] },
+        { eng: 'Over the years, the road has shown signs of damage.', ipa: '/ˈəʊ.və ðə jɪəz, ðə rəʊd hæz ʃəʊn saɪnz əv ˈdæ.mɪdʒ/', meaning: 'Qua nhiều năm, con đường có dấu hiệu hư hỏng.', highlight: ['Over', 'road', 'shown'] }
+    ];
+
+    // ================================================================
+    // TTS FUNCTION
+    // ================================================================
+
+    let currentUtterance = null;
+
+    function speakText(text, rate = 0.85, callback) {
+        if (currentUtterance) {
+            speechSynthesis.cancel();
+            currentUtterance = null;
+        }
+
+        if (!window.speechSynthesis) {
+            alert('Trình duyệt không hỗ trợ TTS. Dùng Chrome/Edge nhé!');
+            if (callback) callback();
+            return;
+        }
+
+        const cleanText = text.replace(/<[^>]*>/g, '').trim();
+
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'en-US';
+        utterance.rate = rate;
+        utterance.pitch = 1.0;
+
+        const voices = speechSynthesis.getVoices();
+        const femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'));
+        if (femaleVoice) utterance.voice = femaleVoice;
+
+        currentUtterance = utterance;
+        utterance.onend = function() { currentUtterance = null; if (callback) callback(); };
+        utterance.onerror = function() { currentUtterance = null; if (callback) callback(); };
+        speechSynthesis.speak(utterance);
+    }
+
+    function speakWord(word) {
+        speakText(word, 0.7);
+    }
+
+    // ================================================================
+    // TOAST
+    // ================================================================
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ================================================================
+    // RENDER TỪ VỰNG
+    // ================================================================
+
+    function renderWords() {
+        const euContainer = document.getElementById('euWords');
+        const auContainer = document.getElementById('auWords');
+
+        euContainer.innerHTML = '';
+        euWords.forEach(w => {
+            const div = document.createElement('div');
+            div.className = 'word-card';
+            div.innerHTML = `
+                <div class="word eu-word">${w.word}</div>
+                <span class="ipa-small">${w.ipa}</span>
+                <span class="sound-tag eu-tag">/əʊ/</span>
+                <div style="margin-top:4px;"><button class="btn btn-eu btn-small" onclick="speakText('${w.word}', 0.7)">🔊</button></div>
+            `;
+            euContainer.appendChild(div);
+        });
+
+        auContainer.innerHTML = '';
+        auWords.forEach(w => {
+            const div = document.createElement('div');
+            div.className = 'word-card';
+            div.innerHTML = `
+                <div class="word au-word">${w.word}</div>
+                <span class="ipa-small">${w.ipa}</span>
+                <span class="sound-tag au-tag">/aʊ/</span>
+                <div style="margin-top:4px;"><button class="btn btn-au btn-small" onclick="speakText('${w.word}', 0.7)">🔊</button></div>
+            `;
+            auContainer.appendChild(div);
+        });
+    }
+
+    // ================================================================
+    // RENDER CÂU
+    // ================================================================
+
+    function renderSentences(containerId, data) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+
+        data.forEach((item, idx) => {
+            let engHtml = item.eng;
+            item.highlight?.forEach(h => {
+                const regex = new RegExp(`\\b${h}\\b`, 'gi');
+                const cls = (h === 'now' || h === 'how' || h === 'found' || h === 'brown' || h === 'ground' || h === 'around' || h === 'loud' || h === 'town' || h === 'sound' || h === 'down' || h === 'out' || h === 'amount' || h === 'foundation') ? 'highlight-au' : 'highlight-eu';
+                engHtml = engHtml.replace(regex, `<span class="${cls}">${h}</span>`);
+            });
+
+            const div = document.createElement('div');
+            div.style.cssText = 'background:#f8fafc;padding:14px 18px;border-radius:10px;margin-bottom:10px;border:1px solid #e2e8f0;';
+            div.innerHTML = `
+                <div style="font-size:17px;line-height:1.8;">${engHtml}</div>
+                <div style="font-family:'Courier New',monospace;color:#c0392b;font-size:15px;margin:4px 0;">${item.ipa}</div>
+                <div style="color:#27ae60;font-style:italic;font-size:15px;">🇻🇳 ${item.meaning}</div>
+                <div style="margin-top:6px;">
+                    <button class="btn btn-small btn-primary" onclick="speakText('${item.eng}', 0.75)">🔊 Nghe</button>
+                    <button class="btn btn-small btn-success" onclick="speakText('${item.eng}', 0.4)">🐢 Chậm</button>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function speakAllLife() {
+        let text = '';
+        lifeSentences.forEach(s => text += s.eng + '. ');
+        speakText(text, 0.7);
+    }
+
+    function speakAllGeo() {
+        let text = '';
+        geotechSentences.forEach(s => text += s.eng + '. ');
+        speakText(text, 0.7);
+    }
+
+    // ================================================================
+    // EXERCISE 10.1
+    // ================================================================
+
+    const ex101Data = [
+        { words: ['houses', 'soup', 'about'], correct: 1, ipas: ['/ˈhaʊ.zɪz/', '/suːp/', '/əˈbaʊt/'] },
+        { words: ['mountains', 'stone', 'gone'], correct: 0, ipas: ['/ˈmaʊn.tɪnz/', '/stəʊn/', '/ɡɒn/'] },
+        { words: ['closed', 'coast', 'brown'], correct: 2, ipas: ['/kləʊzd/', '/kəʊst/', '/braʊn/'] },
+        { words: ['flower', 'snow', 'town'], correct: 1, ipas: ['/ˈflaʊ.ər/', '/snəʊ/', '/taʊn/'] },
+        { words: ['old', 'over', 'lost'], correct: 2, ipas: ['/əʊld/', '/ˈəʊ.vər/', '/lɒst/'] },
+        { words: ['no', 'coach', 'boat'], correct: 0, ipas: ['/nəʊ/', '/kəʊtʃ/', '/bəʊt/'] },
+        { words: ['some', 'road', 'close'], correct: 0, ipas: ['/sʌm/', '/rəʊd/', '/kləʊs/'] }
+    ];
+
+    let selected101 = {};
+
+    function renderExercise101() {
+        const container = document.getElementById('ex101Container');
+        container.innerHTML = '';
+        ex101Data.forEach((row, rowIdx) => {
+            const div = document.createElement('div');
+            div.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px 0;margin-bottom:6px;align-items:center;';
+            const label = document.createElement('span');
+            label.style.cssText = 'font-weight:600;color:#2c3e50;min-width:30px;font-size:14px;';
+            label.textContent = `${rowIdx + 1}.`;
+            div.appendChild(label);
+
+            const grid = document.createElement('div');
+            grid.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:6px;flex:1;';
+
+            row.words.forEach((word, wordIdx) => {
+                const btn = document.createElement('button');
+                btn.className = 'word-btn-ex101';
+                btn.dataset.row = rowIdx;
+                btn.dataset.idx = wordIdx;
+                btn.style.cssText = `
+                    padding:8px 10px;border-radius:8px;border:2px solid #dce5ef;
+                    background:white;font-size:15px;font-weight:500;cursor:pointer;
+                    transition:0.2s;text-align:center;
+                `;
+                btn.innerHTML = `
+                    ${word}
+                    <div style="font-size:12px;color:#7f8c8d;font-family:monospace;">${row.ipas[wordIdx]}</div>
+                `;
+                btn.onclick = function() {
+                    const r = parseInt(this.dataset.row);
+                    const i = parseInt(this.dataset.idx);
+                    if (selected101[r] === i) {
+                        delete selected101[r];
+                        this.style.borderColor = '#dce5ef';
+                        this.style.background = 'white';
+                    } else {
+                        const parent = this.parentElement;
+                        parent.querySelectorAll('.word-btn-ex101').forEach(b => {
+                            b.style.borderColor = '#dce5ef';
+                            b.style.background = 'white';
+                        });
+                        selected101[r] = i;
+                        this.style.borderColor = '#e74c3c';
+                        this.style.background = '#fdedec';
+                    }
+                };
+                grid.appendChild(btn);
+            });
+
+            div.appendChild(grid);
+            container.appendChild(div);
+        });
+    }
+
+    function checkExercise101() {
+        let correct = 0;
+        let total = ex101Data.length;
+        let allAnswered = true;
+
+        ex101Data.forEach((row, rowIdx) => {
+            const btns = document.querySelectorAll(`.word-btn-ex101[data-row="${rowIdx}"]`);
+            const selected = selected101[rowIdx];
+
+            btns.forEach((btn, idx) => {
+                if (selected === undefined) {
+                    allAnswered = false;
+                    return;
+                }
+                if (idx === row.correct) {
+                    btn.style.borderColor = '#27ae60';
+                    btn.style.background = '#d5f5e3';
+                } else if (idx === selected) {
+                    btn.style.borderColor = '#e74c3c';
+                    btn.style.background = '#fadbd8';
+                }
+            });
+
+            if (selected === row.correct) correct++;
+        });
+
+        const result = document.getElementById('result101');
+        result.classList.add('show');
+
+        if (!allAnswered) {
+            result.className = 'result-box show partial';
+            result.textContent = '⚠️ Bạn chưa chọn hết các câu! Hãy chọn 1 từ khác âm cho mỗi hàng.';
+            return;
+        }
+
+        if (correct === total) {
+            result.className = 'result-box show correct';
+            result.textContent = `🎉 Xuất sắc! Bạn đã chọn đúng cả ${total}/${total} câu!`;
+        } else {
+            result.className = 'result-box show wrong';
+            result.textContent = `❌ Bạn đúng ${correct}/${total} câu. (Xanh = đúng, Đỏ = sai)`;
+        }
+    }
+
+    function resetExercise101() {
+        selected101 = {};
+        document.querySelectorAll('.word-btn-ex101').forEach(btn => {
+            btn.style.borderColor = '#dce5ef';
+            btn.style.background = 'white';
+        });
+        document.getElementById('result101').classList.remove('show');
+    }
+
+    function speakAllWords101() {
+        let text = '';
+        ex101Data.forEach(row => {
+            row.words.forEach(w => text += w + ', ');
+        });
+        speakText(text, 0.7);
+    }
+
+    // ================================================================
+    // EXERCISE 10.2
+    // ================================================================
+
+    const words102 = ['old', 'town', 'down', 'coast', 'houses', 'stone', 'coach', 'boat', 'snow', 'over', 'road', 'closed'];
+    let usedWords102 = new Set();
+
+    function renderExercise102() {
+        const bank = document.getElementById('wordBank102');
+        bank.innerHTML = '';
+        bank.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;';
+
+        words102.forEach(word => {
+            const span = document.createElement('span');
+            span.style.cssText = `
+                padding:6px 16px;border-radius:30px;border:2px solid #dce5ef;
+                background:white;font-size:16px;font-weight:500;cursor:pointer;
+                transition:0.2s;
+            `;
+            span.textContent = word;
+            span.dataset.word = word;
+            span.onclick = function() {
+                const word = this.dataset.word;
+                const blanks = document.querySelectorAll('.gap-fill .blank:not(.filled)');
+                for (let blank of blanks) {
+                    if (blank.dataset.answer === word) {
+                        blank.textContent = word;
+                        blank.classList.add('filled');
+                        usedWords102.add(word);
+                        this.style.opacity = '0.4';
+                        this.style.textDecoration = 'line-through';
+                        this.style.cursor = 'not-allowed';
+                        return;
+                    }
+                }
+                if (usedWords102.has(word)) {
+                    const blanks2 = document.querySelectorAll('.gap-fill .blank.filled');
+                    for (let blank of blanks2) {
+                        if (blank.textContent === word) {
+                            blank.textContent = '___';
+                            blank.classList.remove('filled', 'filled-wrong');
+                            usedWords102.delete(word);
+                            this.style.opacity = '1';
+                            this.style.textDecoration = 'none';
+                            this.style.cursor = 'pointer';
+                            return;
+                        }
+                    }
+                }
+            };
+            bank.appendChild(span);
+        });
+    }
+
+    function checkExercise102() {
+        const blanks = document.querySelectorAll('.gap-fill .blank');
+        let correct = 0;
+        let total = blanks.length;
+        let allFilled = true;
+
+        blanks.forEach(blank => {
+            const answer = blank.dataset.answer;
+            const userAnswer = blank.textContent.trim();
+            if (userAnswer === '___' || userAnswer === '') {
+                allFilled = false;
+                return;
+            }
+            if (userAnswer === answer) {
+                blank.classList.add('filled');
+                blank.classList.remove('filled-wrong');
+                correct++;
+            } else {
+                blank.classList.add('filled-wrong');
+                blank.classList.remove('filled');
+            }
+        });
+
+        const result = document.getElementById('result102');
+        result.classList.add('show');
+
+        if (!allFilled) {
+            result.className = 'result-box show partial';
+            result.textContent = '⚠️ Bạn chưa điền hết các ô trống!';
+            return;
+        }
+
+        if (correct === total) {
+            result.className = 'result-box show correct';
+            result.textContent = `🎉 Hoàn hảo! Bạn đã điền đúng cả ${total}/${total} từ!`;
+        } else {
+            result.className = 'result-box show wrong';
+            result.textContent = `❌ Bạn đúng ${correct}/${total} từ.`;
+        }
+    }
+
+    function resetExercise102() {
+        usedWords102 = new Set();
+        document.querySelectorAll('.gap-fill .blank').forEach(el => {
+            el.textContent = '___';
+            el.classList.remove('filled', 'filled-wrong');
+        });
+        document.querySelectorAll('#wordBank102 span').forEach(el => {
+            el.style.opacity = '1';
+            el.style.textDecoration = 'none';
+            el.style.cursor = 'pointer';
+        });
+        document.getElementById('result102').classList.remove('show');
+    }
+
+    // ================================================================
+    // BONUS 1 - PHÂN BIỆT ÂM
+    // ================================================================
+
+    const bonus1Data = [
+        { word: 'no', ipa: '/nəʊ/', sound: 'eu' },
+        { word: 'now', ipa: '/naʊ/', sound: 'au' },
+        { word: 'boat', ipa: '/bəʊt/', sound: 'eu' },
+        { word: 'brown', ipa: '/braʊn/', sound: 'au' },
+        { word: 'show', ipa: '/ʃəʊ/', sound: 'eu' },
+        { word: 'loud', ipa: '/laʊd/', sound: 'au' },
+        { word: 'home', ipa: '/həʊm/', sound: 'eu' },
+        { word: 'mouth', ipa: '/maʊθ/', sound: 'au' },
+        { word: 'stone', ipa: '/stəʊn/', sound: 'eu' },
+        { word: 'ground', ipa: '/ɡraʊnd/', sound: 'au' }
+    ];
+
+    let bonus1Answers = {};
+
+    function renderBonus1() {
+        const container = document.getElementById('bonus1Container');
+        container.innerHTML = '';
+        bonus1Data.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.style.cssText = 'display:flex;align-items:center;gap:12px;padding:8px 12px;background:white;border-radius:10px;border:1px solid #e2e8f0;margin-bottom:6px;flex-wrap:wrap;';
+            div.innerHTML = `
+                <span style="font-size:18px;font-weight:600;min-width:60px;">${item.word}</span>
+                <span style="font-size:14px;color:#7f8c8d;font-family:monospace;">${item.ipa}</span>
+                <span style="flex:1;"></span>
+                <button class="btn btn-small ${bonus1Answers[idx] === 'eu' ? 'btn-eu' : ''}" style="${bonus1Answers[idx] === 'eu' ? 'background:#2980b9;' : 'background:#eef2f7;color:#2c3e50;'}" onclick="selectBonus1(${idx}, 'eu')">/əʊ/ (ÂU)</button>
+                <button class="btn btn-small ${bonus1Answers[idx] === 'au' ? 'btn-au' : ''}" style="${bonus1Answers[idx] === 'au' ? 'background:#8e44ad;' : 'background:#eef2f7;color:#2c3e50;'}" onclick="selectBonus1(${idx}, 'au')">/aʊ/ (AO)</button>
+                <button class="btn btn-small btn-warning" onclick="speakText('${item.word}', 0.7)">🔊</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function selectBonus1(idx, sound) {
+        if (bonus1Answers[idx] === sound) {
+            delete bonus1Answers[idx];
+        } else {
+            bonus1Answers[idx] = sound;
+        }
+        renderBonus1();
+    }
+
+    function checkBonus1() {
+        let correct = 0;
+        let total = bonus1Data.length;
+        let allAnswered = true;
+
+        bonus1Data.forEach((item, idx) => {
+            if (bonus1Answers[idx] === undefined) {
+                allAnswered = false;
+            } else if (bonus1Answers[idx] === item.sound) {
+                correct++;
+            }
+        });
+
+        const result = document.getElementById('resultBonus1');
+        result.classList.add('show');
+
+        if (!allAnswered) {
+            result.className = 'result-box show partial';
+            result.textContent = '⚠️ Bạn chưa chọn hết các từ!';
+            return;
+        }
+
+        if (correct === total) {
+            result.className = 'result-box show correct';
+            result.textContent = `🎉 Tuyệt vời! Bạn đã phân biệt đúng cả ${total}/${total} từ!`;
+        } else {
+            result.className = 'result-box show wrong';
+            result.textContent = `❌ Bạn đúng ${correct}/${total} từ.`;
+        }
+    }
+
+    function resetBonus1() {
+        bonus1Answers = {};
+        renderBonus1();
+        document.getElementById('resultBonus1').classList.remove('show');
+    }
+
+    // ================================================================
+    // BONUS 2 - ĐIỀN TỪ VÀO CÂU
+    // ================================================================
+
+    const bonus2Data = [
+        { sentence: 'I don\'t _____ what to do.', options: ['no', 'know'], correct: 'know', sound: 'eu' },
+        { sentence: 'Please _____ the door.', options: ['close', 'clothes'], correct: 'close', sound: 'eu' },
+        { sentence: 'She lives in a small _____.', options: ['town', 'tone'], correct: 'town', sound: 'au' },
+        { sentence: 'The baby has a _____ hat.', options: ['brown', 'bone'], correct: 'brown', sound: 'au' },
+        { sentence: 'We went fishing on a _____.', options: ['boat', 'bout'], correct: 'boat', sound: 'eu' },
+        { sentence: 'Please speak _____. I can\'t hear you.', options: ['load', 'loud'], correct: 'loud', sound: 'au' }
+    ];
+
+    let bonus2Answers = {};
+
+    function renderBonus2() {
+        const container = document.getElementById('bonus2Container');
+        container.innerHTML = '';
+        bonus2Data.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.style.cssText = 'background:#f8fafc;padding:12px 16px;border-radius:10px;margin-bottom:8px;border:1px solid #e2e8f0;';
+            div.innerHTML = `
+                <div style="font-size:16px;line-height:2;">${item.sentence.replace('_____', '______')}</div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
+                    ${item.options.map((opt, oi) => `
+                        <button class="btn btn-small ${bonus2Answers[idx] === opt ? 'btn-success' : ''}" style="${bonus2Answers[idx] === opt ? '' : 'background:#eef2f7;color:#2c3e50;'}" onclick="selectBonus2(${idx}, '${opt}')">${opt}</button>
+                    `).join('')}
+                    <button class="btn btn-small btn-warning" onclick="speakText('${item.sentence.replace('_____', '______')}', 0.7)">🔊</button>
+                </div>
+                <div style="font-size:13px;color:#5a6a7a;margin-top:4px;">${item.sound === 'eu' ? '🔵 /əʊ/' : '🟣 /aʊ/'}</div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function selectBonus2(idx, opt) {
+        if (bonus2Answers[idx] === opt) {
+            delete bonus2Answers[idx];
+        } else {
+            bonus2Answers[idx] = opt;
+        }
+        renderBonus2();
+    }
+
+    function checkBonus2() {
+        let correct = 0;
+        let total = bonus2Data.length;
+        let allAnswered = true;
+
+        bonus2Data.forEach((item, idx) => {
+            if (bonus2Answers[idx] === undefined) {
+                allAnswered = false;
+            } else if (bonus2Answers[idx] === item.correct) {
+                correct++;
+            }
+        });
+
+        const result = document.getElementById('resultBonus2');
+        result.classList.add('show');
+
+        if (!allAnswered) {
+            result.className = 'result-box show partial';
+            result.textContent = '⚠️ Bạn chưa chọn hết các câu!';
+            return;
+        }
+
+        if (correct === total) {
+            result.className = 'result-box show correct';
+            result.textContent = `🎉 Tuyệt vời! Bạn đã chọn đúng cả ${total}/${total} câu!`;
+        } else {
+            result.className = 'result-box show wrong';
+            result.textContent = `❌ Bạn đúng ${correct}/${total} câu.`;
+        }
+    }
+
+    function resetBonus2() {
+        bonus2Answers = {};
+        renderBonus2();
+        document.getElementById('resultBonus2').classList.remove('show');
+    }
+
+    // ================================================================
+    // BONUS 3 - ĐỌC CÂU
+    // ================================================================
+
+    const bonus3Data = [
+        { text: 'I know how to drive a boat.', highlight: ['know', 'how', 'boat'] },
+        { text: 'The town is old and the roads are closed.', highlight: ['town', 'old', 'roads', 'closed'] },
+        { text: 'Please don\'t shout so loud!', highlight: ['shout', 'loud'] },
+        { text: 'She found a phone on the ground.', highlight: ['found', 'phone', 'ground'] },
+        { text: 'We drove home through the snow.', highlight: ['drove', 'home', 'snow'] },
+        { text: 'How much does this coat cost?', highlight: ['How', 'coat'] }
+    ];
+
+    function renderBonus3() {
+        const container = document.getElementById('bonus3Container');
+        container.innerHTML = '';
+        bonus3Data.forEach((item, idx) => {
+            let html = item.text;
+            item.highlight.forEach(h => {
+                const cls = (h === 'town' || h === 'found' || h === 'ground' || h === 'shout' || h === 'loud' || h === 'how') ? 'highlight-au' : 'highlight-eu';
+                const regex = new RegExp(`\\b${h}\\b`, 'gi');
+                html = html.replace(regex, `<span class="${cls}">${h}</span>`);
+            });
+
+            const div = document.createElement('div');
+            div.style.cssText = 'background:#f8fafc;padding:12px 16px;border-radius:10px;margin-bottom:8px;border:1px solid #e2e8f0;';
+            div.innerHTML = `
+                <div style="font-size:18px;line-height:2;">${html}</div>
+                <div style="margin-top:6px;">
+                    <button class="btn btn-small btn-primary" onclick="speakText('${item.text}', 0.75)">🔊 Nghe</button>
+                    <button class="btn btn-small btn-success" onclick="speakText('${item.text}', 0.4)">🐢 Chậm</button>
+                </div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function speakAllBonus3() {
+        let text = '';
+        bonus3Data.forEach(s => text += s.text + '. ');
+        speakText(text, 0.7);
+    }
+
+    function speakAllBonus3Slow() {
+        let text = '';
+        bonus3Data.forEach(s => text += s.text + '. ');
+        speakText(text, 0.4);
+    }
+
+    // ================================================================
+    // BONUS 4 - TÌM LỖI SAI
+    // ================================================================
+
+    const bonus4Data = [
+        { group: ['no', 'know', 'now', 'boat'], correct: 2, sound: 'eu' },
+        { group: ['town', 'down', 'show', 'brown'], correct: 2, sound: 'au' },
+        { group: ['phone', 'stone', 'home', 'found'], correct: 3, sound: 'eu' },
+        { group: ['loud', 'mouth', 'coast', 'sound'], correct: 2, sound: 'au' },
+        { group: ['slow', 'snow', 'how', 'low'], correct: 2, sound: 'eu' }
+    ];
+
+    let bonus4Answers = {};
+
+    function renderBonus4() {
+        const container = document.getElementById('bonus4Container');
+        container.innerHTML = '';
+        bonus4Data.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.style.cssText = 'background:#f8fafc;padding:12px 16px;border-radius:10px;margin-bottom:8px;border:1px solid #e2e8f0;';
+            div.innerHTML = `
+                <div style="font-size:15px;color:#5a6a7a;margin-bottom:6px;">Nhóm ${idx+1}: Tìm từ có âm khác</div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    ${item.group.map((w, wi) => `
+                        <button class="btn btn-small ${bonus4Answers[idx] === wi ? 'btn-danger' : ''}" style="${bonus4Answers[idx] === wi ? '' : 'background:#eef2f7;color:#2c3e50;'}" onclick="selectBonus4(${idx}, ${wi})">${w}</button>
+                    `).join('')}
+                    <button class="btn btn-small btn-warning" onclick="speakText('${item.group.join(', ')}', 0.7)">🔊 Nghe nhóm</button>
+                </div>
+                <div style="font-size:13px;color:#5a6a7a;margin-top:4px;">Âm chính: ${item.sound === 'eu' ? '🔵 /əʊ/' : '🟣 /aʊ/'}</div>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function selectBonus4(idx, wi) {
+        if (bonus4Answers[idx] === wi) {
+            delete bonus4Answers[idx];
+        } else {
+            bonus4Answers[idx] = wi;
+        }
+        renderBonus4();
+    }
+
+    function checkBonus4() {
+        let correct = 0;
+        let total = bonus4Data.length;
+        let allAnswered = true;
+
+        bonus4Data.forEach((item, idx) => {
+            if (bonus4Answers[idx] === undefined) {
+                allAnswered = false;
+            } else if (bonus4Answers[idx] === item.correct) {
+                correct++;
+            }
+        });
+
+        const result = document.getElementById('resultBonus4');
+        result.classList.add('show');
+
+        if (!allAnswered) {
+            result.className = 'result-box show partial';
+            result.textContent = '⚠️ Bạn chưa chọn hết các nhóm!';
+            return;
+        }
+
+        if (correct === total) {
+            result.className = 'result-box show correct';
+            result.textContent = `🎉 Xuất sắc! Bạn đã tìm đúng cả ${total}/${total} nhóm!`;
+        } else {
+            result.className = 'result-box show wrong';
+            result.textContent = `❌ Bạn đúng ${correct}/${total} nhóm.`;
+        }
+    }
+
+    function resetBonus4() {
+        bonus4Answers = {};
+        renderBonus4();
+        document.getElementById('resultBonus4').classList.remove('show');
+    }
+
+    // ================================================================
+    // INIT
+    // ================================================================
+
+    renderWords();
+    renderSentences('lifeSentences', lifeSentences);
+    renderSentences('geotechSentences', geotechSentences);
+    renderExercise101();
+    renderExercise102();
+    renderBonus1();
+    renderBonus2();
+    renderBonus3();
+    renderBonus4();
+
+    // Load voices
+    if (window.speechSynthesis) {
+        speechSynthesis.getVoices();
+        speechSynthesis.onvoiceschanged = () => {
+            speechSynthesis.getVoices();
+        };
+    }
+
+    // Mark completed
+    setTimeout(() => {
+        let completed = [];
+        try {
+            const data = localStorage.getItem('epu_completed');
+            if (data) completed = JSON.parse(data);
+        } catch {}
+        if (!completed.includes(10)) {
+            completed.push(10);
+            localStorage.setItem('epu_completed', JSON.stringify(completed));
+        }
+    }, 1000);
+
+    console.log('✅ Bài 10 - Old town /əʊ/ và /aʊ/ đã sẵn sàng!');
+</script>
+
+</body>
+</html>
