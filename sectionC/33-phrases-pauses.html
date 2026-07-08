@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 33 - Phrases and pauses (Reading aloud)</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            padding: 20px 15px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, #1a2a6c, #2d4373);
+            color: white;
+            padding: 24px 28px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 30px rgba(26, 42, 108, 0.3);
+        }
+
+        .header .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header .lesson-number {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 4px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-top: 8px;
+        }
+
+        .header h1 span {
+            color: #f1c40f;
+        }
+
+        .header .sub {
+            font-size: 16px;
+            opacity: 0.85;
+            margin-top: 4px;
+        }
+
+        .header .nav-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: #f1c40f;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .header .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== SECTION ===== */
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 22px 26px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a2a6c;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .section-title .badge {
+            background: #eef2f7;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 2px 14px;
+            border-radius: 30px;
+            color: #2c3e50;
+        }
+
+        .section-title .badge.audio {
+            background: #d5f5e3;
+            color: #1a6e4a;
+        }
+
+        .section-title .badge.tip {
+            background: #fef9e7;
+            color: #7d6608;
+        }
+
+        .section-title .badge.geo {
+            background: #d6eaf8;
+            color: #1a4a7a;
+        }
+
+        .section p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
+        .section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section .ipa-text {
+            font-family: 'Courier New', monospace;
+            color: #c0392b;
+            background: #fff5f5;
+            padding: 2px 12px;
+            border-radius: 6px;
+            font-size: 17px;
+        }
+
+        .section .vi-text {
+            color: #27ae60;
+            font-style: italic;
+            background: #f0faf5;
+            padding: 8px 14px;
+            border-radius: 8px;
+            margin: 6px 0 12px;
+            border-left: 3px solid #27ae60;
+        }
+
+        /* ===== STORY BOX ===== */
+        .story-box {
+            background: #f8fafc;
+            border-left: 4px solid #1a2a6c;
+            padding: 18px 22px;
+            border-radius: 10px;
+            margin: 12px 0;
+            font-size: 17px;
+            line-height: 2.2;
+            color: #1a2a3a;
+        }
+
+        .story-box .stress {
+            font-weight: 700;
+            color: #c0392b;
+            text-decoration: underline;
+            text-decoration-color: #f1c40f;
+            text-underline-offset: 3px;
+        }
+
+        .story-box .pause-mark {
+            color: #e67e22;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .story-box .phrase-line {
+            display: block;
+            padding: 2px 0;
+        }
+
+        /* ===== IPA + Dịch ===== */
+        .ipa-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            background: #f8fafc;
+            padding: 10px 16px;
+            border-radius: 10px;
+            margin: 6px 0 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .ipa-row .ipa {
+            font-family: 'Courier New', monospace;
+            color: #c0392b;
+            font-size: 16px;
+        }
+
+        .ipa-row .vi {
+            color: #27ae60;
+            font-style: italic;
+            font-size: 15px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: scale(1.03);
+            opacity: 0.9;
+        }
+
+        .btn-success {
+            background: #27ae60;
+        }
+        .btn-success:hover {
+            background: #219a52;
+        }
+
+        .btn-warning {
+            background: #f39c12;
+        }
+        .btn-warning:hover {
+            background: #d68910;
+        }
+
+        .btn-purple {
+            background: #8e44ad;
+        }
+        .btn-purple:hover {
+            background: #7d3c98;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+        }
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-teal {
+            background: #1abc9c;
+        }
+        .btn-teal:hover {
+            background: #16a085;
+        }
+
+        .btn-small {
+            font-size: 12px;
+            padding: 5px 14px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        /* ===== EXERCISE ===== */
+        .exercise-box {
+            background: #fafcff;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin: 12px 0;
+        }
+
+        .exercise-box .ex-title {
+            font-weight: 700;
+            color: #1a2a6c;
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .exercise-box .story-input {
+            font-size: 17px;
+            line-height: 2.2;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            width: 100%;
+            min-height: 100px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+        }
+
+        .exercise-box .story-input:focus {
+            outline: none;
+            border-color: #1a2a6c;
+        }
+
+        .result-box {
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-top: 12px;
+            font-weight: 600;
+            display: none;
+            line-height: 2;
+            font-size: 15px;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-box.correct {
+            background: #d5f5e3;
+            border: 2px solid #27ae60;
+            color: #1a6e4a;
+        }
+
+        .result-box.wrong {
+            background: #fadbd8;
+            border: 2px solid #e74c3c;
+            color: #922b21;
+        }
+
+        .result-box.partial {
+            background: #fef9e7;
+            border: 2px solid #f39c12;
+            color: #7d6608;
+        }
+
+        .result-box.info {
+            background: #d6eaf8;
+            border: 2px solid #2980b9;
+            color: #1a4a7a;
+        }
+
+        .result-box .highlight-pause {
+            color: #e67e22;
+            font-weight: 700;
+        }
+
+        /* ===== TIP BOX ===== */
+        .tip-box {
+            background: #fef9e7;
+            border: 2px solid #f7dc6f;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 12px 0;
+        }
+
+        .tip-box .tip-title {
+            font-weight: 700;
+            color: #7d6608;
+            font-size: 16px;
+        }
+
+        .tip-box .tip-content {
+            font-size: 15px;
+            color: #5a4a1a;
+            line-height: 1.9;
+        }
+
+        /* ===== GEO SECTION ===== */
+        .geo-box {
+            background: #eafaf1;
+            border: 2px solid #1abc9c;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 12px 0;
+        }
+
+        .geo-box .geo-title {
+            font-weight: 700;
+            color: #1a6e4a;
+            font-size: 16px;
+        }
+
+        .geo-box .geo-content {
+            font-size: 15px;
+            color: #1a4a3a;
+            line-height: 1.9;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 650px) {
+            .container {
+                padding: 0;
+            }
+            .header {
+                padding: 18px 16px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+            .section {
+                padding: 16px 14px;
+            }
+            .story-box {
+                font-size: 15px;
+                padding: 14px 16px;
+            }
+            .exercise-box .story-input {
+                font-size: 15px;
+                min-height: 80px;
+            }
+            .ipa-row {
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 14px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 999;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* ===== PHRASE DISPLAY ===== */
+        .phrase-display {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 8px 0;
+        }
+
+        .phrase-display .p-line {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 17px;
+            line-height: 1.8;
+            transition: 0.2s;
+        }
+
+        .phrase-display .p-line:hover {
+            background: #f1f5f9;
+        }
+
+        .phrase-display .p-line .stress-word {
+            font-weight: 700;
+            color: #c0392b;
+            text-decoration: underline;
+            text-decoration-color: #f1c40f;
+            text-underline-offset: 3px;
+        }
+
+        .phrase-display .p-line .pause-here {
+            color: #e67e22;
+            font-weight: 700;
+        }
+
+        .highlight-eu {
+            color: #2980b9;
+            font-weight: 700;
+        }
+
+        .highlight-au {
+            color: #8e44ad;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="top-row">
+            <span class="lesson-number">📚 Bài 33</span>
+            <span style="font-size:13px;opacity:0.7;">Section C · Phrases, sentences and grammar</span>
+        </div>
+        <h1>🗣️ <span>Phrases and pauses</span></h1>
+        <div class="sub">Reading aloud — Ngắt nghỉ và nhấn trọng âm khi đọc</div>
+        <a href="../index.html" class="nav-link">← Về trang chủ</a>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- PHẦN A: LÝ THUYẾT -->
+    <!-- ================================================================ -->
+    <div class="section">
+        <div class="section-title">
+            📖 A. Why do we need pauses? — Tại sao cần ngắt nghỉ?
+            <span class="badge">Lý thuyết</span>
+        </div>
+
+        <p>
+            <strong>When you listen to English, perhaps you think it's difficult to understand because it's too fast.</strong>
+            <br>
+            <span class="ipa-text">/wen ju ˈlɪs.ən tə ˈɪŋ.ɡlɪʃ | pəˈhæps ju θɪŋk ɪts ˈdɪf.ɪ.kəlt tə ˌʌn.dəˈstænd bɪˈkɒz ɪts tuː fɑːst/</span>
+        </p>
+        <div class="vi-text">
+            🇻🇳 Khi bạn nghe tiếng Anh, có lẽ bạn nghĩ nó khó hiểu vì nói quá nhanh.
+        </div>
+
+        <p>
+            <strong>And perhaps you would like to speak faster.</strong>
+            <br>
+            <span class="ipa-text">/ænd pəˈhæps ju wʊd laɪk tə spiːk ˈfɑː.stər/</span>
+        </p>
+        <div class="vi-text">
+            🇻🇳 Và có lẽ bạn muốn nói nhanh hơn.
+        </div>
+
+        <p>
+            <strong>But when people speak English — or any other language — they don't speak fast and non-stop.</strong>
+            <br>
+            <span class="ipa-text">/bʌt wen ˈpiː.pəl spiːk ˈɪŋ.ɡlɪʃ | ɔːr ˈen.i ˈʌð.ər ˈlæŋ.ɡwɪdʒ | ðeɪ dəʊnt spiːk fɑːst ænd nɒn stɒp/</span>
+        </p>
+        <div class="vi-text">
+            🇻🇳 Nhưng khi người ta nói tiếng Anh — hay bất kỳ ngôn ngữ nào khác — họ không nói nhanh và không ngừng nghỉ.
+        </div>
+
+        <p>
+            <strong>They speak in <span style="color:#c0392b;font-weight:700;">short phrases</span>, and they <span style="color:#c0392b;font-weight:700;">stop, or pause</span>, between the phrases.</strong>
+            <br>
+            <span class="ipa-text">/ðeɪ spiːk ɪn ʃɔːt ˈfreɪ.zɪz | ænd ðeɪ stɒp | ɔː pɔːz | bɪˈtwiːn ðə ˈfreɪ.zɪz/</span>
+        </p>
+        <div class="vi-text">
+            🇻🇳 Họ nói thành <strong>các cụm từ ngắn</strong>, và họ <strong>dừng lại, hoặc ngắt nghỉ</strong>, giữa các cụm từ đó.
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakText('When you listen to English, perhaps you think it\'s difficult to understand because it\'s too fast. And perhaps you would like to speak faster. But when people speak English, or any other language, they don\'t speak fast and non-stop. They speak in short phrases, and they stop, or pause, between the phrases.', 0.75)">🔊 Nghe toàn bộ phần A</button>
+            <button class="btn btn-success" onclick="speakText('When you listen to English, perhaps you think it\'s difficult to understand because it\'s too fast. And perhaps you would like to speak faster. But when people speak English, or any other language, they don\'t speak fast and non-stop. They speak in short phrases, and they stop, or pause, between the phrases.', 0.5)">🐢 Nghe chậm</button>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- PHẦN B: CÂU CHUYỆN MẪU -->
+    <!-- ================================================================ -->
+    <div class="section">
+        <div class="section-title">
+            📖 B. Read the story — Đọc câu chuyện
+            <span class="badge">Đọc hiểu</span>
+        </div>
+
+        <p><strong>First, read this story, and make sure you understand it.</strong>
+        <br>🇻🇳 <em>Trước tiên, đọc câu chuyện này và đảm bảo bạn hiểu nó.</em></p>
+
+        <div class="story-box" id="storyB">
+            Lots of people get arrested for dangerous driving, of course. But how old is the oldest? Who's the world record holder? Well, I read about a man who was a hundred and four! He went through red lights, crashed into parked cars and drove along the pavement. And how old was his car? Only thirty.
+        </div>
+
+        <div class="ipa-row">
+            <span class="ipa">/lɒts əv ˈpiː.pəl ɡet əˈres.tɪd fɔː ˈdeɪn.dʒə.rəs ˈdraɪ.vɪŋ | əv kɔːs | bʌt haʊ əʊld ɪz ði ˈəʊl.dɪst | huːz ðə wɜːld ˈrek.ɔːd ˈhəʊl.dər | wel | aɪ red əˈbaʊt ə mæn huː wəz ə ˈhʌn.drəd ænd fɔː | hiː went θruː red laɪts | kræʃt ˈɪn.tə pɑːkt kɑːz ænd drəʊv əˈlɒŋ ðə ˈpeɪv.mənt | ænd haʊ əʊld wəz hɪz kɑːr | ˈəʊn.li ˈθɜː.ti/</span>
+            <span class="vi">🇻🇳 Rất nhiều người bị bắt vì lái xe nguy hiểm, tất nhiên. Nhưng người già nhất bao nhiêu tuổi? Ai là người giữ kỷ lục thế giới? Vâng, tôi đọc về một người đàn ông đã 104 tuổi! Ông ấy vượt đèn đỏ, đâm vào ô tô đang đỗ và lái xe dọc theo vỉa hè. Và chiếc xe của ông ấy bao nhiêu tuổi? Chỉ 30 tuổi thôi.</span>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakText(document.getElementById('storyB').innerText, 0.8)">🔊 Nghe toàn bộ câu chuyện</button>
+            <button class="btn btn-success" onclick="speakText(document.getElementById('storyB').innerText, 0.5)">🐢 Nghe chậm</button>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- PHẦN C29a: BẢN CÓ NGẮT NGHỈ -->
+    <!-- ================================================================ -->
+    <div class="section">
+        <div class="section-title">
+            🎵 C29a. Listen and notice the pauses
+            <span class="badge audio">🔊 Có audio</span>
+        </div>
+
+        <p><strong>Listen to the story, reading at the same time, and notice the pauses between the lines.</strong>
+        <br>🇻🇳 <em>Nghe câu chuyện, đọc cùng lúc, và chú ý đến chỗ ngắt nghỉ giữa các dòng.</em></p>
+
+        <div class="story-box" style="border-left-color:#2980b9;background:#eaf4f9;">
+            <div class="phrase-display">
+                <div class="p-line">Lots of people get arrested for dangerous driving, <span class="pause-here">⏸️</span> of course.</div>
+                <div class="p-line">But how old is the oldest? <span class="pause-here">⏸️</span></div>
+                <div class="p-line">Who's the world record holder? <span class="pause-here">⏸️</span> Well,</div>
+                <div class="p-line">I read about a man who was a hundred and four! <span class="pause-here">⏸️</span> He went through red lights, crashed into parked cars and drove along the pavement. <span class="pause-here">⏸️</span></div>
+                <div class="p-line">And how old was his car? <span class="pause-here">⏸️</span> Only thirty.</div>
+            </div>
+        </div>
+
+        <div class="ipa-row">
+            <span class="ipa">/lɒts əv ˈpiː.pəl ɡet əˈres.tɪd fɔː ˈdeɪn.dʒə.rəs ˈdraɪ.vɪŋ | əv kɔːs | bʌt haʊ əʊld ɪz ði ˈəʊl.dɪst | huːz ðə wɜːld ˈrek.ɔːd ˈhəʊl.dər | wel | aɪ red əˈbaʊt ə mæn huː wəz ə ˈhʌn.drəd ænd fɔː | hiː went θruː red laɪts | kræʃt ˈɪn.tə pɑːkt kɑːz ænd drəʊv əˈlɒŋ ðə ˈpeɪv.mənt | ænd haʊ əʊld wəz hɪz kɑːr | ˈəʊn.li ˈθɜː.ti/</span>
+            <span class="vi">🇻🇳 Rất nhiều người bị bắt vì lái xe nguy hiểm, tất nhiên. ⏸️ Nhưng người già nhất bao nhiêu tuổi? ⏸️ Ai là người giữ kỷ lục thế giới? ⏸️ Vâng, ⏸️ tôi đọc về một người đàn ông đã 104 tuổi! ⏸️ Ông ấy vượt đèn đỏ, đâm vào ô tô đang đỗ và lái xe dọc theo vỉa hè. ⏸️ Và chiếc xe của ông ấy bao nhiêu tuổi? ⏸️ Chỉ 30 tuổi thôi.</span>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="speakText('Lots of people get arrested for dangerous driving, of course. But how old is the oldest? Who\'s the world record holder? Well, I read about a man who was a hundred and four! He went through red lights, crashed into parked cars and drove along the pavement. And how old was his car? Only thirty.', 0.75)">🔊 Nghe bản có ngắt nghỉ</button>
+            <button class="btn btn-success" onclick="speakText('Lots of people get arrested for dangerous driving, of course. But how old is the oldest? Who\'s the world record holder? Well, I read about a man who was a hundred and four! He went through red lights, crashed into parked cars and drove along the pavement. And how old was his car? Only thirty.', 0.45)">🐢 Nghe siêu chậm</button>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- PHẦN C29b: NGẮT NHIỀU HƠN + TRỌNG ÂM -->
+    <!-- ================================================================ -->
+    <div class="section">
+        <div class="section-title">
+            🎵 C29b. More pauses + Stress — Ngắt nhiều hơn + Nhấn trọng âm
+            <span class="badge audio">🔊 Có audio</span>
+        </div>
+
+        <p>
+            <strong>It's OK — or even better — to pause more often,</strong> because it gives you more time to think of what to say next, and it makes listening easier.
+            <br>
+            <span class="ipa-text">/ɪts əʊˈkeɪ | ɔːr ˈiː.vən ˈbet.ər | tə pɔːz mɔːr ˈɒf.ən | bɪˈkɒz ɪt ɡɪvz ju mɔːr taɪm tə θɪŋk əv wɒt tə seɪ nekst | ænd ɪt meɪks ˈlɪs.ən.ɪŋ ˈiː.zi.ər/</span>
+        </p>
+        <div class="vi-text">
+            🇻🇳 Việc ngắt nghỉ thường xuyên hơn là OK — hoặc thậm chí tốt hơn — vì nó cho bạn nhiều thời gian hơn để nghĩ điều muốn nói tiếp theo, và giúp người nghe dễ hiểu hơn.
+        </div>
+
+        <p style="margin-top:12px;">
+            <strong>It's also important to stress the most important words.</strong> Listen again, and notice the stress on the words in <span style="color:#c0392b;font-weight:700;">bold</span>.
+            <br>
+            <span class="ipa-text">/ɪts ˈɔːl.səʊ ɪmˈpɔː.tənt tə stres ðə məʊst ɪmˈpɔː.tənt wɜːdz/</span>
+        </p>
+        <div class="vi-text">
+            🇻🇳 Việc <strong>nhấn trọng âm</strong> vào những từ quan trọng nhất cũng rất quan trọng. Nghe lại, và chú ý đến trọng âm trên các từ <span style="color:#c0392b;font-weight:700;">in đậm</span>.
+        </div>
+
+        <div class="story-box" style="border-left-color:#8e44ad;background:#f5eef8;">
+            <div class="phrase-display">
+                <div class="p-line"><span class="stress-word">Lots</span> of <span class="stress-word">people</span></div>
+                <div class="p-line"><span class="stress-word">get</span> a<span class="stress-word">rrest</span>ed</div>
+                <div class="p-line">for <span class="stress-word">dan</span>gerous <span class="stress-word">driv</span>ing,</div>
+                <div class="p-line">of <span class="stress-word">course</span>.</div>
+                <div class="p-line"><span class="stress-word">But</span></div>
+                <div class="p-line"><span class="stress-word">how</span> <span class="stress-word">old</span></div>
+                <div class="p-line">is the <span class="stress-word">old</span>est?</div>
+                <div class="p-line"><span class="stress-word">Who's</span> the <span class="stress-word">world</span> <span class="stress-word">rec</span>ord <span class="stress-word">hold</span>er?</div>
+                <div class="p-line"><span class="stress-word">Well</span>,</div>
+                <div class="p-line">I <span class="stress-word">read</span> about a <span class="stress-word">man</span></div>
+                <div class="p-line">who <span class="stress-word">was</span></div>
+                <div class="p-line">a <span class="stress-word">hun</span>dred and <span class="stress-word">four</span>!</div>
+                <div class="p-line">He <span class="stress-word">went</span> through <span class="stress-word">red</span> <span class="stress-word">lights</span>,</div>
+                <div class="p-line"><span class="stress-word">crashed</span> into <span class="stress-word">parked</span> <span class="stress-word">cars</span></div>
+                <div class="p-line">and <span class="stress-word">drove</span> along the <span class="stress-word">pave</span>ment.</div>
+                <div class="p-line">And <span class="stress-word">how</span> <span class="stress-word">old</span> was his <span class="stress-word">car</span>?</div>
+                <div class="p-line"><span class="stress-word">On</span>ly <span class="stress-word">thir</span>ty.</div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="speakText('Lots of people get arrested for dangerous driving, of course. But how old is the oldest? Who\'s the world record holder? Well, I read about a man who was a hundred and four! He went through red lights, crashed into parked cars and drove along the pavement. And how old was his car? Only thirty.', 0.7)">🔊 Nghe bản nhấn trọng âm</button>
+            <button class="btn btn-success" onclick="speakText('Lots of people get arrested for dangerous driving, of course. But how old is the oldest? Who\'s the world record holder? Well, I read about a man who was a hundred and four! He went through red lights, crashed into parked cars and drove along the pavement. And how old was his car? Only thirty.', 0.4)">🐢 Nghe siêu chậm</button>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- KINH NGHIỆM THỰC TẾ TỪ DEEPSEEK -->
+    <!-- ================================================================ -->
+    <div class="section" style="border:2px solid #f39c12;">
+        <div class="section-title">
+            💡 Kinh nghiệm thực tế — Cách để thành thạo
+            <span class="badge tip">🔥 Quan trọng</span>
+        </div>
+
+        <div class="tip-box">
+            <div class="tip-title">🎯 5 bước để thành thạo ngắt nghỉ và nhấn trọng âm</div>
+            <div class="tip-content">
+
+                <p><strong>1. Nghe và cảm nhận nhịp điệu</strong><br>
+                🇻🇳 Trước khi đọc, hãy <strong>nghe kỹ</strong> người bản xứ nói. Chú ý họ <span style="color:#e67e22;font-weight:700;">dừng ở đâu</span> và <span style="color:#c0392b;font-weight:700;">nhấn từ nào</span>.<br>
+                <span class="ipa-text">/bɪˈfɔːr ju riːd | ˈlɪs.ən ˈkeə.fəl.i tə ˈneɪ.tɪv ˈspiː.kərz | ˈnəʊ.tɪs weə ðeɪ pɔːz ænd wɪtʃ wɜːdz ðeɪ stres/</span></p>
+
+                <p><strong>2. Đọc chậm — từng cụm một</strong><br>
+                🇻🇳 Đừng vội! Hãy <strong>đọc chậm</strong>, ngắt sau mỗi cụm từ. Lúc đầu có thể hơi gượng, nhưng sẽ tự nhiên dần.<br>
+                <span class="ipa-text">/dəʊnt rʌʃ | riːd sləʊ.li | pɔːz ˈɑːf.tər iːtʃ freɪz/</span></p>
+
+                <p><strong>3. Đánh dấu trọng âm trước khi đọc</strong><br>
+                🇻🇳 Trước khi đọc to, hãy <strong>dùng bút highlight</strong> những từ quan trọng nhất trong câu. Thường là <strong>danh từ, động từ chính, tính từ</strong>.<br>
+                <span class="ipa-text">/bɪˈfɔːr ˈriː.dɪŋ | ˈhaɪ.laɪt ðə məʊst ɪmˈpɔː.tənt wɜːdz | ˈjuː.ʒu.ə.li naʊnz | meɪn vɜːbz | ˈæ.dʒek.tɪvz/</span></p>
+
+                <p><strong>4. Ghi âm và nghe lại</strong><br>
+                🇻🇳 Tự <strong>ghi âm</strong> giọng đọc của mình, rồi <strong>so sánh</strong> với bản gốc. Đây là cách nhanh nhất để tự sửa lỗi!<br>
+                <span class="ipa-text">/ˈrek.ɔːd jɔːr self | ðen kəmˈpeər wɪð ði ˈɒr.dʒɪ.nəl | ðɪs ɪz ðə ˈfɑː.stɪst weɪ tə kəˈrekt jɔːr ˈmɪs.teɪks/</span></p>
+
+                <p><strong>5. Luyện tập với các bài tập đa dạng</strong><br>
+                🇻🇳 Làm nhiều <strong>bài tập</strong> với các chủ đề khác nhau (cuộc sống, công việc, kỹ thuật). Càng đa dạng, càng linh hoạt.<br>
+                <span class="ipa-text">/duː ˈmen.i ɪkˈsɜː.saɪ.zɪz wɪð ˈdɪ.fə.rənt ˈtɒp.ɪks/</span></p>
+
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="speakText('Before you read, listen carefully to native speakers. Notice where they pause and which words they stress. Don\'t rush. Read slowly. Pause after each phrase. Before reading, highlight the most important words. Usually nouns, main verbs, adjectives. Record yourself, then compare with the original. This is the fastest way to correct your mistakes. Do many exercises with different topics.', 0.7)">🔊 Nghe toàn bộ kinh nghiệm</button>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- BÀI TẬP 33.1 (Sách) -->
+    <!-- ================================================================ -->
+    <div class="section">
+        <div class="section-title">
+            📝 Exercise 33.1 — Đánh dấu ngắt nghỉ
+            <span class="badge">Bài tập sách</span>
+        </div>
+
+        <p><strong>Listen to this story and mark the pauses like this: <span style="color:#e67e22;font-weight:700;">/</span></strong>
+        <br>🇻🇳 <em>Nghe câu chuyện này và đánh dấu chỗ ngắt nghỉ như thế này: <span style="color:#e67e22;font-weight:700;">/</span></em></p>
+
+        <div class="exercise-box">
+            <div class="ex-title">📖 Story 1 — Chuyện thư viện</div>
+            <div class="story-input" id="ex331Input">
+A few years ago I read in a newspaper that the staff at a library in a small town in the west of England had noticed that the number of visitors to the library was going down and down, and the number of books they were borrowing was going down even faster. They couldn't understand this, so they decided to do some research to find out the reason. They interviewed people and asked them to fill in questionnaires and so on. And guess what they discovered. The reason was simply that everybody had read all the books already!
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-purple" onclick="speakText(document.getElementById('ex331Input').innerText, 0.75)">🔊 Nghe câu chuyện</button>
+                <button class="btn btn-success" onclick="showAnswer331()">✅ Xem đáp án</button>
+            </div>
+            <div id="result331" class="result-box"></div>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- BÀI TẬP 33.2 (Sách) -->
+    <!-- ================================================================ -->
+    <div class="section">
+        <div class="section-title">
+            📝 Exercise 33.2 — Đánh dấu ngắt nghỉ
+            <span class="badge">Bài tập sách</span>
+        </div>
+
+        <p><strong>Listen to this story and mark the pauses.</strong>
+        <br>🇻🇳 <em>Nghe câu chuyện này và đánh dấu chỗ ngắt nghỉ.</em></p>
+
+        <div class="exercise-box">
+            <div class="ex-title">📖 Story 2 — Chuyện người nông dân</div>
+            <div class="story-input" id="ex332Input">
+This seems unbelievable but it's a true story in fact. A farmer was working in the fields with his tractor. The tractor crashed and he fell out and landed on the ground unconscious. As he fell, his mobile phone fell out of his pocket. Soon after, a bird that was flying around the fields saw the phone and started pecking it with its beak. Amazingly it dialled the number 999 and soon the emergency services arrived to help the farmer.
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-purple" onclick="speakText(document.getElementById('ex332Input').innerText, 0.75)">🔊 Nghe câu chuyện</button>
+                <button class="btn btn-success" onclick="showAnswer332()">✅ Xem đáp án</button>
+            </div>
+            <div id="result332" class="result-box"></div>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- BÀI TẬP MỞ RỘNG 1: CUỘC SỐNG -->
+    <!-- ================================================================ -->
+    <div class="section" style="border:2px solid #27ae60;">
+        <div class="section-title">
+            🌱 Bài tập mở rộng 1 — Cuộc sống hàng ngày
+            <span class="badge" style="background:#d5f5e3;color:#1a6e4a;">🏠 Life</span>
+        </div>
+
+        <p><strong>Read this daily conversation and mark the pauses. Then practice reading with correct stress.</strong>
+        <br>🇻🇳 <em>Đọc đoạn hội thoại hàng ngày này và đánh dấu chỗ ngắt nghỉ. Sau đó luyện đọc với trọng âm đúng.</em></p>
+
+        <div class="exercise-box">
+            <div class="ex-title">💬 Conversation — Đi mua sắm</div>
+            <div class="story-input" id="exLifeInput">
+A: Hi there! Can I help you with anything today?
+B: Oh, thanks. I'm just looking for a new phone.
+A: Great! We have some really good deals on the latest models.
+B: Really? Which one would you recommend for someone who takes lots of photos?
+A: This one here has an amazing camera and it's not too expensive.
+B: That sounds perfect! How much does it cost?
+A: It's only three hundred and fifty dollars.
+B: That's a bit more than I wanted to spend. Do you have anything cheaper?
+A: Sure, take a look at this one over here.
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-purple" onclick="speakText(document.getElementById('exLifeInput').innerText, 0.75)">🔊 Nghe hội thoại</button>
+                <button class="btn btn-success" onclick="showAnswerLife()">✅ Xem đáp án ngắt nghỉ</button>
+                <button class="btn btn-teal" onclick="showStressLife()">🎯 Xem trọng âm</button>
+            </div>
+            <div id="resultLife" class="result-box"></div>
+        </div>
+
+        <div class="ipa-row">
+            <span class="ipa">/haɪ ðeər | kæn aɪ help ju wɪð ˈen.i.θɪŋ təˈdeɪ | əʊ | θæŋks | aɪm dʒʌst ˈlʊk.ɪŋ fɔːr ə njuː fəʊn | ɡreɪt | wi hæv sʌm ˈrɪə.li ɡʊd diːlz ɒn ðə ˈleɪ.tɪst ˈmɒd.lz | ˈrɪə.li | wɪtʃ wʌn wʊd ju ˌrek.əˈmend fɔː ˈsʌm.wʌn huː teɪks lɒts əv ˈfəʊ.təʊz | ðɪs wʌn hɪər hæz ən əˈmeɪ.zɪŋ ˈkæm.rə ænd ɪts nɒt tuː ɪkˈspen.sɪv | ðæt saʊndz ˈpɜː.fɪkt | haʊ mʌtʃ dʌz ɪt kɒst | ɪts ˈəʊn.li θriː ˈhʌn.drəd ænd ˈfɪf.ti ˈdɒ.ləz | ðæts ə bɪt mɔː ðən aɪ ˈwɒn.tɪd tə spend | duː ju hæv ˈen.i.θɪŋ ˈtʃiː.pər | ʃɔːr | teɪk ə lʊk æt ðɪs wʌn ˈəʊ.və hɪər/</span>
+            <span class="vi">🇻🇳 A: Chào bạn! Tôi có thể giúp gì cho bạn hôm nay không?<br>
+            B: Ồ, cảm ơn. Tôi chỉ đang tìm một chiếc điện thoại mới.<br>
+            A: Tuyệt! Chúng tôi có một số ưu đãi rất tốt trên các mẫu mới nhất.<br>
+            B: Thật à? Bạn sẽ giới thiệu cái nào cho người hay chụp ảnh?<br>
+            A: Cái này có camera tuyệt vời và không quá đắt.<br>
+            B: Nghe có vẻ hoàn hảo! Nó giá bao nhiêu?<br>
+            A: Chỉ 350 đô la thôi.<br>
+            B: Đắt hơn tôi muốn một chút. Bạn có cái nào rẻ hơn không?<br>
+            A: Chắc chắn rồi, hãy xem cái này ở đây.</span>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- BÀI TẬP MỞ RỘNG 2: ĐỊA KỸ THUẬT -->
+    <!-- ================================================================ -->
+    <div class="section" style="border:2px solid #1abc9c;">
+        <div class="section-title">
+            🏗️ Bài tập mở rộng 2 — Địa kỹ thuật
+            <span class="badge geo">🪨 Geotech</span>
+        </div>
+
+        <p><strong>Read this technical report excerpt and mark the pauses. Practice reading with correct stress.</strong>
+        <br>🇻🇳 <em>Đọc đoạn báo cáo kỹ thuật này và đánh dấu chỗ ngắt nghỉ. Luyện đọc với trọng âm đúng.</em></p>
+
+        <div class="exercise-box">
+            <div class="ex-title">🪨 Geotechnical Report — Soil Investigation</div>
+            <div class="story-input" id="exGeoInput">
+The soil investigation was carried out at the proposed construction site. A total of six boreholes were drilled to a depth of twenty meters. The ground conditions consist of a layer of soft clay followed by dense sand and gravel. The water table was encountered at a depth of three meters below ground level. Laboratory tests were performed on samples taken from the boreholes. The results indicate that the bearing capacity of the soil is adequate for the proposed foundation design. However, settlement analysis should be carried out to ensure long-term stability.
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-purple" onclick="speakText(document.getElementById('exGeoInput').innerText, 0.75)">🔊 Nghe báo cáo</button>
+                <button class="btn btn-success" onclick="showAnswerGeo()">✅ Xem đáp án ngắt nghỉ</button>
+                <button class="btn btn-teal" onclick="showStressGeo()">🎯 Xem trọng âm</button>
+            </div>
+            <div id="resultGeo" class="result-box"></div>
+        </div>
+
+        <div class="ipa-row">
+            <span class="ipa">/ðə sɔɪl ˌɪn.ves.tɪˈɡeɪ.ʃən wəz ˈkær.id aʊt æt ðə prəˈpəʊzd kənˈstrʌk.ʃən saɪt | ə ˈtəʊ.təl əv sɪks ˈbɔː.həʊlz wɜː drɪld tə ə depθ əv ˈtwen.ti ˈmiː.təz | ðə ɡraʊnd kənˈdɪʃ.ənz kənˈsɪst əv ə ˈleɪ.ər əv sɒft kleɪ | ˈfɒl.əʊd baɪ dens sænd ænd ˈɡræv.əl | ðə ˈwɔː.tər ˈteɪ.bəl wəz ɪnˈkaʊn.təd æt ə depθ əv θriː ˈmiː.təz bɪˈləʊ ɡraʊnd ˈlev.əl | ləˈbɒr.ə.tri tests wɜː pəˈfɔːmd ɒn ˈsɑːm.pəlz ˈteɪ.kən frɒm ðə ˈbɔː.həʊlz | ðə rɪˈzʌlts ˈɪn.dɪ.keɪt ðæt ðə ˈbeə.rɪŋ kəˈpæ.sɪ.ti əv ðə sɔɪl ɪz ˈæd.ɪ.kwɪt fɔː ðə prəˈpəʊzd faʊnˈdeɪ.ʃən dɪˈzaɪn | haʊˈev.ər | ˈset.l̩.mənt əˌnæl.ə.sɪs ʃʊd bi ˈkær.id aʊt tə ɪnˈʃʊə lɒŋ tɜːm stəˈbɪl.ɪ.ti/</span>
+            <span class="vi">🇻🇳 Cuộc điều tra đất đã được thực hiện tại khu vực xây dựng đề xuất. Tổng cộng sáu lỗ khoan đã được khoan đến độ sâu 20 mét. Điều kiện nền đất bao gồm một lớp sét mềm, tiếp theo là cát chặt và sỏi. Mực nước ngầm được gặp ở độ sâu 3 mét dưới mặt đất. Các thí nghiệm trong phòng thí nghiệm đã được thực hiện trên các mẫu lấy từ lỗ khoan. Kết quả chỉ ra rằng sức chịu tải của đất là đủ cho thiết kế móng đề xuất. Tuy nhiên, phân tích độ lún nên được thực hiện để đảm bảo ổn định lâu dài.</span>
+        </div>
+
+        <div class="geo-box">
+            <div class="geo-title">🪨 Từ vựng địa kỹ thuật trong đoạn văn</div>
+            <div class="geo-content">
+                • <strong>soil investigation</strong> /sɔɪl ɪnˌves.tɪˈɡeɪ.ʃən/ — điều tra đất<br>
+                • <strong>borehole</strong> /ˈbɔː.həʊl/ — lỗ khoan<br>
+                • <strong>ground conditions</strong> /ɡraʊnd kənˈdɪʃ.ənz/ — điều kiện nền đất<br>
+                • <strong>soft clay</strong> /sɒft kleɪ/ — sét mềm<br>
+                • <strong>dense sand</strong> /dens sænd/ — cát chặt<br>
+                • <strong>water table</strong> /ˈwɔː.tər ˈteɪ.bəl/ — mực nước ngầm<br>
+                • <strong>bearing capacity</strong> /ˈbeə.rɪŋ kəˈpæ.sɪ.ti/ — sức chịu tải<br>
+                • <strong>foundation design</strong> /faʊnˈdeɪ.ʃən dɪˈzaɪn/ — thiết kế móng<br>
+                • <strong>settlement analysis</strong> /ˈset.l̩.mənt əˌnæl.ə.sɪs/ — phân tích độ lún
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- TIP TỔNG KẾT -->
+    <!-- ================================================================ -->
+    <div class="section" style="border:2px solid #8e44ad;">
+        <div class="section-title">
+            📌 Tổng kết — Những điều cần nhớ
+            <span class="badge" style="background:#f5eef8;color:#7d3c98;">✅ Checklist</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:15px;line-height:2;">
+            <div style="background:#f8fafc;padding:12px 16px;border-radius:10px;">
+                ✅ <strong>Ngắt nghỉ sau mỗi cụm từ</strong><br>
+                <span style="font-size:13px;color:#5a6a7a;">Không nói liền một mạch</span>
+            </div>
+            <div style="background:#f8fafc;padding:12px 16px;border-radius:10px;">
+                ✅ <strong>Nhấn trọng âm vào từ quan trọng</strong><br>
+                <span style="font-size:13px;color:#5a6a7a;">Danh từ, động từ, tính từ</span>
+            </div>
+            <div style="background:#f8fafc;padding:12px 16px;border-radius:10px;">
+                ✅ <strong>Nghe người bản xứ trước khi đọc</strong><br>
+                <span style="font-size:13px;color:#5a6a7a;">Bắt chước nhịp điệu và ngắt nghỉ</span>
+            </div>
+            <div style="background:#f8fafc;padding:12px 16px;border-radius:10px;">
+                ✅ <strong>Đọc chậm và rõ ràng</strong><br>
+                <span style="font-size:13px;color:#5a6a7a;">Tốc độ không quan trọng bằng sự rõ ràng</span>
+            </div>
+            <div style="background:#f8fafc;padding:12px 16px;border-radius:10px;">
+                ✅ <strong>Ghi âm và nghe lại</strong><br>
+                <span style="font-size:13px;color:#5a6a7a;">Tự sửa lỗi là cách học nhanh nhất</span>
+            </div>
+            <div style="background:#f8fafc;padding:12px 16px;border-radius:10px;">
+                ✅ <strong>Luyện tập đa dạng chủ đề</strong><br>
+                <span style="font-size:13px;color:#5a6a7a;">Cuộc sống, công việc, kỹ thuật</span>
+            </div>
+        </div>
+
+        <div class="btn-group" style="margin-top:14px;">
+            <button class="btn btn-danger" onclick="speakText('Pause after each phrase. Do not speak continuously. Stress the important words. Nouns, verbs, adjectives. Listen to native speakers before reading. Copy their rhythm. Read slowly and clearly. Speed is not as important as clarity. Record yourself and listen back. Self-correction is the fastest way to learn. Practice with different topics. Daily life, work, technical subjects.', 0.7)">🔊 Nghe toàn bộ checklist</button>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div style="text-align:center;padding:20px 0 10px;color:#95a5a6;font-size:14px;border-top:1px solid #e2e8f0;margin-top:10px;">
+        <p>🔊 <strong>Mẹo:</strong> Ngắt nghỉ đúng chỗ + nhấn trọng âm đúng = người nghe hiểu bạn ngay lập tức!</p>
+        <p style="margin-top:4px;font-size:13px;"><a href="../index.html" style="color:#1a2a6c;font-weight:600;">← Về trang chủ</a></p>
+    </div>
+
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<script>
+    // ================================================================
+    // TTS FUNCTION
+    // ================================================================
+
+    let currentUtterance = null;
+
+    function speakText(text, rate = 0.85, callback) {
+        if (currentUtterance) {
+            speechSynthesis.cancel();
+            currentUtterance = null;
+        }
+
+        if (!window.speechSynthesis) {
+            alert('Trình duyệt không hỗ trợ TTS. Dùng Chrome/Edge nhé!');
+            if (callback) callback();
+            return;
+        }
+
+        const cleanText = text.replace(/<[^>]*>/g, '').trim();
+
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'en-US';
+        utterance.rate = rate;
+        utterance.pitch = 1.0;
+
+        const voices = speechSynthesis.getVoices();
+        const femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'));
+        if (femaleVoice) utterance.voice = femaleVoice;
+
+        currentUtterance = utterance;
+        utterance.onend = function() { currentUtterance = null; if (callback) callback(); };
+        utterance.onerror = function() { currentUtterance = null; if (callback) callback(); };
+        speechSynthesis.speak(utterance);
+    }
+
+    // ================================================================
+    // TOAST
+    // ================================================================
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ================================================================
+    // EXERCISE 33.1 - ANSWER
+    // ================================================================
+
+    function showAnswer331() {
+        const result = document.getElementById('result331');
+        result.className = 'result-box show info';
+        result.innerHTML = `
+            <strong>✅ Đáp án tham khảo (dấu <span class="highlight-pause">/</span> là chỗ ngắt nghỉ):</strong><br><br>
+            <span class="highlight-pause">/</span> A few years ago <span class="highlight-pause">/</span> I read in a newspaper <span class="highlight-pause">/</span> that the staff at a library <span class="highlight-pause">/</span> in a small town <span class="highlight-pause">/</span> in the west of England <span class="highlight-pause">/</span> had noticed <span class="highlight-pause">/</span> that the number of visitors <span class="highlight-pause">/</span> to the library <span class="highlight-pause">/</span> was going down and down, <span class="highlight-pause">/</span> and the number of books <span class="highlight-pause">/</span> they were borrowing <span class="highlight-pause">/</span> was going down even faster. <span class="highlight-pause">/</span> They couldn't understand this, <span class="highlight-pause">/</span> so they decided <span class="highlight-pause">/</span> to do some research <span class="highlight-pause">/</span> to find out the reason. <span class="highlight-pause">/</span> They interviewed people <span class="highlight-pause">/</span> and asked them <span class="highlight-pause">/</span> to fill in questionnaires <span class="highlight-pause">/</span> and so on. <span class="highlight-pause">/</span> And guess what they discovered. <span class="highlight-pause">/</span> The reason was simply <span class="highlight-pause">/</span> that everybody <span class="highlight-pause">/</span> had read all the books already!
+        `;
+        result.style.display = 'block';
+        showToast('📖 Đã hiển thị đáp án ngắt nghỉ!');
+    }
+
+    // ================================================================
+    // EXERCISE 33.2 - ANSWER
+    // ================================================================
+
+    function showAnswer332() {
+        const result = document.getElementById('result332');
+        result.className = 'result-box show info';
+        result.innerHTML = `
+            <strong>✅ Đáp án tham khảo (dấu <span class="highlight-pause">/</span> là chỗ ngắt nghỉ):</strong><br><br>
+            <span class="highlight-pause">/</span> This seems unbelievable <span class="highlight-pause">/</span> but it's a true story <span class="highlight-pause">/</span> in fact. <span class="highlight-pause">/</span> A farmer <span class="highlight-pause">/</span> was working in the fields <span class="highlight-pause">/</span> with his tractor. <span class="highlight-pause">/</span> The tractor crashed <span class="highlight-pause">/</span> and he fell out <span class="highlight-pause">/</span> and landed on the ground <span class="highlight-pause">/</span> unconscious. <span class="highlight-pause">/</span> As he fell, <span class="highlight-pause">/</span> his mobile phone <span class="highlight-pause">/</span> fell out of his pocket. <span class="highlight-pause">/</span> Soon after, <span class="highlight-pause">/</span> a bird that was flying around the fields <span class="highlight-pause">/</span> saw the phone <span class="highlight-pause">/</span> and started pecking it <span class="highlight-pause">/</span> with its beak. <span class="highlight-pause">/</span> Amazingly <span class="highlight-pause">/</span> it dialled the number 999 <span class="highlight-pause">/</span> and soon <span class="highlight-pause">/</span> the emergency services arrived <span class="highlight-pause">/</span> to help the farmer.
+        `;
+        result.style.display = 'block';
+        showToast('📖 Đã hiển thị đáp án ngắt nghỉ!');
+    }
+
+    // ================================================================
+    // EXERCISE LIFE - ANSWER
+    // ================================================================
+
+    function showAnswerLife() {
+        const result = document.getElementById('resultLife');
+        result.className = 'result-box show info';
+        result.innerHTML = `
+            <strong>✅ Đáp án ngắt nghỉ (dấu <span class="highlight-pause">/</span>):</strong><br><br>
+            <span class="highlight-pause">/</span> A: Hi there! <span class="highlight-pause">/</span> Can I help you <span class="highlight-pause">/</span> with anything today? <span class="highlight-pause">/</span><br>
+            B: Oh, thanks. <span class="highlight-pause">/</span> I'm just looking <span class="highlight-pause">/</span> for a new phone. <span class="highlight-pause">/</span><br>
+            A: Great! <span class="highlight-pause">/</span> We have some really good deals <span class="highlight-pause">/</span> on the latest models. <span class="highlight-pause">/</span><br>
+            B: Really? <span class="highlight-pause">/</span> Which one would you recommend <span class="highlight-pause">/</span> for someone who takes lots of photos? <span class="highlight-pause">/</span><br>
+            A: This one here <span class="highlight-pause">/</span> has an amazing camera <span class="highlight-pause">/</span> and it's not too expensive. <span class="highlight-pause">/</span><br>
+            B: That sounds perfect! <span class="highlight-pause">/</span> How much does it cost? <span class="highlight-pause">/</span><br>
+            A: It's only <span class="highlight-pause">/</span> three hundred and fifty dollars. <span class="highlight-pause">/</span><br>
+            B: That's a bit more <span class="highlight-pause">/</span> than I wanted to spend. <span class="highlight-pause">/</span> Do you have anything cheaper? <span class="highlight-pause">/</span><br>
+            A: Sure, <span class="highlight-pause">/</span> take a look at this one <span class="highlight-pause">/</span> over here.
+        `;
+        result.style.display = 'block';
+        showToast('📖 Đã hiển thị đáp án!');
+    }
+
+    function showStressLife() {
+        const result = document.getElementById('resultLife');
+        result.className = 'result-box show info';
+        result.innerHTML = `
+            <strong>🎯 Trọng âm chính cần nhấn (in đậm):</strong><br><br>
+            A: <strong>Hi</strong> there! <strong>Can</strong> I <strong>help</strong> you <strong>with</strong> any<strong>thing</strong> to<strong>day</strong>?<br>
+            B: <strong>Oh</strong>, <strong>thanks</strong>. I'm <strong>just</strong> <strong>look</strong>ing for a <strong>new</strong> <strong>phone</strong>.<br>
+            A: <strong>Great</strong>! We have some <strong>really</strong> <strong>good</strong> <strong>deals</strong> on the <strong>lat</strong>est <strong>mod</strong>els.<br>
+            B: <strong>Rea</strong>lly? <strong>Which</strong> one would you <strong>recom</strong>mend for <strong>some</strong>one who <strong>takes</strong> <strong>lots</strong> of <strong>pho</strong>tos?<br>
+            A: <strong>This</strong> one <strong>here</strong> has an a<strong>maz</strong>ing <strong>cam</strong>era and it's <strong>not</strong> too ex<strong>pen</strong>sive.<br>
+            B: That <strong>sounds</strong> <strong>per</strong>fect! <strong>How</strong> <strong>much</strong> does it <strong>cost</strong>?<br>
+            A: It's <strong>on</strong>ly <strong>three</strong> <strong>hun</strong>dred and <strong>fif</strong>ty <strong>dol</strong>lars.<br>
+            B: That's a <strong>bit</strong> <strong>more</strong> than I <strong>want</strong>ed to <strong>spend</strong>. <strong>Do</strong> you have <strong>an</strong>ything <strong>chea</strong>per?<br>
+            A: <strong>Sure</strong>, <strong>take</strong> a <strong>look</strong> at <strong>this</strong> one <strong>o</strong>ver <strong>here</strong>.
+        `;
+        result.style.display = 'block';
+        showToast('🎯 Đã hiển thị trọng âm!');
+    }
+
+    // ================================================================
+    // EXERCISE GEO - ANSWER
+    // ================================================================
+
+    function showAnswerGeo() {
+        const result = document.getElementById('resultGeo');
+        result.className = 'result-box show info';
+        result.innerHTML = `
+            <strong>✅ Đáp án ngắt nghỉ (dấu <span class="highlight-pause">/</span>):</strong><br><br>
+            <span class="highlight-pause">/</span> The soil investigation <span class="highlight-pause">/</span> was carried out <span class="highlight-pause">/</span> at the proposed construction site. <span class="highlight-pause">/</span><br>
+            A total of six boreholes <span class="highlight-pause">/</span> were drilled <span class="highlight-pause">/</span> to a depth of twenty meters. <span class="highlight-pause">/</span><br>
+            The ground conditions <span class="highlight-pause">/</span> consist of a layer of soft clay <span class="highlight-pause">/</span> followed by dense sand and gravel. <span class="highlight-pause">/</span><br>
+            The water table <span class="highlight-pause">/</span> was encountered <span class="highlight-pause">/</span> at a depth of three meters <span class="highlight-pause">/</span> below ground level. <span class="highlight-pause">/</span><br>
+            Laboratory tests <span class="highlight-pause">/</span> were performed on samples <span class="highlight-pause">/</span> taken from the boreholes. <span class="highlight-pause">/</span><br>
+            The results indicate <span class="highlight-pause">/</span> that the bearing capacity of the soil <span class="highlight-pause">/</span> is adequate <span class="highlight-pause">/</span> for the proposed foundation design. <span class="highlight-pause">/</span><br>
+            However, <span class="highlight-pause">/</span> settlement analysis <span class="highlight-pause">/</span> should be carried out <span class="highlight-pause">/</span> to ensure long-term stability.
+        `;
+        result.style.display = 'block';
+        showToast('📖 Đã hiển thị đáp án ngắt nghỉ!');
+    }
+
+    function showStressGeo() {
+        const result = document.getElementById('resultGeo');
+        result.className = 'result-box show info';
+        result.innerHTML = `
+            <strong>🎯 Trọng âm chính cần nhấn (in đậm):</strong><br><br>
+            The <strong>soil</strong> investi<strong>ga</strong>tion <strong>was</strong> <strong>car</strong>ried <strong>out</strong> at the pro<strong>posed</strong> con<strong>struc</strong>tion <strong>site</strong>.<br>
+            A <strong>to</strong>tal of <strong>six</strong> <strong>bore</strong>holes <strong>were</strong> <strong>drilled</strong> to a <strong>depth</strong> of <strong>twen</strong>ty <strong>me</strong>ters.<br>
+            The <strong>ground</strong> con<strong>di</strong>tions con<strong>sist</strong> of a <strong>lay</strong>er of <strong>soft</strong> <strong>clay</strong> <strong>fol</strong>lowed by <strong>dense</strong> <strong>sand</strong> and <strong>gra</strong>vel.<br>
+            The <strong>wa</strong>ter <strong>ta</strong>ble was en<strong>coun</strong>tered at a <strong>depth</strong> of <strong>three</strong> <strong>me</strong>ters be<strong>low</strong> <strong>ground</strong> <strong>le</strong>vel.<br>
+            <strong>La</strong>boratory <strong>tests</strong> were per<strong>formed</strong> on <strong>sam</strong>ples <strong>ta</strong>ken from the <strong>bore</strong>holes.<br>
+            The re<strong>sults</strong> <strong>in</strong>dicate that the <strong>bear</strong>ing ca<strong>pa</strong>city of the <strong>soil</strong> is <strong>ad</strong>equate for the pro<strong>posed</strong> foun<strong>da</strong>tion de<strong>sign</strong>.<br>
+            How<strong>e</strong>ver, <strong>set</strong>tlement a<strong>nal</strong>ysis <strong>should</strong> be <strong>car</strong>ried <strong>out</strong> to en<strong>sure</strong> <strong>long</strong>-<strong>term</strong> sta<strong>bil</strong>ity.
+        `;
+        result.style.display = 'block';
+        showToast('🎯 Đã hiển thị trọng âm!');
+    }
+
+    // ================================================================
+    // INIT - Load voices & mark completed
+    // ================================================================
+
+    if (window.speechSynthesis) {
+        speechSynthesis.getVoices();
+        speechSynthesis.onvoiceschanged = () => {
+            speechSynthesis.getVoices();
+        };
+    }
+
+    // Mark completed in localStorage
+    setTimeout(() => {
+        let completed = [];
+        try {
+            const data = localStorage.getItem('epu_completed');
+            if (data) completed = JSON.parse(data);
+        } catch {}
+        if (!completed.includes(33)) {
+            completed.push(33);
+            localStorage.setItem('epu_completed', JSON.stringify(completed));
+        }
+    }, 1000);
+
+    console.log('✅ Bài 33 - Phrases and pauses (nâng cấp) đã sẵn sàng!');
+</script>
+
+</body>
+</html>
