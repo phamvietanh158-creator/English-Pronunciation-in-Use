@@ -539,39 +539,44 @@
     // ================================================================
 
     function renderSection(sectionId, lessonsData, containerId) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = '';
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
 
-        lessonsData.forEach((lesson, index) => {
-            const card = document.createElement('a');
-            card.className = 'lesson-card';
-            card.href = `sectionA/${lesson.file}`;
+    // Map sectionId sang tên thư mục
+    let folder = '';
+    if (sectionId === 'A') folder = 'sectionA/';
+    else if (sectionId === 'B') folder = 'sectionB/';
+    else if (sectionId === 'C') folder = 'sectionC/';
+    else if (sectionId === 'D') folder = 'sectionD/';
 
-            // Status: nếu file tồn tại thì check, mặc định pending
-            const isDone = false; // sẽ update sau khi học
-            const statusIcon = isDone ? '✅' : '⏳';
+    lessonsData.forEach((lesson) => {
+        const card = document.createElement('a');
+        card.className = 'lesson-card';
+        card.href = folder + lesson.file;
 
-            // Badge type
-            let badgeClass = 'badge-sound';
-            if (lesson.type === 'vowel') badgeClass += ' vowel';
-            else if (lesson.type === 'consonant') badgeClass += ' consonant';
-            else badgeClass += ' other';
+        const isDone = false;
+        const statusIcon = isDone ? '✅' : '⏳';
 
-            card.innerHTML = `
-                <div class="top-row">
-                    <span class="number">${lesson.id}</span>
-                    <span class="status ${isDone ? 'done' : 'pending'}">${statusIcon}</span>
-                </div>
-                <div class="title">${lesson.title}</div>
-                <div class="sub">${lesson.sub}</div>
-                ${lesson.ipa ? `<span class="ipa-tag">${lesson.ipa}</span>` : ''}
-                <span class="${badgeClass}">${lesson.sound}</span>
-                <div class="btn-go">🚀 Vào bài</div>
-            `;
+        let badgeClass = 'badge-sound';
+        if (lesson.type === 'vowel') badgeClass += ' vowel';
+        else if (lesson.type === 'consonant') badgeClass += ' consonant';
+        else badgeClass += ' other';
 
-            container.appendChild(card);
-        });
-    }
+        card.innerHTML = `
+            <div class="top-row">
+                <span class="number">${lesson.id}</span>
+                <span class="status ${isDone ? 'done' : 'pending'}">${statusIcon}</span>
+            </div>
+            <div class="title">${lesson.title}</div>
+            <div class="sub">${lesson.sub}</div>
+            ${lesson.ipa ? `<span class="ipa-tag">${lesson.ipa}</span>` : ''}
+            <span class="${badgeClass}">${lesson.sound}</span>
+            <div class="btn-go">🚀 Vào bài</div>
+        `;
+
+        container.appendChild(card);
+    });
+}
 
     // ================================================================
     // PROGRESS TRACKING (localStorage)
