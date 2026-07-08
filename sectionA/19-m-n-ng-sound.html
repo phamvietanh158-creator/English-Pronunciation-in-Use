@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 19 - My hungry uncle (/m/, /n/, /ŋ/)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            color: #1a2a3a;
+            padding: 20px;
+        }
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 28px 32px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        .header {
+            border-bottom: 3px solid #1a2a6c;
+            padding-bottom: 20px;
+            margin-bottom: 28px;
+        }
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #5a6a7a;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .lesson-number {
+            font-weight: 700;
+            color: #1a2a6c;
+            background: #e8edf5;
+            padding: 2px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+        }
+        .header h1 {
+            font-size: 28px;
+            margin: 8px 0 4px;
+            color: #0b1a3a;
+        }
+        .header h1 span {
+            background: linear-gradient(135deg, #1a2a6c, #2d4373);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .sub {
+            font-size: 17px;
+            color: #3a4a6a;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        .nav-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #1a2a6c;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .nav-link:hover {
+            border-bottom-color: #1a2a6c;
+        }
+        .section {
+            background: #f8faff;
+            border-radius: 18px;
+            padding: 22px 24px;
+            margin-bottom: 28px;
+            border: 1px solid #e6edf6;
+            transition: box-shadow 0.2s;
+        }
+        .section:hover {
+            box-shadow: 0 4px 16px rgba(26,42,108,0.06);
+        }
+        .section-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: #0b1a3a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .badge {
+            font-size: 12px;
+            font-weight: 600;
+            background: #1a2a6c;
+            color: #fff;
+            padding: 2px 14px;
+            border-radius: 30px;
+            letter-spacing: 0.3px;
+        }
+        .badge.tip {
+            background: #e67e22;
+        }
+        .badge.geo {
+            background: #1abc9c;
+        }
+        .ipa-text {
+            font-size: 26px;
+            font-family: 'Times New Roman', serif;
+            color: #1a2a6c;
+            background: #eef3fc;
+            padding: 6px 16px;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 6px 0 10px;
+            letter-spacing: 1px;
+        }
+        .vi-text {
+            color: #2a4a6a;
+            font-size: 16px;
+            margin: 4px 0 10px;
+            padding-left: 4px;
+            border-left: 3px solid #1a2a6c;
+            padding-left: 14px;
+        }
+        .btn {
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #e8edf5;
+            color: #1a2a6c;
+            margin: 4px 6px 4px 0;
+        }
+        .btn:hover {
+            transform: scale(1.02);
+            filter: brightness(0.96);
+        }
+        .btn-purple {
+            background: #1a2a6c;
+            color: #fff;
+        }
+        .btn-purple:hover {
+            background: #2d4373;
+        }
+        .btn-success {
+            background: #27ae60;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #2ecc71;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #1a2a6c;
+            color: #1a2a6c;
+        }
+        .btn-outline:hover {
+            background: #1a2a6c;
+            color: #fff;
+        }
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 12px 0;
+        }
+        .word-card {
+            background: #fff;
+            border: 1px solid #dfe8f2;
+            border-radius: 12px;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.15s;
+        }
+        .word-card:hover {
+            border-color: #1a2a6c;
+            background: #f5f9ff;
+        }
+        .word-card .word {
+            font-weight: 600;
+            font-size: 17px;
+        }
+        .word-card .ipa {
+            color: #3a5a7a;
+            font-family: 'Times New Roman', serif;
+            font-size: 18px;
+        }
+        .word-card .btn-sm {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0 4px;
+            color: #1a2a6c;
+        }
+        .sentence-item {
+            background: #fff;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            border: 1px solid #e6edf6;
+        }
+        .sentence-item .eng {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .sentence-item .ipa {
+            font-size: 20px;
+            font-family: 'Times New Roman', serif;
+            color: #1a2a6c;
+            margin: 4px 0;
+        }
+        .sentence-item .meaning {
+            color: #3a5a6a;
+            font-size: 15px;
+        }
+        .sentence-item .highlight {
+            background: #f1c40f;
+            padding: 0 4px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .tip-box {
+            background: #fef9e7;
+            border-radius: 14px;
+            padding: 18px 22px;
+            border-left: 5px solid #f39c12;
+        }
+        .tip-title {
+            font-weight: 700;
+            font-size: 18px;
+            color: #b9770e;
+            margin-bottom: 8px;
+        }
+        .tip-content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #2a3a4a;
+        }
+        .tip-content li {
+            margin-bottom: 4px;
+        }
+        .checklist {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 20px;
+            margin: 10px 0;
+        }
+        .checklist li {
+            list-style: none;
+            padding: 4px 0;
+            font-size: 15px;
+        }
+        .checklist li::before {
+            content: "☐ ";
+            color: #1a2a6c;
+            font-weight: 700;
+        }
+        .checklist li.done::before {
+            content: "✅ ";
+        }
+        .exercise-box {
+            background: #fff;
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin: 12px 0;
+            border: 1px solid #dfe8f2;
+        }
+        .exercise-box .ex-title {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1a2a6c;
+            margin-bottom: 10px;
+        }
+        .exercise-box .ex-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px 16px;
+            padding: 6px 0;
+        }
+        .exercise-box .ex-row label {
+            font-size: 15px;
+            min-width: 30px;
+            font-weight: 600;
+        }
+        .exercise-box input[type="text"] {
+            border: 1px solid #c0cbd8;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 15px;
+            width: 140px;
+            background: #fafcff;
+        }
+        .exercise-box input[type="text"]:focus {
+            outline: none;
+            border-color: #1a2a6c;
+            box-shadow: 0 0 0 3px rgba(26,42,108,0.12);
+        }
+        .exercise-box .answer {
+            color: #27ae60;
+            font-weight: 600;
+            font-size: 15px;
+            margin-left: 6px;
+            display: none;
+        }
+        .exercise-box .answer.show {
+            display: inline;
+        }
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a2a6c;
+            color: #fff;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 15px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 999;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+        .toast.show {
+            opacity: 1;
+        }
+        .divider {
+            border: none;
+            border-top: 2px dashed #d0dce8;
+            margin: 18px 0;
+        }
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 16px; }
+            .header h1 { font-size: 22px; }
+            .word-grid { grid-template-columns: 1fr 1fr; }
+            .checklist { grid-template-columns: 1fr; }
+            .exercise-box input[type="text"] { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <div class="top-row">
+            <span class="lesson-number">📚 Bài 19</span>
+            <span>Section A · Nguyên âm & Phụ âm</span>
+        </div>
+        <h1>🎯 <span>My hungry uncle</span></h1>
+        <div class="sub">Âm mũi — /m/ · /n/ · /ŋ/</div>
+        <a href="../index.html" class="nav-link">← Về trang chủ</a>
+    </div>
+
+    <!-- ===== PHẦN A: LÝ THUYẾT /m/ ===== -->
+    <div class="section">
+        <div class="section-title">
+            📖 A. Cách phát âm /m/
+            <span class="badge">Lý thuyết</span>
+        </div>
+        <p><strong>Khi nói /m/, luồng khí đi qua mũi, <em>không</em> qua miệng.</strong> Môi khép lại, có rung thanh quản.</p>
+        <div class="ipa-text">/mːmːmːmːmːmːmːmːmːmːm/</div>
+        <div class="vi-text">🇻🇳 Môi chạm nhau, âm vang ở mũi</div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakText('mmmmmmmmmmm', 0.7)">🔊 Nghe /m/</button>
+            <button class="btn btn-success" onclick="speakText('mmmmmmmmmmm', 0.4)">🐢 Chậm</button>
+        </div>
+    </div>
+
+    <!-- ===== PHẦN B: TỪ VỰNG /m/ ===== -->
+    <div class="section">
+        <div class="section-title">
+            📦 Vocabulary — /m/
+            <span class="badge">Từ vựng</span>
+        </div>
+        <p><strong>/m/</strong> thường viết là <strong>m</strong>, <strong>mm</strong>, đôi khi <strong>mb</strong> hoặc <strong>mn</strong>.</p>
+        <div class="word-grid" id="vocabM"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakAll('vocabM')">🔊 Nghe tất cả /m/</button>
+        </div>
+        <hr class="divider">
+        <p><strong>Cụm từ thực hành:</strong></p>
+        <div id="phrasesM"></div>
+    </div>
+
+    <!-- ===== PHẦN C: LÝ THUYẾT /n/ ===== -->
+    <div class="section">
+        <div class="section-title">
+            📖 C. Cách phát âm /n/
+            <span class="badge">Lý thuyết</span>
+        </div>
+        <p><strong>Khi nói /n/, luồng khí đi qua mũi, <em>không</em> qua miệng.</strong> Đầu lưỡi chạm vòm miệng phía sau răng trên, có rung thanh quản.</p>
+        <div class="ipa-text">/nːnːnːnːnːnːnːnːnːnːn/</div>
+        <div class="vi-text">🇻🇳 Đầu lưỡi chạm nướu, âm vang ở mũi</div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakText('nnnnnnnnnnn', 0.7)">🔊 Nghe /n/</button>
+            <button class="btn btn-success" onclick="speakText('nnnnnnnnnnn', 0.4)">🐢 Chậm</button>
+        </div>
+    </div>
+
+    <!-- ===== PHẦN D: TỪ VỰNG /n/ ===== -->
+    <div class="section">
+        <div class="section-title">
+            📦 Vocabulary — /n/
+            <span class="badge">Từ vựng</span>
+        </div>
+        <p><strong>/n/</strong> thường viết là <strong>n</strong>, đôi khi <strong>nn</strong> hoặc <strong>kn</strong>.</p>
+        <div class="word-grid" id="vocabN"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakAll('vocabN')">🔊 Nghe tất cả /n/</button>
+        </div>
+        <hr class="divider">
+        <p><strong>Cụm từ thực hành:</strong></p>
+        <div id="phrasesN"></div>
+    </div>
+
+    <!-- ===== PHẦN E: LÝ THUYẾT /ŋ/ ===== -->
+    <div class="section">
+        <div class="section-title">
+            📖 E. Cách phát âm /ŋ/
+            <span class="badge">Lý thuyết</span>
+        </div>
+        <p><strong>Khi nói /ŋ/, luồng khí đi qua mũi, <em>không</em> qua miệng.</strong> Mặt sau lưỡi chạm vòm miệng mềm, có rung thanh quản.</p>
+        <div class="ipa-text">/ŋːŋːŋːŋːŋːŋːŋːŋːŋːŋː/</div>
+        <div class="vi-text">🇻🇳 Cuống lưỡi chạm vòm mềm, âm vang ở mũi</div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakText('ŋŋŋŋŋŋŋŋŋŋ', 0.7)">🔊 Nghe /ŋ/</button>
+            <button class="btn btn-success" onclick="speakText('ŋŋŋŋŋŋŋŋŋŋ', 0.4)">🐢 Chậm</button>
+        </div>
+    </div>
+
+    <!-- ===== PHẦN F: TỪ VỰNG /ŋ/ ===== -->
+    <div class="section">
+        <div class="section-title">
+            📦 Vocabulary — /ŋ/
+            <span class="badge">Từ vựng</span>
+        </div>
+        <p><strong>/ŋ/</strong> thường viết là <strong>ng</strong>.</p>
+        <ul style="margin: 6px 0 12px 22px;color:#2a4a6a;">
+            <li><strong>ng</strong> có thể là /ŋ/ (VD: <em>singer</em>) hoặc /ŋɡ/ (VD: <em>finger</em>)</li>
+            <li><strong>nk</strong> luôn là /ŋk/</li>
+            <li>Nếu <strong>n</strong> đứng trước /k/ hoặc /g/ thì phát âm là /ŋ/</li>
+        </ul>
+        <div class="word-grid" id="vocabNg"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakAll('vocabNg')">🔊 Nghe tất cả /ŋ/</button>
+        </div>
+        <hr class="divider">
+        <p><strong>Cụm từ thực hành:</strong></p>
+        <div id="phrasesNg"></div>
+    </div>
+
+    <!-- ===== PHẦN G: KINH NGHIỆM DEEPSEEK ===== -->
+    <div class="section" style="border:2px solid #f39c12;">
+        <div class="section-title">
+            💡 Kinh nghiệm thực tế
+            <span class="badge tip">🔥 Quan trọng</span>
+        </div>
+        <div class="tip-box">
+            <div class="tip-title">🎯 Các bước để thành thạo âm mũi</div>
+            <div class="tip-content">
+                <ul style="padding-left:22px;">
+                    <li><strong>Bước 1:</strong> Bịt mũi — nếu phát âm đúng /m/, /n/, /ŋ/, bạn <em>không thể</em> nói được vì khí bị chặn.</li>
+                    <li><strong>Bước 2:</strong> Phân biệt /n/ và /ŋ/: /n/ — đầu lưỡi chạm răng trên; /ŋ/ — cuống lưỡi chạm vòm mềm.</li>
+                    <li><strong>Bước 3:</strong> Luyện với cặp tối thiểu: <em>sin</em> vs <em>sing</em>, <em>thin</em> vs <em>thing</em>, <em>ran</em> vs <em>rang</em>.</li>
+                    <li><strong>Bước 4:</strong> Chú ý <strong>-ng</strong> ở cuối từ — thường là /ŋ/, trừ khi có <em>g</em> phát âm (VD: <em>finger</em> /ˈfɪŋɡə/).</li>
+                    <li><strong>Bước 5:</strong> Với <strong>nk</strong>, luôn là /ŋk/ — VD: <em>thank</em> /θæŋk/.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PHẦN H: CÂU CUỘC SỐNG ===== -->
+    <div class="section" style="border:2px solid #27ae60;">
+        <div class="section-title">
+            🌱 Câu ví dụ — Cuộc sống
+            <span class="badge">🏠 Life</span>
+        </div>
+        <div id="lifeSentences"></div>
+    </div>
+
+    <!-- ===== PHẦN I: CÂU ĐỊA KỸ THUẬT ===== -->
+    <div class="section" style="border:2px solid #1abc9c;">
+        <div class="section-title">
+            🏗️ Câu ví dụ — Địa kỹ thuật
+            <span class="badge geo">🪨 Geotech</span>
+        </div>
+        <div id="geotechSentences"></div>
+    </div>
+
+    <!-- ===== PHẦN J: BÀI TẬP SÁCH 19.1 ===== -->
+    <div class="section">
+        <div class="section-title">
+            📝 Exercise 19.1 — Viết từ theo phiên âm
+            <span class="badge">Bài tập sách</span>
+        </div>
+        <div class="exercise-box">
+            <div class="ex-title">Viết từ tiếng Anh cho các phiên âm sau:</div>
+            <div id="ex19_1"></div>
+            <div class="btn-group">
+                <button class="btn btn-purple" onclick="checkEx19_1()">✅ Kiểm tra</button>
+                <button class="btn btn-outline" onclick="resetEx19_1()">🔄 Làm lại</button>
+                <button class="btn btn-success" onclick="showAllEx19_1()">🔓 Xem đáp án</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PHẦN K: BÀI TẬP 19.2 ===== -->
+    <div class="section">
+        <div class="section-title">
+            📝 Exercise 19.2 — Phân loại /n/ và /ŋ/
+            <span class="badge">Bài tập sách</span>
+        </div>
+        <div class="exercise-box">
+            <div class="ex-title">Xếp các từ vào nhóm /n/ hoặc /ŋ/ (dựa vào phát âm)</div>
+            <div id="ex19_2"></div>
+            <div class="btn-group">
+                <button class="btn btn-purple" onclick="checkEx19_2()">✅ Kiểm tra</button>
+                <button class="btn btn-outline" onclick="resetEx19_2()">🔄 Làm lại</button>
+                <button class="btn btn-success" onclick="showAllEx19_2()">🔓 Xem đáp án</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PHẦN L: BÀI TẬP 19.3 ===== -->
+    <div class="section">
+        <div class="section-title">
+            📝 Exercise 19.3 — Hoàn thành tiêu đề tranh
+            <span class="badge">Bài tập sách</span>
+        </div>
+        <div class="exercise-box">
+            <div class="ex-title">Điền từ thích hợp vào chỗ trống:</div>
+            <div id="ex19_3"></div>
+            <div class="btn-group">
+                <button class="btn btn-purple" onclick="checkEx19_3()">✅ Kiểm tra</button>
+                <button class="btn btn-outline" onclick="resetEx19_3()">🔄 Làm lại</button>
+                <button class="btn btn-success" onclick="showAllEx19_3()">🔓 Xem đáp án</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PHẦN M: BÀI TẬP 19.4 ===== -->
+    <div class="section">
+        <div class="section-title">
+            📝 Exercise 19.4 — Hoàn thành câu theo tranh
+            <span class="badge">Bài tập sách</span>
+        </div>
+        <div class="exercise-box">
+            <div class="ex-title">Nhìn tranh và hoàn thành câu:</div>
+            <div id="ex19_4"></div>
+            <div class="btn-group">
+                <button class="btn btn-purple" onclick="checkEx19_4()">✅ Kiểm tra</button>
+                <button class="btn btn-outline" onclick="resetEx19_4()">🔄 Làm lại</button>
+                <button class="btn btn-success" onclick="showAllEx19_4()">🔓 Xem đáp án</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PHẦN N: BÀI TẬP MỞ RỘNG ===== -->
+    <div class="section" style="border:2px solid #8e44ad;">
+        <div class="section-title">
+            🎯 Bài tập mở rộng — Phân biệt âm mũi
+            <span class="badge">🔊 Bonus</span>
+        </div>
+        <div class="exercise-box">
+            <div class="ex-title">Nghe và chọn từ đúng (mô phỏng bài 19.5)</div>
+            <div id="ex19_5"></div>
+            <div class="btn-group">
+                <button class="btn btn-purple" onclick="checkEx19_5()">✅ Kiểm tra</button>
+                <button class="btn btn-outline" onclick="resetEx19_5()">🔄 Làm lại</button>
+                <button class="btn btn-success" onclick="showAllEx19_5()">🔓 Xem đáp án</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== TỔNG KẾT ===== -->
+    <div class="section" style="border:2px solid #1a2a6c;">
+        <div class="section-title">
+            📌 Tổng kết — Checklist
+            <span class="badge">✅ Nhớ</span>
+        </div>
+        <ul class="checklist">
+            <li class="done">/m/ — môi khép, khí qua mũi</li>
+            <li class="done">/n/ — lưỡi chạm nướu răng trên</li>
+            <li class="done">/ŋ/ — cuống lưỡi chạm vòm mềm</li>
+            <li class="done">Phân biệt <em>sin</em> /sɪn/ và <em>sing</em> /sɪŋ/</li>
+            <li class="done"><strong>nk</strong> luôn là /ŋk/</li>
+            <li class="done"><strong>ng</strong> có thể là /ŋ/ hoặc /ŋɡ/</li>
+            <li class="done">Bịt mũi để kiểm tra âm mũi</li>
+        </ul>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div style="text-align:center;padding:20px 0 4px;color:#95a5a6;border-top:1px solid #e6edf6;margin-top:8px;">
+        <p><a href="../index.html" style="color:#1a2a6c;font-weight:600;text-decoration:none;">← Về trang chủ</a></p>
+        <p style="font-size:13px;margin-top:6px;">English Pronunciation in Use · Bài 19 · /m/ /n/ /ŋ/</p>
+    </div>
+
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<script>
+    // ===== TTS =====
+    let currentUtterance = null;
+    function speakText(text, rate = 0.85, callback) {
+        if (currentUtterance) {
+            speechSynthesis.cancel();
+            currentUtterance = null;
+        }
+        if (!window.speechSynthesis) {
+            alert('Trình duyệt không hỗ trợ TTS. Dùng Chrome/Edge nhé!');
+            if (callback) callback();
+            return;
+        }
+        const cleanText = text.replace(/<[^>]*>/g, '').trim();
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'en-US';
+        utterance.rate = rate;
+        utterance.pitch = 1.0;
+        const voices = speechSynthesis.getVoices();
+        const femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'));
+        if (femaleVoice) utterance.voice = femaleVoice;
+        currentUtterance = utterance;
+        utterance.onend = function() { currentUtterance = null; if (callback) callback(); };
+        utterance.onerror = function() { currentUtterance = null; if (callback) callback(); };
+        speechSynthesis.speak(utterance);
+    }
+
+    function speakAll(containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const words = container.querySelectorAll('.word-card .word');
+        let text = '';
+        words.forEach(el => text += el.textContent + '. ');
+        if (text) speakText(text, 0.75);
+    }
+
+    function speakPhrase(eng) {
+        speakText(eng, 0.75);
+    }
+
+    // ===== TOAST =====
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ===== DATA =====
+    const vocabM = [
+        { word: 'me', ipa: '/miː/' },
+        { word: 'more', ipa: '/mɔː/' },
+        { word: 'lemon', ipa: '/ˈlemən/' },
+        { word: 'swim', ipa: '/swɪm/' },
+        { word: 'film', ipa: '/fɪlm/' },
+        { word: 'some', ipa: '/sʌm/' },
+        { word: 'summer', ipa: '/ˈsʌmə/' },
+        { word: 'comb', ipa: '/kəʊm/' },
+        { word: 'autumn', ipa: '/ˈɔːtəm/' },
+    ];
+
+    const phrasesM = [
+        { eng: 'sometimes in summer', ipa: '/ˈsʌmtaɪmz ɪn ˈsʌmə/' },
+        { eng: 'more for you, most for me', ipa: '/mɔː fə juː məʊst fə miː/' },
+        { eng: 'in the middle of the film', ipa: '/ɪn ðə ˈmɪdl əv ðə fɪlm/' },
+    ];
+
+    const vocabN = [
+        { word: 'new', ipa: '/njuː/' },
+        { word: 'now', ipa: '/naʊ/' },
+        { word: 'sun', ipa: '/sʌn/' },
+        { word: 'one', ipa: '/wʌn/' },
+        { word: 'gone', ipa: '/ɡɒn/' },
+        { word: 'dinner', ipa: '/ˈdɪnə/' },
+        { word: 'sunny', ipa: '/ˈsʌni/' },
+        { word: 'knew', ipa: '/njuː/' },
+        { word: 'know', ipa: '/nəʊ/' },
+        { word: 'knife', ipa: '/naɪf/' },
+    ];
+
+    const phrasesN = [
+        { eng: 'a sunny afternoon', ipa: '/ə ˈsʌni ˌɑːftəˈnuːn/' },
+        { eng: 'sun and moon', ipa: '/sʌn ænd muːn/' },
+        { eng: 'nine months', ipa: '/naɪn mʌnθs/' },
+    ];
+
+    const vocabNg = [
+        { word: 'evening', ipa: '/ˈiːvnɪŋ/' },
+        { word: 'long', ipa: '/lɒŋ/' },
+        { word: 'sing', ipa: '/sɪŋ/' },
+        { word: 'singer', ipa: '/ˈsɪŋə/' },
+        { word: 'thing', ipa: '/θɪŋ/' },
+        { word: 'bank', ipa: '/bæŋk/' },
+        { word: 'thanks', ipa: '/θæŋks/' },
+        { word: 'think', ipa: '/θɪŋk/' },
+        { word: 'uncle', ipa: '/ˈʌŋkl/' },
+        { word: 'angry', ipa: '/ˈæŋɡri/' },
+        { word: 'finger', ipa: '/ˈfɪŋɡə/' },
+        { word: 'hungry', ipa: '/ˈhʌŋɡri/' },
+        { word: 'longer', ipa: '/ˈlɒŋɡə/' },
+        { word: 'single', ipa: '/ˈsɪŋɡl/' },
+    ];
+
+    const phrasesNg = [
+        { eng: 'thinking about things', ipa: '/ˈθɪŋkɪŋ əˈbaʊt θɪŋz/' },
+        { eng: 'a long evening singing songs', ipa: '/ə lɒŋ ˈiːvnɪŋ ˈsɪŋɪŋ sɒŋz/' },
+        { eng: 'a hungry man is an angry man', ipa: '/ə ˈhʌŋɡri mæn ɪz ən ˈæŋɡri mæn/' },
+    ];
+
+    const lifeSentences = [
+        { eng: 'I know how to sing well.', ipa: '/aɪ nəʊ haʊ tə sɪŋ wel/', meaning: 'Tôi biết hát hay.', highlight: ['know', 'sing'] },
+        { eng: 'My uncle is coming for dinner.', ipa: '/maɪ ˈʌŋkl ɪz ˈkʌmɪŋ fə ˈdɪnə/', meaning: 'Chú tôi sắp đến ăn tối.', highlight: ['uncle', 'coming', 'dinner'] },
+        { eng: 'The phone is ringing.', ipa: '/ðə fəʊn ɪz ˈrɪŋɪŋ/', meaning: 'Điện thoại đang reo.', highlight: ['ringing'] },
+        { eng: 'I\'m thinking about my summer plan.', ipa: '/aɪm ˈθɪŋkɪŋ əˈbaʊt maɪ ˈsʌmə plæn/', meaning: 'Tôi đang nghĩ về kế hoạch hè của mình.', highlight: ['thinking', 'summer'] },
+    ];
+
+    const geotechSentences = [
+        { eng: 'The ground is sinking slowly.', ipa: '/ðə ɡraʊnd ɪz ˈsɪŋkɪŋ ˈsləʊli/', meaning: 'Nền đất đang lún từ từ.', highlight: ['sinking'] },
+        { eng: 'We need to know the soil strength.', ipa: '/wiː niːd tə nəʊ ðə sɔɪl streŋθ/', meaning: 'Chúng ta cần biết cường độ đất.', highlight: ['know', 'strength'] },
+        { eng: 'The retaining wall is long and strong.', ipa: '/ðə rɪˈteɪnɪŋ wɔːl ɪz lɒŋ ænd strɒŋ/', meaning: 'Tường chắn dài và vững chắc.', highlight: ['retaining', 'long', 'strong'] },
+        { eng: 'Finger tests show soft clay.', ipa: '/ˈfɪŋɡə tests ʃəʊ sɒft kleɪ/', meaning: 'Thí nghiệm ngón tay cho thấy sét mềm.', highlight: ['Finger', 'tests', 'show'] },
+    ];
+
+    // ===== RENDER =====
+    function renderWordGrid(containerId, data) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = '';
+        data.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'word-card';
+            div.innerHTML = `
+                <span class="word">${item.word}</span>
+                <span class="ipa">${item.ipa}</span>
+                <button class="btn-sm" onclick="speakText('${item.word}', 0.75)" title="Nghe">🔊</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function renderPhrases(containerId, data) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = '';
+        data.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'sentence-item';
+            div.innerHTML = `
+                <div class="eng">${item.eng}</div>
+                <div class="ipa">${item.ipa}</div>
+                <button class="btn btn-purple" onclick="speakText('${item.eng}', 0.75)" style="padding:4px 16px;font-size:13px;margin-top:4px;">🔊 Nghe cụm từ</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    function renderSentences(containerId, data) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = '';
+        data.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'sentence-item';
+            let engHtml = item.eng;
+            if (item.highlight) {
+                item.highlight.forEach(h => {
+                    const regex = new RegExp(`\\b${h}\\b`, 'gi');
+                    engHtml = engHtml.replace(regex, `<span class="highlight">${h}</span>`);
+                });
+            }
+            div.innerHTML = `
+                <div class="eng">${engHtml}</div>
+                <div class="ipa">${item.ipa}</div>
+                <div class="meaning">🇻🇳 ${item.meaning}</div>
+                <button class="btn btn-purple" onclick="speakText('${item.eng}', 0.75)" style="padding:4px 16px;font-size:13px;margin-top:6px;">🔊 Nghe</button>
+            `;
+            container.appendChild(div);
+        });
+    }
+
+    // ===== INIT RENDER =====
+    renderWordGrid('vocabM', vocabM);
+    renderPhrases('phrasesM', phrasesM);
+    renderWordGrid('vocabN', vocabN);
+    renderPhrases('phrasesN', phrasesN);
+    renderWordGrid('vocabNg', vocabNg);
+    renderPhrases('phrasesNg', phrasesNg);
+    renderSentences('lifeSentences', lifeSentences);
+    renderSentences('geotechSentences', geotechSentences);
+
+    // ===== EXERCISE 19.1 =====
+    const ex19_1Data = [
+        { ipa: '/muːn/', answer: 'moon' },
+        { ipa: '/rɒŋ/', answer: 'wrong' },
+        { ipa: '/drɪŋk/', answer: 'drink' },
+        { ipa: '/ˈʌŋkl/', answer: 'uncle' },
+        { ipa: '/naɪvz/', answer: 'knives' },
+        { ipa: '/kʌm/', answer: 'come' },
+        { ipa: '/θɪŋ/', answer: 'thing' },
+        { ipa: '/ˈstrɒŋɡə/', answer: 'stronger' },
+    ];
+
+    function renderEx19_1() {
+        const container = document.getElementById('ex19_1');
+        container.innerHTML = '';
+        ex19_1Data.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.className = 'ex-row';
+            div.innerHTML = `
+                <label>${idx+1}.</label>
+                <span style="font-family:'Times New Roman',serif;font-size:22px;color:#1a2a6c;min-width:80px;">${item.ipa}</span>
+                <span style="font-weight:300;color:#5a6a7a;">→</span>
+                <input type="text" id="ex19_1_${idx}" placeholder="Viết từ..." data-answer="${item.answer}">
+                <span class="answer" id="ex19_1_ans_${idx}">${item.answer}</span>
+            `;
+            container.appendChild(div);
+        });
+    }
+    renderEx19_1();
+
+    function checkEx19_1() {
+        let correct = 0;
+        ex19_1Data.forEach((item, idx) => {
+            const input = document.getElementById(`ex19_1_${idx}`);
+            const ans = document.getElementById(`ex19_1_ans_${idx}`);
+            const val = input.value.trim().toLowerCase();
+            if (val === item.answer.toLowerCase()) {
+                input.style.borderColor = '#27ae60';
+                ans.classList.add('show');
+                correct++;
+            } else {
+                input.style.borderColor = '#e74c3c';
+                ans.classList.remove('show');
+            }
+        });
+        showToast(`✅ ${correct}/${ex19_1Data.length} đúng`);
+    }
+
+    function resetEx19_1() {
+        ex19_1Data.forEach((item, idx) => {
+            const input = document.getElementById(`ex19_1_${idx}`);
+            const ans = document.getElementById(`ex19_1_ans_${idx}`);
+            input.value = '';
+            input.style.borderColor = '#c0cbd8';
+            ans.classList.remove('show');
+        });
+    }
+
+    function showAllEx19_1() {
+        ex19_1Data.forEach((item, idx) => {
+            const ans = document.getElementById(`ex19_1_ans_${idx}`);
+            ans.classList.add('show');
+            const input = document.getElementById(`ex19_1_${idx}`);
+            input.style.borderColor = '#27ae60';
+        });
+        showToast('🔓 Đã hiển thị đáp án');
+    }
+
+    // ===== EXERCISE 19.2 =====
+    const ex19_2Words = ['knee', 'sing', 'think', 'know', 'finger', 'sunny', 'long', 'evening', 'one', 'bank'];
+    // Đáp án: n: knee, know, sunny, one; ŋ: sing, think, finger, long, evening, bank
+
+    function renderEx19_2() {
+        const container = document.getElementById('ex19_2');
+        container.innerHTML = `
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px;">
+                ${ex19_2Words.map((w, i) => `
+                    <span style="background:#eef3fc;padding:4px 14px;border-radius:30px;font-size:16px;font-weight:500;">${w}</span>
+                `).join('')}
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div>
+                    <strong style="color:#1a2a6c;">/n/</strong>
+                    <div id="ex19_2_n"></div>
+                </div>
+                <div>
+                    <strong style="color:#1a2a6c;">/ŋ/</strong>
+                    <div id="ex19_2_ng"></div>
+                </div>
+            </div>
+        `;
+        // Tạo input cho từng nhóm
+        const nContainer = document.getElementById('ex19_2_n');
+        const ngContainer = document.getElementById('ex19_2_ng');
+        // Chia từ: n: knee, know, sunny, one; ng: sing, think, finger, long, evening, bank
+        const nWords = ['knee', 'know', 'sunny', 'one'];
+        const ngWords = ['sing', 'think', 'finger', 'long', 'evening', 'bank'];
+        nWords.forEach(w => {
+            const div = document.createElement('div');
+            div.className = 'ex-row';
+            div.innerHTML = `
+                <input type="text" id="ex19_2_n_${w}" placeholder="${w}" data-answer="${w}" style="width:120px;">
+                <span class="answer" id="ex19_2_n_ans_${w}">✓</span>
+            `;
+            nContainer.appendChild(div);
+        });
+        ngWords.forEach(w => {
+            const div = document.createElement('div');
+            div.className = 'ex-row';
+            div.innerHTML = `
+                <input type="text" id="ex19_2_ng_${w}" placeholder="${w}" data-answer="${w}" style="width:120px;">
+                <span class="answer" id="ex19_2_ng_ans_${w}">✓</span>
+            `;
+            ngContainer.appendChild(div);
+        });
+    }
+    renderEx19_2();
+
+    function checkEx19_2() {
+        const nWords = ['knee', 'know', 'sunny', 'one'];
+        const ngWords = ['sing', 'think', 'finger', 'long', 'evening', 'bank'];
+        let correct = 0;
+        const total = nWords.length + ngWords.length;
+        nWords.forEach(w => {
+            const input = document.getElementById(`ex19_2_n_${w}`);
+            const ans = document.getElementById(`ex19_2_n_ans_${w}`);
+            if (input.value.trim().toLowerCase() === w) {
+                input.style.borderColor = '#27ae60';
+                ans.classList.add('show');
+                correct++;
+            } else {
+                input.style.borderColor = '#e74c3c';
+                ans.classList.remove('show');
+            }
+        });
+        ngWords.forEach(w => {
+            const input = document.getElementById(`ex19_2_ng_${w}`);
+            const ans = document.getElementById(`ex19_2_ng_ans_${w}`);
+            if (input.value.trim().toLowerCase() === w) {
+                input.style.borderColor = '#27ae60';
+                ans.classList.add('show');
+                correct++;
+            } else {
+                input.style.borderColor = '#e74c3c';
+                ans.classList.remove('show');
+            }
+        });
+        showToast(`✅ ${correct}/${total} đúng`);
+    }
+
+    function resetEx19_2() {
+        const nWords = ['knee', 'know', 'sunny', 'one'];
+        const ngWords = ['sing', 'think', 'finger', 'long', 'evening', 'bank'];
+        nWords.forEach(w => {
+            const input = document.getElementById(`ex19_2_n_${w}`);
+            const ans = document.getElementById(`ex19_2_n_ans_${w}`);
+            input.value = '';
+            input.style.borderColor = '#c0cbd8';
+            ans.classList.remove('show');
+        });
+        ngWords.forEach(w => {
+            const input = document.getElementById(`ex19_2_ng_${w}`);
+            const ans = document.getElementById(`ex19_2_ng_ans_${w}`);
+            input.value = '';
+            input.style.borderColor = '#c0cbd8';
+            ans.classList.remove('show');
+        });
+    }
+
+    function showAllEx19_2() {
+        const nWords = ['knee', 'know', 'sunny', 'one'];
+        const ngWords = ['sing', 'think', 'finger', 'long', 'evening', 'bank'];
+        nWords.forEach(w => {
+            const input = document.getElementById(`ex19_2_n_${w}`);
+            const ans = document.getElementById(`ex19_2_n_ans_${w}`);
+            input.value = w;
+            input.style.borderColor = '#27ae60';
+            ans.classList.add('show');
+        });
+        ngWords.forEach(w => {
+            const input = document.getElementById(`ex19_2_ng_${w}`);
+            const ans = document.getElementById(`ex19_2_ng_ans_${w}`);
+            input.value = w;
+            input.style.borderColor = '#27ae60';
+            ans.classList.add('show');
+        });
+        showToast('🔓 Đã hiển thị đáp án');
+    }
+
+    // ===== EXERCISE 19.3 =====
+    const ex19_3Data = [
+        { blank: 'room', words: ['room', 'nine', 'wrong', 'single', 'warm', 'uncle', 'languages', 'evening', 'hungry', 'answer'] },
+        { blank: 'nine', words: ['room', 'nine', 'wrong', 'single', 'warm', 'uncle', 'languages', 'evening', 'hungry', 'answer'] },
+        { blank: 'wrong', words: ['room', 'nine', 'wrong', 'single', 'warm', 'uncle', 'languages', 'evening', 'hungry', 'answer'] },
+        { blank: 'single', words: ['room', 'nine', 'wrong', 'single', 'warm', 'uncle', 'languages', 'evening', 'hungry', 'answer'] },
+        { blank: 'warm', words: ['room', 'nine', 'wrong', 'single', 'warm', 'uncle', 'languages', 'evening', 'hungry', 'answer'] },
+        { blank: 'uncle', words: ['room', 'nine', 'wrong', 'single', 'warm', 'uncle', 'languages', 'evening', 'hungry', 'answer'] },
+        { blank: 'languages', words: ['room', 'nine', 'wrong', 'single', 'warm', 'uncle', 'languages', 'evening', 'hungry', 'answer'] },
+        { blank: 'evening', words: ['room', 'nine', 'wrong', 'single', 'warm', 'uncle', 'languages', 'evening', 'hungry', 'answer'] },
+        { blank: 'hungry', words: ['room', 'nine', 'wrong', 'single', 'warm', 'uncle', 'languages', 'evening', 'hungry', 'answer'] },
+        { blank: 'answer', words: ['room', 'nine', 'wrong', 'single', 'warm', 'uncle', 'languages', 'evening', 'hungry', 'answer'] },
+    ];
+
+    function renderEx19_3() {
+        const container = document.getElementById('ex19_3');
+        container.innerHTML = `
+            <p style="color:#3a4a6a;margin-bottom:8px;">Chọn từ phù hợp để hoàn thành tiêu đề tranh (mô phỏng):</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;">
+                ${ex19_3Data.map((item, idx) => `
+                    <div class="ex-row">
+                        <label>${idx+1}.</label>
+                        <input type="text" id="ex19_3_${idx}" placeholder="từ..." data-answer="${item.blank}" style="width:100px;">
+                        <span class="answer" id="ex19_3_ans_${idx}">${item.blank}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+    renderEx19_3();
+
+    function checkEx19_3() {
+        let correct = 0;
+        ex19_3Data.forEach((item, idx) => {
+            const input = document.getElementById(`ex19_3_${idx}`);
+            const ans = document.getElementById(`ex19_3_ans_${idx}`);
+            if (input.value.trim().toLowerCase() === item.blank.toLowerCase()) {
+                input.style.borderColor = '#27ae60';
+                ans.classList.add('show');
+                correct++;
+            } else {
+                input.style.borderColor = '#e74c3c';
+                ans.classList.remove('show');
+            }
+        });
+        showToast(`✅ ${correct}/${ex19_3Data.length} đúng`);
+    }
+
+    function resetEx19_3() {
+        ex19_3Data.forEach((item, idx) => {
+            const input = document.getElementById(`ex19_3_${idx}`);
+            const ans = document.getElementById(`ex19_3_ans_${idx}`);
+            input.value = '';
+            input.style.borderColor = '#c0cbd8';
+            ans.classList.remove('show');
+        });
+    }
+
+    function showAllEx19_3() {
+        ex19_3Data.forEach((item, idx) => {
+            const input = document.getElementById(`ex19_3_${idx}`);
+            const ans = document.getElementById(`ex19_3_ans_${idx}`);
+            input.value = item.blank;
+            input.style.borderColor = '#27ae60';
+            ans.classList.add('show');
+        });
+        showToast('🔓 Đã hiển thị đáp án');
+    }
+
+    // ===== EXERCISE 19.4 =====
+    const ex19_4Data = [
+        { blank: 'singing', hint: 'The woman\'s listening to the radio and ______.' },
+        { blank: 'ringing', hint: 'The phone\'s ______.' },
+        { blank: 'sleeping', hint: 'The cat\'s ______.' },
+        { blank: 'raining', hint: 'It\'s ______.' },
+    ];
+
+    function renderEx19_4() {
+        const container = document.getElementById('ex19_4');
+        container.innerHTML = '';
+        ex19_4Data.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.className = 'ex-row';
+            div.innerHTML = `
+                <label>${idx+1}.</label>
+                <span style="font-size:15px;">${item.hint}</span>
+                <input type="text" id="ex19_4_${idx}" placeholder="viết từ..." data-answer="${item.blank}" style="width:120px;">
+                <span class="answer" id="ex19_4_ans_${idx}">${item.blank}</span>
+            `;
+            container.appendChild(div);
+        });
+    }
+    renderEx19_4();
+
+    function checkEx19_4() {
+        let correct = 0;
+        ex19_4Data.forEach((item, idx) => {
+            const input = document.getElementById(`ex19_4_${idx}`);
+            const ans = document.getElementById(`ex19_4_ans_${idx}`);
+            if (input.value.trim().toLowerCase() === item.blank.toLowerCase()) {
+                input.style.borderColor = '#27ae60';
+                ans.classList.add('show');
+                correct++;
+            } else {
+                input.style.borderColor = '#e74c3c';
+                ans.classList.remove('show');
+            }
+        });
+        showToast(`✅ ${correct}/${ex19_4Data.length} đúng`);
+    }
+
+    function resetEx19_4() {
+        ex19_4Data.forEach((item, idx) => {
+            const input = document.getElementById(`ex19_4_${idx}`);
+            const ans = document.getElementById(`ex19_4_ans_${idx}`);
+            input.value = '';
+            input.style.borderColor = '#c0cbd8';
+            ans.classList.remove('show');
+        });
+    }
+
+    function showAllEx19_4() {
+        ex19_4Data.forEach((item, idx) => {
+            const input = document.getElementById(`ex19_4_${idx}`);
+            const ans = document.getElementById(`ex19_4_ans_${idx}`);
+            input.value = item.blank;
+            input.style.borderColor = '#27ae60';
+            ans.classList.add('show');
+        });
+        showToast('🔓 Đã hiển thị đáp án');
+    }
+
+    // ===== EXERCISE 19.5 (Bonus) =====
+    const ex19_5Data = [
+        { pair: ['ran', 'rang'], correct: 0 },
+        { pair: ['thin', 'thing'], correct: 1 },
+        { pair: ['sin', 'sing'], correct: 1 },
+        { pair: ['win', 'wing'], correct: 1 },
+        { pair: ['ban', 'bang'], correct: 1 },
+    ];
+
+    function renderEx19_5() {
+        const container = document.getElementById('ex19_5');
+        container.innerHTML = `
+            <p style="color:#3a4a6a;margin-bottom:8px;">Nghe và chọn từ đúng (mô phỏng bài tập phân biệt):</p>
+            ${ex19_5Data.map((item, idx) => `
+                <div class="ex-row" style="border-bottom:1px solid #eef3fc;padding:8px 0;">
+                    <label>${idx+1}.</label>
+                    <button class="btn btn-purple" onclick="speakText('${item.pair.join(' or ')}', 0.7)" style="padding:2px 12px;font-size:12px;">🔊 Nghe</button>
+                    <select id="ex19_5_${idx}" data-correct="${item.correct}" style="border:1px solid #c0cbd8;border-radius:8px;padding:4px 8px;background:#fafcff;">
+                        <option value="">-- Chọn --</option>
+                        <option value="0">${item.pair[0]}</option>
+                        <option value="1">${item.pair[1]}</option>
+                    </select>
+                    <span class="answer" id="ex19_5_ans_${idx}" style="display:none;color:#27ae60;font-weight:600;">✓ ${item.pair[item.correct]}</span>
+                </div>
+            `).join('')}
+        `;
+    }
+    renderEx19_5();
+
+    function checkEx19_5() {
+        let correct = 0;
+        ex19_5Data.forEach((item, idx) => {
+            const select = document.getElementById(`ex19_5_${idx}`);
+            const ans = document.getElementById(`ex19_5_ans_${idx}`);
+            const val = parseInt(select.value);
+            if (val === item.correct) {
+                select.style.borderColor = '#27ae60';
+                ans.style.display = 'inline';
+                correct++;
+            } else {
+                select.style.borderColor = '#e74c3c';
+                ans.style.display = 'none';
+            }
+        });
+        showToast(`✅ ${correct}/${ex19_5Data.length} đúng`);
+    }
+
+    function resetEx19_5() {
+        ex19_5Data.forEach((item, idx) => {
+            const select = document.getElementById(`ex19_5_${idx}`);
+            const ans = document.getElementById(`ex19_5_ans_${idx}`);
+            select.value = '';
+            select.style.borderColor = '#c0cbd8';
+            ans.style.display = 'none';
+        });
+    }
+
+    function showAllEx19_5() {
+        ex19_5Data.forEach((item, idx) => {
+            const select = document.getElementById(`ex19_5_${idx}`);
+            const ans = document.getElementById(`ex19_5_ans_${idx}`);
+            select.value = item.correct;
+            select.style.borderColor = '#27ae60';
+            ans.style.display = 'inline';
+        });
+        showToast('🔓 Đã hiển thị đáp án');
+    }
+
+    // ===== MARK COMPLETED =====
+    setTimeout(() => {
+        let completed = [];
+        try {
+            const data = localStorage.getItem('epu_completed');
+            if (data) completed = JSON.parse(data);
+        } catch {}
+        if (!completed.includes(19)) {
+            completed.push(19);
+            localStorage.setItem('epu_completed', JSON.stringify(completed));
+        }
+    }, 1000);
+
+    // Load voices
+    if (window.speechSynthesis) {
+        speechSynthesis.getVoices();
+        speechSynthesis.onvoiceschanged = () => {
+            speechSynthesis.getVoices();
+        };
+    }
+
+    console.log('✅ Bài 19 - My hungry uncle đã sẵn sàng!');
+</script>
+</body>
+</html>
