@@ -1,1 +1,649 @@
-In
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Pronunciation in Use - Lộ trình học phát âm</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            padding: 20px 15px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, #1a2a6c, #2d4373, #1a2a6c);
+            color: white;
+            padding: 30px 25px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(26, 42, 108, 0.3);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .header h1 span {
+            color: #f1c40f;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.85;
+            margin-top: 8px;
+        }
+
+        .header .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .header .badge-row .badge {
+            background: rgba(255,255,255,0.15);
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .header .badge-row .badge strong {
+            color: #f1c40f;
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-wrapper {
+            background: white;
+            border-radius: 16px;
+            padding: 16px 22px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .progress-wrapper .stats {
+            font-size: 15px;
+            color: #2c3e50;
+        }
+
+        .progress-wrapper .stats strong {
+            color: #1a2a6c;
+        }
+
+        .progress-bar-track {
+            flex: 1;
+            min-width: 150px;
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar-track .fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            border-radius: 30px;
+            transition: width 0.6s ease;
+        }
+
+        .progress-wrapper .progress-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: #27ae60;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        /* ===== SECTION HEADER ===== */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 35px 0 18px 0;
+            padding-bottom: 8px;
+            border-bottom: 3px solid #e2e8f0;
+        }
+
+        .section-header .letter {
+            background: #1a2a6c;
+            color: white;
+            font-size: 22px;
+            font-weight: 800;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-header h2 {
+            font-size: 22px;
+            color: #1a2a6c;
+        }
+
+        .section-header .count {
+            font-size: 14px;
+            color: #7f8c8d;
+            font-weight: 400;
+            margin-left: auto;
+        }
+
+        /* ===== GRID CARDS ===== */
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 14px;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 14px;
+            padding: 16px 18px;
+            border: 1px solid #e2e8f0;
+            transition: 0.25s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border-color: #b0c4de;
+        }
+
+        .lesson-card .top-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .lesson-card .number {
+            background: #eef2f7;
+            color: #2c3e50;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 2px 12px;
+            border-radius: 30px;
+            flex-shrink: 0;
+        }
+
+        .lesson-card .status {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .lesson-card .status.done {
+            color: #27ae60;
+        }
+
+        .lesson-card .status.pending {
+            color: #bdc3c7;
+        }
+
+        .lesson-card .title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a2a3a;
+            margin: 8px 0 4px 0;
+        }
+
+        .lesson-card .sub {
+            font-size: 14px;
+            color: #5a6a7a;
+            margin-bottom: 8px;
+        }
+
+        .lesson-card .ipa-tag {
+            display: inline-block;
+            background: #f1f5f9;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            font-weight: 700;
+            color: #c0392b;
+            padding: 2px 14px;
+            border-radius: 30px;
+            margin-top: 4px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .lesson-card .badge-sound {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 30px;
+            margin-top: 6px;
+            background: #eaf4f9;
+            color: #2980b9;
+        }
+
+        .lesson-card .badge-sound.vowel {
+            background: #fef9e7;
+            color: #b7950b;
+        }
+
+        .lesson-card .badge-sound.consonant {
+            background: #eafaf1;
+            color: #1a6e4a;
+        }
+
+        .lesson-card .badge-sound.other {
+            background: #f5eef8;
+            color: #7d3c98;
+        }
+
+        .lesson-card .btn-go {
+            margin-top: 12px;
+            padding: 6px 0;
+            background: #1a2a6c;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            transition: 0.2s;
+            width: 100%;
+        }
+
+        .lesson-card .btn-go:hover {
+            background: #2d4373;
+        }
+
+        .lesson-card .btn-go.coming {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .lesson-card.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .lesson-card.disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 30px 0 10px;
+            color: #95a5a6;
+            font-size: 14px;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 30px;
+        }
+
+        .footer strong {
+            color: #1a2a6c;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 650px) {
+            .header h1 {
+                font-size: 22px;
+            }
+            .header p {
+                font-size: 14px;
+            }
+            .lesson-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .lesson-card {
+                padding: 12px 14px;
+            }
+            .lesson-card .title {
+                font-size: 15px;
+            }
+            .progress-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .progress-wrapper .progress-text {
+                text-align: center;
+            }
+            .section-header h2 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .lesson-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 14px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- ===== HEADER ===== -->
+    <div class="header">
+        <h1>🎯 <span>English Pronunciation</span> in Use</h1>
+        <p>Lộ trình học phát âm tiếng Anh — 43 bài học từ cơ bản đến nâng cao</p>
+        <div class="badge-row">
+            <span class="badge">📚 <strong>Section A</strong> Sounds & Spelling</span>
+            <span class="badge">📖 <strong>Section B</strong> Syllables & Words</span>
+            <span class="badge">✍️ <strong>Section C</strong> Phrases & Sentences</span>
+            <span class="badge">💬 <strong>Section D</strong> Conversation</span>
+        </div>
+    </div>
+
+    <!-- ===== PROGRESS ===== -->
+    <div class="progress-wrapper" id="progressWrapper">
+        <div class="stats">
+            📊 Tiến độ: <strong id="doneCount">0</strong>/<span id="totalCount">43</span> bài
+        </div>
+        <div class="progress-bar-track">
+            <div class="fill" id="progressFill" style="width:0%;"></div>
+        </div>
+        <div class="progress-text" id="progressPercent">0%</div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION A: SOUNDS AND SPELLING (Bài 1-27) -->
+    <!-- ============================================================ -->
+    <div class="section-header">
+        <div class="letter">A</div>
+        <h2>Sounds and spelling</h2>
+        <span class="count">27 bài</span>
+    </div>
+
+    <div class="lesson-grid" id="sectionA">
+        <!-- JS sẽ render -->
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION B: SYLLABLES AND WORDS (Bài 28-32) -->
+    <!-- ============================================================ -->
+    <div class="section-header">
+        <div class="letter">B</div>
+        <h2>Syllables and words</h2>
+        <span class="count">5 bài</span>
+    </div>
+
+    <div class="lesson-grid" id="sectionB">
+        <!-- JS sẽ render -->
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION C: PHRASES, SENTENCES AND GRAMMAR (Bài 33-43) -->
+    <!-- ============================================================ -->
+    <div class="section-header">
+        <div class="letter">C</div>
+        <h2>Phrases, sentences and grammar</h2>
+        <span class="count">11 bài</span>
+    </div>
+
+    <div class="lesson-grid" id="sectionC">
+        <!-- JS sẽ render -->
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SECTION D: CONVERSATION (Bài 44-50) -->
+    <!-- ============================================================ -->
+    <div class="section-header">
+        <div class="letter">D</div>
+        <h2>Conversation</h2>
+        <span class="count">7 bài</span>
+    </div>
+
+    <div class="lesson-grid" id="sectionD">
+        <!-- JS sẽ render -->
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER -->
+    <!-- ============================================================ -->
+    <div class="footer">
+        <p>💡 <strong>Hướng dẫn:</strong> Bấm vào bài học để bắt đầu. Bài nào có <strong>🔊</strong> là đã có âm thanh TTS.</p>
+        <p style="margin-top:4px;font-size:13px;">📱 Học mọi lúc, mọi nơi — trên điện thoại, máy tính, hoặc đưa lên GitHub Pages!</p>
+    </div>
+
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<script>
+    // ================================================================
+    // DỮ LIỆU TẤT CẢ BÀI HỌC
+    // ================================================================
+
+    const lessons = {
+        // ===== SECTION A: Sounds and spelling (1-27) =====
+        A: [
+            { id: 1, title: 'How many letters, how many sounds?', sub: 'Spelling and pronunciation', ipa: '', sound: 'Spelling', type: 'other', file: '01-letters-sounds.html' },
+            { id: 2, title: 'Pizza for dinner', sub: 'Âm /iː/ và /ɪ/', ipa: '/iː/ /ɪ/', sound: 'Vowel', type: 'vowel', file: '02-i-i-sound.html' },
+            { id: 3, title: 'A spoonful of sugar', sub: 'Âm /uː/ và /ʊ/', ipa: '/uː/ /ʊ/', sound: 'Vowel', type: 'vowel', file: '03-u-u-sound.html' },
+            { id: 4, title: 'Father and mother', sub: 'Âm /ɑː/ và /ʌ/', ipa: '/ɑː/ /ʌ/', sound: 'Vowel', type: 'vowel', file: '04-ah-uh-sound.html' },
+            { id: 5, title: 'A dog in the corner', sub: 'Âm /ɒ/ và /ɔː/', ipa: '/ɒ/ /ɔː/', sound: 'Vowel', type: 'vowel', file: '05-o-aw-sound.html' },
+            { id: 6, title: 'Bread and jam', sub: 'Âm /e/ và /æ/', ipa: '/e/ /æ/', sound: 'Vowel', type: 'vowel', file: '06-e-ae-sound.html' },
+            { id: 7, title: 'My birthday\'s on Thursday', sub: 'Âm /ɜː/', ipa: '/ɜː/', sound: 'Vowel', type: 'vowel', file: '07-er-sound.html' },
+            { id: 8, title: 'Here and there', sub: 'Âm /ɪə/ và /eə/', ipa: '/ɪə/ /eə/', sound: 'Vowel', type: 'vowel', file: '08-ih-eh-sound.html' },
+            { id: 9, title: 'Have a great time!', sub: 'Âm /eɪ/, /aɪ/ và /əʊ/', ipa: '/eɪ/ /aɪ/ /əʊ/', sound: 'Vowel', type: 'vowel', file: '09-ei-ai-eu-sound.html' },
+            { id: 10, title: 'Old town', sub: 'Âm /əʊ/ và /aʊ/', ipa: '/əʊ/ /aʊ/', sound: 'Vowel', type: 'vowel', file: '10-eu-au-sound.html' },
+            { id: 11, title: 'Pack your bags', sub: 'Âm /p/ và /b/', ipa: '/p/ /b/', sound: 'Consonant', type: 'consonant', file: '11-p-b-sound.html' },
+            { id: 12, title: 'Twenty days', sub: 'Âm /t/ và /d/', ipa: '/t/ /d/', sound: 'Consonant', type: 'consonant', file: '12-t-d-sound.html' },
+            { id: 13, title: 'Cats and dogs', sub: 'Âm /k/ và /g/', ipa: '/k/ /g/', sound: 'Consonant', type: 'consonant', file: '13-k-g-sound.html' },
+            { id: 14, title: 'November the first', sub: 'Âm /f/ và /v/', ipa: '/f/ /v/', sound: 'Consonant', type: 'consonant', file: '14-f-v-sound.html' },
+            { id: 15, title: 'Both together', sub: 'Âm /θ/ và /ð/', ipa: '/θ/ /ð/', sound: 'Consonant', type: 'consonant', file: '15-th-sound.html' },
+            { id: 16, title: 'It\'s the wrong size, isn\'t it?', sub: 'Âm /s/ và /z/', ipa: '/s/ /z/', sound: 'Consonant', type: 'consonant', file: '16-s-z-sound.html' },
+            { id: 17, title: 'Fresh fish, usually', sub: 'Âm /ʃ/ và /ʒ/', ipa: '/ʃ/ /ʒ/', sound: 'Consonant', type: 'consonant', file: '17-sh-zh-sound.html' },
+            { id: 18, title: 'Chips and juice', sub: 'Âm /tʃ/ và /dʒ/', ipa: '/tʃ/ /dʒ/', sound: 'Consonant', type: 'consonant', file: '18-ch-j-sound.html' },
+            { id: 19, title: 'My hungry uncle', sub: 'Âm /m/, /n/ và /ŋ/', ipa: '/m/ /n/ /ŋ/', sound: 'Consonant', type: 'consonant', file: '19-m-n-ng-sound.html' },
+            { id: 20, title: 'How many hours?', sub: 'Âm /h/', ipa: '/h/', sound: 'Consonant', type: 'consonant', file: '20-h-sound.html' },
+            { id: 21, title: 'That\'s life!', sub: 'Âm /l/', ipa: '/l/', sound: 'Consonant', type: 'consonant', file: '21-l-sound.html' },
+            { id: 22, title: 'What terrible weather!', sub: 'Âm /r/', ipa: '/r/', sound: 'Consonant', type: 'consonant', file: '22-r-sound.html' },
+            { id: 23, title: 'What\'s the news?', sub: 'Âm /w/ và /j/', ipa: '/w/ /j/', sound: 'Consonant', type: 'consonant', file: '23-w-j-sound.html' },
+            { id: 24, title: 'Sunglasses or umbrella?', sub: 'Consonant groups in the middle', ipa: 'Clusters', sound: 'Consonant', type: 'other', file: '24-middle-clusters.html' },
+            { id: 25, title: 'Train in the rain', sub: 'Consonant groups at the beginning', ipa: 'Clusters', sound: 'Consonant', type: 'other', file: '25-beginning-clusters.html' },
+            { id: 26, title: 'Pink and orange', sub: 'Consonant groups at the end', ipa: 'Clusters', sound: 'Consonant', type: 'other', file: '26-end-clusters.html' },
+            { id: 27, title: 'Last week', sub: 'Consonant groups across words', ipa: 'Clusters', sound: 'Consonant', type: 'other', file: '27-across-clusters.html' }
+        ],
+
+        // ===== SECTION B: Syllables and words (28-32) =====
+        B: [
+            { id: 28, title: 'One house, two houses', sub: 'Syllables', ipa: 'Syllables', sound: 'Syllables', type: 'other', file: '28-syllables.html' },
+            { id: 29, title: 'Wait a minute – where\'s the waiter?', sub: 'Strong and weak vowels', ipa: 'Weak/Strong', sound: 'Stress', type: 'other', file: '29-weak-strong.html' },
+            { id: 30, title: 'Single or return?', sub: 'Stress in two-syllable words', ipa: 'Stress', sound: 'Stress', type: 'other', file: '30-two-syllable-stress.html' },
+            { id: 31, title: 'Begin at the beginning', sub: 'Stress in longer words', ipa: 'Stress', sound: 'Stress', type: 'other', file: '31-longer-stress.html' },
+            { id: 32, title: 'Where\'s my checklist?', sub: 'Stress in compound words', ipa: 'Stress', sound: 'Stress', type: 'other', file: '32-compound-stress.html' }
+        ],
+
+        // ===== SECTION C: Phrases, sentences and grammar (33-43) =====
+        C: [
+            { id: 33, title: 'Phrases and pauses', sub: 'Reading aloud', ipa: 'Intonation', sound: 'Phrases', type: 'other', file: '33-phrases-pauses.html' },
+            { id: 34, title: 'Speak it, write it, read it', sub: 'Linking words together 1', ipa: 'Linking', sound: 'Linking', type: 'other', file: '34-linking-1.html' },
+            { id: 35, title: 'Me and you, you and me', sub: 'Linking words together 2', ipa: 'Linking', sound: 'Linking', type: 'other', file: '35-linking-2.html' },
+            { id: 36, title: 'Take me to the show, Jo', sub: 'Rhythm', ipa: 'Rhythm', sound: 'Rhythm', type: 'other', file: '36-rhythm.html' },
+            { id: 37, title: 'Hey, wait for me!', sub: 'Strong and weak forms 1: Pronouns', ipa: 'Weak/Strong', sound: 'Weak forms', type: 'other', file: '37-weak-pronouns.html' },
+            { id: 38, title: 'And what\'s his name?', sub: 'Weak forms 2: Possessives, conjunctions, prepositions', ipa: 'Weak/Strong', sound: 'Weak forms', type: 'other', file: '38-weak-possessives.html' },
+            { id: 39, title: 'There\'s a spider', sub: 'Weak forms 3: Articles, comparatives, \'there\'', ipa: 'Weak/Strong', sound: 'Weak forms', type: 'other', file: '39-weak-articles.html' },
+            { id: 40, title: 'Who was that?', sub: 'Weak forms 4: Auxiliary verbs', ipa: 'Weak/Strong', sound: 'Weak forms', type: 'other', file: '40-weak-auxiliary.html' },
+            { id: 41, title: 'They\'re here!', sub: 'Contractions', ipa: 'Contractions', sound: 'Contractions', type: 'other', file: '41-contractions.html' },
+            { id: 42, title: 'It\'s George\'s birthday', sub: 'Pronouncing -s endings', ipa: '/s/ /z/ /ɪz/', sound: 'Endings', type: 'other', file: '42-s-endings.html' },
+            { id: 43, title: 'I looked everywhere', sub: 'Pronouncing past tenses', ipa: '/t/ /d/ /ɪd/', sound: 'Endings', type: 'other', file: '43-past-tenses.html' }
+        ],
+
+        // ===== SECTION D: Conversation (44-50) =====
+        D: [
+            { id: 44, title: 'Not half past two, half past three', sub: 'Intonation for old and new information', ipa: 'Intonation', sound: 'Intonation', type: 'other', file: '44-intonation-old-new.html' },
+            { id: 45, title: 'And suddenly ...', sub: 'Intonation in storytelling', ipa: 'Intonation', sound: 'Intonation', type: 'other', file: '45-intonation-story.html' },
+            { id: 46, title: 'Really? That\'s amazing!', sub: 'Being a good listener', ipa: 'Intonation', sound: 'Intonation', type: 'other', file: '46-listener.html' },
+            { id: 47, title: 'I know when it is, but not where', sub: 'Important words in conversation 1', ipa: 'Stress', sound: 'Stress', type: 'other', file: '47-important-words-1.html' },
+            { id: 48, title: 'Finished? I\'ve just started!', sub: 'Important words in conversation 2', ipa: 'Stress', sound: 'Stress', type: 'other', file: '48-important-words-2.html' },
+            { id: 49, title: 'No, thanks, I\'m just looking', sub: 'Intonation in phrases and sentences 1', ipa: 'Intonation', sound: 'Intonation', type: 'other', file: '49-intonation-phrases-1.html' },
+            { id: 50, title: 'Fine, thanks', sub: 'Intonation in phrases and sentences 2', ipa: 'Intonation', sound: 'Intonation', type: 'other', file: '50-intonation-phrases-2.html' }
+        ]
+    };
+
+    // ================================================================
+    // RENDER FUNCTIONS
+    // ================================================================
+
+    function renderSection(sectionId, lessonsData, containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+
+        lessonsData.forEach((lesson, index) => {
+            const card = document.createElement('a');
+            card.className = 'lesson-card';
+            card.href = `sectionA/${lesson.file}`;
+
+            // Status: nếu file tồn tại thì check, mặc định pending
+            const isDone = false; // sẽ update sau khi học
+            const statusIcon = isDone ? '✅' : '⏳';
+
+            // Badge type
+            let badgeClass = 'badge-sound';
+            if (lesson.type === 'vowel') badgeClass += ' vowel';
+            else if (lesson.type === 'consonant') badgeClass += ' consonant';
+            else badgeClass += ' other';
+
+            card.innerHTML = `
+                <div class="top-row">
+                    <span class="number">${lesson.id}</span>
+                    <span class="status ${isDone ? 'done' : 'pending'}">${statusIcon}</span>
+                </div>
+                <div class="title">${lesson.title}</div>
+                <div class="sub">${lesson.sub}</div>
+                ${lesson.ipa ? `<span class="ipa-tag">${lesson.ipa}</span>` : ''}
+                <span class="${badgeClass}">${lesson.sound}</span>
+                <div class="btn-go">🚀 Vào bài</div>
+            `;
+
+            container.appendChild(card);
+        });
+    }
+
+    // ================================================================
+    // PROGRESS TRACKING (localStorage)
+    // ================================================================
+
+    function getCompleted() {
+        try {
+            const data = localStorage.getItem('epu_completed');
+            return data ? JSON.parse(data) : [];
+        } catch { return []; }
+    }
+
+    function updateProgress() {
+        const completed = getCompleted();
+        const total = 43;
+        const done = completed.length;
+        const percent = Math.round((done / total) * 100);
+
+        document.getElementById('doneCount').textContent = done;
+        document.getElementById('totalCount').textContent = total;
+        document.getElementById('progressFill').style.width = percent + '%';
+        document.getElementById('progressPercent').textContent = percent + '%';
+
+        // Update status icons
+        document.querySelectorAll('.lesson-card').forEach(card => {
+            const numberEl = card.querySelector('.number');
+            if (!numberEl) return;
+            const id = parseInt(numberEl.textContent);
+            const statusEl = card.querySelector('.status');
+            if (completed.includes(id)) {
+                statusEl.textContent = '✅';
+                statusEl.className = 'status done';
+            } else {
+                statusEl.textContent = '⏳';
+                statusEl.className = 'status pending';
+            }
+        });
+    }
+
+    // ================================================================
+    // TOAST
+    // ================================================================
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // ================================================================
+    // INIT
+    // ================================================================
+
+    // Render all sections
+    renderSection('A', lessons.A, 'sectionA');
+    renderSection('B', lessons.B, 'sectionB');
+    renderSection('C', lessons.C, 'sectionC');
+    renderSection('D', lessons.D, 'sectionD');
+
+    // Update progress
+    updateProgress();
+
+    // Toast welcome
+    setTimeout(() => {
+        showToast('🎯 Chào mừng! Bấm vào bài học để bắt đầu luyện phát âm.');
+    }, 500);
+
+    console.log('✅ English Pronunciation in Use - Index đã sẵn sàng!');
+    console.log('📚 Tổng cộng 43 bài học.');
+</script>
+
+</body>
+</html>
