@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bai 12 - /t/ va /d/ | Twenty days</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f0f4f8;padding:20px 15px;min-height:100vh;}
+        .container{max-width:1000px;margin:0 auto;}
+        .header{background:linear-gradient(135deg,#1a4a6a,#2d6a9a);color:white;padding:24px 28px;border-radius:20px;margin-bottom:25px;box-shadow:0 8px 30px rgba(26,74,106,.35);}
+        .header .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+        .lesson-number{background:rgba(255,255,255,.15);padding:4px 18px;border-radius:30px;font-size:14px;border:1px solid rgba(255,255,255,.2);}
+        .header h1{font-size:28px;font-weight:800;margin-top:8px;}
+        .header h1 span{color:#f1c40f;}
+        .phoneme-badge{display:inline-block;background:#f1c40f;color:#1a4a6a;font-size:22px;font-weight:900;padding:4px 18px;border-radius:12px;margin-top:8px;font-family:'Courier New',monospace;}
+        .header .sub{font-size:15px;opacity:.85;margin-top:6px;}
+        .nav-link{display:inline-block;margin-top:12px;color:#f1c40f;text-decoration:none;font-weight:600;font-size:14px;}
+        .section{background:white;border-radius:16px;padding:22px 26px;margin-bottom:20px;border:1px solid #e2e8f0;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+        .section-title{font-size:19px;font-weight:700;color:#1a4a6a;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+        .badge{background:#eef2f7;font-size:13px;font-weight:600;padding:2px 14px;border-radius:30px;color:#2c3e50;}
+        .badge.audio{background:#d5f5e3;color:#1a6e4a;}
+        .badge.tip{background:#fef9e7;color:#7d6608;}
+        .badge.geo{background:#d6eaf8;color:#1a4a7a;}
+        .badge.life{background:#d5f5e3;color:#1a6e4a;}
+        .section p{font-size:15px;line-height:1.9;color:#2c3e50;margin-bottom:10px;}
+        .ipa-text{font-family:'Courier New',monospace;color:#c0392b;background:#fff5f5;padding:2px 10px;border-radius:6px;font-size:15px;}
+        .vi-text{color:#27ae60;font-style:italic;background:#f0faf5;padding:8px 14px;border-radius:8px;margin:6px 0 12px;border-left:3px solid #27ae60;font-size:14px;}
+        .ipa-row{display:flex;flex-wrap:wrap;gap:6px 16px;background:#f8fafc;padding:10px 16px;border-radius:10px;margin:8px 0;border:1px solid #e2e8f0;}
+        .ipa-row .ipa{font-family:'Courier New',monospace;color:#c0392b;font-size:14px;}
+        .ipa-row .vi{color:#27ae60;font-style:italic;font-size:13px;}
+        .diagram-box{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0;}
+        .diagram-card{flex:1;min-width:180px;border-radius:14px;padding:16px 18px;text-align:center;}
+        .diagram-card.t-card{background:linear-gradient(135deg,#fff5f7,#ffe8ec);border:2px solid #f5b7c0;}
+        .diagram-card.d-card{background:linear-gradient(135deg,#f0f5ff,#dce8ff);border:2px solid #a0b8f0;}
+        .diagram-card .phoneme{font-size:48px;font-weight:900;font-family:'Courier New',monospace;line-height:1.1;}
+        .t-card .phoneme{color:#c0392b;}
+        .d-card .phoneme{color:#1a4a9a;}
+        .diagram-card .ipa-label{font-family:'Courier New',monospace;font-size:16px;color:#555;margin:4px 0;}
+        .diagram-card .desc{font-size:13px;color:#444;line-height:1.7;margin-top:8px;text-align:left;}
+        .diagram-card .desc li{margin-left:14px;margin-bottom:3px;}
+        .word-grid{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .word-card{background:white;border:2px solid #e2e8f0;border-radius:12px;padding:10px 14px;min-width:130px;cursor:pointer;transition:.2s;}
+        .word-card:hover{border-color:#c0392b;box-shadow:0 4px 14px rgba(192,57,43,.12);}
+        .word-card.d-wc:hover{border-color:#1a4a9a;}
+        .word-card .word{font-size:17px;font-weight:700;color:#1a2a3a;}
+        .word-card .ipa{font-family:'Courier New',monospace;font-size:12px;color:#c0392b;margin-top:2px;}
+        .word-card.d-wc .ipa{color:#1a4a9a;}
+        .word-card .vi{font-size:12px;color:#27ae60;margin-top:2px;}
+        .ht{background:#c0392b;color:white;border-radius:3px;padding:0 2px;}
+        .hd{background:#1a4a9a;color:white;border-radius:3px;padding:0 2px;}
+        .sentence-list{list-style:none;padding:0;margin:10px 0;}
+        .sentence-list li{padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:15px;line-height:1.8;background:#f8fafc;border-left:4px solid #e2e8f0;cursor:pointer;transition:.2s;}
+        .sentence-list li:hover{background:#f0f6ff;border-left-color:#1a4a9a;}
+        .sentence-list li .ipa-s{font-family:'Courier New',monospace;font-size:12px;color:#c0392b;display:block;margin-top:3px;}
+        .sentence-list li .vi-s{font-size:13px;color:#27ae60;display:block;margin-top:2px;}
+        .btn{background:#3498db;color:white;border:none;padding:8px 20px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px;}
+        .btn:hover{transform:scale(1.03);opacity:.9;}
+        .btn-red{background:#c0392b;}
+        .btn-blue{background:#1a4a9a;}
+        .btn-success{background:#27ae60;}
+        .btn-warning{background:#f39c12;}
+        .btn-purple{background:#8e44ad;}
+        .btn-danger{background:#e74c3c;}
+        .btn-teal{background:#1abc9c;}
+        .btn-group{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .tip-box{background:#fef9e7;border:2px solid #f7dc6f;border-radius:12px;padding:14px 18px;margin:12px 0;}
+        .tip-title{font-weight:700;color:#7d6608;font-size:15px;margin-bottom:6px;}
+        .tip-content{font-size:14px;color:#5a4a1a;line-height:1.9;}
+        .tip-content p{margin-bottom:8px;}
+        .note-box{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:14px;color:#856404;line-height:1.7;}
+        .geo-box{background:#eafaf1;border:2px solid #1abc9c;border-radius:12px;padding:14px 18px;margin:10px 0;}
+        .geo-title{font-weight:700;color:#1a6e4a;font-size:15px;margin-bottom:6px;}
+        .geo-content{font-size:14px;color:#1a4a3a;line-height:1.9;}
+        .listen-box{background:#1a2a3a;color:#e0f0ff;border-radius:12px;padding:14px 18px;margin:12px 0;font-size:14px;line-height:1.9;}
+        .listen-box .lb-title{font-weight:700;color:#f1c40f;font-size:15px;margin-bottom:8px;}
+        .listen-box .pair-row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:6px;align-items:center;}
+        .listen-box .normal{color:#aad4ff;}
+        .listen-box .reduced{color:#f39c12;font-style:italic;}
+        /* EXERCISE ENGINE */
+        .ex-wrap{background:#fafcff;border:2px solid #e2e8f0;border-radius:14px;padding:20px 22px;margin:14px 0;}
+        .ex-title{font-weight:700;color:#1a4a6a;font-size:17px;margin-bottom:10px;}
+        .ex-instruction{background:#fff8e1;border:1px solid #f9c74f;border-radius:10px;padding:11px 15px;font-size:14px;color:#5a4a00;margin-bottom:14px;line-height:1.7;}
+        .ex-instruction strong{color:#c0392b;}
+        /* 12.1 - fill gap input */
+        .gap-input-items{display:flex;flex-direction:column;gap:8px;margin:10px 0;}
+        .gap-input-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:11px 16px;font-size:15px;line-height:2;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+        .gap-input-item .num{font-weight:700;color:#1a4a6a;min-width:22px;}
+        .gap-input-item input{border:2px solid #c0392b;border-radius:8px;padding:4px 10px;font-size:15px;font-family:'Segoe UI',sans-serif;outline:none;min-width:80px;max-width:140px;transition:.2s;}
+        .gap-input-item input:focus{border-color:#1a4a9a;background:#f0f6ff;}
+        .gap-input-item input.correct{border-color:#27ae60;background:#d5f5e3;color:#1a6e4a;}
+        .gap-input-item input.wrong{border-color:#e74c3c;background:#fadbd8;color:#922b21;}
+        /* 12.2 - number words */
+        .num-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:10px 0;}
+        .num-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;}
+        .num-item .num-word{font-size:15px;font-weight:700;color:#1a4a6a;min-width:50px;}
+        .num-item input{flex:1;border:2px solid #e2e8f0;border-radius:8px;padding:5px 10px;font-size:14px;outline:none;transition:.2s;}
+        .num-item input:focus{border-color:#c0392b;}
+        .num-item input.correct{border-color:#27ae60;background:#d5f5e3;color:#1a6e4a;}
+        .num-item input.wrong{border-color:#e74c3c;background:#fadbd8;color:#922b21;}
+        .num-item .chk{font-size:16px;min-width:20px;}
+        /* 12.3 */
+        .sent-fill-items{display:flex;flex-direction:column;gap:8px;margin:10px 0;}
+        .sent-fill-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:11px 16px;font-size:15px;line-height:2;}
+        .sent-fill-item .num{font-weight:700;color:#1a4a6a;margin-right:6px;}
+        .sfblank{display:inline-block;border-bottom:2px solid #c0392b;min-width:100px;text-align:center;margin:0 4px;cursor:text;color:#1a4a9a;font-weight:600;vertical-align:bottom;}
+        .sfblank input{border:none;border-bottom:2px solid #c0392b;outline:none;font-size:15px;font-weight:600;color:#1a4a9a;background:transparent;min-width:100px;text-align:center;font-family:'Segoe UI',sans-serif;}
+        .sfblank input.correct{color:#27ae60;border-bottom-color:#27ae60;}
+        .sfblank input.wrong{color:#e74c3c;border-bottom-color:#e74c3c;}
+        /* 12.4 poem */
+        .poem-box{background:#f0f4f8;border-left:4px solid #1a4a9a;border-radius:10px;padding:16px 20px;margin:10px 0;font-size:15px;line-height:2.2;color:#1a2a3a;}
+        .poem-box .stress-t{font-weight:700;color:#c0392b;text-decoration:underline;text-decoration-color:#f1c40f;text-underline-offset:3px;}
+        .poem-box .stress-d{font-weight:700;color:#1a4a9a;text-decoration:underline;text-decoration-color:#7ec8f0;text-underline-offset:3px;}
+        /* 12.5 choice */
+        .choice-items{display:flex;flex-direction:column;gap:10px;margin:10px 0;}
+        .choice-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;}
+        .choice-item .num{font-weight:700;color:#1a4a6a;}
+        .choice-btn{display:inline-block;padding:5px 18px;border-radius:20px;border:2px solid #e2e8f0;margin:4px 6px 0 0;cursor:pointer;font-size:14px;font-weight:600;transition:.2s;background:white;color:#333;user-select:none;}
+        .choice-btn:hover{border-color:#1a4a9a;color:#1a4a9a;}
+        .choice-btn.sel-t{background:#c0392b;color:white;border-color:#c0392b;}
+        .choice-btn.sel-d{background:#1a4a9a;color:white;border-color:#1a4a9a;}
+        .choice-btn.correct-c{background:#27ae60;color:white;border-color:#27ae60;pointer-events:none;}
+        .choice-btn.wrong-c{background:#e74c3c;color:white;border-color:#e74c3c;pointer-events:none;}
+        /* score */
+        .score-box{border-radius:12px;padding:14px 18px;margin-top:12px;font-size:15px;line-height:1.9;display:none;}
+        .score-box.show{display:block;}
+        .score-box.great{background:#d5f5e3;border:2px solid #27ae60;color:#1a6e4a;}
+        .score-box.good{background:#fef9e7;border:2px solid #f39c12;color:#7d6608;}
+        .score-box.try{background:#fadbd8;border:2px solid #e74c3c;color:#922b21;}
+        .score-box.info{background:#d6eaf8;border:2px solid #2980b9;color:#1a4a7a;}
+        .score-meter{background:#e0e7ee;border-radius:30px;height:12px;margin:8px 0;overflow:hidden;}
+        .score-meter-fill{height:100%;border-radius:30px;transition:width 1s ease;}
+        .big-score{font-size:38px;font-weight:900;text-align:center;margin:4px 0;}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2c3e50;color:white;padding:12px 24px;border-radius:40px;font-size:14px;box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;transition:opacity .4s;pointer-events:none;z-index:999;max-width:90%;text-align:center;}
+        .toast.show{opacity:1;}
+        @media(max-width:650px){.header{padding:18px 16px;}.header h1{font-size:20px;}.section{padding:16px 14px;}.diagram-box{flex-direction:column;}}
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <div class="top-row">
+        <span class="lesson-number">&#128218; Bai 12</span>
+        <span style="font-size:13px;opacity:.7;">Section A &middot; Consonants</span>
+    </div>
+    <h1>&#128197; <span>Twenty days</span></h1>
+    <div><span class="phoneme-badge">/t/ va /d/</span></div>
+    <div class="sub">Phu am dau luoi rang &mdash; alveolar stops (vo thanh &amp; huu thanh)</div>
+    <a href="../index.html" class="nav-link">&#8592; Ve trang chu</a>
+</div>
+
+<!-- A: /t/ -->
+<div class="section">
+    <div class="section-title">&#128308; A. Cach phat am <span class="ipa-text">/t/</span> <span class="badge audio">&#128266; Nghe</span></div>
+    <div class="diagram-box">
+        <div class="diagram-card t-card">
+            <div class="phoneme">/t/</div>
+            <div class="ipa-label">/tiː/</div>
+            <ul class="desc">
+                <li><strong>Buoc 1:</strong> Dau luoi cham vao loi rang tren.</li>
+                <li><strong>Buoc 2:</strong> Ha luoi xuong, hoi bat ra.</li>
+                <li>Giay truoc mom &#8594; <strong>rung manh</strong>.</li>
+                <li>Co hong <strong>khong rung</strong> (vo thanh).</li>
+                <li>&#127919; Target: <span class="ipa-text">/t&#601;/</span></li>
+            </ul>
+        </div>
+        <div style="flex:1;min-width:220px;padding:10px 0;font-size:14px;line-height:2;color:#2c3e50;">
+            <p><strong>&#128204; Cach phat am /t/:</strong></p>
+            <p>1. Dau luoi cham vao <em>alveolar ridge</em> (loi rang tren phia sau rang).</p>
+            <p>2. Ngan hoi lai hoan toan, sau do ha luoi, hoi bung ra.</p>
+            <p>3. Co hong <strong>khong rung</strong> &mdash; am <strong>vo thanh (voiceless)</strong>.</p>
+            <p>&#127475;&#127483; Tuong tu "t" tieng Viet nhung <em>hoi thoi manh hon</em> khi dung dau tu nhan.</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-red" onclick="speakText('t',0.6)">&#128266; Nghe /t/</button>
+        <button class="btn btn-red" onclick="speakText('ta ta ta',0.5)">&#128266; /t&#601; t&#601; t&#601;/</button>
+        <button class="btn btn-success" onclick="speakText('tea till ten top two twenty water bit complete eat eight light suit',0.75)">&#128266; Nghe tu mau</button>
+    </div>
+</div>
+
+<!-- B: /t/ spelling -->
+<div class="section">
+    <div class="section-title">&#128308; B. Chinh ta &amp; Tu co am <span class="ipa-text">/t/</span> <span class="badge">Spelling</span></div>
+    <p><strong>/t/ thuong viet la <span style="color:#c0392b;">t</span> hoac <span style="color:#c0392b;">tt</span>:</strong></p>
+    <div class="word-grid">
+        <div class="word-card" onclick="speakText('tea',0.8)"><div class="word"><span class="ht">t</span>ea</div><div class="ipa">/tiː/</div><div class="vi">&#127475;&#127483; tra</div></div>
+        <div class="word-card" onclick="speakText('till',0.8)"><div class="word"><span class="ht">t</span>ill</div><div class="ipa">/tɪl/</div><div class="vi">&#127475;&#127483; cho den</div></div>
+        <div class="word-card" onclick="speakText('ten',0.8)"><div class="word"><span class="ht">t</span>en</div><div class="ipa">/ten/</div><div class="vi">&#127475;&#127483; muoi</div></div>
+        <div class="word-card" onclick="speakText('top',0.8)"><div class="word"><span class="ht">t</span>op</div><div class="ipa">/tɒp/</div><div class="vi">&#127475;&#127483; dinh, tren</div></div>
+        <div class="word-card" onclick="speakText('two',0.8)"><div class="word"><span class="ht">t</span>wo</div><div class="ipa">/tuː/</div><div class="vi">&#127475;&#127483; so hai</div></div>
+        <div class="word-card" onclick="speakText('twenty',0.8)"><div class="word"><span class="ht">t</span>wen<span class="ht">t</span>y</div><div class="ipa">/ˈtwen.ti/</div><div class="vi">&#127475;&#127483; hai muoi</div></div>
+        <div class="word-card" onclick="speakText('water',0.8)"><div class="word">wa<span class="ht">t</span>er</div><div class="ipa">/ˈwɔː.tər/</div><div class="vi">&#127475;&#127483; nuoc</div></div>
+        <div class="word-card" onclick="speakText('bit',0.8)"><div class="word">bi<span class="ht">t</span></div><div class="ipa">/bɪt/</div><div class="vi">&#127475;&#127483; chut it</div></div>
+        <div class="word-card" onclick="speakText('better',0.8)"><div class="word">bet<span class="ht">t</span>er</div><div class="ipa">/ˈbet.ər/</div><div class="vi">&#127475;&#127483; tot hon</div></div>
+        <div class="word-card" onclick="speakText('bottle',0.8)"><div class="word">bot<span class="ht">t</span>le</div><div class="ipa">/ˈbɒt.əl/</div><div class="vi">&#127475;&#127483; cai chai</div></div>
+        <div class="word-card" onclick="speakText('eight',0.8)"><div class="word">eigh<span class="ht">t</span></div><div class="ipa">/eɪt/</div><div class="vi">&#127475;&#127483; so tam</div></div>
+        <div class="word-card" onclick="speakText('light',0.8)"><div class="word">ligh<span class="ht">t</span></div><div class="ipa">/laɪt/</div><div class="vi">&#127475;&#127483; anh sang</div></div>
+    </div>
+    <div class="note-box">
+        &#9888;&#65039; <strong>/t/ duoc viet la <em>ed</em></strong> trong qua khu: <strong>stopped</strong> /stɒpt/ &nbsp;|&nbsp; <strong>washed</strong> /wɒʃt/<br>
+        &#9888;&#65039; <strong>/t/ duoc viet la <em>th</em></strong> trong ten rieng: <strong>Thailand</strong> /ˈtaɪ.lænd/ &nbsp;|&nbsp; <strong>Thames</strong> /temz/ &nbsp;|&nbsp; <strong>Thomas</strong> /ˈtɒm.əs/<br>
+        &#9888;&#65039; <strong>t cam</strong> trong mot so tu: <strong>listen</strong> /ˈlɪs.ən/ &nbsp;|&nbsp; <strong>castle</strong> /ˈkɑːs.əl/<br>
+        &#8505;&#65039; Ten chu cai T trong bang chu = <span class="ipa-text">/tiː/</span> (cung la tu <em>tea</em>)
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-red" onclick="speakText('stopped, washed. Thailand, Thames, Thomas. listen, castle.',0.75)">&#128266; Nghe cac truong hop dac biet</button>
+    </div>
+</div>
+
+<!-- C: /d/ -->
+<div class="section">
+    <div class="section-title">&#128309; C. Cach phat am <span class="ipa-text">/d/</span> <span class="badge audio">&#128266; Nghe</span></div>
+    <div class="diagram-box">
+        <div class="diagram-card d-card">
+            <div class="phoneme">/d/</div>
+            <div class="ipa-label">/diː/</div>
+            <ul class="desc">
+                <li><strong>Buoc 1:</strong> Dau luoi cham vao loi rang tren.</li>
+                <li><strong>Buoc 2:</strong> Ha luoi xuong, hoi thoat ra.</li>
+                <li>Giay truoc mom <strong>khong rung</strong>.</li>
+                <li>Co hong <strong>rung</strong> (huu thanh).</li>
+                <li>&#127919; Target: <span class="ipa-text">/d&#601;/</span></li>
+            </ul>
+        </div>
+        <div style="flex:1;min-width:220px;padding:10px 0;font-size:14px;line-height:2;color:#2c3e50;">
+            <p><strong>&#128204; Khac biet /t/ vs /d/:</strong></p>
+            <p>1. /d/ &mdash; giay truoc mom <strong>khong rung</strong> (it hoi thoi).</p>
+            <p>2. /d/ co <strong>rung co hong</strong> (voicing) &mdash; dat tay len co cam nhan.</p>
+            <p>3. Ca hai deu la <strong>alveolar stop</strong> (chan hoi bang dau luoi + loi rang).</p>
+            <p>&#127475;&#127483; Tuong tu "d" tieng Viet nhung <em>bat loi rang ro hon</em>.</p>
+        </div>
+    </div>
+    <div class="tip-box">
+        <div class="tip-title">&#127919; Meo phan biet /t/ vs /d/</div>
+        <div class="tip-content">
+            <p><strong>Test 1 &mdash; to giay:</strong> Dat to giay mong truoc mom.<br>&#8594; /t/: giay <strong>rung manh</strong> &nbsp;&nbsp; &#8594; /d/: giay <strong>gan nhu khong rung</strong></p>
+            <p><strong>Test 2 &mdash; tay len co:</strong><br>&#8594; /t/: khong rung &nbsp;&nbsp; &#8594; /d/: cam thay rung (<em>vibration</em>)</p>
+            <p><strong>Test 3 &mdash; minimal pairs:</strong> ten/den, tip/dip, tie/die, time/dime, town/down</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-red" onclick="speakText('t',0.6)">&#128266; /t/</button>
+        <button class="btn btn-blue" onclick="speakText('d',0.6)">&#128266; /d/</button>
+        <button class="btn btn-purple" onclick="speakText('t d t d t d',0.5)">&#128266; /t/ /d/ so sanh</button>
+    </div>
+</div>
+
+<!-- D: /d/ spelling + sentences -->
+<div class="section">
+    <div class="section-title">&#128309; D. Chinh ta &amp; Tu co am <span class="ipa-text">/d/</span> <span class="badge">Spelling</span></div>
+    <p><strong>/d/ thuong viet la <span style="color:#1a4a9a;">d</span> hoac <span style="color:#1a4a9a;">dd</span>:</strong></p>
+    <div class="word-grid">
+        <div class="word-card d-wc" onclick="speakText('day',0.8)"><div class="word"><span class="hd">d</span>ay</div><div class="ipa">/deɪ/</div><div class="vi">&#127475;&#127483; ngay</div></div>
+        <div class="word-card d-wc" onclick="speakText('deep',0.8)"><div class="word"><span class="hd">d</span>eep</div><div class="ipa">/diːp/</div><div class="vi">&#127475;&#127483; sau</div></div>
+        <div class="word-card d-wc" onclick="speakText('do',0.8)"><div class="word"><span class="hd">d</span>o</div><div class="ipa">/duː/</div><div class="vi">&#127475;&#127483; lam</div></div>
+        <div class="word-card d-wc" onclick="speakText('door',0.8)"><div class="word"><span class="hd">d</span>oor</div><div class="ipa">/dɔː/</div><div class="vi">&#127475;&#127483; cua</div></div>
+        <div class="word-card d-wc" onclick="speakText('did',0.8)"><div class="word"><span class="hd">d</span>i<span class="hd">d</span></div><div class="ipa">/dɪd/</div><div class="vi">&#127475;&#127483; da lam</div></div>
+        <div class="word-card d-wc" onclick="speakText('food',0.8)"><div class="word">foo<span class="hd">d</span></div><div class="ipa">/fuːd/</div><div class="vi">&#127475;&#127483; thuc an</div></div>
+        <div class="word-card d-wc" onclick="speakText('good',0.8)"><div class="word">goo<span class="hd">d</span></div><div class="ipa">/ɡʊd/</div><div class="vi">&#127475;&#127483; tot</div></div>
+        <div class="word-card d-wc" onclick="speakText('head',0.8)"><div class="word">hea<span class="hd">d</span></div><div class="ipa">/hed/</div><div class="vi">&#127475;&#127483; dau</div></div>
+        <div class="word-card d-wc" onclick="speakText('ready',0.8)"><div class="word">rea<span class="hd">d</span>y</div><div class="ipa">/ˈred.i/</div><div class="vi">&#127475;&#127483; san sang</div></div>
+        <div class="word-card d-wc" onclick="speakText('add',0.8)"><div class="word">a<span class="hd">dd</span></div><div class="ipa">/æd/</div><div class="vi">&#127475;&#127483; cong them</div></div>
+        <div class="word-card d-wc" onclick="speakText('ladder',0.8)"><div class="word">lad<span class="hd">d</span>er</div><div class="ipa">/ˈlæd.ər/</div><div class="vi">&#127475;&#127483; cai thang</div></div>
+        <div class="word-card d-wc" onclick="speakText('middle',0.8)"><div class="word">mid<span class="hd">d</span>le</div><div class="ipa">/ˈmɪd.əl/</div><div class="vi">&#127475;&#127483; o giua</div></div>
+    </div>
+    <div class="note-box">&#8505;&#65039; Ten chu cai D = <span class="ipa-text">/diː/</span></div>
+
+    <!-- Listening box -->
+    <div class="listen-box">
+        <div class="lb-title">&#128266; Important for listening: /t/ va /d/ cuoi tu</div>
+        <p style="margin-bottom:8px;">Doi khi ban khong nghe ro /t/ hoac /d/ o cuoi tu. Nghe su khac biet:</p>
+        <div class="pair-row">
+            <span class="normal">something to eat</span>
+            <span style="color:#f1c40f;">&#8594;</span>
+            <span class="reduced">something to eat(t)</span>
+            <button class="btn" style="padding:3px 10px;font-size:11px;" onclick="speakText('something to eat',0.7)">&#128266;</button>
+        </div>
+        <div class="pair-row">
+            <span class="normal">turn on the light</span>
+            <span style="color:#f1c40f;">&#8594;</span>
+            <span class="reduced">turn on the ligh(t)</span>
+            <button class="btn" style="padding:3px 10px;font-size:11px;" onclick="speakText('turn on the light',0.7)">&#128266;</button>
+        </div>
+        <div class="pair-row">
+            <span class="normal">the end of the road</span>
+            <span style="color:#f1c40f;">&#8594;</span>
+            <span class="reduced">the end of the roa(d)</span>
+            <button class="btn" style="padding:3px 10px;font-size:11px;" onclick="speakText('the end of the road',0.7)">&#128266;</button>
+        </div>
+        <div class="pair-row">
+            <span class="normal">writing on the board</span>
+            <span style="color:#f1c40f;">&#8594;</span>
+            <span class="reduced">writing on the boar(d)</span>
+            <button class="btn" style="padding:3px 10px;font-size:11px;" onclick="speakText('writing on the board',0.7)">&#128266;</button>
+        </div>
+        <p style="margin-top:10px;color:#f1c40f;">&#9654; Nguyen am dai hon truoc /d/ hon truoc /t/: roa<strong>d</strong> vs wrO<strong>t</strong>e &nbsp;|&nbsp; boar<strong>d</strong> vs bough<strong>t</strong></p>
+        <p style="margin-top:6px;color:#aad4ff;">&#9654; /t/ hoac /d/ giua 2 phu am thuong bien mat: <em>facts</em> = fax, <em>next week</em> = nex(t) week</p>
+        <div class="btn-group" style="margin-top:10px;">
+            <button class="btn" onclick="speakText('Tell me all the facts. I will tell you next week.',0.7)">&#128266; Nghe vi du</button>
+        </div>
+    </div>
+</div>
+
+<!-- TU BO SUNG: CUOC SONG -->
+<div class="section" style="border:2px solid #27ae60;">
+    <div class="section-title">&#127807; Tu &amp; Cau bo sung &mdash; Cuoc song hang ngay <span class="badge life">&#127968; Life</span></div>
+    <div class="word-grid">
+        <div class="word-card" onclick="speakText('ticket',0.8)"><div class="word"><span class="ht">t</span>icke<span class="ht">t</span></div><div class="ipa">/ˈtɪk.ɪt/</div><div class="vi">&#127475;&#127483; ve (tau, xe)</div></div>
+        <div class="word-card d-wc" onclick="speakText('daily',0.8)"><div class="word"><span class="hd">d</span>aily</div><div class="ipa">/ˈdeɪ.li/</div><div class="vi">&#127475;&#127483; hang ngay</div></div>
+        <div class="word-card" onclick="speakText('time',0.8)"><div class="word"><span class="ht">t</span>ime</div><div class="ipa">/taɪm/</div><div class="vi">&#127475;&#127483; thoi gian</div></div>
+        <div class="word-card d-wc" onclick="speakText('dinner',0.8)"><div class="word"><span class="hd">d</span>inner</div><div class="ipa">/ˈdɪn.ər/</div><div class="vi">&#127475;&#127483; bua toi</div></div>
+        <div class="word-card" onclick="speakText('station',0.8)"><div class="word">s<span class="ht">t</span>a<span class="ht">t</span>ion</div><div class="ipa">/ˈsteɪ.ʃən/</div><div class="vi">&#127475;&#127483; ga tau</div></div>
+        <div class="word-card d-wc" onclick="speakText('drink',0.8)"><div class="word"><span class="hd">d</span>rink</div><div class="ipa">/drɪŋk/</div><div class="vi">&#127475;&#127483; uong / do uong</div></div>
+        <div class="word-card" onclick="speakText('street',0.8)"><div class="word">s<span class="ht">t</span>ree<span class="ht">t</span></div><div class="ipa">/striːt/</div><div class="vi">&#127475;&#127483; con pho</div></div>
+        <div class="word-card d-wc" onclick="speakText('hundred',0.8)"><div class="word">hun<span class="hd">d</span>re<span class="hd">d</span></div><div class="ipa">/ˈhʌn.drəd/</div><div class="vi">&#127475;&#127483; mot tram</div></div>
+    </div>
+    <ul class="sentence-list">
+        <li onclick="speakText('What time does the next train to the city depart?',0.8)">
+            Wha<span class="ht">t</span> <span class="ht">t</span>ime <span class="hd">d</span>oes <span class="ht">t</span>he nex<span class="ht">t</span> <span class="ht">t</span>rain <span class="ht">t</span>o <span class="ht">t</span>he ci<span class="ht">t</span>y <span class="hd">d</span>epar<span class="ht">t</span>?
+            <span class="ipa-s">/wɒt taɪm dʌz ðə nekst treɪn tə ðə ˈsɪt.i dɪˈpɑːt/</span>
+            <span class="vi-s">&#127475;&#127483; Chuyen tau tiep theo den thanh pho khoi hanh luc may gio?</span>
+        </li>
+        <li onclick="speakText('I found twenty dollars on the street today.',0.8)">
+            I foun<span class="ht">d</span> <span class="ht">t</span>wen<span class="ht">t</span>y <span class="hd">d</span>ollars on <span class="ht">t</span>he s<span class="ht">t</span>ree<span class="ht">t</span> <span class="ht">t</span>o<span class="hd">d</span>ay.
+            <span class="ipa-s">/aɪ faʊnd ˈtwen.ti ˈdɒl.əz ɒn ðə striːt təˈdeɪ/</span>
+            <span class="vi-s">&#127475;&#127483; Hom nay toi nhat duoc 20 do la tren pho.</span>
+        </li>
+        <li onclick="speakText("Let's have dinner at that Italian restaurant tonight.",0.8)">
+            Le<span class="ht">t</span>'s have <span class="hd">d</span>inner a<span class="ht">t</span> <span class="ht">t</span>ha<span class="ht">t</span> I<span class="ht">t</span>alian res<span class="ht">t</span>auran<span class="ht">t</span> <span class="ht">t</span>onigh<span class="ht">t</span>.
+            <span class="ipa-s">/lets hæv ˈdɪn.ər æt ðæt ɪˈtæl.i.ən ˈres.tər.ɒnt təˈnaɪt/</span>
+            <span class="vi-s">&#127475;&#127483; Toi nay chung ta an toi o nha hang Y do nhe.</span>
+        </li>
+    </ul>
+</div>
+
+<!-- TU BO SUNG: DIA KY THUAT -->
+<div class="section" style="border:2px solid #1abc9c;">
+    <div class="section-title">&#127959;&#65039; Tu &amp; Cau bo sung &mdash; Dia ky thuat <span class="badge geo">&#128299; Geotech</span></div>
+    <div class="word-grid">
+        <div class="word-card" onclick="speakText('test',0.8)"><div class="word"><span class="ht">t</span>es<span class="ht">t</span></div><div class="ipa">/test/</div><div class="vi">&#127475;&#127483; thi nghiem</div></div>
+        <div class="word-card d-wc" onclick="speakText('depth',0.8)"><div class="word"><span class="hd">d</span>ep<span class="ht">th</span></div><div class="ipa">/depθ/</div><div class="vi">&#127475;&#127483; do sau</div></div>
+        <div class="word-card" onclick="speakText('settlement',0.8)"><div class="word">set<span class="ht">t</span>lemen<span class="ht">t</span></div><div class="ipa">/ˈset.l̩.mənt/</div><div class="vi">&#127475;&#127483; do lun</div></div>
+        <div class="word-card d-wc" onclick="speakText('data',0.8)"><div class="word"><span class="hd">d</span>a<span class="ht">t</span>a</div><div class="ipa">/ˈdeɪ.tə/</div><div class="vi">&#127475;&#127483; so lieu</div></div>
+        <div class="word-card" onclick="speakText('total',0.8)"><div class="word"><span class="ht">t</span>o<span class="ht">t</span>al</div><div class="ipa">/ˈtəʊ.təl/</div><div class="vi">&#127475;&#127483; tong cong</div></div>
+        <div class="word-card d-wc" onclick="speakText('drilled',0.8)"><div class="word"><span class="hd">d</span>rille<span class="hd">d</span></div><div class="ipa">/drɪld/</div><div class="vi">&#127475;&#127483; da khoan</div></div>
+        <div class="word-card" onclick="speakText('stability',0.8)"><div class="word">s<span class="ht">t</span>abili<span class="ht">t</span>y</div><div class="ipa">/stəˈbɪl.ɪ.ti/</div><div class="vi">&#127475;&#127483; on dinh</div></div>
+        <div class="word-card d-wc" onclick="speakText('deformation',0.8)"><div class="word"><span class="hd">d</span>eformation</div><div class="ipa">/ˌdiː.fɔːˈmeɪ.ʃən/</div><div class="vi">&#127475;&#127483; bien dang</div></div>
+    </div>
+    <ul class="sentence-list">
+        <li onclick="speakText('Total settlement data was collected at twenty test points.',0.75)">
+            <span class="ht">T</span>o<span class="ht">t</span>al set<span class="ht">t</span>lemen<span class="ht">t</span> <span class="hd">d</span>a<span class="ht">t</span>a was collec<span class="ht">t</span>e<span class="hd">d</span> a<span class="ht">t</span> <span class="ht">t</span>wen<span class="ht">t</span>y <span class="ht">t</span>es<span class="ht">t</span> poin<span class="ht">t</span>s.
+            <span class="ipa-s">/ˈtəʊ.təl ˈset.l̩.mənt ˈdeɪ.tə wəz kəˈlek.tɪd æt ˈtwen.ti test pɔɪnts/</span>
+            <span class="vi-s">&#127475;&#127483; Du lieu do lun tong cong duoc thu thap tai 20 diem thi nghiem.</span>
+        </li>
+        <li onclick="speakText('The depth of the drilled borehole was twenty meters.',0.75)">
+            <span class="ht">T</span>he <span class="hd">d</span>ep<span class="ht">th</span> of <span class="ht">t</span>he <span class="hd">d</span>rille<span class="hd">d</span> borehole was <span class="ht">t</span>wen<span class="ht">t</span>y me<span class="ht">t</span>ers.
+            <span class="ipa-s">/ðə depθ əv ðə drɪld ˈbɔː.həʊl wəz ˈtwen.ti ˈmiː.təz/</span>
+            <span class="vi-s">&#127475;&#127483; Do sau lo khoan da khoan la 20 met.</span>
+        </li>
+        <li onclick="speakText('Deformation was detected during the stability test.',0.75)">
+            <span class="hd">D</span>eforma<span class="ht">t</span>ion was <span class="hd">d</span>e<span class="ht">t</span>ec<span class="ht">t</span>e<span class="hd">d</span> <span class="hd">d</span>uring <span class="ht">t</span>he s<span class="ht">t</span>abili<span class="ht">t</span>y <span class="ht">t</span>es<span class="ht">t</span>.
+            <span class="ipa-s">/ˌdiː.fɔːˈmeɪ.ʃən wəz dɪˈtek.tɪd ˈdjʊər.ɪŋ ðə stəˈbɪl.ɪ.ti test/</span>
+            <span class="vi-s">&#127475;&#127483; Bien dang duoc phat hien trong qua trinh thi nghiem on dinh.</span>
+        </li>
+    </ul>
+    <div class="geo-box">
+        <div class="geo-title">&#128299; Kinh nghiem phat am tu chuyen nganh</div>
+        <div class="geo-content">
+            &bull; <strong>settlement</strong>: /t/ x2 o giua &mdash; "SET-tl-ment" khong nuot /t/<br>
+            &bull; <strong>data</strong>: /t/ giua 2 nguyen am &mdash; nhieu nguoi My doc la /ˈdeɪ.da/ (flap t)<br>
+            &bull; <strong>stability</strong>: /t/ trong "-bil-i-ty" &mdash; nhan vao "-BIL-" roi /ɪ.ti/<br>
+            &bull; <strong>deformation</strong>: /d/ + /f/ lien nhau &mdash; chu y khong them nguyen am o giua
+        </div>
+    </div>
+</div>
+
+<!-- KINH NGHIEM -->
+<div class="section" style="border:2px solid #f39c12;">
+    <div class="section-title">&#128161; Kinh nghiem phat am <span class="badge tip">&#128293; Quan trong</span></div>
+    <div class="tip-box">
+        <div class="tip-title">&#127919; 5 bi quyet phat am /t/ va /d/ chuan</div>
+        <div class="tip-content">
+            <p><strong>1. Vi tri dau luoi chinh xac</strong><br>
+            Dau luoi cham vao <em>alveolar ridge</em> (khong phai rang, khong phai vom hong)<br>
+            <span class="ipa-text">/t&#601;/ &mdash; /d&#601;/</span> nhac lai nhieu lan de quen vi tri</p>
+            <p><strong>2. /t/ cuoi tu &mdash; dung nuot am</strong><br>
+            "what, street, night, light" &mdash; phai bong mat du / bung hoi ro<br>
+            <span class="ipa-text">/wɒt/ /striːt/ /naɪt/ /laɪt/</span></p>
+            <p><strong>3. /d/ cuoi tu &mdash; nguyen am dai hon</strong><br>
+            "road" vs "wrote" &mdash; "road" nguyen am dai hon vi /d/ huu thanh<br>
+            <span class="ipa-text">/rəʊd/ dai hon /rəʊt/</span></p>
+            <p><strong>4. ed qua khu: /t/, /d/, /ɪd/ khac nhau</strong><br>
+            &bull; /t/ sau vo thanh: stopped, washed, talked<br>
+            &bull; /d/ sau huu thanh: played, opened, called<br>
+            &bull; /ɪd/ sau /t/, /d/: wanted, needed, landed</p>
+            <p><strong>5. Luyen cap toi thieu (minimal pairs)</strong><br>
+            ten/den, tip/dip, tie/die, town/down, wrote/road, light/lied</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-warning" onclick="speakText('ten den. tip dip. tie die. town down.',0.65)">&#128266; /t/ vs /d/ minimal pairs</button>
+        <button class="btn btn-warning" onclick="speakText('stopped. played. wanted. needed.',0.7)">&#128266; -ed endings</button>
+    </div>
+</div>
+
+<!-- EX 12.1 -->
+<div class="section">
+    <div class="section-title">&#128221; Exercise 12.1 &mdash; Nghe va dien tu <span class="badge">Bai tap sach</span></div>
+    <p>Nghe va dien tu thich hop vao cho trong. Chu y su khac biet /t/ va /d/ o cuoi tu.</p>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            &#128266; Nhan nghe cau &rarr; Gõ tu vao o trong &rarr; Nhan <strong>"Cham bai"</strong>.<br>
+            &#127475;&#127483; <em>Vi du: What shall we do next week? &rarr; dien "next"</em>
+        </div>
+        <div class="gap-input-items" id="ex121Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx121()">&#128266; Nghe tat ca cau</button>
+            <button class="btn btn-warning" onclick="checkEx121()">&#9989; Cham bai</button>
+            <button class="btn btn-danger" onclick="resetEx121()">&#128260; Lam lai</button>
+            <button class="btn btn-teal" onclick="revealEx121()">&#128065;&#65039; Xem dap an</button>
+        </div>
+        <div id="score121" class="score-box"></div>
+    </div>
+</div>
+
+<!-- EX 12.2 -->
+<div class="section">
+    <div class="section-title">&#128221; Exercise 12.2 &mdash; Nghe va viet cac so <span class="badge">Bai tap sach</span></div>
+    <p>Nghe va viet tu tuong ung voi tu trang thai ban nghe duoc.</p>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            &#128266; Nhan nghe tung tu &rarr; Gõ tu bien the (vi du: send &#8594; sent, wide &#8594; whide) &rarr; <strong>Cham bai</strong>.<br>
+            &#127475;&#127483; <em>Cac cap tu co su khac biet /t/ va /d/ o cuoi.</em>
+        </div>
+        <div class="num-grid" id="ex122Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx122()">&#9989; Cham bai</button>
+            <button class="btn btn-danger" onclick="resetEx122()">&#128260; Lam lai</button>
+            <button class="btn btn-teal" onclick="revealEx122()">&#128065;&#65039; Xem dap an</button>
+        </div>
+        <div id="score122" class="score-box"></div>
+    </div>
+</div>
+
+<!-- EX 12.3 -->
+<div class="section">
+    <div class="section-title">&#128221; Exercise 12.3 &mdash; Dien tu vao cau <span class="badge">Bai tap sach</span></div>
+    <p>Nghe va dien tu thich hop co am /t/ hoac /d/ vao cho trong.</p>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            &#128266; Nhan nghe &rarr; Gõ tu vao o trong &rarr; <strong>Cham bai</strong>.
+        </div>
+        <div class="sent-fill-items" id="ex123Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx123()">&#128266; Nghe tat ca</button>
+            <button class="btn btn-warning" onclick="checkEx123()">&#9989; Cham bai</button>
+            <button class="btn btn-danger" onclick="resetEx123()">&#128260; Lam lai</button>
+            <button class="btn btn-teal" onclick="revealEx123()">&#128065;&#65039; Xem dap an</button>
+        </div>
+        <div id="score123" class="score-box"></div>
+    </div>
+</div>
+
+<!-- EX 12.4 POEMS -->
+<div class="section">
+    <div class="section-title">&#128221; Exercise 12.4 &mdash; Nghe va doc bai tho <span class="badge audio">&#128266; Co audio</span></div>
+    <p>Nghe va doc to cac bai tho sau. Chu y cac am /t/ (do) va /d/ (xanh).</p>
+    <div class="section-title" style="font-size:16px;color:#c0392b;">&#128308; Too many twos</div>
+    <div class="poem-box">
+        <span class="stress-d">T</span>om and <span class="stress-d">T</span>im were <span class="stress-t">twins</span>.<br>
+        <span class="stress-d">T</span>om said <span class="stress-t">to</span> <span class="stress-d">T</span>im, '<span class="stress-d">C</span>an I <span class="stress-t">talk</span> <span class="stress-t">to</span> you?'<br>
+        <span class="stress-d">T</span>im said <span class="stress-t">to</span> <span class="stress-d">T</span>om, 'Ssh, wai<span class="stress-t">t</span> a minu<span class="stress-t">te</span> ...'<br>
+        One <span class="stress-d">tw</span>o is <span class="stress-t">two</span><br>
+        <span class="stress-d">Tw</span>o <span class="stress-d">tw</span>os are four<br>
+        <span class="stress-d">Thr</span>ee <span class="stress-d">tw</span>os are six<br>
+        Four <span class="stress-d">tw</span>os are eigh<span class="stress-t">t</span><br>
+        Five <span class="stress-d">tw</span>os are <span class="stress-t">ten</span> ...'<br>
+        <span class="stress-d">T</span>om said <span class="stress-t">to</span> <span class="stress-d">T</span>im, 'An<span class="stress-d">d</span> wha<span class="stress-t">t</span> are <span class="stress-d">tw</span>o fives?'<br>
+        <span class="stress-d">T</span>im said <span class="stress-t">to</span> <span class="stress-d">T</span>om, '<span class="stress-d">Tw</span>o fives? <span class="stress-d">D</span>on'<span class="stress-t">t</span> ask me!'
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-purple" onclick="speakText('Tom and Tim were twins. Tom said to Tim, Can I talk to you? Tim said to Tom, Ssh, wait a minute. One two is two. Two twos are four. Three twos are six. Four twos are eight. Five twos are ten. Tom said to Tim, And what are two fives? Tim said to Tom, Two fives? Don't ask me!',0.75)">&#128266; Nghe bai tho 1</button>
+        <button class="btn btn-success" onclick="speakText('Tom and Tim were twins. Tom said to Tim, Can I talk to you? Tim said to Tom, Ssh, wait a minute. One two is two. Two twos are four. Three twos are six. Four twos are eight. Five twos are ten. Tom said to Tim, And what are two fives? Tim said to Tom, Two fives? Don't ask me!',0.5)">&#128034; Cham</button>
+    </div>
+    <div class="section-title" style="font-size:16px;color:#1a4a9a;margin-top:16px;">&#128309; A difficult daughter</div>
+    <div class="poem-box">
+        <span class="stress-d">D</span>oc<span class="stress-t">t</span>or <span class="stress-d">D</span>ixon sai<span class="stress-d">d</span> <span class="stress-t">to</span> his <span class="stress-d">d</span>aughter <span class="stress-d">D</span>aria,<br>
+        '<span class="stress-d">D</span>on'<span class="stress-t">t</span> go <span class="stress-d">d</span>own <span class="stress-t">town</span> af<span class="stress-t">t</span>er <span class="stress-d">d</span>ark &mdash; i<span class="stress-t">t</span>'s <span class="stress-d">d</span>angerous.'<br>
+        <span class="stress-d">D</span>aria sai<span class="stress-d">d</span>, '<span class="stress-d">D</span>on'<span class="stress-t">t</span> worry, <span class="stress-d">D</span>a<span class="stress-d">d</span>, I won'<span class="stress-t">t</span>. You know I never <span class="stress-d">d</span>o.'<br>
+        Nex<span class="stress-t">t</span> <span class="stress-d">d</span>ay when he came home for <span class="stress-d">d</span>inner, he sai<span class="stress-d">d</span>,<br>
+        '<span class="stress-d">D</span>aria, <span class="stress-d">d</span>ear, you <span class="stress-d">d</span>i<span class="stress-d">d</span>n'<span class="stress-t">t</span> go <span class="stress-d">d</span>own <span class="stress-t">town</span> af<span class="stress-t">t</span>er <span class="stress-d">d</span>ark, <span class="stress-d">d</span>i<span class="stress-d">d</span> you?'<br>
+        An<span class="stress-d">d</span> she sai<span class="stress-d">d</span>, 'No, <span class="stress-d">D</span>a<span class="stress-d">d</span>, I <span class="stress-d">d</span>i<span class="stress-d">d</span>n'<span class="stress-t">t</span>.'<br>
+        Bu<span class="stress-t">t</span> she <span class="stress-d">d</span>i<span class="stress-d">d</span>.<br>
+        I <span class="stress-d">d</span>on'<span class="stress-t">t</span> know <span class="stress-t">the</span> <span class="stress-d">d</span>e<span class="stress-t">t</span>ails, bu<span class="stress-t">t</span> she <span class="stress-d">d</span>efini<span class="stress-t">t</span>ely <span class="stress-d">d</span>i<span class="stress-d">d</span>.
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-blue" onclick="speakText('Doctor Dixon said to his daughter Daria, Don't go down town after dark, it's dangerous. Daria said, Don't worry, Dad, I won't. You know I never do. Next day when he came home for dinner, he said, Daria, dear, you didn't go down town after dark, did you? And she said, No, Dad, I didn't. But she did. I don't know the details, but she definitely did.',0.75)">&#128266; Nghe bai tho 2</button>
+        <button class="btn btn-success" onclick="speakText('Doctor Dixon said to his daughter Daria, Don't go down town after dark, it's dangerous. Daria said, Don't worry, Dad, I won't. You know I never do. Next day when he came home for dinner, he said, Daria, dear, you didn't go down town after dark, did you? And she said, No, Dad, I didn't. But she did. I don't know the details, but she definitely did.',0.5)">&#128034; Cham</button>
+    </div>
+</div>
+
+<!-- EX 12.5 -->
+<div class="section">
+    <div class="section-title">&#128221; Exercise 12.5 &mdash; Chon tu ban nghe <span class="badge">Bai tap sach</span></div>
+    <p>Nghe va chon tu dung. Chu y phan biet /t/ vs /d/ va cac cap am lien quan.</p>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            &#128266; Nhan nut Nghe &rarr; Chon tu dung &rarr; <strong>Cham bai</strong>.<br>
+            &#127475;&#127483; <em>Moi cau chi co 1 tu dung.</em>
+        </div>
+        <div class="choice-items" id="ex125Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx125Random()">&#128266; Nghe ngau nhien</button>
+            <button class="btn btn-warning" onclick="checkEx125()">&#9989; Cham bai</button>
+            <button class="btn btn-danger" onclick="resetEx125()">&#128260; Lam lai</button>
+            <button class="btn btn-teal" onclick="revealEx125()">&#128065;&#65039; Xem dap an</button>
+        </div>
+        <div id="score125" class="score-box"></div>
+    </div>
+</div>
+
+<!-- TONG KET -->
+<div class="section" style="border:2px solid #8e44ad;">
+    <div class="section-title">&#128204; Tong ket <span class="badge" style="background:#f5eef8;color:#7d3c98;">&#9989; Checklist</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px;line-height:1.9;">
+        <div style="background:#fff5f7;padding:12px 14px;border-radius:10px;border:1px solid #f5b7c0;">&#9989; <strong>/t/ vo thanh</strong> &mdash; hoi thoi manh khi dau tu nhan</div>
+        <div style="background:#f0f5ff;padding:12px 14px;border-radius:10px;border:1px solid #a0b8f0;">&#9989; <strong>/d/ huu thanh</strong> &mdash; co hong rung, it hoi thoi</div>
+        <div style="background:#fff5f7;padding:12px 14px;border-radius:10px;border:1px solid #f5b7c0;">&#9989; <strong>-ed: /t/ sau vo thanh</strong> &mdash; stopped, washed</div>
+        <div style="background:#f0f5ff;padding:12px 14px;border-radius:10px;border:1px solid #a0b8f0;">&#9989; <strong>-ed: /d/ sau huu thanh</strong> &mdash; played, called</div>
+        <div style="background:#fff5f7;padding:12px 14px;border-radius:10px;border:1px solid #f5b7c0;">&#9989; <strong>t cam</strong> &mdash; listen, castle, fasten</div>
+        <div style="background:#f0f5ff;padding:12px 14px;border-radius:10px;border:1px solid #a0b8f0;">&#9989; <strong>Nguyen am dai hon truoc /d/</strong> &mdash; road dai hon wrote</div>
+    </div>
+</div>
+
+<div style="text-align:center;padding:20px 0 10px;color:#95a5a6;font-size:14px;border-top:1px solid #e2e8f0;margin-top:10px;">
+    <p>&#128197; <strong>"Twenty days"</strong> &mdash; /t/ &amp; /d/ la 2 am pho bien nhat trong tieng Anh!</p>
+    <p style="margin-top:4px;font-size:13px;"><a href="../index.html" style="color:#1a4a6a;font-weight:600;">&#8592; Ve trang chu</a></p>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let curUtt=null;
+function speakText(t,rate=0.85){
+    if(curUtt){speechSynthesis.cancel();curUtt=null;}
+    if(!window.speechSynthesis) return;
+    const u=new SpeechSynthesisUtterance(t.replace(/<[^>]*>/g,'').trim());
+    u.lang='en-US';u.rate=rate;u.pitch=1.0;
+    const vs=speechSynthesis.getVoices();
+    const v=vs.find(x=>x.lang.startsWith('en')&&(x.name.includes('Google US')||x.name.includes('Samantha')||x.name.includes('Female')));
+    if(v)u.voice=v;
+    curUtt=u;u.onend=()=>curUtt=null;speechSynthesis.speak(u);
+}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total,extra){
+    const pct=Math.round(correct/total*100);
+    let cls='try',emoji='😅',msg='Can luyen them!';
+    if(pct>=90){cls='great';emoji='🎉';msg='Xuat sac!';}
+    else if(pct>=65){cls='good';emoji='👍';msg='Kha tot!';}
+    const el=document.getElementById('score'+id);
+    el.className=`score-box show ${cls}`;
+    el.innerHTML=`<div class='big-score'>${emoji} ${pct}%</div><strong>${msg}</strong> — Dung <strong>${correct}/${total}</strong> cau.<div class='score-meter'><div class='score-meter-fill' style='width:${pct}%;background:${pct>=90?"#27ae60":pct>=65?"#f39c12":"#e74c3c"}'></div></div>${extra||''}`;
+    showToast('Ket qua: '+pct+'% — '+msg);
+}
+if(window.speechSynthesis){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices();}
+
+// EX 12.1
+const EX121=[
+    {num:'Ex', pre:"What shall we do", blank:"next", suf:"week?", audio:"What shall we do next week?"},
+    {num:1, pre:"2001 was the", blank:"last", suf:"time I went to Britain.", audio:"2001 was the last time I went to Britain."},
+    {num:2, pre:"I", blank:"found", suf:"some money in the street.", audio:"I found some money in the street."},
+    {num:3, pre:"I worked hard", blank:"that", suf:"week.", audio:"I worked hard that week."},
+    {num:4, pre:"Do you know a good", blank:"restaurant", suf:"to eat near here?", audio:"Do you know a good restaurant to eat near here?"},
+    {num:5, pre:"I live in", blank:"Eliot", suf:"Road.", audio:"I live in Eliot Road."},
+    {num:6, pre:"Is this the", blank:"right", suf:"house?", audio:"Is this the right house?"},
+    {num:7, pre:"Do you want some", blank:"toast", suf:"?", audio:"Do you want some toast?"},
+    {num:8, pre:"Do you like my new", blank:"diet", suf:"?", audio:"Do you like my new diet?"},
+];
+
+function buildEx121(){
+    const c=document.getElementById('ex121Items');c.innerHTML='';
+    EX121.forEach((item,i)=>{
+        const isEx=item.num==='Ex';
+        c.innerHTML+=`<div class='gap-input-item'>
+            <span class='num'>${item.num}.</span>
+            <span>${item.pre}</span>
+            <input type='text' id='inp121_${i}' placeholder='?' ${isEx?'value="'+item.blank+'" readonly style="background:#d5f5e3;color:#1a6e4a;"':''} autocomplete='off'>
+            <span>${item.suf}</span>
+            <button class='btn' style='padding:3px 10px;font-size:11px;' onclick="speakText('${item.audio}',0.75)">&#128266;</button>
+        </div>`;
+    });
+}
+function speakEx121(){EX121.forEach(i=>speakText(i.audio,0.75));}
+function checkEx121(){
+    let correct=0,total=0;
+    EX121.forEach((item,i)=>{
+        if(item.num==='Ex') return;
+        total++;
+        const inp=document.getElementById(`inp121_${i}`);
+        const val=inp.value.trim().toLowerCase();
+        const ans=item.blank.toLowerCase();
+        if(val===ans){inp.className='correct';correct++;}
+        else inp.className='wrong';
+    });
+    showScore('121',correct,total);
+}
+function resetEx121(){
+    EX121.forEach((_,i)=>{
+        if(EX121[i].num==='Ex') return;
+        const inp=document.getElementById(`inp121_${i}`);
+        inp.value='';inp.className='';
+    });
+    document.getElementById('score121').className='score-box';showToast('Da dat lai!');
+}
+function revealEx121(){
+    EX121.forEach((item,i)=>{
+        const inp=document.getElementById(`inp121_${i}`);
+        inp.value=item.blank;inp.className='correct';
+    });
+    document.getElementById('score121').className='score-box info show';
+    document.getElementById('score121').innerHTML='<strong>Dap an:</strong> '+EX121.filter(x=>x.num!=='Ex').map(x=>`${x.num}. <strong>${x.blank}</strong>`).join(' | ');
+    showToast('Da hien thi dap an!');
+}
+
+// EX 12.2
+const EX122=[
+    {word:'send', paired:'sent', note:'/t/ qua khu'},
+    {word:'said', paired:'set', note:'/d/ vs /t/'},
+    {word:'wide', paired:'white', note:'/d/ vs /t/'},
+    {word:'white', paired:'wide', note:'/t/ vs /d/'},
+    {word:'road', paired:'wrote', note:'/d/ dai hon /t/'},
+    {word:'wrote', paired:'road', note:'/t/ ngan hon /d/'},
+];
+function buildEx122(){
+    const c=document.getElementById('ex122Items');c.innerHTML='';
+    EX122.forEach((item,i)=>{
+        c.innerHTML+=`<div class='num-item'>
+            <span class='num-word'>${item.word}</span>
+            <span style='color:#888;font-size:13px;'>&#8594;</span>
+            <input type='text' id='inp122_${i}' placeholder='gõ tu tuong ung...' autocomplete='off'>
+            <span class='chk' id='chk122_${i}'></span>
+            <button class='btn' style='padding:3px 10px;font-size:11px;' onclick="speakText('${item.word}',0.7)">&#128266;</button>
+        </div>`;
+    });
+}
+function checkEx122(){
+    let correct=0;
+    EX122.forEach((item,i)=>{
+        const inp=document.getElementById(`inp122_${i}`);
+        const chk=document.getElementById(`chk122_${i}`);
+        const val=inp.value.trim().toLowerCase();
+        if(val===item.paired.toLowerCase()){inp.className='correct';chk.textContent='✅';correct++;}
+        else{inp.className='wrong';chk.textContent='❌';}
+    });
+    showScore('122',correct,EX122.length);
+}
+function resetEx122(){
+    EX122.forEach((_,i)=>{
+        document.getElementById(`inp122_${i}`).value='';
+        document.getElementById(`inp122_${i}`).className='';
+        document.getElementById(`chk122_${i}`).textContent='';
+    });
+    document.getElementById('score122').className='score-box';showToast('Da dat lai!');
+}
+function revealEx122(){
+    EX122.forEach((item,i)=>{
+        document.getElementById(`inp122_${i}`).value=item.paired;
+        document.getElementById(`inp122_${i}`).className='correct';
+        document.getElementById(`chk122_${i}`).textContent='✅';
+    });
+    document.getElementById('score122').className='score-box info show';
+    document.getElementById('score122').innerHTML='<strong>Dap an:</strong> '+EX122.map(x=>`${x.word} → <strong>${x.paired}</strong>`).join(' | ');
+    showToast('Da hien thi dap an!');
+}
+
+// EX 12.3
+const EX123=[
+    {num:1, pre:"They", blank:"send", suf:"us emails every day.", audio:"They send us emails every day."},
+    {num:2, pre:"I", blank:"spent", suf:"all my money on CDs.", audio:"I spent all my money on CDs."},
+    {num:3, pre:"When it stopped snowing we went for a walk across the", blank:"white", suf:"fields.", audio:"When it stopped snowing we went for a walk across the white fields."},
+    {num:4, pre:"People", blank:"build", suf:"houses next to the beach.", audio:"People build houses next to the beach."},
+];
+function buildEx123(){
+    const c=document.getElementById('ex123Items');c.innerHTML='';
+    EX123.forEach((item,i)=>{
+        c.innerHTML+=`<div class='sent-fill-item'>
+            <span class='num'>${item.num}.</span> ${item.pre}
+            <span class='sfblank'><input type='text' id='inp123_${i}' placeholder='?' autocomplete='off'></span>
+            ${item.suf}
+            <button class='btn' style='padding:2px 9px;font-size:11px;margin-left:6px;' onclick="speakText('${item.audio}',0.75)">&#128266;</button>
+        </div>`;
+    });
+}
+function speakEx123(){EX123.forEach(i=>speakText(i.audio,0.75));}
+function checkEx123(){
+    let correct=0;
+    EX123.forEach((item,i)=>{
+        const inp=document.getElementById(`inp123_${i}`);
+        const val=inp.value.trim().toLowerCase();
+        if(val===item.blank.toLowerCase()){inp.className='correct';correct++;}
+        else inp.className='wrong';
+    });
+    showScore('123',correct,EX123.length);
+}
+function resetEx123(){
+    EX123.forEach((_,i)=>{document.getElementById(`inp123_${i}`).value='';document.getElementById(`inp123_${i}`).className='';});
+    document.getElementById('score123').className='score-box';showToast('Da dat lai!');
+}
+function revealEx123(){
+    EX123.forEach((item,i)=>{document.getElementById(`inp123_${i}`).value=item.blank;document.getElementById(`inp123_${i}`).className='correct';});
+    document.getElementById('score123').className='score-box info show';
+    document.getElementById('score123').innerHTML='<strong>Dap an:</strong> '+EX123.map(x=>`${x.num}. <strong>${x.blank}</strong>`).join(' | ');
+    showToast('Da hien thi dap an!');
+}
+
+// EX 12.5
+const EX125=[
+    {num:1,pair:['what','watch'],soundPair:'(→ sound pair 25)',correct:null},
+    {num:2,pair:['wide','white'],soundPair:'(→ sound pair 26)',correct:null},
+    {num:3,pair:['dry','try'],soundPair:'(→ sound pair 26)',correct:null},
+    {num:4,pair:['riding','writing'],soundPair:'(→ sound pair 26)',correct:null},
+    {num:5,pair:['taught','thought'],soundPair:'(→ sound pair 27)',correct:null},
+    // Extra /t/ vs /d/ pairs
+    {num:6,pair:['ten','den'],soundPair:'/t/ vs /d/',correct:null},
+    {num:7,pair:['town','down'],soundPair:'/t/ vs /d/',correct:null},
+    {num:8,pair:['wrote','road'],soundPair:'/t/ vs /d/ (nguyen am)',correct:null},
+];
+let ex125Correct=[];
+function initEx125(){ex125Correct=EX125.map(()=>Math.floor(Math.random()*2));}
+function buildEx125(){
+    initEx125();
+    const c=document.getElementById('ex125Items');c.innerHTML='';
+    EX125.forEach((item,i)=>{
+        c.innerHTML+=`<div class='choice-item'>
+            <span class='num'>${item.num}.</span> <span style='font-size:13px;color:#888;'>${item.soundPair}</span><br>
+            ${item.pair.map((w,j)=>`<span class='choice-btn' id='cb125_${i}_${j}' onclick='selC125(${i},${j})'>${w}</span>`).join('')}
+            <button class='btn' style='padding:3px 10px;font-size:11px;margin-left:4px;' onclick="speakText('${item.pair[ex125Correct[i]]}',0.7)">&#128266; Nghe</button>
+        </div>`;
+    });
+}
+function selC125(i,j){
+    [0,1].forEach(k=>document.getElementById(`cb125_${i}_${k}`).classList.remove('sel-t','sel-d'));
+    document.getElementById(`cb125_${i}_${j}`).classList.add(j===0?'sel-t':'sel-d');
+}
+function speakEx125Random(){initEx125();buildEx125();showToast('Nghe tung cau bang nut ben canh!');}
+function checkEx125(){
+    let correct=0;
+    EX125.forEach((_,i)=>{
+        const ans=ex125Correct[i];
+        [0,1].forEach(j=>{
+            const el=document.getElementById(`cb125_${i}_${j}`);
+            if(!el) return;
+            const chosen=el.classList.contains('sel-t')||el.classList.contains('sel-d');
+            el.style.pointerEvents='none';
+            if(j===ans){if(chosen){el.classList.add('correct-c');correct++;}else{el.style.textDecoration='underline dotted #27ae60';}}
+            else{if(chosen)el.classList.add('wrong-c');}
+        });
+    });
+    showScore('125',correct,EX125.length,'<br><em style="font-size:13px;">Nhan Lam lai de tao cau hoi moi!</em>');
+}
+function resetEx125(){buildEx125();document.getElementById('score125').className='score-box';showToast('Da dat lai!');}
+function revealEx125(){
+    EX125.forEach((_,i)=>{
+        const ans=ex125Correct[i];
+        [0,1].forEach(j=>{
+            const el=document.getElementById(`cb125_${i}_${j}`);
+            if(!el) return;
+            el.classList.remove('sel-t','sel-d','wrong-c');
+            el.style.pointerEvents='none';
+            if(j===ans) el.classList.add('correct-c');
+        });
+    });
+    document.getElementById('score125').className='score-box info show';
+    document.getElementById('score125').innerHTML='<strong>Dap an:</strong> '+EX125.map((item,i)=>`${item.num}. <strong>${item.pair[ex125Correct[i]]}</strong>`).join(' | ');
+    showToast('Da hien thi dap an!');
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+    buildEx121();buildEx122();buildEx123();buildEx125();
+});
+</script>
+</body>
+</html>
