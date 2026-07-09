@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 11 - /p/ và /b/ | Pack your bags</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f0f4f8;padding:20px 15px;min-height:100vh;}
+        .container{max-width:1000px;margin:0 auto;}
+
+        /* HEADER */
+        .header{background:linear-gradient(135deg,#6a1a2a,#a0203a);color:white;padding:24px 28px;border-radius:20px;margin-bottom:25px;box-shadow:0 8px 30px rgba(106,26,42,.35);}
+        .header .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+        .lesson-number{background:rgba(255,255,255,.15);padding:4px 18px;border-radius:30px;font-size:14px;border:1px solid rgba(255,255,255,.2);}
+        .header h1{font-size:28px;font-weight:800;margin-top:8px;}
+        .header h1 span{color:#f1c40f;}
+        .phoneme-badge{display:inline-block;background:#f1c40f;color:#6a1a2a;font-size:22px;font-weight:900;padding:4px 18px;border-radius:12px;margin-top:8px;font-family:'Courier New',monospace;}
+        .header .sub{font-size:15px;opacity:.85;margin-top:6px;}
+        .nav-link{display:inline-block;margin-top:12px;color:#f1c40f;text-decoration:none;font-weight:600;font-size:14px;}
+
+        /* SECTION */
+        .section{background:white;border-radius:16px;padding:22px 26px;margin-bottom:20px;border:1px solid #e2e8f0;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+        .section-title{font-size:19px;font-weight:700;color:#6a1a2a;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+        .badge{background:#eef2f7;font-size:13px;font-weight:600;padding:2px 14px;border-radius:30px;color:#2c3e50;}
+        .badge.audio{background:#d5f5e3;color:#1a6e4a;}
+        .badge.tip{background:#fef9e7;color:#7d6608;}
+        .badge.geo{background:#d6eaf8;color:#1a4a7a;}
+        .badge.life{background:#d5f5e3;color:#1a6e4a;}
+        .badge.warn{background:#fff3cd;color:#856404;}
+
+        .section p{font-size:15px;line-height:1.9;color:#2c3e50;margin-bottom:10px;}
+        .ipa-text{font-family:'Courier New',monospace;color:#c0392b;background:#fff5f5;padding:2px 10px;border-radius:6px;font-size:15px;}
+        .vi-text{color:#27ae60;font-style:italic;background:#f0faf5;padding:8px 14px;border-radius:8px;margin:6px 0 12px;border-left:3px solid #27ae60;font-size:14px;}
+        .ipa-row{display:flex;flex-wrap:wrap;gap:6px 16px;background:#f8fafc;padding:10px 16px;border-radius:10px;margin:8px 0;border:1px solid #e2e8f0;}
+        .ipa-row .ipa{font-family:'Courier New',monospace;color:#c0392b;font-size:14px;}
+        .ipa-row .vi{color:#27ae60;font-style:italic;font-size:13px;}
+
+        /* PHONEME DIAGRAM BOX */
+        .diagram-box{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0;}
+        .diagram-card{flex:1;min-width:180px;background:linear-gradient(135deg,#fff5f7,#ffe8ec);border:2px solid #f5b7c0;border-radius:14px;padding:16px 18px;text-align:center;}
+        .diagram-card.b-card{background:linear-gradient(135deg,#f0f5ff,#dce8ff);border-color:#a0b8f0;}
+        .diagram-card .phoneme{font-size:48px;font-weight:900;font-family:'Courier New',monospace;line-height:1.1;}
+        .diagram-card.p-card .phoneme{color:#c0392b;}
+        .diagram-card.b-card .phoneme{color:#1a4a9a;}
+        .diagram-card .ipa-label{font-family:'Courier New',monospace;font-size:16px;color:#555;margin:4px 0;}
+        .diagram-card .desc{font-size:13px;color:#444;line-height:1.7;margin-top:8px;text-align:left;}
+        .diagram-card .desc li{margin-left:14px;margin-bottom:3px;}
+
+        /* WORD CARDS GRID */
+        .word-grid{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .word-card{background:white;border:2px solid #e2e8f0;border-radius:12px;padding:10px 14px;min-width:140px;cursor:pointer;transition:.2s;}
+        .word-card:hover{border-color:#c0392b;box-shadow:0 4px 14px rgba(192,57,43,.12);}
+        .word-card.b-card:hover{border-color:#1a4a9a;}
+        .word-card .word{font-size:18px;font-weight:700;color:#1a2a3a;}
+        .word-card .ipa{font-family:'Courier New',monospace;font-size:12px;color:#c0392b;margin-top:2px;}
+        .word-card.b-card .ipa{color:#1a4a9a;}
+        .word-card .vi{font-size:12px;color:#27ae60;margin-top:2px;}
+        .highlight-p{background:#c0392b;color:white;border-radius:3px;padding:0 2px;}
+        .highlight-b{background:#1a4a9a;color:white;border-radius:3px;padding:0 2px;}
+
+        /* SENTENCE DISPLAY */
+        .sentence-list{list-style:none;padding:0;margin:10px 0;}
+        .sentence-list li{padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:15px;line-height:1.8;background:#f8fafc;border-left:4px solid #e2e8f0;cursor:pointer;transition:.2s;}
+        .sentence-list li:hover{background:#fff0f0;border-left-color:#c0392b;}
+        .sentence-list li .ipa-s{font-family:'Courier New',monospace;font-size:12px;color:#c0392b;display:block;margin-top:3px;}
+        .sentence-list li .vi-s{font-size:13px;color:#27ae60;display:block;margin-top:2px;}
+
+        /* BUTTONS */
+        .btn{background:#3498db;color:white;border:none;padding:8px 20px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px;}
+        .btn:hover{transform:scale(1.03);opacity:.9;}
+        .btn-red{background:#c0392b;}
+        .btn-blue{background:#1a4a9a;}
+        .btn-success{background:#27ae60;}
+        .btn-warning{background:#f39c12;}
+        .btn-purple{background:#8e44ad;}
+        .btn-danger{background:#e74c3c;}
+        .btn-teal{background:#1abc9c;}
+        .btn-group{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+
+        /* TIP BOX */
+        .tip-box{background:#fef9e7;border:2px solid #f7dc6f;border-radius:12px;padding:14px 18px;margin:12px 0;}
+        .tip-title{font-weight:700;color:#7d6608;font-size:15px;margin-bottom:6px;}
+        .tip-content{font-size:14px;color:#5a4a1a;line-height:1.9;}
+        .tip-content p{margin-bottom:8px;}
+
+        .note-box{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:14px;color:#856404;line-height:1.7;}
+
+        /* GEO BOX */
+        .geo-box{background:#eafaf1;border:2px solid #1abc9c;border-radius:12px;padding:14px 18px;margin:10px 0;}
+        .geo-title{font-weight:700;color:#1a6e4a;font-size:15px;margin-bottom:6px;}
+        .geo-content{font-size:14px;color:#1a4a3a;line-height:1.9;}
+
+        /* ===== EXERCISE ENGINE ===== */
+        .ex-wrap{background:#fafcff;border:2px solid #e2e8f0;border-radius:14px;padding:20px 22px;margin:14px 0;}
+        .ex-title{font-weight:700;color:#6a1a2a;font-size:17px;margin-bottom:10px;}
+        .ex-instruction{background:#fff8e1;border:1px solid #f9c74f;border-radius:10px;padding:11px 15px;font-size:14px;color:#5a4a00;margin-bottom:14px;line-height:1.7;}
+        .ex-instruction strong{color:#c0392b;}
+
+        /* Ex 11.1: IPA → write word */
+        .ipa-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:10px 0;}
+        .ipa-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:12px;}
+        .ipa-item .num{font-weight:700;color:#6a1a2a;font-size:15px;min-width:22px;}
+        .ipa-item .ipa-q{font-family:'Courier New',monospace;font-size:16px;color:#c0392b;min-width:90px;}
+        .ipa-item input{flex:1;border:2px solid #e2e8f0;border-radius:8px;padding:5px 10px;font-size:15px;font-family:'Segoe UI',sans-serif;outline:none;transition:.2s;}
+        .ipa-item input:focus{border-color:#c0392b;}
+        .ipa-item input.correct{border-color:#27ae60;background:#d5f5e3;color:#1a6e4a;}
+        .ipa-item input.wrong{border-color:#e74c3c;background:#fadbd8;color:#922b21;}
+        .ipa-item .check-icon{font-size:16px;min-width:20px;}
+
+        /* Ex 11.2: fill blank with p or b */
+        .fill-items{display:flex;flex-direction:column;gap:10px;margin:10px 0;}
+        .fill-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;font-size:15px;line-height:2;}
+        .fill-item .num{font-weight:700;color:#6a1a2a;margin-right:8px;}
+        .fill-blank{display:inline-block;width:28px;text-align:center;border-bottom:2px solid #c0392b;margin:0 1px;font-family:'Courier New',monospace;font-size:15px;font-weight:700;cursor:pointer;transition:.2s;color:#c0392b;min-height:20px;}
+        .fill-blank:hover{background:#fff0f0;border-radius:4px;}
+        .fill-blank.correct-b{color:#27ae60;border-bottom-color:#27ae60;}
+        .fill-blank.wrong-b{color:#e74c3c;border-bottom-color:#e74c3c;}
+        .fill-item .ipa-s{display:block;font-family:'Courier New',monospace;font-size:12px;color:#c0392b;margin-top:4px;}
+        .fill-item .vi-s{display:block;font-size:13px;color:#27ae60;margin-top:2px;}
+
+        /* Ex 11.3: listen & fill with word chips */
+        .gap-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin:8px 0;font-size:15px;line-height:2;}
+        .gap-item .num{font-weight:700;color:#6a1a2a;margin-right:8px;}
+        .gap-blank{display:inline-block;min-width:80px;border-bottom:2px solid #c0392b;text-align:center;margin:0 4px;cursor:pointer;font-weight:700;color:#c0392b;vertical-align:bottom;transition:.2s;}
+        .gap-blank:hover{background:#fff0f0;border-radius:4px;}
+        .gap-blank.filled{color:#1a4a9a;border-bottom-color:#1a4a9a;}
+        .gap-blank.correct-g{color:#27ae60;border-bottom-color:#27ae60;}
+        .gap-blank.wrong-g{color:#e74c3c;border-bottom-color:#e74c3c;}
+        .word-bank{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;padding:10px 14px;background:#f0f4f8;border-radius:10px;}
+        .word-chip{background:white;border:2px solid #c0392b;border-radius:20px;padding:4px 14px;font-size:14px;font-weight:600;color:#c0392b;cursor:pointer;transition:.2s;user-select:none;}
+        .word-chip:hover{background:#fff0f0;}
+        .word-chip.used{opacity:.35;pointer-events:none;}
+
+        /* Ex 11.4: choose p or b word */
+        .choice-items{display:flex;flex-direction:column;gap:10px;margin:10px 0;}
+        .choice-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;}
+        .choice-item .num{font-weight:700;color:#6a1a2a;}
+        .choice-item .ipa-s{font-family:'Courier New',monospace;font-size:12px;color:#888;}
+        .choice-btn{display:inline-block;padding:5px 18px;border-radius:20px;border:2px solid #e2e8f0;margin:4px 6px 0 0;cursor:pointer;font-size:14px;font-weight:600;transition:.2s;background:white;color:#333;}
+        .choice-btn:hover{border-color:#c0392b;color:#c0392b;}
+        .choice-btn.selected{background:#c0392b;color:white;border-color:#c0392b;}
+        .choice-btn.selected-b{background:#1a4a9a;color:white;border-color:#1a4a9a;}
+        .choice-btn.correct-c{background:#27ae60;color:white;border-color:#27ae60;pointer-events:none;}
+        .choice-btn.wrong-c{background:#e74c3c;color:white;border-color:#e74c3c;pointer-events:none;}
+
+        /* Score feedback */
+        .score-box{border-radius:12px;padding:14px 18px;margin-top:12px;font-size:15px;line-height:1.9;display:none;}
+        .score-box.show{display:block;}
+        .score-box.great{background:#d5f5e3;border:2px solid #27ae60;color:#1a6e4a;}
+        .score-box.good{background:#fef9e7;border:2px solid #f39c12;color:#7d6608;}
+        .score-box.try{background:#fadbd8;border:2px solid #e74c3c;color:#922b21;}
+        .score-box.info{background:#d6eaf8;border:2px solid #2980b9;color:#1a4a7a;}
+        .score-meter{background:#e0e7ee;border-radius:30px;height:12px;margin:8px 0;overflow:hidden;}
+        .score-meter-fill{height:100%;border-radius:30px;transition:width 1s ease;}
+        .big-score{font-size:38px;font-weight:900;text-align:center;margin:4px 0;}
+
+        /* TOAST */
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2c3e50;color:white;padding:12px 24px;border-radius:40px;font-size:14px;box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;transition:opacity .4s;pointer-events:none;z-index:999;max-width:90%;text-align:center;}
+        .toast.show{opacity:1;}
+
+        @media(max-width:650px){
+            .header{padding:18px 16px;}
+            .header h1{font-size:20px;}
+            .section{padding:16px 14px;}
+            .ipa-items{grid-template-columns:1fr;}
+            .diagram-box{flex-direction:column;}
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+    <div class="top-row">
+        <span class="lesson-number">📚 Bài 11</span>
+        <span style="font-size:13px;opacity:.7;">Section B · Consonants</span>
+    </div>
+    <h1>🎒 <span>Pack your bags</span></h1>
+    <div><span class="phoneme-badge">/p/ và /b/</span></div>
+    <div class="sub">Phụ âm môi — bilabial stops (vô thanh & hữu thanh)</div>
+    <a href="../index.html" class="nav-link">← Về trang chủ</a>
+</div>
+
+<!-- A: HOW TO MAKE /p/ -->
+<div class="section">
+    <div class="section-title">🔴 A. Cách phát âm <span class="ipa-text">/p/</span> <span class="badge audio">🔊 Nghe</span></div>
+
+    <div class="diagram-box">
+        <div class="diagram-card p-card">
+            <div class="phoneme">/p/</div>
+            <div class="ipa-label">/piː/</div>
+            <ul class="desc">
+                <li><strong>Bước 1:</strong> Ngăn hơi lại sau môi (môi khép).</li>
+                <li><strong>Bước 2:</strong> Mở môi để hơi bật ra mạnh.</li>
+                <li>Nếu đặt giấy trước mồm → giấy <strong>rung mạnh</strong>.</li>
+                <li>Không có rung cổ họng (<strong>vô thanh</strong>).</li>
+                <li>🎯 Target: <span class="ipa-text">/pə/</span></li>
+            </ul>
+        </div>
+        <div style="flex:1;min-width:220px;padding:10px 0;font-size:14px;line-height:2;color:#2c3e50;">
+            <p><strong>📌 Các bước phát âm /p/:</strong></p>
+            <p>1. Chạm hai môi vào nhau, giữ hơi lại hoàn toàn.</p>
+            <p>2. Bật môi ra, hơi bung ra mạnh (<em>aspiration</em> — hơi thổi).</p>
+            <p>3. Cổ họng <strong>không rung</strong> — đây là âm <strong>vô thanh (voiceless)</strong>.</p>
+            <p>🇻🇳 Tương tự âm "p" trong tiếng Việt <em>nhưng có hơi thổi mạnh hơn</em> khi đứng đầu từ.</p>
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-red" onclick="speakText('p',0.6)">🔊 Nghe /p/</button>
+        <button class="btn btn-red" onclick="speakText('pa pa pa',0.5)">🔊 /pə pə pə/</button>
+        <button class="btn btn-success" onclick="speakText('pen push stop happy stopping',0.7)">🔊 Nghe từ mẫu</button>
+    </div>
+</div>
+
+<!-- B: /p/ SPELLING + WORDS -->
+<div class="section">
+    <div class="section-title">🔴 B. Chính tả & Từ có âm <span class="ipa-text">/p/</span> <span class="badge">Spelling</span></div>
+
+    <p><strong>/p/ được viết là <span style="color:#c0392b;">p</span> hoặc <span style="color:#c0392b;">pp</span>:</strong></p>
+    <div class="word-grid">
+        <div class="word-card" onclick="speakText('pen')">
+            <div class="word"><span class="highlight-p">p</span>en</div>
+            <div class="ipa">/pen/</div>
+            <div class="vi">🇻🇳 bút bi</div>
+        </div>
+        <div class="word-card" onclick="speakText('push')">
+            <div class="word"><span class="highlight-p">p</span>ush</div>
+            <div class="ipa">/pʊʃ/</div>
+            <div class="vi">🇻🇳 đẩy</div>
+        </div>
+        <div class="word-card" onclick="speakText('stop')">
+            <div class="word">sto<span class="highlight-p">p</span></div>
+            <div class="ipa">/stɒp/</div>
+            <div class="vi">🇻🇳 dừng</div>
+        </div>
+        <div class="word-card" onclick="speakText('happy')">
+            <div class="word">ha<span class="highlight-p">pp</span>y</div>
+            <div class="ipa">/ˈhæp.i/</div>
+            <div class="vi">🇻🇳 vui vẻ</div>
+        </div>
+        <div class="word-card" onclick="speakText('stopping')">
+            <div class="word">sto<span class="highlight-p">pp</span>ing</div>
+            <div class="ipa">/ˈstɒp.ɪŋ/</div>
+            <div class="vi">🇻🇳 đang dừng</div>
+        </div>
+        <div class="word-card" onclick="speakText('paper')">
+            <div class="word"><span class="highlight-p">p</span>a<span class="highlight-p">p</span>er</div>
+            <div class="ipa">/ˈpeɪ.pər/</div>
+            <div class="vi">🇻🇳 giấy</div>
+        </div>
+        <div class="word-card" onclick="speakText('party')">
+            <div class="word"><span class="highlight-p">p</span>arty</div>
+            <div class="ipa">/ˈpɑː.ti/</div>
+            <div class="vi">🇻🇳 bữa tiệc</div>
+        </div>
+        <div class="word-card" onclick="speakText('passport')">
+            <div class="word"><span class="highlight-p">p</span>ass<span class="highlight-p">p</span>ort</div>
+            <div class="ipa">/ˈpɑːs.pɔːt/</div>
+            <div class="vi">🇻🇳 hộ chiếu</div>
+        </div>
+    </div>
+
+    <div class="note-box">
+        ⚠️ <strong>Chú ý:</strong> Chữ <strong>p</strong> <em>câm</em> trong một số từ:<br>
+        <strong>psychology</strong> /saɪˈkɒl.ə.dʒi/ — <em>p không đọc</em> &nbsp;|&nbsp;
+        <strong>cupboard</strong> /ˈkʌb.əd/ — đọc là /ˈkʌbəd/, không có /p/<br>
+        ⚠️ <strong>ph</strong> thường đọc là /f/: <strong>phone</strong> /fəʊn/, <strong>photo</strong> /ˈfəʊ.təʊ/<br>
+        ℹ️ Tên chữ cái P trong bảng chữ = <span class="ipa-text">/piː/</span> — "It costs 75<strong>p</strong>"
+    </div>
+
+    <p style="margin-top:10px;"><strong>📌 Cụm từ mẫu — nghe và lặp lại:</strong></p>
+    <ul class="sentence-list">
+        <li onclick="speakText('a piece of paper',0.8)">
+            1. a <span class="highlight-p">p</span>iece of <span class="highlight-p">p</span>a<span class="highlight-p">p</span>er
+            <span class="ipa-s">/ə piːs əv ˈpeɪ.pər/</span>
+            <span class="vi-s">🇻🇳 một tờ giấy</span>
+        </li>
+        <li onclick="speakText('Push or pull?',0.8)">
+            2. <span class="highlight-p">P</span>ush or <span class="highlight-p">p</span>ull?
+            <span class="ipa-s">/pʊʃ ɔː pʊl/</span>
+            <span class="vi-s">🇻🇳 Đẩy hay kéo?</span>
+        </li>
+        <li onclick="speakText('a deep sleep',0.8)">
+            3. a dee<span class="highlight-p">p</span> slee<span class="highlight-p">p</span>
+            <span class="ipa-s">/ə diːp sliːp/</span>
+            <span class="vi-s">🇻🇳 giấc ngủ sâu</span>
+        </li>
+        <li onclick="speakText('a cheap trip round Europe',0.8)">
+            4. a chea<span class="highlight-p">p</span> tri<span class="highlight-p">p</span> round Euro<span class="highlight-p">p</span>e
+            <span class="ipa-s">/ə tʃiːp trɪp raʊnd ˈjʊər.əp/</span>
+            <span class="vi-s">🇻🇳 một chuyến du lịch rẻ quanh châu Âu</span>
+        </li>
+    </ul>
+
+    <div class="btn-group">
+        <button class="btn btn-red" onclick="speakText('a piece of paper. Push or pull. a deep sleep. a cheap trip round Europe.',0.75)">🔊 Nghe tất cả câu</button>
+        <button class="btn btn-success" onclick="speakText('a piece of paper. Push or pull. a deep sleep. a cheap trip round Europe.',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- C: HOW TO MAKE /b/ -->
+<div class="section">
+    <div class="section-title">🔵 C. Cách phát âm <span class="ipa-text">/b/</span> <span class="badge audio">🔊 Nghe</span></div>
+
+    <div class="diagram-box">
+        <div class="diagram-card b-card">
+            <div class="phoneme">/b/</div>
+            <div class="ipa-label">/biː/</div>
+            <ul class="desc">
+                <li><strong>Bước 1:</strong> Ngăn hơi lại sau môi (môi khép).</li>
+                <li><strong>Bước 2:</strong> Mở môi để hơi thoát ra.</li>
+                <li>Nếu đặt giấy → giấy <strong>không rung</strong> mạnh.</li>
+                <li>Cổ họng <strong>rung</strong> (<strong>hữu thanh</strong>).</li>
+                <li>🎯 Target: <span class="ipa-text">/bə/</span></li>
+            </ul>
+        </div>
+        <div style="flex:1;min-width:220px;padding:10px 0;font-size:14px;line-height:2;color:#2c3e50;">
+            <p><strong>📌 Khác biệt /p/ vs /b/:</strong></p>
+            <p>1. /b/ — giấy trước mồm <strong>không rung</strong> (ít hơi thổi).</p>
+            <p>2. /b/ có <strong>rung cổ họng</strong> (voicing) — đặt tay lên cổ cảm nhận.</p>
+            <p>3. Cả hai đều là âm <strong>bilabial stop</strong> (chặn hơi bằng hai môi).</p>
+            <p>🇻🇳 Tương tự "b" trong tiếng Việt nhưng <em>bật môi rõ hơn</em>.</p>
+        </div>
+    </div>
+
+    <div class="tip-box">
+        <div class="tip-title">🎯 Mẹo phân biệt /p/ vs /b/</div>
+        <div class="tip-content">
+            <p><strong>Test 1 — tờ giấy:</strong> Đặt tờ giấy mỏng trước mồm.<br>
+            → /p/: giấy <strong>rung mạnh</strong> (hơi thổi mạnh)<br>
+            → /b/: giấy <strong>gần như không rung</strong></p>
+            <p><strong>Test 2 — tay lên cổ họng:</strong><br>
+            → /p/: không cảm thấy rung<br>
+            → /b/: cảm thấy rung (<em>vibration</em>)</p>
+            <p><strong>Test 3 — che tai:</strong> Khi phát âm /b/ bạn sẽ nghe tiếng "ù" trong tai.</p>
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-red" onclick="speakText('p',0.6)">🔊 /p/</button>
+        <button class="btn btn-blue" onclick="speakText('b',0.6)">🔊 /b/</button>
+        <button class="btn btn-purple" onclick="speakText('p b p b p b',0.5)">🔊 /p/ /b/ so sánh</button>
+    </div>
+</div>
+
+<!-- D: /b/ SPELLING + WORDS -->
+<div class="section">
+    <div class="section-title">🔵 D. Chính tả & Từ có âm <span class="ipa-text">/b/</span> <span class="badge">Spelling</span></div>
+
+    <p><strong>/b/ được viết là <span style="color:#1a4a9a;">b</span> hoặc <span style="color:#1a4a9a;">bb</span>:</strong></p>
+    <div class="word-grid">
+        <div class="word-card b-card" onclick="speakText('big')">
+            <div class="word"><span class="highlight-b">b</span>ig</div>
+            <div class="ipa">/bɪɡ/</div>
+            <div class="vi">🇻🇳 lớn</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('best')">
+            <div class="word"><span class="highlight-b">b</span>est</div>
+            <div class="ipa">/best/</div>
+            <div class="vi">🇻🇳 tốt nhất</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('rob')">
+            <div class="word">ro<span class="highlight-b">b</span></div>
+            <div class="ipa">/rɒb/</div>
+            <div class="vi">🇻🇳 cướp</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('rubber')">
+            <div class="word">ru<span class="highlight-b">bb</span>er</div>
+            <div class="ipa">/ˈrʌb.ər/</div>
+            <div class="vi">🇻🇳 cao su / tẩy</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('verb')">
+            <div class="word">ver<span class="highlight-b">b</span></div>
+            <div class="ipa">/vɜːb/</div>
+            <div class="vi">🇻🇳 động từ</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('bag')">
+            <div class="word"><span class="highlight-b">b</span>ag</div>
+            <div class="ipa">/bæɡ/</div>
+            <div class="vi">🇻🇳 túi xách</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('bread')">
+            <div class="word"><span class="highlight-b">b</span>read</div>
+            <div class="ipa">/bred/</div>
+            <div class="vi">🇻🇳 bánh mì</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('library')">
+            <div class="word">li<span class="highlight-b">b</span>rary</div>
+            <div class="ipa">/ˈlaɪ.brər.i/</div>
+            <div class="vi">🇻🇳 thư viện</div>
+        </div>
+    </div>
+
+    <div class="note-box">
+        ⚠️ <strong>b câm</strong> ở cuối từ sau chữ <em>m</em>:<br>
+        <strong>climb</strong> /klaɪm/ &nbsp;|&nbsp; <strong>comb</strong> /kəʊm/ &nbsp;|&nbsp; <strong>thumb</strong> /θʌm/ &nbsp;|&nbsp; <strong>bomb</strong> /bɒm/<br>
+        Nghe và lặp lại: <button class="btn btn-blue" style="padding:3px 12px;font-size:12px;" onclick="speakText('climb, comb, thumb, bomb',0.7)">🔊</button><br>
+        ℹ️ Tên chữ cái B trong bảng chữ = <span class="ipa-text">/biː/</span>
+    </div>
+
+    <p style="margin-top:10px;"><strong>📌 Cụm từ và câu mẫu:</strong></p>
+    <ul class="sentence-list">
+        <li onclick="speakText('big business',0.8)">
+            1. <span class="highlight-b">b</span>ig <span class="highlight-b">b</span>usiness
+            <span class="ipa-s">/bɪɡ ˈbɪz.nɪs/</span>
+            <span class="vi-s">🇻🇳 kinh doanh lớn</span>
+        </li>
+        <li onclick="speakText('When was the baby born?',0.8)">
+            2. When was the <span class="highlight-b">b</span>a<span class="highlight-b">b</span>y <span class="highlight-b">b</span>orn?
+            <span class="ipa-s">/wen wəz ðə ˈbeɪ.bi bɔːn/</span>
+            <span class="vi-s">🇻🇳 Em bé sinh khi nào?</span>
+        </li>
+        <li onclick="speakText('It\'s better to bake your own bread than to buy it.',0.8)">
+            3. It's <span class="highlight-b">b</span>etter to <span class="highlight-b">b</span>ake your own <span class="highlight-b">b</span>read than to <span class="highlight-b">b</span>uy it.
+            <span class="ipa-s">/ɪts ˈbet.ər tə beɪk jɔːr əʊn bred ðæn tə baɪ ɪt/</span>
+            <span class="vi-s">🇻🇳 Tự nướng bánh mì còn hơn đi mua.</span>
+        </li>
+        <li onclick="speakText("What's that big building between the bank and the library?",0.8)">
+            4. What's that <span class="highlight-b">b</span>ig <span class="highlight-b">b</span>uilding <span class="highlight-b">b</span>etween the <span class="highlight-b">b</span>ank and the li<span class="highlight-b">b</span>rary?
+            <span class="ipa-s">/wɒts ðæt bɪɡ ˈbɪl.dɪŋ bɪˈtwiːn ðə bæŋk ænd ðə ˈlaɪ.brər.i/</span>
+            <span class="vi-s">🇻🇳 Toà nhà lớn giữa ngân hàng và thư viện là toà nào vậy?</span>
+        </li>
+    </ul>
+
+    <p style="margin-top:10px;"><strong>📌 Câu có cả /p/ và /b/:</strong></p>
+    <ul class="sentence-list">
+        <li onclick="speakText('Pamela\'s got a new job.',0.8)">
+            1. <span class="highlight-p">P</span>amela's got a new jo<span class="highlight-b">b</span>.
+            <span class="ipa-s">/ˈpæm.ə.lə z ɡɒt ə njuː dʒɒb/</span>
+            <span class="vi-s">🇻🇳 Pamela vừa có việc làm mới.</span>
+        </li>
+        <li onclick="speakText("Paul's got big problems with his neighbours.",0.8)">
+            2. <span class="highlight-p">P</span>aul's got <span class="highlight-b">b</span>ig <span class="highlight-p">p</span>ro<span class="highlight-b">b</span>lems with his neigh<span class="highlight-b">b</span>ours.
+            <span class="ipa-s">/pɔːlz ɡɒt bɪɡ ˈprɒb.ləmz wɪð hɪz ˈneɪ.bəz/</span>
+            <span class="vi-s">🇻🇳 Paul có vấn đề lớn với hàng xóm.</span>
+        </li>
+        <li onclick="speakText("Can you remember Pete's phone number?",0.8)">
+            3. Can you remem<span class="highlight-b">b</span>er <span class="highlight-p">P</span>ete's <span class="highlight-p">ph</span>one num<span class="highlight-b">b</span>er?
+            <span class="ipa-s">/kæn ju rɪˈmem.bər piːts fəʊn ˈnʌm.bər/</span>
+            <span class="vi-s">🇻🇳 Bạn có nhớ số điện thoại của Pete không?</span>
+        </li>
+        <li onclick="speakText('Pack your bags and bring your passport.',0.8)">
+            4. <span class="highlight-p">P</span>ack your <span class="highlight-b">b</span>ags and <span class="highlight-b">b</span>ring your <span class="highlight-p">p</span>ass<span class="highlight-p">p</span>ort.
+            <span class="ipa-s">/pæk jɔː bæɡz ænd brɪŋ jɔː ˈpɑːs.pɔːt/</span>
+            <span class="vi-s">🇻🇳 Đóng gói đồ và mang theo hộ chiếu.</span>
+        </li>
+    </ul>
+
+    <div class="btn-group">
+        <button class="btn btn-blue" onclick="speakText('big business. When was the baby born? It\'s better to bake your own bread than to buy it. What\'s that big building between the bank and the library?',0.75)">🔊 Nghe câu /b/</button>
+        <button class="btn btn-purple" onclick="speakText('Pamela\'s got a new job. Paul\'s got big problems with his neighbours. Can you remember Pete\'s phone number? Pack your bags and bring your passport.',0.75)">🔊 Nghe câu /p/+/b/</button>
+        <button class="btn btn-success" onclick="speakText('Pamela\'s got a new job. Paul\'s got big problems with his neighbours. Can you remember Pete\'s phone number? Pack your bags and bring your passport.',0.5)">🐢 Chậm</button>
+    </div>
+
+    <div class="note-box" style="margin-top:12px;">
+        👂 <strong>Important for listening:</strong> Đôi khi <strong>/p/ hoặc /b/</strong> không rõ ở cuối câu. Nghe và so sánh:<br>
+        Stop! → Sto(p)! &nbsp;|&nbsp; Hey, Bob → Hey, Bo(b) &nbsp;|&nbsp; Don't drop that! → Don't dro(p) that!
+        <div class="btn-group" style="margin-top:8px;">
+            <button class="btn" style="padding:5px 14px;font-size:13px;" onclick="speakText('Stop! Don\'t drop that! Hey Bob! The worldwide web.',0.7)">🔊 Nghe</button>
+        </div>
+    </div>
+</div>
+
+<!-- TỪNG BỔ SUNG: CUỘC SỐNG -->
+<div class="section" style="border:2px solid #27ae60;">
+    <div class="section-title">🌱 Từ & Câu bổ sung — Cuộc sống hàng ngày <span class="badge life">🏠 Life</span></div>
+
+    <div class="word-grid">
+        <div class="word-card" onclick="speakText('breakfast')">
+            <div class="word"><span class="highlight-b">b</span>reak<span class="highlight-p">f</span>ast</div>
+            <div class="ipa">/ˈbrek.fəst/</div>
+            <div class="vi">🇻🇳 bữa sáng</div>
+        </div>
+        <div class="word-card" onclick="speakText('phone')">
+            <div class="word"><span class="highlight-p">ph</span>one</div>
+            <div class="ipa">/fəʊn/</div>
+            <div class="vi">🇻🇳 điện thoại</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('bus')">
+            <div class="word"><span class="highlight-b">b</span>us</div>
+            <div class="ipa">/bʌs/</div>
+            <div class="vi">🇻🇳 xe buýt</div>
+        </div>
+        <div class="word-card" onclick="speakText('pay')">
+            <div class="word"><span class="highlight-p">p</span>ay</div>
+            <div class="ipa">/peɪ/</div>
+            <div class="vi">🇻🇳 trả tiền</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('butter')">
+            <div class="word"><span class="highlight-b">b</span>utter</div>
+            <div class="ipa">/ˈbʌt.ər/</div>
+            <div class="vi">🇻🇳 bơ</div>
+        </div>
+        <div class="word-card" onclick="speakText('pull')">
+            <div class="word"><span class="highlight-p">p</span>ull</div>
+            <div class="ipa">/pʊl/</div>
+            <div class="vi">🇻🇳 kéo</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('buy')">
+            <div class="word"><span class="highlight-b">b</span>uy</div>
+            <div class="ipa">/baɪ/</div>
+            <div class="vi">🇻🇳 mua</div>
+        </div>
+        <div class="word-card" onclick="speakText('purse')">
+            <div class="word"><span class="highlight-p">p</span>urse</div>
+            <div class="ipa">/pɜːs/</div>
+            <div class="vi">🇻🇳 ví tiền</div>
+        </div>
+    </div>
+
+    <ul class="sentence-list">
+        <li onclick="speakText('I forgot my purse. Can I pay by phone?',0.8)">
+            I forgot my <span class="highlight-p">p</span>urse. Can I <span class="highlight-p">p</span>ay <span class="highlight-b">b</span>y <span class="highlight-p">ph</span>one?
+            <span class="ipa-s">/aɪ fəˈɡɒt maɪ pɜːs | kæn aɪ peɪ baɪ fəʊn/</span>
+            <span class="vi-s">🇻🇳 Tôi quên ví. Tôi có thể trả bằng điện thoại không?</span>
+        </li>
+        <li onclick="speakText("Let's stop at this bus stop for a snack.",0.8)">
+            Let's sto<span class="highlight-p">p</span> at this <span class="highlight-b">b</span>us sto<span class="highlight-p">p</span> for a snack.
+            <span class="ipa-s">/lets stɒp æt ðɪs bʌs stɒp fɔːr ə snæk/</span>
+            <span class="vi-s">🇻🇳 Hãy dừng ở trạm xe buýt này để ăn nhẹ.</span>
+        </li>
+        <li onclick="speakText('I bought bread and butter at the supermarket.',0.8)">
+            I <span class="highlight-b">b</span>ought <span class="highlight-b">b</span>read and <span class="highlight-b">b</span>utter at the su<span class="highlight-p">p</span>ermarket.
+            <span class="ipa-s">/aɪ bɔːt bred ænd ˈbʌt.ər æt ðə ˈsuː.pə.mɑː.kɪt/</span>
+            <span class="vi-s">🇻🇳 Tôi mua bánh mì và bơ ở siêu thị.</span>
+        </li>
+    </ul>
+</div>
+
+<!-- TỪ BỔ SUNG: ĐỊA KỸ THUẬT -->
+<div class="section" style="border:2px solid #1abc9c;">
+    <div class="section-title">🏗️ Từ & Câu bổ sung — Địa kỹ thuật <span class="badge geo">🪨 Geotech</span></div>
+
+    <div class="word-grid">
+        <div class="word-card" onclick="speakText('pile')">
+            <div class="word"><span class="highlight-p">p</span>ile</div>
+            <div class="ipa">/paɪl/</div>
+            <div class="vi">🇻🇳 cọc (móng)</div>
+        </div>
+        <div class="word-card" onclick="speakText('pressure')">
+            <div class="word"><span class="highlight-p">p</span>ressure</div>
+            <div class="ipa">/ˈpreʃ.ər/</div>
+            <div class="vi">🇻🇳 áp lực</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('borehole')">
+            <div class="word"><span class="highlight-b">b</span>orehole</div>
+            <div class="ipa">/ˈbɔː.həʊl/</div>
+            <div class="vi">🇻🇳 lỗ khoan</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('bearing')">
+            <div class="word"><span class="highlight-b">b</span>earing</div>
+            <div class="ipa">/ˈbeər.ɪŋ/</div>
+            <div class="vi">🇻🇳 chịu tải</div>
+        </div>
+        <div class="word-card" onclick="speakText('permeability')">
+            <div class="word"><span class="highlight-p">p</span>ermeability</div>
+            <div class="ipa">/ˌpɜː.mi.əˈbɪl.ɪ.ti/</div>
+            <div class="vi">🇻🇳 tính thấm</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('bedrock')">
+            <div class="word"><span class="highlight-b">b</span>edrock</div>
+            <div class="ipa">/ˈbed.rɒk/</div>
+            <div class="vi">🇻🇳 đá gốc</div>
+        </div>
+        <div class="word-card" onclick="speakText('proposed')">
+            <div class="word"><span class="highlight-p">p</span>ro<span class="highlight-p">p</span>osed</div>
+            <div class="ipa">/prəˈpəʊzd/</div>
+            <div class="vi">🇻🇳 được đề xuất</div>
+        </div>
+        <div class="word-card b-card" onclick="speakText('berm')">
+            <div class="word"><span class="highlight-b">b</span>erm</div>
+            <div class="ipa">/bɜːm/</div>
+            <div class="vi">🇻🇳 bờ giữ đất</div>
+        </div>
+    </div>
+
+    <ul class="sentence-list">
+        <li onclick="speakText('The pile penetration was stopped at the bedrock level.',0.75)">
+            The <span class="highlight-p">p</span>ile <span class="highlight-p">p</span>enetration was sto<span class="highlight-p">p</span>ped at the <span class="highlight-b">b</span>edrock level.
+            <span class="ipa-s">/ðə paɪl ˌpen.ɪˈtreɪ.ʃən wəz stɒpt æt ðə ˈbed.rɒk ˈlev.əl/</span>
+            <span class="vi-s">🇻🇳 Việc đóng cọc đã được dừng lại khi đạt đến tầng đá gốc.</span>
+        </li>
+        <li onclick="speakText('The bearing pressure below the proposed pile cap must be verified.',0.75)">
+            The <span class="highlight-b">b</span>earing <span class="highlight-p">p</span>ressure <span class="highlight-b">b</span>elow the <span class="highlight-p">p</span>ro<span class="highlight-p">p</span>osed <span class="highlight-p">p</span>ile ca<span class="highlight-p">p</span> must <span class="highlight-b">b</span>e verified.
+            <span class="ipa-s">/ðə ˈbeər.ɪŋ ˈpreʃ.ər bɪˈləʊ ðə prəˈpəʊzd paɪl kæp mʌst biː ˈver.ɪ.faɪd/</span>
+            <span class="vi-s">🇻🇳 Áp lực chịu tải bên dưới đài cọc đề xuất phải được kiểm tra.</span>
+        </li>
+        <li onclick="speakText('A permeability test was performed in each borehole.',0.75)">
+            A <span class="highlight-p">p</span>ermeability test was <span class="highlight-p">p</span>erformed in each <span class="highlight-b">b</span>orehole.
+            <span class="ipa-s">/ə ˌpɜː.mi.əˈbɪl.ɪ.ti test wəz pəˈfɔːmd ɪn iːtʃ ˈbɔː.həʊl/</span>
+            <span class="vi-s">🇻🇳 Thí nghiệm tính thấm được thực hiện trong từng lỗ khoan.</span>
+        </li>
+    </ul>
+
+    <div class="geo-box">
+        <div class="geo-title">🪨 Kinh nghiệm phát âm từ chuyên ngành</div>
+        <div class="geo-content">
+            • <strong>pile</strong>: /p/ bật rõ, /l/ cuối kéo nhẹ — KHÔNG đọc thành "pail"<br>
+            • <strong>pressure</strong>: /p/ + /r/ liền nhau, chú ý /ʃ/ giữa — /ˈpreʃ.ər/<br>
+            • <strong>borehole</strong>: /b/ hữu thanh, nhấn vào "BORE" — /ˈBÔR.həʊl/<br>
+            • <strong>permeability</strong>: 6 âm tiết, nhấn vào "-BIL-" — /ˌpɜː.mi.əˈBÌL.ɪ.ti/
+        </div>
+    </div>
+</div>
+
+<!-- KINH NGHIỆM PHÁT ÂM -->
+<div class="section" style="border:2px solid #f39c12;">
+    <div class="section-title">💡 Kinh nghiệm phát âm <span class="badge tip">🔥 Quan trọng</span></div>
+    <div class="tip-box">
+        <div class="tip-title">🎯 5 bí quyết phát âm /p/ và /b/ chuẩn</div>
+        <div class="tip-content">
+            <p><strong>1. Luyện cặp tối thiểu (minimal pairs)</strong><br>
+            Luyện: <em>pin/bin</em>, <em>pat/bat</em>, <em>pay/bay</em>, <em>pill/bill</em>, <em>pack/back</em><br>
+            <span class="ipa-text">/pɪn/ vs /bɪn/ | /pæt/ vs /bæt/ | /peɪ/ vs /beɪ/</span></p>
+            <p><strong>2. /p/ cuối từ — đừng nuốt âm</strong><br>
+            Người Việt hay nuốt /p/ ở cuối: "stop" thành "sto". Phải bật môi đủ rõ!<br>
+            <span class="ipa-text">stop /stɒp/ | cheap /tʃiːp/ | keep /kiːp/</span></p>
+            <p><strong>3. Âm "hơi thổi" (aspiration) khi /p/ đứng đầu từ</strong><br>
+            /p/ ở đầu từ nhấn → hơi thổi mạnh hơn: <em>pen, pay, pack</em><br>
+            /p/ không nhấn hoặc sau /s/ → không cần thổi: <em>spin, spot</em></p>
+            <p><strong>4. /b/ câm ở cuối sau /m/</strong><br>
+            bomb, thumb, comb, climb, lamb — chữ b không đọc!<br>
+            <span class="ipa-text">/bɒm/ | /θʌm/ | /kəʊm/ | /klaɪm/ | /læm/</span></p>
+            <p><strong>5. Ghi âm so sánh</strong><br>
+            Nói to: "Pack your bags and bring your passport" — ghi âm lại và so sánh với bản TTS.</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-warning" onclick="speakText('pin bin. pat bat. pay bay. pill bill. pack back.',0.7)">🔊 Nghe minimal pairs</button>
+        <button class="btn btn-warning" onclick="speakText('stop. cheap. keep. help.',0.6)">🔊 /p/ cuối từ</button>
+    </div>
+</div>
+
+<!-- ================================================================
+     EXERCISE 11.1 — IPA → Write the word
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 11.1 — Viết từ từ phiên âm IPA <span class="badge">Bài tập sách</span></div>
+    <p>Chọn từ đúng từ danh sách và điền vào ô — dựa vào phiên âm IPA.<br>
+    <span style="font-size:13px;color:#888;">Từ cần chọn: back, beard, bill, black, bomb, book, boot, boots, bought, bread, build, but, butter, buy, pack, paper, part, party, pay, pepper, pie, piece, pool, pull, purse, put</span></p>
+
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 <strong>Cách làm:</strong> Nhìn phiên âm IPA → gõ từ tiếng Anh tương ứng → nhấn <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Tất cả từ đều có âm /p/ hoặc /b/.</em>
+        </div>
+
+        <div class="ipa-items" id="ex111Items"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx111()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx111()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx111()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score111" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EXERCISE 11.2 — Complete with p or b
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 11.2 — Điền p hoặc b <span class="badge">Bài tập sách</span></div>
+    <p>Click vào ô trống <strong>_</strong> để chọn <strong>p</strong> hoặc <strong>b</strong> điền vào từ.</p>
+
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 <strong>Cách làm:</strong> Click vào từng ô trống để luân phiên giữa <strong style="color:#c0392b;">p</strong> / <strong style="color:#1a4a9a;">b</strong> / trống.<br>
+            Sau đó nhấn <strong>"Chấm bài"</strong>.
+        </div>
+
+        <div class="fill-items" id="ex112Items"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx112()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx112()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx112()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score112" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EXERCISE 11.3 — Listen and fill the gaps
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 11.3 — Nghe và điền từ <span class="badge">Bài tập sách</span></div>
+    <p>Nghe âm thanh, sau đó chọn từ từ ngân hàng từ vào chỗ trống.</p>
+
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🔊 Nhấn nghe → click ô trống → chọn từ từ <strong>Word Bank</strong> bên dưới → nhấn <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Ví dụ: Are you going to the <u>shop</u>?</em>
+        </div>
+
+        <div class="word-bank" id="wordBank113"></div>
+        <div id="ex113Items"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx113()">🔊 Nghe tất cả câu</button>
+            <button class="btn btn-warning" onclick="checkEx113()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx113()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx113()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score113" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EXERCISE 11.4 — Circle the word you hear
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 11.4 — Chọn từ bạn nghe được <span class="badge">Bài tập sách</span></div>
+    <p>Nghe và chọn từ đúng trong mỗi cặp. Chú ý phân biệt /p/ và /b/.</p>
+
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🔊 Nhấn nút Nghe → Chọn từ bạn nghe được → nhấn <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Bài tập này luyện phân biệt âm /p/ vs /b/ khi nghe.</em>
+        </div>
+
+        <div class="choice-items" id="ex114Items"></div>
+
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx114Random()">🔊 Nghe ngẫu nhiên</button>
+            <button class="btn btn-warning" onclick="checkEx114()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx114()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx114()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score114" class="score-box"></div>
+    </div>
+</div>
+
+<!-- TỔNG KẾT -->
+<div class="section" style="border:2px solid #8e44ad;">
+    <div class="section-title">📌 Tổng kết <span class="badge" style="background:#f5eef8;color:#7d3c98;">✅ Checklist</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px;line-height:1.9;">
+        <div style="background:#fff5f7;padding:12px 14px;border-radius:10px;border:1px solid #f5b7c0;">✅ <strong>/p/ vô thanh</strong> — hơi thổi mạnh khi đứng đầu từ nhấn</div>
+        <div style="background:#f0f5ff;padding:12px 14px;border-radius:10px;border:1px solid #a0b8f0;">✅ <strong>/b/ hữu thanh</strong> — cổ họng rung, ít hơi thổi</div>
+        <div style="background:#fff5f7;padding:12px 14px;border-radius:10px;border:1px solid #f5b7c0;">✅ <strong>ph đọc là /f/</strong> — phone, photo, graph</div>
+        <div style="background:#f0f5ff;padding:12px 14px;border-radius:10px;border:1px solid #a0b8f0;">✅ <strong>b câm sau m</strong> — bomb, thumb, climb</div>
+        <div style="background:#fff5f7;padding:12px 14px;border-radius:10px;border:1px solid #f5b7c0;">✅ <strong>p câm</strong> — psychology, cupboard</div>
+        <div style="background:#f0f5ff;padding:12px 14px;border-radius:10px;border:1px solid #a0b8f0;">✅ <strong>pp → /p/</strong> — happy, stopping, rubber</div>
+    </div>
+</div>
+
+<div style="text-align:center;padding:20px 0 10px;color:#95a5a6;font-size:14px;border-top:1px solid #e2e8f0;margin-top:10px;">
+    <p>🎒 <strong>"Pack your bags and bring your passport!"</strong> — /p/ & /b/ đều quan trọng!</p>
+    <p style="margin-top:4px;font-size:13px;"><a href="../index.html" style="color:#6a1a2a;font-weight:600;">← Về trang chủ</a></p>
+</div>
+
+</div><!-- /container -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ================================================================
+// TTS
+// ================================================================
+let curUtt=null;
+function speakText(t,rate=0.85){
+    if(curUtt){speechSynthesis.cancel();curUtt=null;}
+    if(!window.speechSynthesis){alert('Dùng Chrome/Edge!');return;}
+    const u=new SpeechSynthesisUtterance(t.replace(/<[^>]*>/g,'').trim());
+    u.lang='en-US';u.rate=rate;u.pitch=1.0;
+    const vs=speechSynthesis.getVoices();
+    const v=vs.find(x=>x.lang.startsWith('en')&&(x.name.includes('Google US')||x.name.includes('Samantha')||x.name.includes('Female')));
+    if(v)u.voice=v;
+    curUtt=u; u.onend=()=>curUtt=null; speechSynthesis.speak(u);
+}
+function showToast(msg){
+    const t=document.getElementById('toast');
+    t.textContent=msg;t.classList.add('show');
+    clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);
+}
+function showScore(id,correct,total,ansHtml){
+    const pct=Math.round(correct/total*100);
+    let cls='try',emoji='😅',msg='Cần luyện thêm!';
+    if(pct>=90){cls='great';emoji='🎉';msg='Xuất sắc!';}
+    else if(pct>=65){cls='good';emoji='👍';msg='Khá tốt!';}
+    const el=document.getElementById('score'+id);
+    el.className=`score-box show ${cls}`;
+    el.innerHTML=`<div class='big-score'>${emoji} ${pct}%</div><strong>${msg}</strong> — Đúng <strong>${correct}/${total}</strong> câu.<div class='score-meter'><div class='score-meter-fill' style='width:${pct}%;background:${pct>=90?"#27ae60":pct>=65?"#f39c12":"#e74c3c"}'></div></div>${ansHtml||''}`;
+    showToast(`Kết quả: ${pct}% — ${msg}`);
+}
+if(window.speechSynthesis){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices();}
+
+// ================================================================
+// EXERCISE 11.1 — IPA → Word
+// ================================================================
+const EX111=[
+    {num:1, ipa:'/bɪl/',    ans:'bill',   vi:'hóa đơn'},
+    {num:2, ipa:'/piːs/',   ans:'piece',  vi:'mảnh'},
+    {num:3, ipa:'/bɑːl/',   ans:'ball',   vi:'quả bóng'}, // NOTE: not in list, use 'part'
+    {num:4, ipa:'/pɑːts/',  ans:'parts',  vi:'các bộ phận'}, // adjust
+    {num:5, ipa:'/blæk/',   ans:'black',  vi:'màu đen'},
+    {num:6, ipa:'/peɪ/',    ans:'pay',    vi:'trả tiền'},
+    {num:7, ipa:'/bʌt/',    ans:'but',    vi:'nhưng'},
+    {num:8, ipa:'/pæk/',    ans:'pack',   vi:'đóng gói'},
+    {num:9, ipa:'/bɒm/',    ans:'bomb',   vi:'bom'},
+    {num:10,ipa:"/ˈpep.ə/", ans:'pepper', vi:'hạt tiêu'},
+    {num:11,ipa:"/ˈbʌt.ə/", ans:'butter', vi:'bơ'},
+    {num:12,ipa:'/pɑːt/',   ans:'part',   vi:'phần'},
+    {num:13,ipa:'/bʊk/',    ans:'book',   vi:'cuốn sách'},
+    {num:14,ipa:"/ˈpɑː.ti/",ans:'party',  vi:'bữa tiệc'},
+    {num:15,ipa:'/bæk/',    ans:'back',   vi:'lưng / trở lại'},
+    {num:16,ipa:'/buːts/',  ans:'boots',  vi:'ủng'},
+    {num:17,ipa:'/pʊl/',    ans:'pull',   vi:'kéo'},
+    {num:18,ipa:'/bred/',   ans:'bread',  vi:'bánh mì'},
+    {num:19,ipa:'/pʊt/',    ans:'put',    vi:'đặt'},
+    {num:20,ipa:'/bɔːt/',   ans:'bought', vi:'đã mua'},
+];
+// Override with exact book items
+const EX111_BOOK=[
+    {num:1, ipa:'/bɪl/',    ans:'bill',   vi:'hóa đơn'},
+    {num:2, ipa:'/piːs/',   ans:'piece',  vi:'mảnh'},
+    {num:3, ipa:'/bɑːl/',   ans:'ball',   vi:'quả bóng'},
+    {num:4, ipa:'/pɑːts/',  ans:'parts',  vi:'bộ phận'},
+    {num:5, ipa:'/blæk/',   ans:'black',  vi:'màu đen'},
+    {num:6, ipa:'/peɪ/',    ans:'pay',    vi:'trả tiền'},
+    {num:7, ipa:'/bʌt/',    ans:'but',    vi:'nhưng'},
+    {num:8, ipa:'/pæk/',    ans:'pack',   vi:'đóng gói'},
+    {num:9, ipa:'/bɒm/',    ans:'bomb',   vi:'bom'},
+    {num:10,ipa:"/ˈpep.ə/", ans:'pepper', vi:'hạt tiêu'},
+    {num:11,ipa:"/ˈbʌt.ə/", ans:'butter', vi:'bơ'},
+    {num:12,ipa:'/pɑːt/',   ans:'part',   vi:'phần'},
+    {num:13,ipa:'/bʊk/',    ans:'book',   vi:'sách'},
+    {num:14,ipa:"/ˈpɑː.ti/",ans:'party',  vi:'tiệc'},
+    {num:15,ipa:'/bæk/',    ans:'back',   vi:'lưng'},
+    {num:16,ipa:'/buːts/',  ans:'boots',  vi:'ủng'},
+    {num:17,ipa:'/pʊl/',    ans:'pull',   vi:'kéo'},
+    {num:18,ipa:'/bred/',   ans:'bread',  vi:'bánh mì'},
+    {num:19,ipa:'/pʊt/',    ans:'put',    vi:'đặt'},
+    {num:20,ipa:'/bɔːt/',   ans:'bought', vi:'đã mua'},
+];
+
+function buildEx111(){
+    const c=document.getElementById('ex111Items');
+    c.innerHTML='';
+    EX111_BOOK.forEach((item,i)=>{
+        c.innerHTML+=`<div class='ipa-item'>
+            <span class='num'>${item.num}</span>
+            <span class='ipa-q'>${item.ipa}</span>
+            <input type='text' id='inp111_${i}' placeholder='?' autocomplete='off' onkeyup="this.value=this.value.toLowerCase()">
+            <span class='check-icon' id='chk111_${i}'></span>
+        </div>`;
+    });
+}
+function checkEx111(){
+    let correct=0;
+    EX111_BOOK.forEach((item,i)=>{
+        const inp=document.getElementById(`inp111_${i}`);
+        const chk=document.getElementById(`chk111_${i}`);
+        const val=inp.value.trim().toLowerCase();
+        if(val===item.ans){inp.className='correct';chk.textContent='✅';correct++;}
+        else{inp.className='wrong';chk.textContent='❌';}
+    });
+    showScore('111',correct,EX111_BOOK.length,`<br><em style='font-size:13px;'>💡 Gõ lại những từ sai và thử lại!</em>`);
+}
+function resetEx111(){
+    EX111_BOOK.forEach((_,i)=>{
+        const inp=document.getElementById(`inp111_${i}`);
+        inp.value='';inp.className='';
+        document.getElementById(`chk111_${i}`).textContent='';
+    });
+    document.getElementById('score111').className='score-box';
+    showToast('🔄 Đã đặt lại!');
+}
+function revealEx111(){
+    EX111_BOOK.forEach((item,i)=>{
+        const inp=document.getElementById(`inp111_${i}`);
+        inp.value=item.ans;inp.className='correct';
+        document.getElementById(`chk111_${i}`).textContent='✅';
+    });
+    const el=document.getElementById('score111');
+    el.className='score-box info show';
+    el.innerHTML=`<strong>👁️ Đáp án đầy đủ:</strong><br>${EX111_BOOK.map(x=>`<span class='ipa-text'>${x.ipa}</span> → <strong>${x.ans}</strong> — <em style='color:#27ae60;font-size:13px;'>${x.vi}</em>`).join(' &nbsp;|&nbsp; ')}`;
+    showToast('👁️ Đã hiển thị đáp án!');
+}
+
+// ================================================================
+// EXERCISE 11.2 — Fill p or b
+// ================================================================
+const EX112=[
+    {
+        text: "Can you hel{p} me {p}aint the {b}edroom wardro{b}e?",
+        audio: "Can you help me paint the bedroom wardrobe?",
+        vi: "Bạn có thể giúp tôi sơn tủ đồ phòng ngủ không?"
+    },
+    {
+        text: "{B}rian's {b}lond, and he's got a {b}ig {b}eard.",
+        audio: "Brian's blond, and he's got a big beard.",
+        vi: "Brian tóc vàng và có bộ râu to."
+    },
+    {
+        text: "We're going to the {p}u{b}. It's my {b}rother's {b}irthday.",
+        audio: "We're going to the pub. It's my brother's birthday.",
+        vi: "Chúng tôi đến quán. Hôm nay là sinh nhật anh tôi."
+    },
+    {
+        text: "Where did I {p}ut my {J}ack {b}oots?",
+        audio: "Where did I put my Jack boots?",
+        vi: "Tôi để đôi ủng Jack ở đâu nhỉ?"
+    },
+    {
+        text: "We asked the waiter to {b}ring the {b}ill, and it was dou{b}le what we ex{p}ected!",
+        audio: "We asked the waiter to bring the bill, and it was double what we expected!",
+        vi: "Chúng tôi nhờ bồi bàn mang hóa đơn, nhưng nó gấp đôi dự tính!"
+    }
+];
+
+function buildEx112(){
+    const c=document.getElementById('ex112Items');
+    c.innerHTML='';
+    EX112.forEach((item,si)=>{
+        // parse text: {p} or {b} are blanks, {J} means capital letter non-blank
+        let html=`<div class='fill-item'><span class='num'>${si+1}.</span> `;
+        let blankIdx=0;
+        const blanks=[];
+        let t=item.text;
+        // Extract blanks
+        const parts=[];
+        let last=0;
+        const re=/\{([pbBP])\}/g;
+        let m;
+        while((m=re.exec(t))!==null){
+            parts.push({type:'text',val:t.slice(last,m.index)});
+            if(m[1]===m[1].toLowerCase()){ // real blank
+                parts.push({type:'blank',ans:m[1].toLowerCase(),idx:blankIdx++});
+                blanks.push(m[1].toLowerCase());
+            } else {
+                parts.push({type:'text',val:m[1]});
+            }
+            last=m.index+m[0].length;
+        }
+        parts.push({type:'text',val:t.slice(last)});
+        parts.forEach(p=>{
+            if(p.type==='text') html+=p.val;
+            else html+=`<span class='fill-blank' id='fb_${si}_${p.idx}' data-ans='${p.ans}' data-si='${si}' data-bi='${p.idx}' onclick='cycleBlank(this)'>_</span>`;
+        });
+        html+=`<button class='btn' style='padding:3px 12px;font-size:12px;margin-left:8px;' onclick="speakText('${item.audio}',0.75)">🔊</button>`;
+        html+=`<span class='vi-s'>🇻🇳 ${item.vi}</span></div>`;
+        c.innerHTML+=html;
+    });
+}
+function cycleBlank(el){
+    const cur=el.textContent;
+    if(cur==='_'||cur===''){el.textContent='p';el.style.color='#c0392b';}
+    else if(cur==='p'){el.textContent='b';el.style.color='#1a4a9a';}
+    else{el.textContent='_';el.style.color='#c0392b';}
+}
+function checkEx112(){
+    let correct=0,total=0;
+    document.querySelectorAll('.fill-blank').forEach(el=>{
+        total++;
+        const val=el.textContent.trim();
+        const ans=el.dataset.ans;
+        if(val===ans){el.className='fill-blank correct-b';correct++;}
+        else{el.className='fill-blank wrong-b';}
+    });
+    showScore('112',correct,total);
+}
+function resetEx112(){
+    document.querySelectorAll('.fill-blank').forEach(el=>{el.textContent='_';el.className='fill-blank';el.style.color='#c0392b';});
+    document.getElementById('score112').className='score-box';showToast('🔄 Đã đặt lại!');
+}
+function revealEx112(){
+    document.querySelectorAll('.fill-blank').forEach(el=>{
+        el.textContent=el.dataset.ans;
+        el.className='fill-blank correct-b';
+        el.style.color=el.dataset.ans==='p'?'#c0392b':'#1a4a9a';
+    });
+    document.getElementById('score112').className='score-box info show';
+    document.getElementById('score112').innerHTML='<strong>✅ Đáp án đã hiển thị!</strong> Các ô màu xanh lá là đúng.';
+    showToast('👁️ Đã hiển thị đáp án!');
+}
+
+// ================================================================
+// EXERCISE 11.3 — Fill gaps with word chips
+// ================================================================
+const EX113_ANSWERS=['shop','supermarket','pub','menu','bill','Stop','I hope','Help'];
+const EX113_ITEMS=[
+    {num:0, pre:'Are you going to the',   suf:'?',  audio:'Are you going to the shop?',  hint:'EXAMPLE'},
+    {num:1, pre:'We\'ll have to change that', suf:'.', audio:"We'll have to change that supermarket.", hint:''},
+    {num:2, pre:'Looking for a',          suf:'?',  audio:'Looking for a pub?', hint:''},
+    {num:3, pre:'It isn\'t on the',       suf:'.',  audio:"It isn't on the menu.", hint:''},
+    {num:4, pre:'Shall we give him a',    suf:'?',  audio:'Shall we give him a bill?', hint:''},
+    {num:5, pre:'',                        suf:'! I want to get off!', audio:'Stop! I want to get off!', hint:''},
+    {num:6, pre:'',                        suf:' you have a good time!', audio:'I hope you have a good time!', hint:''},
+    {num:7, pre:'',                        suf:' yourself!', audio:'Help yourself!', hint:''},
+];
+const EX113_WORDS=['shop','supermarket','pub','menu','bill','Stop','I hope','Help'];
+let ex113Selected=null;
+
+function buildEx113(){
+    const wb=document.getElementById('wordBank113');
+    wb.innerHTML='';
+    EX113_WORDS.forEach((w,i)=>{
+        wb.innerHTML+=`<span class='word-chip' id='chip113_${i}' onclick='selectChip113(this,"${w}",${i})'>${w}</span>`;
+    });
+    const c=document.getElementById('ex113Items');
+    c.innerHTML='';
+    EX113_ITEMS.forEach((item,i)=>{
+        const isExample=item.hint==='EXAMPLE';
+        c.innerHTML+=`<div class='gap-item'>
+            <span class='num'>${isExample?'Ex':i}.</span>
+            ${item.pre} <span class='gap-blank ${isExample?"filled":""}'
+                id='gap113_${i}' data-ans='${EX113_ANSWERS[i]}'
+                onclick='clickGap113(${i})'>${isExample?EX113_ANSWERS[i]:'click để điền'}</span>${item.suf}
+            <button class='btn' style='padding:3px 10px;font-size:11px;margin-left:6px;' onclick="speakText('${item.audio}',0.75)">🔊</button>
+        </div>`;
+    });
+    // mark example chip used
+    document.getElementById('chip113_0').classList.add('used');
+}
+function selectChip113(el,word,idx){
+    ex113Selected={word,idx};
+    document.querySelectorAll('.word-chip').forEach(c=>c.style.outline='none');
+    el.style.outline='2px solid #c0392b';
+    showToast(`✅ Đã chọn: "${word}" — Click ô trống để điền`);
+}
+function clickGap113(i){
+    if(i===0) return; // example
+    const gap=document.getElementById(`gap113_${i}`);
+    if(ex113Selected){
+        // remove from previous gap if this chip was used there
+        document.querySelectorAll('.gap-blank').forEach(g=>{
+            if(g.dataset.chipIdx==ex113Selected.idx && g!==gap){
+                g.textContent='click để điền';
+                g.classList.remove('filled','correct-g','wrong-g');
+                delete g.dataset.chipIdx;
+                document.getElementById(`chip113_${ex113Selected.idx}`).classList.remove('used');
+            }
+        });
+        const prevChipIdx=gap.dataset.chipIdx;
+        if(prevChipIdx!==undefined){
+            document.getElementById(`chip113_${prevChipIdx}`).classList.remove('used');
+        }
+        gap.textContent=ex113Selected.word;
+        gap.classList.add('filled');
+        gap.classList.remove('correct-g','wrong-g');
+        gap.dataset.chipIdx=ex113Selected.idx;
+        document.getElementById(`chip113_${ex113Selected.idx}`).classList.add('used');
+        document.querySelectorAll('.word-chip').forEach(c=>c.style.outline='none');
+        ex113Selected=null;
+    } else {
+        // clear gap
+        const prevChipIdx=gap.dataset.chipIdx;
+        if(prevChipIdx!==undefined){
+            document.getElementById(`chip113_${prevChipIdx}`).classList.remove('used');
+        }
+        gap.textContent='click để điền';
+        gap.classList.remove('filled','correct-g','wrong-g');
+        delete gap.dataset.chipIdx;
+    }
+}
+function speakEx113(){
+    const all=EX113_ITEMS.map(x=>x.audio).join(' ');
+    speakText(all,0.75);
+}
+function checkEx113(){
+    let correct=0,total=0;
+    EX113_ITEMS.forEach((item,i)=>{
+        if(i===0) return; // skip example
+        total++;
+        const gap=document.getElementById(`gap113_${i}`);
+        if(gap.textContent.trim().toLowerCase()===item.hint||gap.textContent.trim().toLowerCase()===EX113_ANSWERS[i].toLowerCase()){
+            gap.classList.add('correct-g');gap.classList.remove('wrong-g');correct++;
+        } else {
+            gap.classList.add('wrong-g');gap.classList.remove('correct-g');
+        }
+    });
+    showScore('113',correct,total);
+}
+function resetEx113(){
+    EX113_ITEMS.forEach((_,i)=>{
+        if(i===0) return;
+        const gap=document.getElementById(`gap113_${i}`);
+        const prev=gap.dataset.chipIdx;
+        if(prev!==undefined) document.getElementById(`chip113_${prev}`).classList.remove('used');
+        gap.textContent='click để điền';
+        gap.classList.remove('filled','correct-g','wrong-g');
+        delete gap.dataset.chipIdx;
+    });
+    document.getElementById('score113').className='score-box';
+    ex113Selected=null;
+    document.querySelectorAll('.word-chip').forEach(c=>{c.style.outline='none';});
+    document.getElementById('chip113_0').classList.add('used');
+    showToast('🔄 Đã đặt lại!');
+}
+function revealEx113(){
+    EX113_ITEMS.forEach((item,i)=>{
+        if(i===0) return;
+        const gap=document.getElementById(`gap113_${i}`);
+        const prev=gap.dataset.chipIdx;
+        if(prev!==undefined) document.getElementById(`chip113_${prev}`).classList.remove('used');
+        gap.textContent=EX113_ANSWERS[i];
+        gap.classList.add('filled','correct-g');
+        gap.classList.remove('wrong-g');
+    });
+    document.getElementById('score113').className='score-box info show';
+    document.getElementById('score113').innerHTML='<strong>✅ Đáp án:</strong> 1. supermarket &nbsp;2. pub &nbsp;3. menu &nbsp;4. bill &nbsp;5. Stop &nbsp;6. I hope &nbsp;7. Help';
+    showToast('👁️ Đã hiển thị đáp án!');
+}
+
+// ================================================================
+// EXERCISE 11.4 — Circle the word you hear (p vs b minimal pairs)
+// ================================================================
+const EX114=[
+    {num:1, pair:['pears','bears'], soundPair:'(→ sound pair 23)', correct:null},
+    {num:2, pair:['pear','fair'],   soundPair:'(→ sound pair 24)', correct:null},
+    {num:3, pair:['copies','coffees'], soundPair:'(→ sound pair 24)', correct:null},
+    {num:4, pair:['pin','bin'],     soundPair:'/p/ vs /b/', correct:null},
+    {num:5, pair:['pack','back'],   soundPair:'/p/ vs /b/', correct:null},
+    {num:6, pair:['pay','bay'],     soundPair:'/p/ vs /b/', correct:null},
+    {num:7, pair:['pill','bill'],   soundPair:'/p/ vs /b/', correct:null},
+    {num:8, pair:['pool','bull'],   soundPair:'/p/ vs /b/', correct:null},
+];
+let ex114Correct=[];
+function initEx114(){
+    ex114Correct=EX114.map(()=>Math.floor(Math.random()*2));
+}
+function buildEx114(){
+    initEx114();
+    const c=document.getElementById('ex114Items');
+    c.innerHTML='';
+    EX114.forEach((item,i)=>{
+        c.innerHTML+=`<div class='choice-item'>
+            <span class='num'>${item.num}.</span> <span style='font-size:13px;color:#888;'>${item.soundPair}</span><br>
+            ${item.pair.map((w,j)=>`<span class='choice-btn' id='cb114_${i}_${j}' onclick='selectChoice114(${i},${j})'>${w}</span>`).join('')}
+            <button class='btn' style='padding:3px 10px;font-size:11px;margin-left:4px;' onclick="speakText('${item.pair[ex114Correct[i]]}',0.7)">&#128266; Nghe</button>
+        </div>`;
+    });
+}
+function selectChoice114(i,j){
+    document.getElementById(`cb114_${i}_0`).classList.remove('selected','selected-b');
+    document.getElementById(`cb114_${i}_1`).classList.remove('selected','selected-b');
+    const el=document.getElementById(`cb114_${i}_${j}`);
+    el.classList.add(j===0?'selected':'selected-b');
+}
+function speakEx114Random(){
+    initEx114();buildEx114();
+    showToast('Nhan nghe tren tung dong de nghe tu ngau nhien!');
+}
+function checkEx114(){
+    let correct=0,total=EX114.length;
+    EX114.forEach((item,i)=>{
+        const ans=ex114Correct[i];
+        [0,1].forEach(j=>{
+            const el=document.getElementById(`cb114_${i}_${j}`);
+            if(!el) return;
+            const chosen=el.classList.contains('selected')||el.classList.contains('selected-b');
+            el.style.pointerEvents='none';
+            if(j===ans){
+                if(chosen){el.classList.add('correct-c');correct++;}
+                else{el.style.textDecoration='underline dotted #27ae60';}
+            } else {
+                if(chosen) el.classList.add('wrong-c');
+            }
+        });
+    });
+    showScore('114',correct,total,'<br><em style="font-size:13px;">Nhan Lam lai de tao bo cau hoi ngau nhien moi!</em>');
+}
+function resetEx114(){buildEx114();document.getElementById('score114').className='score-box';showToast('Da dat lai!');}
+function revealEx114(){
+    EX114.forEach((item,i)=>{
+        const ans=ex114Correct[i];
+        [0,1].forEach(j=>{
+            const el=document.getElementById(`cb114_${i}_${j}`);
+            if(!el) return;
+            el.classList.remove('selected','selected-b','wrong-c');
+            el.style.pointerEvents='none';
+            if(j===ans) el.classList.add('correct-c');
+        });
+    });
+    document.getElementById('score114').className='score-box info show';
+    document.getElementById('score114').innerHTML='<strong>Dap an:</strong><br>'+EX114.map((item,i)=>`${item.num}. <strong>${item.pair[ex114Correct[i]]}</strong>`).join(' | ');
+    showToast('Da hien thi dap an!');
+}
+document.addEventListener('DOMContentLoaded',()=>{
+    buildEx111();
+    buildEx112();
+    buildEx113();
+    buildEx114();
+});
+</script>
+</body>
+</html>
