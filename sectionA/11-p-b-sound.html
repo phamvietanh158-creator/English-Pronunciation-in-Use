@@ -766,7 +766,7 @@ function speakText(t,rate=0.85){
     const u=new SpeechSynthesisUtterance(t.replace(/<[^>]*>/g,'').trim());
     u.lang='en-US';u.rate=rate;u.pitch=1.0;
     const vs=speechSynthesis.getVoices();
-    const v=vs.find(x=>x.lang.startsWith('en')&&(x.name.includes('Google US')||x.name.includes('Samantha')||x.name.includes('Female')));
+    const prefs=['Google US English','Google UK English Female','Samantha','Karen'];let v=null;for(const p of prefs){v=vs.find(x=>x.name.includes(p));if(v)break;}if(!v)v=vs.find(x=>x.lang.startsWith('en'));
     if(v)u.voice=v;
     curUtt=u; u.onend=()=>curUtt=null; speechSynthesis.speak(u);
 }
@@ -785,7 +785,9 @@ function showScore(id,correct,total,ansHtml){
     el.innerHTML=`<div class='big-score'>${emoji} ${pct}%</div><strong>${msg}</strong> — Đúng <strong>${correct}/${total}</strong> câu.<div class='score-meter'><div class='score-meter-fill' style='width:${pct}%;background:${pct>=90?"#27ae60":pct>=65?"#f39c12":"#e74c3c"}'></div></div>${ansHtml||''}`;
     showToast(`Kết quả: ${pct}% — ${msg}`);
 }
-if(window.speechSynthesis){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices();}
+if(window.speechSynthesis){_loadVoices();speechSynthesis.onvoiceschanged=_loadVoices;}
+// Mark lesson 11 complete
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem('epu_completed');if(d)c=JSON.parse(d);}catch{}if(!c.includes(11)){c.push(11);localStorage.setItem('epu_completed',JSON.stringify(c));}}catch{}},1000);
 
 // ================================================================
 // EXERCISE 11.1 — IPA → Word
