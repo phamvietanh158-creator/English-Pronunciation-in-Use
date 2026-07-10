@@ -547,10 +547,13 @@ function speakText(t,rate=0.85){
     if(curUtt){speechSynthesis.cancel();curUtt=null;}
     if(!window.speechSynthesis) return;
     const u=new SpeechSynthesisUtterance(t.replace(/<[^>]*>/g,'').trim());
-    u.lang='en-US';u.rate=rate;u.pitch=1.0;
+    u.lang='en-US';u.rate=rate;u.pitch=1.05;u.volume=1.0;
     const vs=speechSynthesis.getVoices();
-    const v=vs.find(x=>x.lang.startsWith('en')&&(x.name.includes('Google US')||x.name.includes('Samantha')||x.name.includes('Female')));
+    const prefs=['Google US English','Google UK English Female','Samantha','Karen','Moira'];
+    let v=null;for(const p of prefs){v=vs.find(x=>x.name.includes(p));if(v)break;}
+    if(!v)v=vs.find(x=>x.lang.startsWith('en'));
     if(v)u.voice=v;
+    u.pitch=1.05;u.volume=1.0;
     curUtt=u;u.onend=()=>curUtt=null;speechSynthesis.speak(u);
 }
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
@@ -780,6 +783,15 @@ function revealEx125(){
 document.addEventListener('DOMContentLoaded',()=>{
     buildEx121();buildEx122();buildEx123();buildEx125();
 });
+
+// Mark lesson 12 complete in localStorage
+setTimeout(()=>{
+    try{
+        let c=[];
+        try{const d=localStorage.getItem('epu_completed');if(d)c=JSON.parse(d);}catch{}
+        if(!c.includes(12)){c.push(12);localStorage.setItem('epu_completed',JSON.stringify(c));}
+    }catch{}
+},1000);
 </script>
 </body>
 </html>
