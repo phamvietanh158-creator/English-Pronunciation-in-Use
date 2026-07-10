@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 35 - /j/ và /w/ | Linking words together 2</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;background:#f0f4f8;padding:20px 15px;min-height:100vh;}
+        .container{max-width:1000px;margin:0 auto;}
+        .header{background:linear-gradient(135deg,#1a6e4a,#0d4a32);color:white;padding:24px 28px;border-radius:20px;margin-bottom:25px;box-shadow:0 8px 30px rgba(13,74,50,.35);}
+        .header .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+        .lesson-number{background:rgba(255,255,255,.15);padding:4px 18px;border-radius:30px;font-size:14px;border:1px solid rgba(255,255,255,.2);}
+        .header h1{font-size:26px;font-weight:800;margin-top:8px;}
+        .header h1 span{color:#f1c40f;}
+        .phoneme-badge{display:inline-block;background:#f1c40f;color:#0d4a32;font-size:20px;font-weight:900;padding:4px 18px;border-radius:12px;margin-top:8px;font-family:"Courier New",monospace;}
+        .header .sub{font-size:14px;opacity:.85;margin-top:6px;}
+        .nav-link{display:inline-block;margin-top:12px;color:#f1c40f;text-decoration:none;font-weight:600;font-size:14px;}
+        .section{background:white;border-radius:16px;padding:22px 26px;margin-bottom:20px;border:1px solid #e2e8f0;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+        .section-title{font-size:18px;font-weight:700;color:#1a6e4a;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+        .badge{background:#eef2f7;font-size:13px;font-weight:600;padding:2px 14px;border-radius:30px;color:#2c3e50;}
+        .badge.audio{background:#d5f5e3;color:#1a6e4a;}
+        .badge.tip{background:#fef9e7;color:#7d6608;}
+        .section p{font-size:15px;line-height:1.9;color:#2c3e50;margin-bottom:10px;}
+        .ipa-j{font-family:"Courier New",monospace;color:#1a6e4a;background:#e8f5ee;padding:2px 10px;border-radius:6px;font-size:15px;}
+        .ipa-w{font-family:"Courier New",monospace;color:#7b2d8b;background:#f5eef8;padding:2px 10px;border-radius:6px;font-size:15px;}
+        .note-box{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:14px;color:#856404;line-height:1.7;}
+        .info-box{background:#d6eaf8;border:1px solid #2980b9;border-radius:10px;padding:12px 16px;margin:10px 0;font-size:14px;color:#1a4a7a;line-height:1.8;}
+        .listen-box{background:#1a2a3a;color:#e0f4ff;border-radius:12px;padding:16px 20px;margin:12px 0;font-size:14px;line-height:2.2;}
+        .listen-box .lb-title{font-weight:700;color:#f1c40f;font-size:15px;margin-bottom:10px;}
+        .rule-box{border-radius:14px;padding:18px 22px;margin:14px 0;}
+        .rule-j{background:linear-gradient(135deg,#e8f5ee,#c3e6d0);border:2px solid #27ae60;}
+        .rule-w{background:linear-gradient(135deg,#f5eef8,#e8d5f5);border:2px solid #9b59b6;}
+        .rule-box .rule-title{font-weight:800;font-size:17px;margin-bottom:10px;}
+        .rule-j .rule-title{color:#1a6e4a;}
+        .rule-w .rule-title{color:#7b2d8b;}
+        .link-demo{font-size:18px;line-height:2.8;margin:10px 0;}
+        .link-mark{display:inline-block;background:#f1c40f;color:#1a2a3a;font-weight:900;font-family:"Courier New",monospace;font-size:12px;padding:1px 6px;border-radius:10px;vertical-align:middle;margin:0 2px;}
+        .link-mark.j{background:#27ae60;color:white;}
+        .link-mark.w{background:#8e44ad;color:white;}
+        .hj{color:#1a6e4a;font-weight:700;}
+        .hw{color:#7b2d8b;font-weight:700;}
+        .poem-box{background:#f8fafc;border-left:4px solid #1a6e4a;border-radius:10px;padding:18px 22px;margin:12px 0;font-size:16px;line-height:2.6;color:#1a2a3a;}
+        .poem-box .stress{font-weight:700;text-decoration:underline;text-decoration-color:#f1c40f;text-underline-offset:3px;}
+        .btn{background:#3498db;color:white;border:none;padding:8px 20px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px;}
+        .btn:hover{transform:scale(1.03);opacity:.9;}
+        .btn-j{background:#1a6e4a;}
+        .btn-w{background:#7b2d8b;}
+        .btn-success{background:#27ae60;}
+        .btn-warning{background:#f39c12;}
+        .btn-purple{background:#8e44ad;}
+        .btn-danger{background:#e74c3c;}
+        .btn-teal{background:#1abc9c;}
+        .btn-group{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .tip-box{background:#fef9e7;border:2px solid #f7dc6f;border-radius:12px;padding:14px 18px;margin:12px 0;}
+        .tip-title{font-weight:700;color:#7d6608;font-size:15px;margin-bottom:6px;}
+        .tip-content{font-size:14px;color:#5a4a1a;line-height:1.9;}
+        .tip-content p{margin-bottom:8px;}
+        /* sentence list */
+        .sentence-list{list-style:none;padding:0;margin:10px 0;}
+        .sentence-list li{padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:15px;line-height:1.8;background:#f8fafc;border-left:4px solid #27ae60;cursor:pointer;transition:.2s;}
+        .sentence-list li:hover{background:#e8f5ee;}
+        .sentence-list li .ipa-s{font-family:"Courier New",monospace;font-size:12px;color:#1a6e4a;display:block;margin-top:3px;}
+        .sentence-list li .vi-s{font-size:13px;color:#27ae60;display:block;margin-top:2px;}
+        /* EXERCISES */
+        .ex-wrap{background:#fafcff;border:2px solid #e2e8f0;border-radius:14px;padding:20px 22px;margin:14px 0;}
+        .ex-title{font-weight:700;color:#1a6e4a;font-size:17px;margin-bottom:10px;}
+        .ex-instruction{background:#e8f5ee;border:1px solid #27ae60;border-radius:10px;padding:11px 15px;font-size:14px;color:#1a6e4a;margin-bottom:14px;line-height:1.7;}
+        .ex-instruction strong{color:#e74c3c;}
+        /* dialogue fill */
+        .dialogue-wrap{margin-bottom:12px;}
+        .dialogue-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin-bottom:8px;font-size:15px;line-height:2.2;}
+        .speaker{font-weight:700;color:#1a6e4a;margin-right:6px;}
+        .dlblank{display:inline-block;vertical-align:bottom;}
+        .dlblank input{border:none;border-bottom:2px solid #27ae60;outline:none;font-size:15px;color:#1a6e4a;font-weight:700;background:transparent;min-width:100px;font-family:"Segoe UI",sans-serif;transition:.2s;padding:0 4px;}
+        .dlblank input:focus{background:#e8f5ee;border-radius:4px;}
+        .dlblank input.correct{color:#27ae60;border-bottom-color:#27ae60;background:#d5f5e3;}
+        .dlblank input.wrong{color:#e74c3c;border-bottom-color:#e74c3c;background:#fadbd8;}
+        /* mark-link exercise */
+        .mark-sentence{font-size:16px;line-height:2.8;padding:10px 14px;background:white;border:2px solid #e2e8f0;border-radius:10px;margin:8px 0;cursor:default;user-select:none;}
+        .word-tok{display:inline-block;padding:2px 4px;border-radius:4px;cursor:pointer;transition:.15s;position:relative;}
+        .word-tok:hover{background:#e8f5ee;}
+        .word-tok.link-j{background:#d5f5e3;border-bottom:3px solid #27ae60;}
+        .word-tok.link-j::after{content:"j";position:absolute;top:-12px;right:0;font-size:9px;font-family:"Courier New";font-weight:700;color:#27ae60;background:white;border:1px solid #27ae60;border-radius:3px;padding:0 3px;}
+        .word-tok.link-w{background:#f5eef8;border-bottom:3px solid #8e44ad;}
+        .word-tok.link-w::after{content:"w";position:absolute;top:-12px;right:0;font-size:9px;font-family:"Courier New";font-weight:700;color:#8e44ad;background:white;border:1px solid #8e44ad;border-radius:3px;padding:0 3px;}
+        /* complete + mark */
+        .cmark-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin-bottom:8px;font-size:15px;line-height:2.4;}
+        .cmark-item .sp{font-weight:700;color:#1a6e4a;margin-right:6px;}
+        .cmark-item input{border:none;border-bottom:2px solid #27ae60;outline:none;font-size:15px;color:#1a6e4a;font-weight:700;background:transparent;min-width:80px;font-family:"Segoe UI",sans-serif;padding:0 4px;}
+        .cmark-item input.correct{color:#27ae60;background:#d5f5e3;}
+        .cmark-item input.wrong{color:#e74c3c;background:#fadbd8;border-bottom-color:#e74c3c;}
+        /* choice */
+        .choice-items{display:flex;flex-direction:column;gap:10px;margin:10px 0;}
+        .choice-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;}
+        .choice-item .num{font-weight:700;color:#1a6e4a;}
+        .choice-btn{display:inline-block;padding:5px 18px;border-radius:20px;border:2px solid #e2e8f0;margin:4px 6px 0 0;cursor:pointer;font-size:14px;font-weight:600;transition:.2s;background:white;color:#333;user-select:none;}
+        .choice-btn:hover{border-color:#1a6e4a;color:#1a6e4a;}
+        .choice-btn.sel-j{background:#1a6e4a;color:white;border-color:#1a6e4a;}
+        .choice-btn.sel-w{background:#7b2d8b;color:white;border-color:#7b2d8b;}
+        .choice-btn.correct-c{background:#27ae60;color:white;border-color:#27ae60;pointer-events:none;}
+        .choice-btn.wrong-c{background:#e74c3c;color:white;border-color:#e74c3c;pointer-events:none;}
+        /* score */
+        .score-box{border-radius:12px;padding:14px 18px;margin-top:12px;font-size:15px;line-height:1.9;display:none;}
+        .score-box.show{display:block;}
+        .score-box.great{background:#d5f5e3;border:2px solid #27ae60;color:#1a6e4a;}
+        .score-box.good{background:#fef9e7;border:2px solid #f39c12;color:#7d6608;}
+        .score-box.try{background:#fadbd8;border:2px solid #e74c3c;color:#922b21;}
+        .score-box.info{background:#d6eaf8;border:2px solid #2980b9;color:#1a4a7a;}
+        .score-meter{background:#e0e7ee;border-radius:30px;height:12px;margin:8px 0;overflow:hidden;}
+        .score-meter-fill{height:100%;border-radius:30px;transition:width 1s ease;}
+        .big-score{font-size:38px;font-weight:900;text-align:center;margin:4px 0;}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2c3e50;color:white;padding:12px 24px;border-radius:40px;font-size:14px;box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;transition:opacity .4s;pointer-events:none;z-index:999;max-width:90%;text-align:center;}
+        .toast.show{opacity:1;}
+        @media(max-width:650px){.header{padding:18px 16px;}.header h1{font-size:20px;}.section{padding:16px 14px;}}
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <div class="top-row">
+        <span class="lesson-number">📚 Bài 35</span>
+        <span style="font-size:13px;opacity:.7;">Section C · Phrases, sentences and grammar</span>
+    </div>
+    <h1>👫 <span>Me and you, you and me</span></h1>
+    <div><span class="phoneme-badge">/j/ và /w/ — Linking</span></div>
+    <div class="sub">Liên kết từ bằng /j/ và /w/ — Linking words together 2</div>
+    <a href="../index.html" class="nav-link">← Về trang chủ</a>
+</div>
+
+<!-- A: LÝ THUYẾT -->
+<div class="section">
+    <div class="section-title">📖 A. Nguyên tắc liên kết /j/ và /w/ <span class="badge">Lý thuyết</span></div>
+    <p>Chúng ta dùng âm <span class="ipa-j">/j/</span> và <span class="ipa-w">/w/</span> để <strong>liên kết</strong> nguyên âm cuối từ với nguyên âm đầu từ tiếp theo — giúp câu nói trôi chảy, tự nhiên hơn.</p>
+
+    <div class="rule-box rule-j">
+        <div class="rule-title">🟢 Quy tắc /j/ (yod linking)</div>
+        <p style="font-size:14px;line-height:1.9;color:#1a2a3a;">Nếu từ kết thúc bằng nguyên âm <strong>/iː/, /ɪ/, /eɪ/, /aɪ/, /ɔɪ/</strong> → từ tiếp theo bắt đầu bằng <strong>bất kỳ nguyên âm</strong> nào → chèn âm <span class="ipa-j">/j/</span> ở giữa.</p>
+        <div class="link-demo">
+            me <span class="link-mark j">j</span> and you &nbsp;
+            <button class="btn btn-j" style="padding:3px 12px;font-size:12px;" onclick="speakText('me and you',0.7)">🔊</button>
+        </div>
+        <div class="link-demo">
+            three <span class="link-mark j">j</span> or four &nbsp;
+            <button class="btn btn-j" style="padding:3px 12px;font-size:12px;" onclick="speakText('three or four',0.7)">🔊</button>
+        </div>
+        <div class="link-demo">
+            the <span class="link-mark j">j</span> end &nbsp;
+            <button class="btn btn-j" style="padding:3px 12px;font-size:12px;" onclick="speakText('the end',0.7)">🔊</button>
+        </div>
+        <div class="link-demo">
+            see <span class="link-mark j">j</span> it <span class="link-mark j">j</span> again &nbsp;
+            <button class="btn btn-j" style="padding:3px 12px;font-size:12px;" onclick="speakText('see it again',0.7)">🔊</button>
+        </div>
+        <div class="ipa-row" style="margin-top:8px;background:rgba(255,255,255,.6);padding:10px 14px;border-radius:8px;">
+            <span style="font-size:13px;color:#1a6e4a;">🇻🇳 Các từ kết thúc bằng: <strong>ee, ea, ey, ie, ay, igh, oy...</strong> → dễ thêm /j/ trước nguyên âm tiếp theo</span>
+        </div>
+    </div>
+
+    <div class="rule-box rule-w" style="margin-top:16px;">
+        <div class="rule-title">🟣 Quy tắc /w/ (wod linking)</div>
+        <p style="font-size:14px;line-height:1.9;color:#1a2a3a;">Nếu từ kết thúc bằng nguyên âm <strong>/uː/, /ʊ/, /əʊ/, /aʊ/</strong> → từ tiếp theo bắt đầu bằng <strong>bất kỳ nguyên âm</strong> nào → chèn âm <span class="ipa-w">/w/</span> ở giữa.</p>
+        <div class="link-demo">
+            you <span class="link-mark w">w</span> and me &nbsp;
+            <button class="btn btn-w" style="padding:3px 12px;font-size:12px;" onclick="speakText('you and me',0.7)">🔊</button>
+        </div>
+        <div class="link-demo">
+            two <span class="link-mark w">w</span> or three &nbsp;
+            <button class="btn btn-w" style="padding:3px 12px;font-size:12px;" onclick="speakText('two or three',0.7)">🔊</button>
+        </div>
+        <div class="link-demo">
+            go <span class="link-mark w">w</span> outside &nbsp;
+            <button class="btn btn-w" style="padding:3px 12px;font-size:12px;" onclick="speakText('go outside',0.7)">🔊</button>
+        </div>
+        <div class="link-demo">
+            how <span class="link-mark w">w</span> about it &nbsp;
+            <button class="btn btn-w" style="padding:3px 12px;font-size:12px;" onclick="speakText('how about it',0.7)">🔊</button>
+        </div>
+        <div class="ipa-row" style="margin-top:8px;background:rgba(255,255,255,.6);padding:10px 14px;border-radius:8px;">
+            <span style="font-size:13px;color:#7b2d8b;">🇻🇳 Các từ kết thúc bằng: <strong>oo, ue, ow, ough, ou...</strong> → dễ thêm /w/ trước nguyên âm tiếp theo</span>
+        </div>
+    </div>
+
+    <div class="tip-box" style="margin-top:14px;">
+        <div class="tip-title">💡 Tại sao lại có linking /j/ và /w/?</div>
+        <div class="tip-content">
+            <p>Khi phát âm nguyên âm cuối từ như /iː/ (môi kéo ngang) hoặc /uː/ (môi tròn), <em>hình dạng miệng tự nhiên</em> tạo ra âm /j/ hoặc /w/ khi chuyển sang nguyên âm tiếp theo.</p>
+            <p>Đây không phải "thêm vào" mà là <strong>âm tự nhiên xuất hiện</strong> khi nói nhanh và trôi chảy. Người bản xứ không cố ý làm — nó xảy ra tự động!</p>
+            <p>🇻🇳 Giống như trong tiếng Việt: "bao ơi" → /bao wơi/ — âm w tự nhiên xuất hiện.</p>
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-j" onclick="speakText('me and you. three or four. the end. see you again. play it again. free and easy. they are. I am.',0.75)">🔊 Nghe ví dụ /j/</button>
+        <button class="btn btn-w" onclick="speakText('you and me. two or three. go outside. how about it. do it. through it. who else. show us.',0.75)">🔊 Nghe ví dụ /w/</button>
+    </div>
+</div>
+
+<!-- B: BÀI THƠ -->
+<div class="section">
+    <div class="section-title">🎵 B. Bài thơ — Luyện linking <span class="badge audio">🔊 Audio</span></div>
+
+    <div class="section-title" style="font-size:16px;color:#1a6e4a;margin-bottom:8px;">📍 Asking the way (Hỏi đường)</div>
+    <div class="poem-box">
+        Yes.<br>
+        Go <span class="hw">w</span><span style="border-bottom:2px solid #8e44ad;">out</span> of the building.<br>
+        Go <span class="hw">w</span><span style="border-bottom:2px solid #8e44ad;">along</span> the street.<br>
+        Go <span class="hw">w</span><span style="border-bottom:2px solid #8e44ad;">over</span> the bridge.<br>
+        Go <span class="hw">w</span><span style="border-bottom:2px solid #8e44ad;">across</span> the street.<br>
+        Go <span class="hw">w</span><span style="border-bottom:2px solid #8e44ad;">up</span> the hill.<br>
+        Take the <span class="hj">j</span><span style="border-bottom:2px solid #27ae60;">eighth</span> street on your left.<br>
+        And the <span class="hj">j</span><span style="border-bottom:2px solid #27ae60;">eleventh</span> on your right.<br>
+        Then ...<br>
+        ... I'm not sure –<br>
+        You'll have to <span class="hw">w</span><span style="border-bottom:2px solid #8e44ad;">ask</span> again.
+    </div>
+    <div style="font-size:13px;color:#27ae60;margin-top:-6px;margin-bottom:10px;">🇻🇳 Đi ra khỏi tòa nhà. Đi dọc theo phố. Qua cầu. Qua đường. Lên đồi. Rẽ trái vào con phố thứ tám. Rẽ phải vào con phố thứ mười một... Tôi không chắc — bạn phải hỏi lại thôi.</div>
+    <div class="btn-group">
+        <button class="btn btn-j" onclick="speakText('Yes. Go out of the building. Go along the street. Go over the bridge. Go across the street. Go up the hill. Take the eighth street on your left. And the eleventh on your right. Then... I'm not sure. You'll have to ask again.',0.8)">🔊 Nghe Asking the way</button>
+        <button class="btn btn-success" onclick="speakText('Yes. Go out of the building. Go along the street. Go over the bridge. Go across the street. Go up the hill. Take the eighth street on your left. And the eleventh on your right. Then... I'm not sure. You'll have to ask again.',0.5)">🐢 Chậm</button>
+    </div>
+
+    <div class="section-title" style="font-size:16px;color:#7b2d8b;margin-top:16px;margin-bottom:8px;">🧶 Hats (Những chiếc mũ)</div>
+    <div class="poem-box" style="border-left-color:#8e44ad;">
+        I'll do <span class="hw">w</span><span style="border-bottom:2px solid #8e44ad;">one</span> for you<br>
+        I'll give <span class="hj">j</span><span style="border-bottom:2px solid #27ae60;">you</span> <span class="hw">w</span><span style="border-bottom:2px solid #8e44ad;">one</span> too<br>
+        a nice <span class="hw">w</span><span style="border-bottom:2px solid #8e44ad;">one</span><br>
+        a new <span class="hw">w</span><span style="border-bottom:2px solid #8e44ad;">one</span><br>
+        a yellow <span class="hw">w</span><span style="border-bottom:2px solid #8e44ad;">and</span> blue <span class="hw">w</span><span style="border-bottom:2px solid #8e44ad;">one.</span>
+    </div>
+    <div style="font-size:13px;color:#27ae60;margin-top:-6px;margin-bottom:10px;">🇻🇳 Tôi sẽ làm một cái cho bạn. Tôi sẽ tặng bạn một cái. Một cái đẹp. Một cái mới. Một cái vàng và xanh.</div>
+    <div class="btn-group">
+        <button class="btn btn-w" onclick="speakText('I'll do one for you. I'll give you one too. A nice one. A new one. A yellow and blue one.',0.8)">🔊 Nghe Hats</button>
+        <button class="btn btn-success" onclick="speakText('I'll do one for you. I'll give you one too. A nice one. A new one. A yellow and blue one.',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- BẢNG VÍ DỤ MỞ RỘNG -->
+<div class="section">
+    <div class="section-title">📚 Bảng ví dụ mở rộng — /j/ và /w/ <span class="badge">Tham khảo</span></div>
+    <p style="margin-bottom:12px;"><strong>🟢 /j/ linking</strong> — từ kết thúc /iː/, /eɪ/, /aɪ/, /ɔɪ/...</p>
+    <ul class="sentence-list">
+        <li onclick="speakText('free and easy',0.75)"><span class="hj">free</span> <span class="link-mark j" style="font-size:11px;">j</span> and easy<span class="ipa-s">/friː j ænd ˈiː.zi/</span><span class="vi-s">🇻🇳 tự do và dễ dàng</span></li>
+        <li onclick="speakText('play it again',0.75)"><span class="hj">play</span> <span class="link-mark j" style="font-size:11px;">j</span> it again<span class="ipa-s">/pleɪ j ɪt əˈɡen/</span><span class="vi-s">🇻🇳 hãy chơi lại đi</span></li>
+        <li onclick="speakText('they are coming',0.75)"><span class="hj">they</span> <span class="link-mark j" style="font-size:11px;">j</span> are coming<span class="ipa-s">/ðeɪ j ɑː ˈkʌm.ɪŋ/</span><span class="vi-s">🇻🇳 họ đang đến</span></li>
+        <li onclick="speakText('I am ready',0.75)"><span class="hj">I</span> <span class="link-mark j" style="font-size:11px;">j</span> am ready<span class="ipa-s">/aɪ j æm ˈred.i/</span><span class="vi-s">🇻🇳 tôi đã sẵn sàng</span></li>
+        <li onclick="speakText('she asked him',0.75)"><span class="hj">she</span> <span class="link-mark j" style="font-size:11px;">j</span> asked him<span class="ipa-s">/ʃiː j ɑːskt hɪm/</span><span class="vi-s">🇻🇳 cô ấy hỏi anh ấy</span></li>
+        <li onclick="speakText('see you again soon',0.75)">see <span class="hj">you</span> <span class="link-mark j" style="font-size:11px;">j</span> again soon<span class="ipa-s">/siː juː j əˈɡen suːn/</span><span class="vi-s">🇻🇳 hẹn gặp lại sớm</span></li>
+        <li onclick="speakText('the eighth avenue',0.75)">the <span class="hj">eighth</span> <span class="link-mark j" style="font-size:11px;">j</span> avenue<span class="ipa-s">/ðɪ eɪtθ j ˈæv.ə.njuː/</span><span class="vi-s">🇻🇳 đại lộ thứ tám</span></li>
+        <li onclick="speakText('my interview is today',0.75)">my interview is to<span class="hj">day</span> <span class="link-mark j" style="font-size:11px;">j</span> or tomorrow<span class="ipa-s">/maɪ ˈɪn.tə.vjuː ɪz təˈdeɪ j ɔː təˈmɒr.əʊ/</span><span class="vi-s">🇻🇳 buổi phỏng vấn của tôi là hôm nay hay ngày mai</span></li>
+        <li onclick="speakText('enjoy every moment',0.75)">en<span class="hj">joy</span> <span class="link-mark j" style="font-size:11px;">j</span> every moment<span class="ipa-s">/ɪnˈdʒɔɪ j ˈev.ri ˈməʊ.mənt/</span><span class="vi-s">🇻🇳 tận hưởng từng khoảnh khắc</span></li>
+        <li onclick="speakText('be early',0.75)"><span class="hj">be</span> <span class="link-mark j" style="font-size:11px;">j</span> early<span class="ipa-s">/biː j ˈɜː.li/</span><span class="vi-s">🇻🇳 hãy đến sớm</span></li>
+    </ul>
+
+    <p style="margin-top:16px;"><strong>🟣 /w/ linking</strong> — từ kết thúc /uː/, /ʊ/, /əʊ/, /aʊ/...</p>
+    <ul class="sentence-list" style="border-left-color:#8e44ad;">
+        <li style="border-left-color:#8e44ad;" onclick="speakText('do it now',0.75)"><span class="hw">do</span> <span class="link-mark w" style="font-size:11px;">w</span> it now<span class="ipa-s">/duː w ɪt naʊ/</span><span class="vi-s">🇻🇳 hãy làm ngay bây giờ</span></li>
+        <li style="border-left-color:#8e44ad;" onclick="speakText('who else is coming',0.75)"><span class="hw">who</span> <span class="link-mark w" style="font-size:11px;">w</span> else is coming?<span class="ipa-s">/huː w els ɪz ˈkʌm.ɪŋ/</span><span class="vi-s">🇻🇳 còn ai sẽ đến nữa?</span></li>
+        <li style="border-left-color:#8e44ad;" onclick="speakText('show us the way',0.75)"><span class="hw">show</span> <span class="link-mark w" style="font-size:11px;">w</span> us the way<span class="ipa-s">/ʃəʊ w ʌs ðə weɪ/</span><span class="vi-s">🇻🇳 chỉ đường cho chúng tôi</span></li>
+        <li style="border-left-color:#8e44ad;" onclick="speakText('how about a coffee',0.75)"><span class="hw">how</span> <span class="link-mark w" style="font-size:11px;">w</span> about a coffee?<span class="ipa-s">/haʊ w əˈbaʊt ə ˈkɒf.i/</span><span class="vi-s">🇻🇳 uống cà phê nhé?</span></li>
+        <li style="border-left-color:#8e44ad;" onclick="speakText('go on',0.75)"><span class="hw">go</span> <span class="link-mark w" style="font-size:11px;">w</span> on!<span class="ipa-s">/ɡəʊ w ɒn/</span><span class="vi-s">🇻🇳 tiếp tục đi!</span></li>
+        <li style="border-left-color:#8e44ad;" onclick="speakText('you and I are old friends',0.75)"><span class="hw">you</span> <span class="link-mark w" style="font-size:11px;">w</span> and I are old friends<span class="ipa-s">/juː w ænd aɪ ɑːr əʊld frendz/</span><span class="vi-s">🇻🇳 bạn và tôi là bạn cũ</span></li>
+        <li style="border-left-color:#8e44ad;" onclick="speakText('blue and green',0.75)"><span class="hw">blue</span> <span class="link-mark w" style="font-size:11px;">w</span> and green<span class="ipa-s">/bluː w ænd ɡriːn/</span><span class="vi-s">🇻🇳 màu xanh dương và xanh lá</span></li>
+        <li style="border-left-color:#8e44ad;" onclick="speakText('through all the problems',0.75)">through <span class="link-mark w" style="font-size:11px;">w</span> all the problems<span class="ipa-s">/θruː w ɔːl ðə ˈprɒb.ləmz/</span><span class="vi-s">🇻🇳 vượt qua tất cả những khó khăn</span></li>
+        <li style="border-left-color:#8e44ad;" onclick="speakText('the interview is over',0.75)">the interview <span class="link-mark w" style="font-size:11px;">w</span> is over<span class="ipa-s">/ðɪ ˈɪn.tə.vjuː w ɪz ˈəʊ.vər/</span><span class="vi-s">🇻🇳 buổi phỏng vấn đã xong rồi</span></li>
+        <li style="border-left-color:#8e44ad;" onclick="speakText('allow us to explain',0.75)">allo<span class="hw">w</span> <span class="link-mark w" style="font-size:11px;">w</span> us to explain<span class="ipa-s">/əˈlaʊ w ʌs tə ɪkˈspleɪn/</span><span class="vi-s">🇻🇳 hãy để chúng tôi giải thích</span></li>
+    </ul>
+    <div class="btn-group">
+        <button class="btn btn-j" onclick="speakText('free and easy. play it again. they are coming. I am ready. see you again soon. be early.',0.75)">🔊 Nghe /j/ linking</button>
+        <button class="btn btn-w" onclick="speakText('do it now. who else is coming. show us the way. how about a coffee. go on. blue and green.',0.75)">🔊 Nghe /w/ linking</button>
+    </div>
+</div>
+
+<!-- IMPORTANT FOR LISTENING -->
+<div class="section" style="border:2px solid #e74c3c;">
+    <div class="section-title" style="color:#c0392b;">👂 Important for listening — Chữ h câm</div>
+    <div class="listen-box">
+        <div class="lb-title">📢 Chữ h ở đầu: he, his, her, him — thường KHÔNG phát âm!</div>
+        <p style="margin-bottom:10px;">Chữ <strong>h</strong> ở đầu <em>he, his, her, him</em> thường bị bỏ qua trong câu nói bình thường. Vì thế, âm đứng trước sẽ linking với nguyên âm đầu từ tiếp theo:</p>
+        <div style="font-size:16px;line-height:2.6;">
+            He can't come out tonight. He's got to do <span class="hj">j</span><span style="text-decoration:underline;text-underline-offset:3px;">(h)is</span> homework.
+            <button class="btn btn-j" style="padding:3px 10px;font-size:12px;" onclick="speakText('He can't come out tonight. He's got to do his homework.',0.75)">🔊</button>
+        </div>
+        <div style="font-size:16px;line-height:2.6;">
+            A: I'm afraid the boss is busy. B: When can I see <span class="hj">j</span><span style="text-decoration:underline;text-underline-offset:3px;">(h)er</span>?
+            <button class="btn btn-j" style="padding:3px 10px;font-size:12px;" onclick="speakText('I'm afraid the boss is busy. When can I see her?',0.75)">🔊</button>
+        </div>
+    </div>
+    <div class="note-box">
+        📌 Khi nói bình thường: "see <em>her</em>" → nghe như "see-<em>j</em>er" (/siː.jər/)<br>
+        "do <em>his</em>" → nghe như "do-<em>j</em>iz" (/duː.jɪz/)<br>
+        "ask <em>him</em>" → nghe như "ask-<em>j</em>im" (/ɑːsk.jɪm/)<br>
+        Đây là lý do tại sao người học thường không nghe ra các từ này!
+    </div>
+</div>
+
+<!-- KINH NGHIỆM -->
+<div class="section" style="border:2px solid #f39c12;">
+    <div class="section-title">💡 Kinh nghiệm luyện tập <span class="badge tip">🔥 Quan trọng</span></div>
+    <div class="tip-box">
+        <div class="tip-title">🎯 5 bí quyết nắm vững /j/ và /w/ linking</div>
+        <div class="tip-content">
+            <p><strong>1. Nhớ quy tắc đầu cuối</strong><br>
+            Cuối từ /iː/ → tiếp theo vowel = thêm <span class="ipa-j">/j/</span> &nbsp;|&nbsp; Cuối từ /uː/ → tiếp theo vowel = thêm <span class="ipa-w">/w/</span><br>
+            Đơn giản: <em>miệng kéo ngang → /j/</em> · <em>môi tròn → /w/</em></p>
+            <p><strong>2. Không cố ý "thêm" âm — hãy nói nhanh tự nhiên</strong><br>
+            Linking xảy ra tự nhiên khi bạn nói trôi chảy. Luyện nói nhanh hơn thay vì dừng giữa từ.</p>
+            <p><strong>3. Luyện theo cụm, không luyện từng từ</strong><br>
+            "me_and_you" → "three_or_four" → "you_and_me" — cả cụm một lần thở</p>
+            <p><strong>4. Chú ý h câm khi nghe</strong><br>
+            Nghe "see_im" = "see him", "ask_er" = "ask her". Đừng nghe từng từ riêng lẻ!</p>
+            <p><strong>5. Đọc thơ để luyện nhịp điệu</strong><br>
+            Bài thơ "Asking the way" và "Hats" rất tốt để luyện linking tự nhiên — đọc to và nhanh dần.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 35.1 — Dialogue fill + mark links
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 35.1 — Điền từ vào hội thoại <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🎧 Nghe hội thoại → Gõ từ còn thiếu vào ô → Nhấn <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Chú ý: các chỗ trống thường ở vị trí có /j/ hoặc /w/ linking.</em>
+        </div>
+        <div id="ex351Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-j" onclick="speakEx351()">🔊 Nghe tất cả</button>
+            <button class="btn btn-warning" onclick="checkEx351()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx351()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx351()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score351" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 35.2 — Mark /j/ and /w/ links
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 35.2 — Đánh dấu liên kết /j/ và /w/ <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 Click vào từ TRƯỚC chỗ linking để đánh dấu: lần 1 = <strong style="color:#27ae60;">/j/</strong> (xanh) · lần 2 = <strong style="color:#8e44ad;">/w/</strong> (tím) · lần 3 = bỏ đánh dấu.<br>
+            Sau đó nhấn <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Ví dụ: "Is it blue or grey?" → "blue" cần /w/ linking trước "or"</em>
+        </div>
+        <div id="ex352Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakAllEx352()">🔊 Nghe tất cả</button>
+            <button class="btn btn-warning" onclick="checkEx352()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx352()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx352()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score352" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 35.3 — Complete + mark links
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 35.3 — Điền câu trả lời + đánh dấu linking <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🎧 Nghe câu hỏi → Gõ câu trả lời → Nhấn <strong>"Chấm bài"</strong>.
+        </div>
+        <div id="ex353Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-j" onclick="speakEx353()">🔊 Nghe tất cả</button>
+            <button class="btn btn-warning" onclick="checkEx353()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx353()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx353()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score353" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 35.4 — EXTRA: /j/ or /w/? Quick identify
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 35.4 (Mở rộng) — Nhận biết /j/ hay /w/ <span class="badge" style="background:#fef9e7;color:#7d6608;">Bổ sung</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 Xem cụm từ → Chọn <strong style="color:#27ae60;">/j/</strong> hoặc <strong style="color:#8e44ad;">/w/</strong> cho linking đúng → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Nhìn nguyên âm cuối từ đầu để xác định.</em>
+        </div>
+        <div class="choice-items" id="ex354Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx354()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx354()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx354()">👁️ Xem đáp án + Giải thích</button>
+        </div>
+        <div id="score354" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 35.5 — EXTRA: Read aloud + self check
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 35.5 (Mở rộng) — Đọc to và tự kiểm tra <span class="badge" style="background:#fef9e7;color:#7d6608;">Luyện phát âm</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🔊 Nhấn nghe câu → Đọc to theo → Nhấn kiểm tra để xem dấu linking đúng.
+        </div>
+        <div id="ex355Items"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 35.6 — EXTRA: h-dropping listening
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 35.6 (Mở rộng) — Nghe h câm <span class="badge" style="background:#fadbd8;color:#922b21;">Nghe nâng cao</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🎧 Nghe câu → Điền từ đang bị "nuốt chữ h" → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Chữ h đầu he/his/her/him thường không phát âm trong câu nối tiếp.</em>
+        </div>
+        <div id="ex356Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx356()">🔊 Nghe tất cả</button>
+            <button class="btn btn-warning" onclick="checkEx356()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx356()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx356()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score356" class="score-box"></div>
+    </div>
+</div>
+
+<!-- TỔNG KẾT -->
+<div class="section" style="border:2px solid #8e44ad;">
+    <div class="section-title">📌 Tổng kết <span class="badge" style="background:#f5eef8;color:#7d3c98;">✅ Checklist</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px;line-height:1.9;">
+        <div style="background:#e8f5ee;padding:12px 14px;border-radius:10px;border:1px solid #27ae60;">✅ <strong>/j/ linking</strong> — cuối từ /iː eɪ aɪ ɔɪ/ + vowel tiếp theo</div>
+        <div style="background:#f5eef8;padding:12px 14px;border-radius:10px;border:1px solid #9b59b6;">✅ <strong>/w/ linking</strong> — cuối từ /uː ʊ əʊ aʊ/ + vowel tiếp theo</div>
+        <div style="background:#e8f5ee;padding:12px 14px;border-radius:10px;border:1px solid #27ae60;">✅ <strong>me_and_you</strong> · <strong>they_are</strong> · <strong>I_am</strong> · <strong>see_it</strong></div>
+        <div style="background:#f5eef8;padding:12px 14px;border-radius:10px;border:1px solid #9b59b6;">✅ <strong>you_and</strong> · <strong>go_on</strong> · <strong>do_it</strong> · <strong>who_else</strong></div>
+        <div style="background:#fadbd8;padding:12px 14px;border-radius:10px;border:1px solid #e74c3c;">✅ <strong>h câm: he/his/her/him</strong> → linking với từ trước</div>
+        <div style="background:#fff3cd;padding:12px 14px;border-radius:10px;border:1px solid #ffc107;">✅ <strong>Linking tự nhiên</strong> — nói nhanh và trôi chảy thay vì dừng giữa từ</div>
+    </div>
+</div>
+
+<div style="text-align:center;padding:20px 0 10px;color:#95a5a6;font-size:14px;border-top:1px solid #e2e8f0;margin-top:10px;">
+    <p>👫 <strong>"Me and you, you and me"</strong> — /j/ và /w/ là bí quyết nói tiếng Anh tự nhiên!</p>
+    <p style="margin-top:4px;font-size:13px;"><a href="../index.html" style="color:#1a6e4a;font-weight:600;">← Về trang chủ</a></p>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let curUtt=null,_voices=[];
+function _loadVoices(){_voices=speechSynthesis.getVoices();if(_voices.length===0)setTimeout(_loadVoices,200);}
+function _bestVoice(){
+    const prefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+    for(const p of prefs){const v=_voices.find(x=>x.name.includes(p));if(v)return v;}
+    return _voices.find(x=>x.lang.startsWith("en")&&!x.name.toLowerCase().includes("male"))||_voices.find(x=>x.lang.startsWith("en"))||null;
+}
+function speakText(t,rate=0.85){
+    if(!window.speechSynthesis)return;
+    speechSynthesis.cancel();
+    const clean=t.replace(/<[^>]*>/g,"").trim();
+    function doSpeak(){
+        const u=new SpeechSynthesisUtterance(clean);
+        u.lang="en-US";u.rate=rate;u.pitch=1.05;u.volume=1.0;
+        const v=_bestVoice();if(v)u.voice=v;
+        curUtt=u;u.onend=()=>curUtt=null;speechSynthesis.speak(u);
+    }
+    if(_voices.length>0)doSpeak();else{_loadVoices();setTimeout(doSpeak,350);}
+}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);}
+function showScore(id,correct,total,extra){
+    const pct=Math.round(correct/total*100);
+    let cls="try",emoji="😅",msg="Cần luyện thêm!";
+    if(pct>=90){cls="great";emoji="🎉";msg="Xuất sắc!";}
+    else if(pct>=65){cls="good";emoji="👍";msg="Khá tốt!";}
+    const el=document.getElementById("score"+id);
+    el.className=`score-box show ${cls}`;
+    el.innerHTML=`<div class="big-score">${emoji} ${pct}%</div><strong>${msg}</strong> — Đúng <strong>${correct}/${total}</strong>.<div class="score-meter"><div class="score-meter-fill" style="width:${pct}%;background:${pct>=90?"#27ae60":pct>=65?"#f39c12":"#e74c3c"}"></div></div>${extra||""}`;
+    showToast("Kết quả: "+pct+"%");
+}
+if(window.speechSynthesis){_loadVoices();speechSynthesis.onvoiceschanged=_loadVoices;}
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(35)){c.push(35);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+
+// ================================================================
+// EX 35.1
+// ================================================================
+const EX351=[
+    {num:1,a:"A: Do you <input id='d351_1a'> go swimming?",b:"B: Not really, I <input id='d351_1b'> or twice a month.",
+     ans:{d351_1a:"often",d351_1b:"once"},audio:"Do you often go swimming? Not really, I once or twice a month.",vi:"Bạn có hay đi bơi không? Không hẳn, khoảng một hai lần một tháng."},
+    {num:2,a:"A: What's <input id='d351_2a'> letter in the alphabet?",b:"B: Maybe it's G or H.",
+     ans:{d351_2a:"your"},audio:"What's your letter in the alphabet? Maybe it's G or H.",vi:"Chữ cái của bạn trong bảng chữ cái là gì? Có thể là G hoặc H."},
+    {num:3,a:"A: When do <input id='d351_3a'> holiday?",b:"B: We <input id='d351_3b'> July or August.",
+     ans:{d351_3a:"you",d351_3b:"usually"},audio:"When do you holiday? We usually July or August.",vi:"Khi nào bạn đi nghỉ? Chúng tôi thường tháng Bảy hoặc Tám."},
+    {num:4,a:"A: What's <input id='d351_4a'>?",b:"B: Twenty-eight, Sea Avenue.",
+     ans:{d351_4a:"your address"},audio:"What's your address? Twenty-eight Sea Avenue.",vi:"Địa chỉ của bạn là gì? Số 28 phố Sea."},
+    {num:5,a:"A: Try <input id='d351_5a'> soon.",b:"B: OK, I'll send you my answer <input id='d351_5b'>.",
+     ans:{d351_5a:"again",d351_5b:"immediately"},audio:"Try again soon. OK I'll send you my answer immediately.",vi:"Hãy thử lại sớm. OK, tôi sẽ gửi câu trả lời ngay cho bạn."},
+    {num:6,a:"A: Look! There's <input id='d351_6a'> the mountains.",b:"B: Really? I can't <input id='d351_6b'>.",
+     ans:{d351_6a:"an eagle",d351_6b:"see it"},audio:"Look! There's an eagle over the mountains. Really? I can't see it.",vi:"Nhìn kìa! Có một con đại bàng trên núi. Thật à? Tôi không thấy."},
+];
+function buildEx351(){
+    const c=document.getElementById("ex351Items");c.innerHTML="";
+    EX351.forEach((item)=>{
+        c.innerHTML+=`<div class="dialogue-item">
+            <div><span class="speaker">A:</span>${item.a.replace(/<input id='([^']+)'>/g,(_,id)=>`<span class="dlblank"><input type="text" id="${id}" placeholder="?" autocomplete="off"></span>`)}</div>
+            <div style="margin-top:4px;"><span class="speaker">B:</span>${item.b.replace(/<input id='([^']+)'>/g,(_,id)=>`<span class="dlblank"><input type="text" id="${id}" placeholder="?" autocomplete="off"></span>`)}</div>
+            <div style="margin-top:4px;"><button class="btn btn-j" style="padding:3px 10px;font-size:11px;" onclick="speakText('${item.audio}',0.75)">🔊</button> <span style="font-size:12px;color:#27ae60;">🇻🇳 ${item.vi}</span></div>
+        </div>`;
+    });
+}
+function speakEx351(){EX351.forEach(x=>speakText(x.audio,0.75));}
+function checkEx351(){
+    let correct=0,total=0;
+    EX351.forEach(item=>{
+        Object.entries(item.ans).forEach(([id,ans])=>{
+            total++;
+            const inp=document.getElementById(id);if(!inp)return;
+            const val=inp.value.trim().toLowerCase();
+            const ok=val===ans.toLowerCase()||ans.toLowerCase().includes(val)&&val.length>=3;
+            if(ok){inp.classList.add("correct");inp.classList.remove("wrong");correct++;}
+            else{inp.classList.add("wrong");inp.classList.remove("correct");}
+        });
+    });
+    showScore("351",correct,total);
+}
+function resetEx351(){
+    EX351.forEach(item=>{Object.keys(item.ans).forEach(id=>{const inp=document.getElementById(id);if(inp){inp.value="";inp.className="";} });});
+    document.getElementById("score351").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx351(){
+    EX351.forEach(item=>{Object.entries(item.ans).forEach(([id,ans])=>{const inp=document.getElementById(id);if(inp){inp.value=ans;inp.classList.add("correct");}});});
+    document.getElementById("score351").className="score-box info show";
+    document.getElementById("score351").innerHTML="<strong>Đáp án:</strong><br>"+EX351.map(x=>`${x.num}. `+Object.values(x.ans).map(a=>`<strong>${a}</strong>`).join(", ")).join(" | ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 35.2 — Mark /j/ and /w/ links (click words)
+// ================================================================
+const EX352_DATA=[
+    {text:"Is it blue or grey?",
+     links:[{word:"blue",type:"w",after:"or"},{word:"or",type:null}],
+     audio:"Is it blue or grey?",vi:"Màu xanh hay xám?"},
+    {text:"What day is it today? Thursday or Friday?",
+     links:[{word:"today",type:"j",after:"Thursday"}],
+     audio:"What day is it today? Thursday or Friday?",vi:"Hôm nay là thứ mấy? Thứ Năm hay Thứ Sáu?"},
+    {text:"Coffee or tea?",
+     links:[{word:"Coffee",type:"j",after:"or"}],
+     audio:"Coffee or tea?",vi:"Cà phê hay trà?"},
+    {text:"Where's my interview suit?",
+     links:[{word:"my",type:"j",after:"interview"}],
+     audio:"Where's my interview suit?",vi:"Bộ vest phỏng vấn của tôi đâu?"},
+    {text:"Play a song for me.",
+     links:[{word:"Play",type:"j",after:"a"}],
+     audio:"Play a song for me.",vi:"Hãy hát một bài cho tôi."},
+    {text:"Hello. Reception? Which city is this?",
+     links:[{word:"city",type:"j",after:"is"}],
+     audio:"Hello. Reception? Which city is this?",vi:"Xin chào. Lễ tân? Đây là thành phố nào?"},
+    {text:"See you in the evening.",
+     links:[{word:"See",type:"j",after:"you"},{word:"you",type:"w",after:"in"}],
+     audio:"See you in the evening.",vi:"Hẹn gặp bạn vào buổi tối."},
+    {text:"Why do we always have to get up so early?",
+     links:[{word:"so",type:"w",after:"early"}],
+     audio:"Why do we always have to get up so early?",vi:"Tại sao chúng ta lúc nào cũng phải dậy sớm thế?"},
+];
+const ex352State={};
+function buildEx352(){
+    const c=document.getElementById("ex352Items");c.innerHTML="";
+    EX352_DATA.forEach((sent,si)=>{
+        const words=sent.text.split(" ");
+        let html=`<div class="mark-sentence" id="ms352_${si}">`;
+        words.forEach((w,wi)=>{
+            const key=`${si}_${wi}`;
+            ex352State[key]=0;
+            html+=`<span class="word-tok" id="wt352_${key}" onclick="cycleLink352(${si},${wi})">${w}</span> `;
+        });
+        html+=`<button class="btn btn-j" style="padding:2px 9px;font-size:11px;margin-left:4px;" onclick="speakText('${sent.audio}',0.75)">🔊</button>`;
+        html+=`<span style="font-size:12px;color:#27ae60;margin-left:6px;">🇻🇳 ${sent.vi}</span>`;
+        html+="</div>";
+        c.innerHTML+=html;
+    });
+}
+function cycleLink352(si,wi){
+    const key=`${si}_${wi}`;
+    ex352State[key]=(ex352State[key]+1)%3;
+    const el=document.getElementById(`wt352_${key}`);
+    el.classList.remove("link-j","link-w");
+    if(ex352State[key]===1)el.classList.add("link-j");
+    else if(ex352State[key]===2)el.classList.add("link-w");
+}
+function speakAllEx352(){EX352_DATA.forEach(s=>speakText(s.audio,0.75));}
+function checkEx352(){
+    let correct=0,total=0;
+    EX352_DATA.forEach((sent,si)=>{
+        const words=sent.text.split(" ");
+        words.forEach((w,wi)=>{
+            const key=`${si}_${wi}`;
+            const cleanW=w.replace(/[^a-zA-Z']/g,"").toLowerCase();
+            const linkInfo=sent.links.find(l=>l.word.toLowerCase()===cleanW);
+            if(linkInfo&&linkInfo.type){
+                total++;
+                const state=ex352State[key];
+                const correct_state=linkInfo.type==="j"?1:2;
+                const el=document.getElementById(`wt352_${key}`);
+                if(state===correct_state){el.style.outline="3px solid #27ae60";correct++;}
+                else{el.style.outline="3px solid #e74c3c";}
+            }
+        });
+    });
+    showScore("352",correct,total,"<br><em style='font-size:13px;'>🟢 = /j/ · 🟣 = /w/ · đường viền đỏ = chưa đúng</em>");
+}
+function resetEx352(){
+    EX352_DATA.forEach((sent,si)=>{
+        sent.text.split(" ").forEach((_,wi)=>{
+            const key=`${si}_${wi}`;
+            ex352State[key]=0;
+            const el=document.getElementById(`wt352_${key}`);
+            if(el){el.classList.remove("link-j","link-w");el.style.outline="";}
+        });
+    });
+    document.getElementById("score352").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx352(){
+    EX352_DATA.forEach((sent,si)=>{
+        const words=sent.text.split(" ");
+        words.forEach((w,wi)=>{
+            const key=`${si}_${wi}`;
+            const cleanW=w.replace(/[^a-zA-Z']/g,"").toLowerCase();
+            const linkInfo=sent.links.find(l=>l.word.toLowerCase()===cleanW);
+            const el=document.getElementById(`wt352_${key}`);
+            if(!el)return;
+            el.classList.remove("link-j","link-w");el.style.outline="";
+            if(linkInfo&&linkInfo.type==="j"){el.classList.add("link-j");ex352State[key]=1;}
+            else if(linkInfo&&linkInfo.type==="w"){el.classList.add("link-w");ex352State[key]=2;}
+        });
+    });
+    document.getElementById("score352").className="score-box info show";
+    document.getElementById("score352").innerHTML="<strong>Đáp án:</strong><br>"+EX352_DATA.map((s,i)=>`${i+1}. ${s.links.filter(l=>l.type).map(l=>`<strong>${l.word}</strong><sub>${l.type}</sub>`).join(", ")}`).join("<br>");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 35.3 — Complete answers
+// ================================================================
+const EX353=[
+    {num:1,q:"A: Are you the new assistant?",ans:"Yes, I am.",audio:"Are you the new assistant? Yes, I am.",vi:"Bạn là trợ lý mới phải không? Vâng, tôi là trợ lý mới."},
+    {num:2,q:"A: Is he in the same class as you?",ans:"No, he isn't.",audio:"Is he in the same class as you? No he isn't.",vi:"Anh ấy có học cùng lớp với bạn không? Không, anh ấy không học cùng lớp."},
+    {num:3,q:"A: Am I late?",ans:"No, you aren't. Come in.",audio:"Am I late? No you aren't. Come in.",vi:"Tôi có muộn không? Không, bạn không muộn. Mời vào."},
+    {num:4,q:"A: Is she coming with us?",ans:"Yes, she is.",audio:"Is she coming with us? Yes she is.",vi:"Cô ấy có đi cùng chúng ta không? Có, cô ấy đi cùng."},
+    {num:5,q:"A: These chairs aren't very comfortable, are they?",ans:"No, they aren't.",audio:"These chairs aren't very comfortable are they? No they aren't.",vi:"Những chiếc ghế này không thoải mái lắm nhỉ? Đúng, không thoải mái."},
+];
+function buildEx353(){
+    const c=document.getElementById("ex353Items");c.innerHTML="";
+    EX353.forEach((item,i)=>{
+        c.innerHTML+=`<div class="cmark-item">
+            <div><span class="sp">A:</span>${item.q}</div>
+            <div style="margin-top:4px;"><span class="sp">B:</span><input type="text" id="inp353_${i}" placeholder="gõ câu trả lời..." autocomplete="off" style="min-width:200px;max-width:300px;border:none;border-bottom:2px solid #27ae60;outline:none;font-size:15px;font-family:'Segoe UI',sans-serif;padding:2px 6px;">
+            <button class="btn btn-j" style="padding:2px 9px;font-size:11px;margin-left:6px;" onclick="speakText('${item.audio}',0.75)">🔊</button>
+            <span style="font-size:12px;color:#27ae60;margin-left:6px;">🇻🇳 ${item.vi}</span></div>
+        </div>`;
+    });
+}
+function speakEx353(){EX353.forEach(x=>speakText(x.audio,0.75));}
+function checkEx353(){
+    let correct=0;
+    EX353.forEach((item,i)=>{
+        const inp=document.getElementById(`inp353_${i}`);if(!inp)return;
+        const val=inp.value.trim().toLowerCase().replace(/[^a-z\s']/g,"");
+        const ans=item.ans.toLowerCase().replace(/[^a-z\s']/g,"");
+        const ok=val===ans||ans.includes(val)&&val.length>=4;
+        if(ok){inp.style.color="#27ae60";inp.style.borderBottomColor="#27ae60";correct++;}
+        else{inp.style.color="#e74c3c";inp.style.borderBottomColor="#e74c3c";}
+    });
+    showScore("353",correct,EX353.length,"<br><em style='font-size:13px;'>Tip: gõ đầy đủ câu trả lời ngắn gọn như Yes, I am / No, he isn't</em>");
+}
+function resetEx353(){
+    EX353.forEach((_,i)=>{const inp=document.getElementById(`inp353_${i}`);if(inp){inp.value="";inp.style.color="";inp.style.borderBottomColor="#27ae60";}});
+    document.getElementById("score353").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx353(){
+    EX353.forEach((item,i)=>{const inp=document.getElementById(`inp353_${i}`);if(inp){inp.value=item.ans;inp.style.color="#27ae60";}});
+    document.getElementById("score353").className="score-box info show";
+    document.getElementById("score353").innerHTML="<strong>Đáp án:</strong><br>"+EX353.map(x=>`${x.num}. B: <strong>${x.ans}</strong>`).join("<br>");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 35.4 — /j/ or /w/ quick identify
+// ================================================================
+const EX354=[
+    {num:1,phrase:"see it",end_vowel:"/iː/",correct:"j",explain:"'see' kết thúc /iː/ → /j/"},
+    {num:2,phrase:"go out",end_vowel:"/əʊ/",correct:"w",explain:"'go' kết thúc /əʊ/ → /w/"},
+    {num:3,phrase:"they are",end_vowel:"/eɪ/",correct:"j",explain:"'they' kết thúc /eɪ/ → /j/"},
+    {num:4,phrase:"do it",end_vowel:"/uː/",correct:"w",explain:"'do' kết thúc /uː/ → /w/"},
+    {num:5,phrase:"I agree",end_vowel:"/aɪ/",correct:"j",explain:"'I' kết thúc /aɪ/ → /j/"},
+    {num:6,phrase:"new order",end_vowel:"/juː/",correct:"w",explain:"'new' kết thúc /uː/ → /w/"},
+    {num:7,phrase:"free entry",end_vowel:"/iː/",correct:"j",explain:"'free' kết thúc /iː/ → /j/"},
+    {num:8,phrase:"show us",end_vowel:"/əʊ/",correct:"w",explain:"'show' kết thúc /əʊ/ → /w/"},
+    {num:9,phrase:"play again",end_vowel:"/eɪ/",correct:"j",explain:"'play' kết thúc /eɪ/ → /j/"},
+    {num:10,phrase:"how about",end_vowel:"/aʊ/",correct:"w",explain:"'how' kết thúc /aʊ/ → /w/"},
+    {num:11,phrase:"three of us",end_vowel:"/iː/",correct:"j",explain:"'three' kết thúc /iː/ → /j/"},
+    {num:12,phrase:"blue umbrella",end_vowel:"/uː/",correct:"w",explain:"'blue' kết thúc /uː/ → /w/"},
+];
+function buildEx354(){
+    const c=document.getElementById("ex354Items");c.innerHTML="";
+    EX354.forEach((item,i)=>{
+        c.innerHTML+=`<div class="choice-item">
+            <span class="num">${item.num}.</span>
+            <strong style="font-size:16px;">"${item.phrase}"</strong>
+            <small style="color:#888;font-family:'Courier New';"> (cuối từ: ${item.end_vowel})</small>
+            <button class="btn btn-j" style="padding:2px 9px;font-size:11px;margin:0 4px;" onclick="speakText('${item.phrase}',0.7)">🔊</button><br>
+            <span class="choice-btn" id="jb354_${i}" onclick="selC354(${i},'j')"><strong>/j/</strong> 🟢</span>
+            <span class="choice-btn" id="wb354_${i}" onclick="selC354(${i},'w')"><strong>/w/</strong> 🟣</span>
+        </div>`;
+    });
+}
+const ex354Sel={};
+function selC354(i,type){
+    ex354Sel[i]=type;
+    document.getElementById(`jb354_${i}`).classList.remove("sel-j","sel-w");
+    document.getElementById(`wb354_${i}`).classList.remove("sel-j","sel-w");
+    document.getElementById(`${type==="j"?"j":"w"}b354_${i}`).classList.add(`sel-${type}`);
+}
+function checkEx354(){
+    let correct=0;
+    EX354.forEach((item,i)=>{
+        const jb=document.getElementById(`jb354_${i}`);const wb=document.getElementById(`wb354_${i}`);
+        jb.style.pointerEvents="none";wb.style.pointerEvents="none";
+        if(ex354Sel[i]===item.correct){
+            document.getElementById(`${item.correct==="j"?"j":"w"}b354_${i}`).classList.add("correct-c");
+            correct++;
+        } else {
+            if(ex354Sel[i]) document.getElementById(`${ex354Sel[i]==="j"?"j":"w"}b354_${i}`).classList.add("wrong-c");
+            document.getElementById(`${item.correct==="j"?"j":"w"}b354_${i}`).style.outline="2px solid #27ae60";
+        }
+    });
+    showScore("354",correct,EX354.length,"<br><em style='font-size:13px;'>Nhấn 👁️ để xem giải thích chi tiết</em>");
+}
+function resetEx354(){
+    Object.keys(ex354Sel).forEach(k=>delete ex354Sel[k]);
+    EX354.forEach((_,i)=>{
+        ["j","w"].forEach(t=>{
+            const el=document.getElementById(`${t}b354_${i}`);
+            if(el){el.classList.remove("sel-j","sel-w","correct-c","wrong-c");el.style.pointerEvents="";el.style.outline="";}
+        });
+    });
+    document.getElementById("score354").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx354(){
+    EX354.forEach((item,i)=>{
+        ["j","w"].forEach(t=>{
+            const el=document.getElementById(`${t}b354_${i}`);
+            if(el){el.classList.remove("sel-j","sel-w","wrong-c");el.style.pointerEvents="none";}
+        });
+        document.getElementById(`${item.correct==="j"?"j":"w"}b354_${i}`).classList.add("correct-c");
+    });
+    document.getElementById("score354").className="score-box info show";
+    document.getElementById("score354").innerHTML="<strong>Giải thích:</strong><br>"+EX354.map(x=>`${x.num}. /${x.correct}/ — ${x.explain}`).join("<br>");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 35.5 — Read aloud self-check
+// ================================================================
+const EX355_SENTS=[
+    {text:"See you in the evening.",links:[["See","j"],["you","w"]],audio:"See you in the evening."},
+    {text:"They are always so early.",links:[["They","j"],["so","w"]],audio:"They are always so early."},
+    {text:"Do it now or do it never.",links:[["Do","w"],["now","w"]],audio:"Do it now or do it never."},
+    {text:"I always enjoy it.",links:[["I","j"],["enjoy","j"]],audio:"I always enjoy it."},
+    {text:"She asked him to go outside.",links:[["She","j"],["go","w"]],audio:"She asked him to go outside."},
+    {text:"Two of us are coming.",links:[["Two","w"]],audio:"Two of us are coming."},
+    {text:"The interview is over.",links:[["interview","w"]],audio:"The interview is over."},
+    {text:"Please allow us to explain.",links:[["allow","w"]],audio:"Please allow us to explain."},
+];
+function buildEx355(){
+    const c=document.getElementById("ex355Items");c.innerHTML="";
+    EX355_SENTS.forEach((item,i)=>{
+        const words=item.text.split(" ");
+        let html=`<div style="background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin-bottom:10px;">
+            <div style="font-size:16px;line-height:2.4;">`;
+        words.forEach(w=>{
+            const clean=w.replace(/[^a-zA-Z']/g,"").toLowerCase();
+            const linkInfo=item.links.find(([word])=>word.toLowerCase()===clean);
+            if(linkInfo){
+                html+=`<span style="display:inline-block;background:${linkInfo[1]==="j"?"#d5f5e3":"#f5eef8"};border-bottom:3px solid ${linkInfo[1]==="j"?"#27ae60":"#8e44ad"};border-radius:4px;padding:0 4px;font-weight:700;position:relative;">${w}<sup style="font-size:9px;font-family:Courier;color:${linkInfo[1]==="j"?"#27ae60":"#8e44ad"};font-weight:700;">/${linkInfo[1]}/</sup></span> `;
+            } else {
+                html+=`<span>${w}</span> `;
+            }
+        });
+        html+=`</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;">
+                <button class="btn btn-j" style="padding:4px 14px;font-size:12px;" onclick="speakText('${item.audio}',0.8)">🔊 Bình thường</button>
+                <button class="btn btn-success" style="padding:4px 14px;font-size:12px;" onclick="speakText('${item.audio}',0.5)">🐢 Chậm</button>
+            </div>
+        </div>`;
+        c.innerHTML+=html;
+    });
+}
+
+// ================================================================
+// EX 35.6 — h-dropping fill
+// ================================================================
+const EX356=[
+    {num:1,text:"Tell <input id='h356_1'> to call me.",ans:"him",audio:"Tell him to call me.",vi:"Nói với anh ấy gọi lại cho tôi."},
+    {num:2,text:"Where did you find <input id='h356_2'>?",ans:"her",audio:"Where did you find her?",vi:"Bạn tìm thấy cô ấy ở đâu?"},
+    {num:3,text:"I think <input id='h356_3'> forgot.",ans:"he",audio:"I think he forgot.",vi:"Tôi nghĩ anh ấy đã quên."},
+    {num:4,text:"Have you seen <input id='h356_4'> new apartment?",ans:"his",audio:"Have you seen his new apartment?",vi:"Bạn có thấy căn hộ mới của anh ấy chưa?"},
+    {num:5,text:"We need to ask <input id='h356_5'> opinion.",ans:"her",audio:"We need to ask her opinion.",vi:"Chúng ta cần hỏi ý kiến của cô ấy."},
+    {num:6,text:"Does <input id='h356_6'> know about it?",ans:"he",audio:"Does he know about it?",vi:"Anh ấy có biết chuyện đó không?"},
+    {num:7,text:"I can't see <input id='h356_7'>.",ans:"him",audio:"I can't see him.",vi:"Tôi không nhìn thấy anh ấy."},
+    {num:8,text:"What's <input id='h356_8'> name?",ans:"his",audio:"What's his name?",vi:"Tên anh ấy là gì?"},
+];
+function buildEx356(){
+    const c=document.getElementById("ex356Items");c.innerHTML="";
+    EX356.forEach(item=>{
+        const html=item.text.replace(/<input id='([^']+)'>/g,(_,id)=>
+            `<span class="dlblank"><input type="text" id="${id}" placeholder="he/his/her/him?" autocomplete="off" style="border:none;border-bottom:2px solid #8e44ad;outline:none;font-size:15px;color:#7b2d8b;font-weight:700;background:transparent;min-width:70px;font-family:'Segoe UI',sans-serif;padding:0 4px;"></span>`);
+        c.innerHTML+=`<div class="cmark-item">
+            <span>${item.num}.</span> ${html}
+            <button class="btn btn-w" style="padding:2px 9px;font-size:11px;margin-left:6px;" onclick="speakText('${item.audio}',0.75)">🔊</button>
+            <span style="font-size:12px;color:#27ae60;margin-left:4px;">🇻🇳 ${item.vi}</span>
+        </div>`;
+    });
+}
+function speakEx356(){EX356.forEach(x=>speakText(x.audio,0.75));}
+function checkEx356(){
+    let correct=0;
+    EX356.forEach(item=>{
+        const id=item.text.match(/id='([^']+)'/)[1];
+        const inp=document.getElementById(id);if(!inp)return;
+        if(inp.value.trim().toLowerCase()===item.ans){inp.style.color="#27ae60";inp.style.borderBottomColor="#27ae60";correct++;}
+        else{inp.style.color="#e74c3c";inp.style.borderBottomColor="#e74c3c";}
+    });
+    showScore("356",correct,EX356.length,"<br><em style='font-size:13px;'>Tip: he/his/her/him — chữ h thường không phát âm!</em>");
+}
+function resetEx356(){
+    EX356.forEach(item=>{const id=item.text.match(/id='([^']+)'/)[1];const inp=document.getElementById(id);if(inp){inp.value="";inp.style.color="";inp.style.borderBottomColor="#8e44ad";}});
+    document.getElementById("score356").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx356(){
+    EX356.forEach(item=>{const id=item.text.match(/id='([^']+)'/)[1];const inp=document.getElementById(id);if(inp){inp.value=item.ans;inp.style.color="#27ae60";}});
+    document.getElementById("score356").className="score-box info show";
+    document.getElementById("score356").innerHTML="<strong>Đáp án:</strong> "+EX356.map(x=>`${x.num}. <strong>${x.ans}</strong>`).join(" | ")+"<br><em>💡 Khi nghe: 'tell_im' = 'tell him', 'ask_er' = 'ask her', 'think_e' = 'think he'</em>";
+    showToast("Đã hiển thị đáp án!");
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+    buildEx351();buildEx352();buildEx353();buildEx354();buildEx355();buildEx356();
+});
+</script>
+</body>
+</html>
