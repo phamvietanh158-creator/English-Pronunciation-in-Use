@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 36 - Rhythm | Take me to the show, Jo</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;background:#f0f4f8;padding:20px 15px;min-height:100vh;}
+        .container{max-width:1000px;margin:0 auto;}
+        .header{background:linear-gradient(135deg,#6a0572,#a30d6b);color:white;padding:24px 28px;border-radius:20px;margin-bottom:25px;box-shadow:0 8px 30px rgba(106,5,114,.35);}
+        .header .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+        .lesson-number{background:rgba(255,255,255,.15);padding:4px 18px;border-radius:30px;font-size:14px;border:1px solid rgba(255,255,255,.2);}
+        .header h1{font-size:26px;font-weight:800;margin-top:8px;}
+        .header h1 span{color:#f1c40f;}
+        .phoneme-badge{display:inline-block;background:#f1c40f;color:#6a0572;font-size:18px;font-weight:900;padding:4px 18px;border-radius:12px;margin-top:8px;font-family:"Segoe UI",sans-serif;}
+        .header .sub{font-size:14px;opacity:.85;margin-top:6px;}
+        .nav-link{display:inline-block;margin-top:12px;color:#f1c40f;text-decoration:none;font-weight:600;font-size:14px;}
+        .section{background:white;border-radius:16px;padding:22px 26px;margin-bottom:20px;border:1px solid #e2e8f0;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+        .section-title{font-size:18px;font-weight:700;color:#6a0572;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+        .badge{background:#eef2f7;font-size:13px;font-weight:600;padding:2px 14px;border-radius:30px;color:#2c3e50;}
+        .badge.audio{background:#d5f5e3;color:#1a6e4a;}
+        .badge.tip{background:#fef9e7;color:#7d6608;}
+        .section p{font-size:15px;line-height:1.9;color:#2c3e50;margin-bottom:10px;}
+        .tip-box{background:#fef9e7;border:2px solid #f7dc6f;border-radius:12px;padding:14px 18px;margin:12px 0;}
+        .tip-title{font-weight:700;color:#7d6608;font-size:15px;margin-bottom:6px;}
+        .tip-content{font-size:14px;color:#5a4a1a;line-height:1.9;}
+        .tip-content p{margin-bottom:8px;}
+        .note-box{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:14px;color:#856404;line-height:1.7;}
+        /* RHYTHM PATTERN */
+        .rhythm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin:14px 0;}
+        .rhythm-card{border-radius:14px;padding:16px 18px;border:2px solid #e2e8f0;transition:.2s;}
+        .rhythm-card:hover{transform:scale(1.02);}
+        .rhythm-card .pattern{font-size:22px;font-weight:900;font-family:"Courier New",monospace;margin-bottom:8px;}
+        .rhythm-card .example{font-size:16px;font-weight:600;margin-bottom:4px;}
+        .rhythm-card .ipa{font-family:"Courier New",monospace;font-size:12px;color:#555;margin-bottom:4px;}
+        .rhythm-card .vi{font-size:13px;color:#27ae60;}
+        /* Stress dot notation */
+        .S{display:inline-block;width:18px;height:18px;border-radius:50%;vertical-align:middle;margin:0 1px;}
+        .S.big{background:#6a0572;width:22px;height:22px;}
+        .S.small{background:#ccc;width:14px;height:14px;}
+        .stress-word{color:#6a0572;font-weight:800;font-size:17px;}
+        .unstress-word{color:#999;font-size:15px;}
+        /* PHRASE LIST */
+        .phrase-groups{display:flex;flex-direction:column;gap:16px;margin:12px 0;}
+        .phrase-group{border-radius:12px;padding:16px 20px;border:2px solid;}
+        .phrase-group h4{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+        .phrase-list{display:flex;flex-wrap:wrap;gap:8px;}
+        .phrase-item{border-radius:10px;padding:8px 14px;cursor:pointer;transition:.2s;font-size:14px;}
+        .phrase-item:hover{transform:scale(1.03);}
+        .phrase-item .en{font-weight:600;font-size:15px;}
+        .phrase-item .ipa{font-family:"Courier New",monospace;font-size:11px;color:#555;margin-top:2px;}
+        .phrase-item .vi{font-size:12px;color:#27ae60;margin-top:1px;}
+        /* Pattern Ooo */
+        .pg-Ooo{background:#fdf0ff;border-color:#a855f7;}
+        .pg-Ooo h4{color:#7c3aed;}
+        .pg-Ooo .phrase-item{background:white;border:1px solid #d8b4fe;}
+        /* Pattern oOo */
+        .pg-oOo{background:#fff0f7;border-color:#db2777;}
+        .pg-oOo h4{color:#db2777;}
+        .pg-oOo .phrase-item{background:white;border:1px solid #fbcfe8;}
+        /* Pattern ooOo */
+        .pg-ooOo{background:#fff7ed;border-color:#f97316;}
+        .pg-ooOo h4{color:#ea580c;}
+        .pg-ooOo .phrase-item{background:white;border:1px solid #fed7aa;}
+        /* Pattern OooO */
+        .pg-OooO{background:#f0fdf4;border-color:#16a34a;}
+        .pg-OooO h4{color:#15803d;}
+        .pg-OooO .phrase-item{background:white;border:1px solid #bbf7d0;}
+        /* BUTTONS */
+        .btn{background:#3498db;color:white;border:none;padding:8px 20px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px;}
+        .btn:hover{transform:scale(1.03);opacity:.9;}
+        .btn-purple{background:#6a0572;}
+        .btn-pink{background:#db2777;}
+        .btn-orange{background:#ea580c;}
+        .btn-green2{background:#15803d;}
+        .btn-success{background:#27ae60;}
+        .btn-warning{background:#f39c12;}
+        .btn-danger{background:#e74c3c;}
+        .btn-teal{background:#1abc9c;}
+        .btn-gray{background:#64748b;}
+        .btn-group{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        /* POEM BOXES */
+        .poem-box{border-radius:14px;padding:18px 22px;margin:10px 0;font-size:16px;line-height:2.6;}
+        .poem-Ooo{background:#fdf0ff;border-left:5px solid #a855f7;}
+        .poem-oOo{background:#fff0f7;border-left:5px solid #db2777;}
+        .poem-ooOo{background:#fff7ed;border-left:5px solid #f97316;}
+        .poem-OooO{background:#f0fdf4;border-left:5px solid #16a34a;}
+        .poem-box .S-big{display:inline-block;font-weight:900;color:#6a0572;font-size:19px;}
+        .poem-box .S-sm{display:inline-block;color:#bbb;font-size:15px;}
+        /* EXERCISES */
+        .ex-wrap{background:#fafcff;border:2px solid #e2e8f0;border-radius:14px;padding:20px 22px;margin:14px 0;}
+        .ex-instruction{background:#f5eef8;border:1px solid #a855f7;border-radius:10px;padding:11px 15px;font-size:14px;color:#6a0572;margin-bottom:14px;line-height:1.7;}
+        .ex-instruction strong{color:#e74c3c;}
+        /* 36.1 pattern classify */
+        .classify-phrases{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;padding:14px;background:#f0f4f8;border-radius:12px;}
+        .classify-chip{background:white;border:2px solid #e2e8f0;border-radius:20px;padding:6px 16px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;user-select:none;}
+        .classify-chip:hover{border-color:#6a0572;background:#fdf0ff;}
+        .marked-1{background:#a855f7!important;color:white!important;border-color:#a855f7!important;}
+        .marked-2{background:#f97316!important;color:white!important;border-color:#f97316!important;}
+        .correct-chip{background:#27ae60!important;color:white!important;border-color:#27ae60!important;}
+        .wrong-chip{background:#e74c3c!important;color:white!important;border-color:#e74c3c!important;}
+        /* 36.2 / 36.3 fill */
+        .chant-box{background:white;border:2px solid #e2e8f0;border-radius:12px;padding:16px 20px;margin:10px 0;font-size:15px;line-height:2.8;}
+        .chant-line{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:2px;}
+        .chant-blank{display:inline-block;border-bottom:2px solid #6a0572;min-width:80px;text-align:center;}
+        .chant-blank input{border:none;border-bottom:2px solid #6a0572;outline:none;font-size:15px;font-weight:700;color:#6a0572;background:transparent;min-width:80px;text-align:center;font-family:"Segoe UI",sans-serif;padding:0 4px;}
+        .chant-blank input.correct{color:#27ae60;border-bottom-color:#27ae60;}
+        .chant-blank input.wrong{color:#e74c3c;border-bottom-color:#e74c3c;}
+        /* score */
+        .score-box{border-radius:12px;padding:14px 18px;margin-top:12px;font-size:15px;line-height:1.9;display:none;}
+        .score-box.show{display:block;}
+        .score-box.great{background:#d5f5e3;border:2px solid #27ae60;color:#1a6e4a;}
+        .score-box.good{background:#fef9e7;border:2px solid #f39c12;color:#7d6608;}
+        .score-box.try{background:#fadbd8;border:2px solid #e74c3c;color:#922b21;}
+        .score-box.info{background:#d6eaf8;border:2px solid #2980b9;color:#1a4a7a;}
+        .score-meter{background:#e0e7ee;border-radius:30px;height:12px;margin:8px 0;overflow:hidden;}
+        .score-meter-fill{height:100%;border-radius:30px;transition:width 1s ease;}
+        .big-score{font-size:38px;font-weight:900;text-align:center;margin:4px 0;}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2c3e50;color:white;padding:12px 24px;border-radius:40px;font-size:14px;box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;transition:opacity .4s;pointer-events:none;z-index:999;max-width:90%;text-align:center;}
+        .toast.show{opacity:1;}
+        @media(max-width:650px){.header{padding:18px 16px;}.header h1{font-size:20px;}.section{padding:16px 14px;}.rhythm-grid{grid-template-columns:1fr 1fr;}}
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <div class="top-row">
+        <span class="lesson-number">📚 Bài 36</span>
+        <span style="font-size:13px;opacity:.7;">Section C · Phrases, sentences and grammar</span>
+    </div>
+    <h1>🎵 <span>Take me to the show, Jo</span></h1>
+    <div><span class="phoneme-badge">🥁 Rhythm — Nhịp điệu</span></div>
+    <div class="sub">Nhịp điệu âm tiết nhấn và không nhấn trong tiếng Anh</div>
+    <a href="../index.html" class="nav-link">← Về trang chủ</a>
+</div>
+
+<!-- A: LÝ THUYẾT NHỊP ĐIỆU -->
+<div class="section">
+    <div class="section-title">🎯 A. Nhịp điệu tiếng Anh <span class="badge">Lý thuyết</span></div>
+    <p>Trong tiếng Anh, các âm tiết trong từ và cụm từ tạo ra <strong>nhịp điệu</strong> của âm tiết nhấn (STRESS) và không nhấn (unstress). Ký hiệu:</p>
+
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin:14px 0;align-items:center;font-size:16px;">
+        <div style="text-align:center;">
+            <span class="S big"></span>
+            <div style="font-weight:700;color:#6a0572;margin-top:4px;">O (chữ hoa)</div>
+            <div style="font-size:13px;color:#555;">Âm tiết NHẤN</div>
+        </div>
+        <div style="text-align:center;">
+            <span class="S small"></span>
+            <div style="font-weight:700;color:#999;margin-top:4px;">o (chữ thường)</div>
+            <div style="font-size:13px;color:#555;">Âm tiết không nhấn</div>
+        </div>
+        <div style="flex:1;min-width:200px;background:#f5eef8;border-radius:12px;padding:12px 16px;font-size:14px;line-height:1.9;">
+            <strong>Ví dụ:</strong><br>
+            <span style="font-family:Courier;color:#6a0572;">Oo</span> = <strong>AN</strong>swer → nhấn âm tiết đầu<br>
+            <span style="font-family:Courier;color:#db2777;">oO</span> = be<strong>LONG</strong> → nhấn âm tiết sau<br>
+            <span style="font-family:Courier;color:#ea580c;">Ooo</span> = <strong>IN</strong>terview → nhấn đầu<br>
+            <span style="font-family:Courier;color:#15803d;">oOoo</span> = ba<strong>NA</strong>na → nhấn giữa
+        </div>
+    </div>
+
+    <div class="tip-box">
+        <div class="tip-title">💡 Tại sao nhịp điệu quan trọng?</div>
+        <div class="tip-content">
+            <p>Tiếng Anh là ngôn ngữ <strong>stress-timed</strong> — nhịp điệu dựa trên âm tiết nhấn. Các âm tiết nhấn xuất hiện <em>đều đặn theo thời gian</em>, còn âm tiết không nhấn bị nói nhanh hơn để "lấp đầy" khoảng trống.</p>
+            <p>→ "banana" không phải ba-na-na đều nhau, mà là <em>ba-<strong>NA</strong>-na</em> — âm tiết giữa dài và to hơn nhiều.</p>
+            <p>🇻🇳 Tiếng Việt là ngôn ngữ tone-timed (từng âm tiết dài bằng nhau) — đây là lý do người Việt hay nói tiếng Anh "đều đều", không có nhịp!</p>
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-purple" onclick="speakText('answer belong interview banana',0.8)">🔊 Nghe 4 mẫu nhịp</button>
+        <button class="btn btn-success" onclick="speakText('answer belong interview banana',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- B: CÁC MẪU NHỊP -->
+<div class="section">
+    <div class="section-title">🥁 B. Các mẫu nhịp điệu phổ biến <span class="badge audio">🔊 Nghe &amp; lặp lại</span></div>
+    <p>Từ và cụm từ có cùng mẫu nhịp sẽ nghe giống nhau về nhịp điệu. Luyện theo mẫu!</p>
+
+    <div class="phrase-groups">
+
+        <!-- Ooo -->
+        <div class="phrase-group pg-Ooo">
+            <h4>
+                <span style="font-family:Courier;font-size:20px;">Ooo</span>
+                <span class="S big"></span><span class="S small"></span><span class="S small"></span>
+                — Nhấn âm tiết ĐẦU, 2 âm tiết nhỏ theo sau
+            </h4>
+            <div class="phrase-list">
+                <div class="phrase-item" onclick="speakText('interview',0.8)"><div class="en"><span class="stress-word">IN</span><span class="unstress-word">ter·view</span></div><div class="ipa">/ˈɪn.tə.vjuː/</div><div class="vi">🇻🇳 phỏng vấn</div></div>
+                <div class="phrase-item" onclick="speakText('telephone',0.8)"><div class="en"><span class="stress-word">TE</span><span class="unstress-word">le·phone</span></div><div class="ipa">/ˈtel.ɪ.fəʊn/</div><div class="vi">🇻🇳 điện thoại</div></div>
+                <div class="phrase-item" onclick="speakText('talk to me',0.8)"><div class="en"><span class="stress-word">TALK</span> <span class="unstress-word">to me</span></div><div class="ipa">/tɔːk tə miː/</div><div class="vi">🇻🇳 nói chuyện với tôi</div></div>
+                <div class="phrase-item" onclick="speakText('told you so',0.8)"><div class="en"><span class="stress-word">TOLD</span> <span class="unstress-word">you so</span></div><div class="ipa">/təʊld ju səʊ/</div><div class="vi">🇻🇳 đã nói với bạn rồi mà</div></div>
+                <div class="phrase-item" onclick="speakText('doesn't it?',0.8)"><div class="en"><span class="stress-word">DOES</span><span class="unstress-word">n't it?</span></div><div class="ipa">/ˈdʌz.ənt ɪt/</div><div class="vi">🇻🇳 phải không?</div></div>
+                <div class="phrase-item" onclick="speakText('beautiful',0.8)"><div class="en"><span class="stress-word">BEAU</span><span class="unstress-word">ti·ful</span></div><div class="ipa">/ˈbjuː.tɪ.fəl/</div><div class="vi">🇻🇳 đẹp</div></div>
+                <div class="phrase-item" onclick="speakText('Saturday',0.8)"><div class="en"><span class="stress-word">SAT</span><span class="unstress-word">ur·day</span></div><div class="ipa">/ˈsæt.ə.deɪ/</div><div class="vi">🇻🇳 Thứ Bảy</div></div>
+                <div class="phrase-item" onclick="speakText('come and see',0.8)"><div class="en"><span class="stress-word">COME</span> <span class="unstress-word">and see</span></div><div class="ipa">/kʌm ænd siː/</div><div class="vi">🇻🇳 đến và xem nào</div></div>
+            </div>
+            <div class="btn-group" style="margin-top:10px;">
+                <button class="btn btn-purple" onclick="speakText('interview. telephone. talk to me. told you so. doesn't it? beautiful. Saturday.',0.8)">🔊 Nghe tất cả Ooo</button>
+                <button class="btn btn-success" onclick="speakText('interview telephone talk to me told you so',0.5)">🐢 Chậm</button>
+            </div>
+        </div>
+
+        <!-- oOo -->
+        <div class="phrase-group pg-oOo">
+            <h4>
+                <span style="font-family:Courier;font-size:20px;">oOo</span>
+                <span class="S small"></span><span class="S big"></span><span class="S small"></span>
+                — Nhấn âm tiết GIỮA, không nhấn hai đầu
+            </h4>
+            <div class="phrase-list">
+                <div class="phrase-item" onclick="speakText('important',0.8)"><div class="en"><span class="unstress-word">im</span><span class="stress-word">POR</span><span class="unstress-word">tant</span></div><div class="ipa">/ɪmˈpɔː.tənt/</div><div class="vi">🇻🇳 quan trọng</div></div>
+                <div class="phrase-item" onclick="speakText('discussion',0.8)"><div class="en"><span class="unstress-word">dis</span><span class="stress-word">CUS</span><span class="unstress-word">sion</span></div><div class="ipa">/dɪˈskʌʃ.ən/</div><div class="vi">🇻🇳 cuộc thảo luận</div></div>
+                <div class="phrase-item" onclick="speakText('I told you',0.8)"><div class="en"><span class="unstress-word">I </span><span class="stress-word">TOLD</span><span class="unstress-word"> you</span></div><div class="ipa">/aɪ ˈtəʊld ju/</div><div class="vi">🇻🇳 tôi đã nói rồi mà</div></div>
+                <div class="phrase-item" onclick="speakText('I'd like to',0.8)"><div class="en"><span class="unstress-word">I'd </span><span class="stress-word">LIKE</span><span class="unstress-word"> to</span></div><div class="ipa">/aɪd ˈlaɪk tə/</div><div class="vi">🇻🇳 tôi muốn</div></div>
+                <div class="phrase-item" onclick="speakText('pronounce it',0.8)"><div class="en"><span class="unstress-word">pro</span><span class="stress-word">NOUNCE</span><span class="unstress-word"> it</span></div><div class="ipa">/prəˈnaʊns ɪt/</div><div class="vi">🇻🇳 phát âm nó</div></div>
+                <div class="phrase-item" onclick="speakText('tomorrow',0.8)"><div class="en"><span class="unstress-word">to</span><span class="stress-word">MOR</span><span class="unstress-word">row</span></div><div class="ipa">/təˈmɒr.əʊ/</div><div class="vi">🇻🇳 ngày mai</div></div>
+                <div class="phrase-item" onclick="speakText('computer',0.8)"><div class="en"><span class="unstress-word">com</span><span class="stress-word">PU</span><span class="unstress-word">ter</span></div><div class="ipa">/kəmˈpjuː.tər/</div><div class="vi">🇻🇳 máy tính</div></div>
+                <div class="phrase-item" onclick="speakText('a good time',0.8)"><div class="en"><span class="unstress-word">a </span><span class="stress-word">GOOD</span><span class="unstress-word"> time</span></div><div class="ipa">/ə ˈɡʊd taɪm/</div><div class="vi">🇻🇳 khoảng thời gian vui</div></div>
+            </div>
+            <div class="btn-group" style="margin-top:10px;">
+                <button class="btn btn-pink" onclick="speakText('important. discussion. I told you. I'd like to. pronounce it. tomorrow. computer.',0.8)">🔊 Nghe tất cả oOo</button>
+                <button class="btn btn-success" onclick="speakText('important discussion I told you I'd like to',0.5)">🐢 Chậm</button>
+            </div>
+        </div>
+
+        <!-- ooOo -->
+        <div class="phrase-group pg-ooOo">
+            <h4>
+                <span style="font-family:Courier;font-size:20px;">ooOo</span>
+                <span class="S small"></span><span class="S small"></span><span class="S big"></span><span class="S small"></span>
+                — Nhấn âm tiết THỨ 3, 3 không nhấn xung quanh
+            </h4>
+            <div class="phrase-list">
+                <div class="phrase-item" onclick="speakText('photographic',0.8)"><div class="en"><span class="unstress-word">pho·to</span><span class="stress-word">GRAPH</span><span class="unstress-word">ic</span></div><div class="ipa">/ˌfəʊ.təˈɡræf.ɪk/</div><div class="vi">🇻🇳 nhiếp ảnh</div></div>
+                <div class="phrase-item" onclick="speakText('information',0.8)"><div class="en"><span class="unstress-word">in·for</span><span class="stress-word">MA</span><span class="unstress-word">tion</span></div><div class="ipa">/ˌɪn.fəˈmeɪ.ʃən/</div><div class="vi">🇻🇳 thông tin</div></div>
+                <div class="phrase-item" onclick="speakText('forty-seven',0.8)"><div class="en"><span class="unstress-word">for·ty</span><span class="stress-word">SEV</span><span class="unstress-word">en</span></div><div class="ipa">/ˌfɔː.tiˈsev.ən/</div><div class="vi">🇻🇳 bốn mươi bảy</div></div>
+                <div class="phrase-item" onclick="speakText('what about it?',0.8)"><div class="en"><span class="unstress-word">what a</span><span class="stress-word">BOUT</span><span class="unstress-word"> it?</span></div><div class="ipa">/wɒt əˈbaʊt ɪt/</div><div class="vi">🇻🇳 còn chuyện đó thì sao?</div></div>
+                <div class="phrase-item" onclick="speakText('never tried it',0.8)"><div class="en"><span class="unstress-word">nev·er </span><span class="stress-word">TRIED</span><span class="unstress-word"> it</span></div><div class="ipa">/ˈnev.ə traɪd ɪt/</div><div class="vi">🇻🇳 chưa từng thử</div></div>
+                <div class="phrase-item" onclick="speakText('communication',0.8)"><div class="en"><span class="unstress-word">com·mu·ni</span><span class="stress-word">CA</span><span class="unstress-word">tion</span></div><div class="ipa">/kəˌmjuː.nɪˈkeɪ.ʃən/</div><div class="vi">🇻🇳 giao tiếp</div></div>
+                <div class="phrase-item" onclick="speakText('a cup of tea',0.8)"><div class="en"><span class="unstress-word">a cup of </span><span class="stress-word">TEA</span></div><div class="ipa">/ə kʌp əv ˈtiː/</div><div class="vi">🇻🇳 một tách trà</div></div>
+                <div class="phrase-item" onclick="speakText('understanding',0.8)"><div class="en"><span class="unstress-word">un·der</span><span class="stress-word">STAND</span><span class="unstress-word">ing</span></div><div class="ipa">/ˌʌn.dəˈstænd.ɪŋ/</div><div class="vi">🇻🇳 sự thấu hiểu</div></div>
+            </div>
+            <div class="btn-group" style="margin-top:10px;">
+                <button class="btn btn-orange" onclick="speakText('photographic. information. forty-seven. what about it? never tried it. communication. understanding.',0.8)">🔊 Nghe tất cả ooOo</button>
+                <button class="btn btn-success" onclick="speakText('photographic information forty seven what about it',0.5)">🐢 Chậm</button>
+            </div>
+        </div>
+
+        <!-- OooO -->
+        <div class="phrase-group pg-OooO">
+            <h4>
+                <span style="font-family:Courier;font-size:20px;">OooO</span>
+                <span class="S big"></span><span class="S small"></span><span class="S small"></span><span class="S big"></span>
+                — Nhấn âm tiết ĐẦU và CUỐI, 2 không nhấn ở giữa
+            </h4>
+            <div class="phrase-list">
+                <div class="phrase-item" onclick="speakText('time to get up',0.8)"><div class="en"><span class="stress-word">TIME</span><span class="unstress-word"> to get </span><span class="stress-word">UP</span></div><div class="ipa">/ˈtaɪm tə ɡet ˈʌp/</div><div class="vi">🇻🇳 đến giờ dậy rồi</div></div>
+                <div class="phrase-item" onclick="speakText('making mistakes',0.8)"><div class="en"><span class="stress-word">MAK</span><span class="unstress-word">ing mis</span><span class="stress-word">TAKES</span></div><div class="ipa">/ˈmeɪk.ɪŋ mɪˈsteɪks/</div><div class="vi">🇻🇳 phạm sai lầm</div></div>
+                <div class="phrase-item" onclick="speakText('tell me again',0.8)"><div class="en"><span class="stress-word">TELL</span><span class="unstress-word"> me a</span><span class="stress-word">GAIN</span></div><div class="ipa">/ˈtel miː əˈɡeɪn/</div><div class="vi">🇻🇳 nói lại cho tôi nghe</div></div>
+                <div class="phrase-item" onclick="speakText('give me your hand',0.8)"><div class="en"><span class="stress-word">GIVE</span><span class="unstress-word"> me your </span><span class="stress-word">HAND</span></div><div class="ipa">/ˈɡɪv miː jɔː ˈhænd/</div><div class="vi">🇻🇳 đưa tay cho tôi</div></div>
+                <div class="phrase-item" onclick="speakText('twenty years old',0.8)"><div class="en"><span class="stress-word">TWEN</span><span class="unstress-word">ty years </span><span class="stress-word">OLD</span></div><div class="ipa">/ˈtwen.ti jɪəz ˈəʊld/</div><div class="vi">🇻🇳 hai mươi tuổi</div></div>
+                <div class="phrase-item" onclick="speakText('take me to the show',0.8)"><div class="en"><span class="stress-word">TAKE</span><span class="unstress-word"> me to the </span><span class="stress-word">SHOW</span></div><div class="ipa">/ˈteɪk miː tə ðə ˈʃəʊ/</div><div class="vi">🇻🇳 đưa tôi đến buổi biểu diễn</div></div>
+                <div class="phrase-item" onclick="speakText('good for your health',0.8)"><div class="en"><span class="stress-word">GOOD</span><span class="unstress-word"> for your </span><span class="stress-word">HEALTH</span></div><div class="ipa">/ˈɡʊd fər jɔː ˈhelθ/</div><div class="vi">🇻🇳 tốt cho sức khỏe bạn</div></div>
+                <div class="phrase-item" onclick="speakText('work it out now',0.8)"><div class="en"><span class="stress-word">WORK</span><span class="unstress-word"> it out </span><span class="stress-word">NOW</span></div><div class="ipa">/ˈwɜːk ɪt aʊt ˈnaʊ/</div><div class="vi">🇻🇳 giải quyết ngay bây giờ</div></div>
+            </div>
+            <div class="btn-group" style="margin-top:10px;">
+                <button class="btn btn-green2" onclick="speakText('time to get up. making mistakes. tell me again. give me your hand. twenty years old. take me to the show.',0.8)">🔊 Nghe tất cả OooO</button>
+                <button class="btn btn-success" onclick="speakText('time to get up. making mistakes. tell me again. give me your hand. twenty years old.',0.5)">🐢 Chậm</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- C: BÀI THƠ LUYỆN NHỊP -->
+<div class="section">
+    <div class="section-title">📖 C. Bài thơ luyện nhịp <span class="badge audio">🔊 Đọc theo nhịp</span></div>
+
+    <div style="margin-bottom:8px;"><strong style="color:#7c3aed;">⏱️ Too late</strong> — nhịp <span style="font-family:Courier;">OooO</span></div>
+    <div class="poem-box poem-OooO">
+        <span class="S-big">BE</span><span class="S-sm">fore I</span> <span class="S-big">GO</span> —<br>
+        I <span class="S-big">TOLD</span> <span class="S-sm">you</span> <span class="S-big">SO</span><br>
+        I <span class="S-big">TOLD</span> <span class="S-sm">you,</span><br>
+        but you <span class="S-big">STILL</span> don't <span class="S-big">KNOW</span>.
+    </div>
+    <div style="font-size:13px;color:#27ae60;margin-bottom:10px;">🇻🇳 Trước khi tôi đi — Tôi đã nói với bạn rồi. Tôi đã nói, nhưng bạn vẫn chưa biết.</div>
+    <div class="btn-group">
+        <button class="btn btn-green2" onclick="speakText('Before I go. I told you so. I told you, but you still don't know.',0.8)">🔊 Nghe</button>
+        <button class="btn btn-success" onclick="speakText('Before I go. I told you so. I told you, but you still don't know.',0.5)">🐢 Chậm</button>
+    </div>
+
+    <div style="margin:14px 0 8px;"><strong style="color:#db2777;">🤝 Meeting</strong> — nhịp <span style="font-family:Courier;">oOo / OooO</span></div>
+    <div class="poem-box poem-oOo">
+        <span class="S-sm">Real</span><span class="S-big">LY</span> <span class="S-sm">can't</span> <span class="S-big">WAIT</span><br>
+        It's <span class="S-big">NEV</span><span class="S-sm">er too</span> <span class="S-big">LATE</span><br>
+        <span class="S-big">QUAR</span><span class="S-sm">ter to</span> <span class="S-big">EIGHT?</span><br>
+        <span class="S-big">THAT</span> <span class="S-sm">would be</span> <span class="S-big">GREAT</span>.
+    </div>
+    <div style="font-size:13px;color:#27ae60;margin-bottom:10px;">🇻🇳 Thực sự nóng lòng muốn gặp. Không bao giờ muộn quá. Kém tám giờ à? Tuyệt vời!</div>
+    <div class="btn-group">
+        <button class="btn btn-pink" onclick="speakText('Really can't wait. It's never too late. Quarter to eight? That would be great.',0.8)">🔊 Nghe</button>
+        <button class="btn btn-success" onclick="speakText('Really can't wait. It's never too late. Quarter to eight? That would be great.',0.5)">🐢 Chậm</button>
+    </div>
+
+    <div style="margin:14px 0 8px;"><strong style="color:#ea580c;">✈️ Travel</strong> — nhịp <span style="font-family:Courier;">Ooo / ooOo</span></div>
+    <div class="poem-box poem-ooOo">
+        <span class="S-big">HEAV</span><span class="S-sm">y,</span> <span class="S-big">LIGHT</span><br>
+        The <span class="S-big">LEFT</span> and the <span class="S-big">RIGHT</span><br>
+        I <span class="S-big">FOL</span><span class="S-sm">low my</span> <span class="S-big">FEET</span><br>
+        Through the <span class="S-big">DAY</span> and the <span class="S-big">NIGHT</span>.
+    </div>
+    <div style="font-size:13px;color:#27ae60;margin-bottom:10px;">🇻🇳 Nặng, nhẹ. Trái và phải. Tôi đi theo đôi chân. Qua ngày và đêm.</div>
+    <div class="btn-group">
+        <button class="btn btn-orange" onclick="speakText('Heavy, light. The left and the right. I follow my feet. Through the day and the night.',0.8)">🔊 Nghe</button>
+        <button class="btn btn-success" onclick="speakText('Heavy, light. The left and the right. I follow my feet. Through the day and the night.',0.5)">🐢 Chậm</button>
+    </div>
+
+    <div style="margin:14px 0 8px;"><strong style="color:#7c3aed;">🧠 Concentration</strong> — nhịp hỗn hợp</div>
+    <div class="poem-box poem-Ooo">
+        <span class="S-big">CEN</span><span class="S-sm">tral</span> <span class="S-big">STA</span><span class="S-sm">tion</span><br>
+        <span class="S-big">IN</span><span class="S-sm">for</span><span class="S-big">MA</span><span class="S-sm">tion</span><br>
+        <span class="S-big">TRY</span><span class="S-sm">ing to make a</span> <span class="S-big">RES</span><span class="S-sm">er</span><span class="S-big">VA</span><span class="S-sm">tion</span><br>
+        <span class="S-sm">Not too</span> <span class="S-big">KEEN</span> <span class="S-sm">on con</span><span class="S-big">VER</span><span class="S-sm">sa</span><span class="S-big">TION</span><br>
+        <span class="S-sm">Don't want</span> <span class="S-big">AN</span><span class="S-sm">y com</span><span class="S-big">PLI</span><span class="S-sm">ca</span><span class="S-big">TIONS</span>.
+    </div>
+    <div style="font-size:13px;color:#27ae60;margin-bottom:10px;">🇻🇳 Ga trung tâm. Thông tin. Đang cố đặt chỗ. Không thích nói chuyện. Không muốn rắc rối.</div>
+    <div class="btn-group">
+        <button class="btn btn-purple" onclick="speakText('Central station. Information. Trying to make a reservation. Not too keen on conversation. Don't want any complications.',0.8)">🔊 Nghe</button>
+        <button class="btn btn-success" onclick="speakText('Central station. Information. Trying to make a reservation. Not too keen on conversation. Don't want any complications.',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- KINH NGHIỆM -->
+<div class="section" style="border:2px solid #f39c12;">
+    <div class="section-title">💡 Kinh nghiệm luyện nhịp điệu <span class="badge tip">🔥 Quan trọng</span></div>
+    <div class="tip-box">
+        <div class="tip-title">🎯 5 bí quyết nắm vững nhịp điệu tiếng Anh</div>
+        <div class="tip-content">
+            <p><strong>1. Nhấn to, kéo dài âm tiết NHẤN</strong><br>
+            Âm tiết nhấn không chỉ to hơn mà còn <em>dài hơn</em>. "important" = im-<strong>POOOR</strong>-tant.<br>
+            Âm tiết không nhấn nói <em>nhanh và nhỏ</em>, thường biến thành /ə/.</p>
+            <p><strong>2. Dùng tay gõ nhịp khi luyện</strong><br>
+            Khi nói "interview" — gõ tay mạnh ở "IN", nhẹ ở "ter", nhẹ ở "view".<br>
+            Cơ thể nhớ nhịp điệu tốt hơn não!</p>
+            <p><strong>3. Học theo mẫu nhịp, không học theo từ</strong><br>
+            "telephone", "talk to me", "told you so" — cùng mẫu Ooo — luyện cùng nhau một lúc.</p>
+            <p><strong>4. Đọc thơ to và nhanh dần</strong><br>
+            Bắt đầu chậm, đúng nhịp → tăng tốc độ dần. Nhịp điệu quan trọng hơn tốc độ!</p>
+            <p><strong>5. Nghe nhạc tiếng Anh — lời bài hát có nhịp rõ ràng</strong><br>
+            Lời bài hát tiếng Anh thường tuân theo nhịp điệu stress — đây là cách học tự nhiên nhất.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 36.1 — Classify OoOo vs OooO
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 36.1 — Phân loại nhịp <span class="badge">Bài tập sách</span></div>
+    <p>Phân các cụm từ vào đúng mẫu nhịp: <strong style="color:#a855f7;">1 = OoOo</strong> hoặc <strong style="color:#f97316;">2 = OooO</strong>.</p>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 Click 1 lần = <strong style="color:#a855f7;">OoOo</strong> (tím) · Click 2 lần = <strong style="color:#f97316;">OooO</strong> (cam) · Click 3 lần = bỏ đánh dấu.<br>
+            🔊 Click để nghe phát âm trước khi đánh dấu.<br>
+            💡 <em>Ví dụ: "what's the matter" = OoOo (1) · "stand in the queue" = OooO (2)</em>
+        </div>
+        <div class="classify-phrases" id="ex361Chips"></div>
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx361()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx361()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx361()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score361" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 36.2 — Chant ooOO — fill in
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 36.2 — Điền từ vào chant nhịp ooOO <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🎵 Nghe → Điền tên người còn thiếu vào ô → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Tên người: Jan, Jen, Van, Scott, Ben, Lee, Mike, Pete, Bill, John, Flo, Neil, Bob, Dot</em>
+        </div>
+        <div class="chant-box" id="ex362Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx362()">🔊 Nghe toàn bộ chant</button>
+            <button class="btn btn-success" onclick="speakEx362slow()">🐢 Nghe chậm</button>
+            <button class="btn btn-warning" onclick="checkEx362()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx362()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx362()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score362" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 36.3 — Chant oooOO — fill in
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 36.3 — Điền từ vào chant nhịp oooOO <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🎵 Nghe → Điền từ còn thiếu vào ô → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Từ cần điền: show, food, lookout, road, late, glass, hat, Jane, Joan, Jack, Clive, Bruce</em>
+        </div>
+        <div class="chant-box" id="ex363Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx363()">🔊 Nghe toàn bộ</button>
+            <button class="btn btn-success" onclick="speakEx363slow()">🐢 Nghe chậm</button>
+            <button class="btn btn-warning" onclick="checkEx363()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx363()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx363()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score363" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 36.4 — Read poems with correct rhythm
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 36.4 — Đọc thơ đúng nhịp <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🔊 Nhấn nghe từng bài thơ → Đọc to theo đúng nhịp → Tự đánh giá.
+        </div>
+        <div id="ex364Items"></div>
+    </div>
+</div>
+
+<!-- TỔNG KẾT -->
+<div class="section" style="border:2px solid #8e44ad;">
+    <div class="section-title">📌 Tổng kết <span class="badge" style="background:#f5eef8;color:#7d3c98;">✅ Checklist</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px;line-height:1.9;">
+        <div style="background:#fdf0ff;padding:12px 14px;border-radius:10px;border:1px solid #a855f7;">✅ <strong>Ooo</strong> — interview, telephone, talk to me</div>
+        <div style="background:#fff0f7;padding:12px 14px;border-radius:10px;border:1px solid #db2777;">✅ <strong>oOo</strong> — important, discussion, I told you</div>
+        <div style="background:#fff7ed;padding:12px 14px;border-radius:10px;border:1px solid #f97316;">✅ <strong>ooOo</strong> — photographic, information, what about it?</div>
+        <div style="background:#f0fdf4;padding:12px 14px;border-radius:10px;border:1px solid #16a34a;">✅ <strong>OooO</strong> — time to get up, tell me again, twenty years old</div>
+        <div style="background:#fef9e7;padding:12px 14px;border-radius:10px;border:1px solid #f7dc6f;">✅ <strong>Nhấn to + dài</strong> · Không nhấn nhỏ + nhanh</div>
+        <div style="background:#fef9e7;padding:12px 14px;border-radius:10px;border:1px solid #f7dc6f;">✅ Tiếng Anh = <strong>stress-timed</strong> — nhịp theo âm tiết nhấn</div>
+    </div>
+</div>
+
+<div style="text-align:center;padding:20px 0 10px;color:#95a5a6;font-size:14px;border-top:1px solid #e2e8f0;margin-top:10px;">
+    <p>🎵 <strong>"Take me to the SHOW, Jo"</strong> — SHOW và JO là hai âm nhấn tạo nên nhịp điệu!</p>
+    <p style="margin-top:4px;font-size:13px;"><a href="../index.html" style="color:#6a0572;font-weight:600;">← Về trang chủ</a></p>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let curUtt=null,_voices=[];
+function _loadVoices(){_voices=speechSynthesis.getVoices();if(_voices.length===0)setTimeout(_loadVoices,200);}
+function _bestVoice(){
+    const prefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+    for(const p of prefs){const v=_voices.find(x=>x.name.includes(p));if(v)return v;}
+    return _voices.find(x=>x.lang.startsWith("en")&&!x.name.toLowerCase().includes("male"))||_voices.find(x=>x.lang.startsWith("en"))||null;
+}
+function speakText(t,rate=0.85){
+    if(!window.speechSynthesis)return;
+    speechSynthesis.cancel();
+    const clean=t.replace(/<[^>]*>/g,"").trim();
+    function doSpeak(){
+        const u=new SpeechSynthesisUtterance(clean);
+        u.lang="en-US";u.rate=rate;u.pitch=1.05;u.volume=1.0;
+        const v=_bestVoice();if(v)u.voice=v;
+        curUtt=u;u.onend=()=>curUtt=null;speechSynthesis.speak(u);
+    }
+    if(_voices.length>0)doSpeak();else{_loadVoices();setTimeout(doSpeak,350);}
+}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);}
+function showScore(id,correct,total,extra){
+    const pct=Math.round(correct/total*100);
+    let cls="try",emoji="😅",msg="Cần luyện thêm!";
+    if(pct>=90){cls="great";emoji="🎉";msg="Xuất sắc!";}
+    else if(pct>=65){cls="good";emoji="👍";msg="Khá tốt!";}
+    const el=document.getElementById("score"+id);
+    el.className=`score-box show ${cls}`;
+    el.innerHTML=`<div class="big-score">${emoji} ${pct}%</div><strong>${msg}</strong> — Đúng <strong>${correct}/${total}</strong>.<div class="score-meter"><div class="score-meter-fill" style="width:${pct}%;background:${pct>=90?"#27ae60":pct>=65?"#f39c12":"#e74c3c"}"></div></div>${extra||""}`;
+    showToast("Kết quả: "+pct+"%");
+}
+if(window.speechSynthesis){_loadVoices();speechSynthesis.onvoiceschanged=_loadVoices;}
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(36)){c.push(36);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+
+// ================================================================
+// EX 36.1 — Classify OoOo(1) vs OooO(2)
+// ================================================================
+const EX361=[
+    // pattern 1 = OoOo (stress-unstress-stress-unstress)
+    // pattern 2 = OooO (stress-unstress-unstress-stress)
+    {w:"what's the matter",t:"1",audio:"what's the matter"},
+    {w:"what about you",t:"1",audio:"what about you"},
+    {w:"feeling better",t:"1",audio:"feeling better"},
+    {w:"anyone there?",t:"1",audio:"anyone there?"},
+    {w:"on the TV",t:"1",audio:"on the TV"},
+    {w:"asking for more",t:"1",audio:"asking for more"},
+    {w:"one pound forty",t:"1",audio:"one pound forty"},
+    {w:"sixty-seven",t:"1",audio:"sixty-seven"},
+    {w:"what shall we do?",t:"1",audio:"what shall we do"},
+    {w:"see you later",t:"1",audio:"see you later"},
+    {w:"nothing to do",t:"1",audio:"nothing to do"},
+    {w:"round the corner",t:"1",audio:"round the corner"},
+    {w:"two and a half",t:"1",audio:"two and a half"},
+    {w:"what's the problem?",t:"1",audio:"what's the problem"},
+    {w:"leave it to me",t:"1",audio:"leave it to me"},
+    {w:"breakfast's ready",t:"1",audio:"breakfast's ready"},
+    {w:"stand in the queue",t:"2",audio:"stand in the queue"},
+    {w:"tell the others",t:"2",audio:"tell the others"},
+    {w:"come for dinner",t:"2",audio:"come for dinner"},
+    {w:"ready to go",t:"2",audio:"ready to go"},
+    {w:"go and find it",t:"2",audio:"go and find it"},
+    {w:"now and again",t:"2",audio:"now and again"},
+    {w:"half a kilo",t:"2",audio:"half a kilo"},
+    {w:"quarter to four",t:"2",audio:"quarter to four"},
+];
+const ex361State={};
+function buildEx361(){
+    const c=document.getElementById("ex361Chips");c.innerHTML="";
+    EX361.forEach((item,i)=>{
+        ex361State[i]=0;
+        c.innerHTML+=`<span class="classify-chip" id="chip361_${i}"
+            onclick="cycleEx361(${i})"
+            ondblclick="speakText('${item.audio}',0.8)"
+            title="Double-click để nghe">${item.w}</span>`;
+    });
+}
+function cycleEx361(i){
+    ex361State[i]=(ex361State[i]+1)%3;
+    const el=document.getElementById(`chip361_${i}`);
+    el.classList.remove("marked-1","marked-2","correct-chip","wrong-chip");
+    if(ex361State[i]===1){el.classList.add("marked-1");speakText(EX361[i].audio,0.8);}
+    else if(ex361State[i]===2){el.classList.add("marked-2");speakText(EX361[i].audio,0.8);}
+}
+function checkEx361(){
+    let correct=0,total=EX361.length;
+    EX361.forEach((item,i)=>{
+        const el=document.getElementById(`chip361_${i}`);
+        el.classList.remove("marked-1","marked-2","correct-chip","wrong-chip");
+        const userPick=ex361State[i]===1?"1":(ex361State[i]===2?"2":"");
+        if(userPick===item.t){el.classList.add("correct-chip");correct++;}
+        else{el.classList.add("wrong-chip");}
+    });
+    showScore("361",correct,total,"<br><em style='font-size:13px;'>🟣 = OoOo · 🟠 = OooO</em>");
+}
+function resetEx361(){
+    EX361.forEach((_,i)=>{ex361State[i]=0;const el=document.getElementById(`chip361_${i}`);el.className="classify-chip";});
+    document.getElementById("score361").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx361(){
+    EX361.forEach((item,i)=>{
+        ex361State[i]=item.t==="1"?1:2;
+        const el=document.getElementById(`chip361_${i}`);
+        el.classList.remove("marked-1","marked-2","wrong-chip");
+        el.classList.add("correct-chip");
+        el.style.background=item.t==="1"?"#a855f7":"#f97316";
+        el.style.color="white";
+    });
+    document.getElementById("score361").className="score-box info show";
+    document.getElementById("score361").innerHTML=
+        "<strong>🟣 OoOo (1):</strong> "+EX361.filter(x=>x.t==="1").map(x=>x.w).join(" · ")+
+        "<br><strong>🟠 OooO (2):</strong> "+EX361.filter(x=>x.t==="2").map(x=>x.w).join(" · ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 36.2 — Chant ooOO fill (names)
+// ================================================================
+const EX362_DATA=[
+    {line:"Pass me the", blank:"jan", ans:"Jan", after:", Pam"},
+    {line:"Soon as you", blank:"van", ans:"Van"},
+    {line:"Wait in the queue, Sue", blank:"", ans:"", after:""},
+    {line:"Almost forgot,", blank:"scott", ans:"Scott"},
+    {line:"See you", blank:"jen", ans:"Jen"},
+    {line:"Lend me your", blank:"ben", ans:"Ben"},
+    {line:"Leave it to me, Lee", blank:"", ans:"", after:""},
+    {line:"Where shall we go, Flo?", blank:"", ans:"", after:""},
+    {line:"What would you", blank:"mike", ans:"Mike"},
+    {line:"Get a new", blank:"bob", ans:"Bob"},
+    {line:"When shall we meet, Pete?", blank:"", ans:"", after:""},
+    {line:"How do you feel, Neil?", blank:"", ans:"", after:""},
+    {line:"Over the", blank:"bill", ans:"Bill"},
+    {line:"What have you", blank:"dot", ans:"Dot"},
+    {line:"Where have you gone, John?", blank:"", ans:"", after:""},
+];
+const EX362_FULL = [
+    {line:"Pass me the _____, Pam", ans:"Jan", audio:"Pass me the jam Pam"},
+    {line:"Soon as you _____, Van", ans:"can", audio:"Soon as you can Van"},
+    {line:"Wait in the queue, Sue", ans:"", audio:"Wait in the queue Sue"},
+    {line:"Almost forgot, _____", ans:"Scott", audio:"Almost forgot Scott"},
+    {line:"See you _____, Jen", ans:"then", audio:"See you then Jen"},
+    {line:"Lend me your _____, Ben", ans:"pen", audio:"Lend me your pen Ben"},
+    {line:"Leave it to me, Lee", ans:"", audio:"Leave it to me Lee"},
+    {line:"Where shall we go, Flo?", ans:"", audio:"Where shall we go Flo"},
+    {line:"What would you _____, Mike?", ans:"like", audio:"What would you like Mike"},
+    {line:"Get a new _____, Bob", ans:"job", audio:"Get a new job Bob"},
+    {line:"When shall we meet, Pete?", ans:"", audio:"When shall we meet Pete"},
+    {line:"How do you feel, Neil?", ans:"", audio:"How do you feel Neil"},
+    {line:"Over the _____, Bill", ans:"hill", audio:"Over the hill Bill"},
+    {line:"What have you _____, Dot?", ans:"got", audio:"What have you got Dot"},
+    {line:"Where have you gone, John?", ans:"", audio:"Where have you gone John"},
+];
+function buildEx362(){
+    const c=document.getElementById("ex362Items");c.innerHTML="";
+    EX362_FULL.forEach((item,i)=>{
+        const hasBlank=item.ans!=="";
+        let html=`<div class="chant-line">`;
+        if(hasBlank){
+            const parts=item.line.split("_____");
+            html+=`<span>${parts[0]}</span><span class="chant-blank"><input type="text" id="b362_${i}" placeholder="?" autocomplete="off"></span><span>${parts[1]||""}</span>`;
+        } else {
+            html+=`<span style="color:#555;">${item.line}</span>`;
+        }
+        html+=`<button class="btn btn-purple" style="padding:2px 9px;font-size:11px;margin-left:6px;" onclick="speakText('${item.audio}',0.8)">🔊</button>`;
+        html+="</div>";
+        c.innerHTML+=html;
+    });
+}
+const EX362_ALL="Pass me the jam, Pam. Soon as you can, Van. Wait in the queue, Sue. Almost forgot, Scott. See you then, Jen. Lend me your pen, Ben. Leave it to me, Lee. Where shall we go, Flo? What would you like, Mike? Get a new job, Bob. When shall we meet, Pete? How do you feel, Neil? Over the hill, Bill. What have you got, Dot? Where have you gone, John?";
+function speakEx362(){speakText(EX362_ALL,0.85);}
+function speakEx362slow(){speakText(EX362_ALL,0.55);}
+function checkEx362(){
+    let correct=0,total=0;
+    EX362_FULL.forEach((item,i)=>{
+        if(!item.ans)return;total++;
+        const inp=document.getElementById(`b362_${i}`);if(!inp)return;
+        if(inp.value.trim().toLowerCase()===item.ans.toLowerCase()){inp.classList.add("correct");inp.classList.remove("wrong");correct++;}
+        else{inp.classList.add("wrong");inp.classList.remove("correct");}
+    });
+    showScore("362",correct,total);
+}
+function resetEx362(){EX362_FULL.forEach((_,i)=>{const inp=document.getElementById(`b362_${i}`);if(inp){inp.value="";inp.className="";}});document.getElementById("score362").className="score-box";showToast("Đã đặt lại!");}
+function revealEx362(){
+    EX362_FULL.forEach((item,i)=>{const inp=document.getElementById(`b362_${i}`);if(inp&&item.ans){inp.value=item.ans;inp.classList.add("correct");}});
+    document.getElementById("score362").className="score-box info show";
+    document.getElementById("score362").innerHTML="<strong>Đáp án:</strong> jam · can · Scott · then · pen · like · job · hill · got";
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 36.3 — Chant oooOO fill
+// ================================================================
+const EX363_FULL=[
+    {line:"Take me to the _____, Jo", ans:"show", audio:"Take me to the show Jo"},
+    {line:"Thank you for the food, Jude", ans:"", audio:"Thank you for the food Jude"},
+    {line:"See you in the _____, Mark", ans:"dark", audio:"See you in the dark Mark"},
+    {line:"When will you be back, Jack?", ans:"", audio:"When will you be back Jack"},
+    {line:"Really like the hat, Pat", ans:"", audio:"Really like the hat Pat"},
+    {line:"Always on the _____, Joan", ans:"road", audio:"Always on the road Joan"},
+    {line:"See you on the _____, Jane", ans:"late", audio:"See you on the late Jane"},
+    {line:"When did you arrive, Clive?", ans:"", audio:"When did you arrive Clive"},
+    {line:"Have a glass of _____, Bruce", ans:"juice", audio:"Have a glass of juice Bruce"},
+];
+function buildEx363(){
+    const c=document.getElementById("ex363Items");c.innerHTML="";
+    EX363_FULL.forEach((item,i)=>{
+        const hasBlank=item.ans!=="";
+        let html=`<div class="chant-line">`;
+        if(hasBlank){
+            const parts=item.line.split("_____");
+            html+=`<span>${parts[0]}</span><span class="chant-blank"><input type="text" id="b363_${i}" placeholder="?" autocomplete="off"></span><span>${parts[1]||""}</span>`;
+        } else {
+            html+=`<span style="color:#555;">${item.line}</span>`;
+        }
+        html+=`<button class="btn btn-orange" style="padding:2px 9px;font-size:11px;margin-left:6px;" onclick="speakText('${item.audio}',0.8)">🔊</button>`;
+        html+="</div>";
+        c.innerHTML+=html;
+    });
+}
+const EX363_ALL="Take me to the show, Jo. Thank you for the food, Jude. See you in the dark, Mark. When will you be back, Jack? Really like the hat, Pat. Always on the road, Joan. See you on the late side, Jane. When did you arrive, Clive? Have a glass of juice, Bruce.";
+function speakEx363(){speakText(EX363_ALL,0.85);}
+function speakEx363slow(){speakText(EX363_ALL,0.55);}
+function checkEx363(){
+    let correct=0,total=0;
+    EX363_FULL.forEach((item,i)=>{
+        if(!item.ans)return;total++;
+        const inp=document.getElementById(`b363_${i}`);if(!inp)return;
+        if(inp.value.trim().toLowerCase()===item.ans.toLowerCase()){inp.classList.add("correct");inp.classList.remove("wrong");correct++;}
+        else{inp.classList.add("wrong");inp.classList.remove("correct");}
+    });
+    showScore("363",correct,total);
+}
+function resetEx363(){EX363_FULL.forEach((_,i)=>{const inp=document.getElementById(`b363_${i}`);if(inp){inp.value="";inp.className="";}});document.getElementById("score363").className="score-box";showToast("Đã đặt lại!");}
+function revealEx363(){
+    EX363_FULL.forEach((item,i)=>{const inp=document.getElementById(`b363_${i}`);if(inp&&item.ans){inp.value=item.ans;inp.classList.add("correct");}});
+    document.getElementById("score363").className="score-box info show";
+    document.getElementById("score363").innerHTML="<strong>Đáp án:</strong> show · dark · road · late · juice";
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 36.4 — Read poems
+// ================================================================
+const EX364_POEMS=[
+    {title:"Too late",color:"#7c3aed",bg:"#fdf0ff",
+     lines:["Before I go —","I told you so","I told you,","but you still don't know."],
+     audio:"Before I go. I told you so. I told you, but you still don't know.",
+     rhythm:"OooO · oOoO · oOo · ooOooO",
+     vi:"Trước khi tôi đi — Tôi đã nói rồi. Tôi đã nói, nhưng bạn vẫn chưa biết."},
+    {title:"Meeting",color:"#db2777",bg:"#fff0f7",
+     lines:["Really can't wait","It's never too late","Quarter to eight?","That would be great."],
+     audio:"Really can't wait. It's never too late. Quarter to eight? That would be great.",
+     rhythm:"OooO · oOoooO · Ooooo O · OoooO",
+     vi:"Thực sự nóng lòng. Không bao giờ quá muộn. Kém 8 giờ? Tuyệt vời!"},
+    {title:"Travel",color:"#ea580c",bg:"#fff7ed",
+     lines:["Heavy, light","The left and the right","I follow my feet","Through the day and the night."],
+     audio:"Heavy light. The left and the right. I follow my feet. Through the day and the night.",
+     rhythm:"Ooo O · oO oo oO · oOooo O · ooo O oo oO",
+     vi:"Nặng, nhẹ. Trái và phải. Tôi đi theo đôi chân. Qua ngày và đêm."},
+    {title:"Concentration",color:"#7c3aed",bg:"#fdf0ff",
+     lines:["Central station","Information","Trying to make a reservation","Not too keen on conversation","Don't want any complications."],
+     audio:"Central station. Information. Trying to make a reservation. Not too keen on conversation. Don't want any complications.",
+     rhythm:"OooOoo · ooooOoo · Ooooo Ooooo · ooo O oo ooOoo · ooo Ooo ooooOoo",
+     vi:"Ga trung tâm. Thông tin. Đang cố đặt chỗ. Không thích nói chuyện. Không muốn rắc rối."},
+];
+function buildEx364(){
+    const c=document.getElementById("ex364Items");c.innerHTML="";
+    EX364_POEMS.forEach((poem,i)=>{
+        const selfRate=[{label:"😅 Cần luyện thêm",v:1},{label:"👍 Khá tốt",v:2},{label:"🎉 Xuất sắc",v:3}];
+        c.innerHTML+=`<div style="background:${poem.bg};border:2px solid ${poem.color};border-radius:14px;padding:18px 22px;margin-bottom:14px;">
+            <div style="font-weight:700;color:${poem.color};font-size:16px;margin-bottom:10px;">🎵 ${poem.title}</div>
+            <div style="font-size:15px;line-height:2.6;margin-bottom:8px;">
+                ${poem.lines.map(l=>`<div>${l}</div>`).join("")}
+            </div>
+            <div style="font-size:13px;color:#27ae60;margin-bottom:10px;">🇻🇳 ${poem.vi}</div>
+            <div style="font-size:12px;font-family:Courier;color:#888;margin-bottom:10px;">Nhịp: ${poem.rhythm}</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+                <button class="btn" style="background:${poem.color};padding:5px 14px;font-size:13px;" onclick="speakText('${poem.audio}',0.85)">🔊 Nghe</button>
+                <button class="btn btn-success" style="padding:5px 14px;font-size:13px;" onclick="speakText('${poem.audio}',0.5)">🐢 Chậm</button>
+                <span style="font-size:13px;color:#555;">Tự đánh giá:</span>
+                ${selfRate.map(r=>`<button onclick="this.style.background='${poem.color}';this.style.color='white';showToast('${r.label}!')" style="padding:4px 12px;border-radius:20px;border:2px solid ${poem.color};background:white;color:${poem.color};font-size:12px;cursor:pointer;font-weight:600;">${r.label}</button>`).join("")}
+            </div>
+        </div>`;
+    });
+}
+
+document.addEventListener("DOMContentLoaded",()=>{buildEx361();buildEx362();buildEx363();buildEx364();});
+</script>
+</body>
+</html>
