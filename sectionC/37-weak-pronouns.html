@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 37 - Strong and weak forms 1: Pronouns | Hey, wait for me!</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;background:#f0f4f8;padding:20px 15px;min-height:100vh;}
+        .container{max-width:1000px;margin:0 auto;}
+        .header{background:linear-gradient(135deg,#1a3a5c,#0d6e9a);color:white;padding:24px 28px;border-radius:20px;margin-bottom:25px;box-shadow:0 8px 30px rgba(13,110,154,.35);}
+        .header .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+        .lesson-number{background:rgba(255,255,255,.15);padding:4px 18px;border-radius:30px;font-size:14px;border:1px solid rgba(255,255,255,.2);}
+        .header h1{font-size:26px;font-weight:800;margin-top:8px;}
+        .header h1 span{color:#f1c40f;}
+        .phoneme-badge{display:inline-block;background:#f1c40f;color:#1a3a5c;font-size:16px;font-weight:900;padding:5px 18px;border-radius:12px;margin-top:8px;}
+        .header .sub{font-size:14px;opacity:.85;margin-top:6px;}
+        .nav-link{display:inline-block;margin-top:12px;color:#f1c40f;text-decoration:none;font-weight:600;font-size:14px;}
+        .section{background:white;border-radius:16px;padding:22px 26px;margin-bottom:20px;border:1px solid #e2e8f0;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+        .section-title{font-size:18px;font-weight:700;color:#1a3a5c;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+        .badge{background:#eef2f7;font-size:13px;font-weight:600;padding:2px 14px;border-radius:30px;color:#2c3e50;}
+        .badge.audio{background:#d5f5e3;color:#1a6e4a;}
+        .badge.tip{background:#fef9e7;color:#7d6608;}
+        .section p{font-size:15px;line-height:1.9;color:#2c3e50;margin-bottom:10px;}
+        /* PRONOUN TABLE */
+        .pronoun-table{width:100%;border-collapse:collapse;margin:14px 0;border-radius:12px;overflow:hidden;}
+        .pronoun-table th{background:#1a3a5c;color:white;padding:10px 16px;text-align:left;font-size:14px;}
+        .pronoun-table th:first-child{width:15%;}
+        .pronoun-table td{padding:10px 16px;border-bottom:1px solid #e2e8f0;font-size:15px;vertical-align:middle;}
+        .pronoun-table tr:nth-child(even) td{background:#f8fafc;}
+        .pronoun-table td:first-child{font-weight:700;color:#1a3a5c;font-size:16px;}
+        .ipa-w{font-family:"Courier New",monospace;color:#0d6e9a;background:#e0f0ff;padding:2px 10px;border-radius:6px;font-size:14px;}
+        .ipa-s{font-family:"Courier New",monospace;color:#c0392b;background:#fff0f0;padding:2px 10px;border-radius:6px;font-size:14px;}
+        /* DIALOGUE BOXES */
+        .dialogue-list{display:flex;flex-direction:column;gap:12px;margin:12px 0;}
+        .dialogue-item{border-radius:12px;padding:14px 18px;font-size:15px;line-height:2;border:2px solid;}
+        .dialogue-item.weak-ex{background:#e0f0ff;border-color:#0d6e9a;}
+        .dialogue-item.strong-ex{background:#fff0f0;border-color:#c0392b;}
+        .dialogue-item .sp{font-weight:700;margin-right:6px;}
+        .sp-a{color:#1a3a5c;}
+        .sp-b{color:#c0392b;}
+        .label-w{background:#0d6e9a;color:white;font-size:11px;font-weight:700;padding:1px 8px;border-radius:10px;vertical-align:middle;margin-left:4px;}
+        .label-s{background:#c0392b;color:white;font-size:11px;font-weight:700;padding:1px 8px;border-radius:10px;vertical-align:middle;margin-left:4px;}
+        .hl-w{color:#0d6e9a;font-weight:700;text-decoration:underline;text-underline-offset:3px;}
+        .hl-s{color:#c0392b;font-weight:700;text-decoration:underline;text-underline-offset:3px;text-decoration-style:double;}
+        /* SENTENCE LIST */
+        .sentence-list{list-style:none;padding:0;margin:10px 0;}
+        .sentence-list li{padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:15px;line-height:1.9;background:#f8fafc;border-left:4px solid #0d6e9a;cursor:pointer;transition:.2s;}
+        .sentence-list li:hover{background:#e0f0ff;}
+        .sentence-list li .ipa-line{font-family:"Courier New",monospace;font-size:12px;color:#0d6e9a;display:block;margin-top:3px;}
+        .sentence-list li .vi-line{font-size:13px;color:#27ae60;display:block;margin-top:2px;}
+        /* POEM BOX */
+        .poem-box{background:#f5f0ff;border-left:5px solid #7c3aed;border-radius:12px;padding:18px 22px;margin:12px 0;font-size:15px;}
+        .poem-strong{color:#c0392b;font-weight:800;}
+        .poem-weak{color:#0d6e9a;font-size:14px;}
+        /* BUTTONS */
+        .btn{background:#3498db;color:white;border:none;padding:8px 20px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px;}
+        .btn:hover{transform:scale(1.03);opacity:.9;}
+        .btn-blue{background:#0d6e9a;}
+        .btn-red{background:#c0392b;}
+        .btn-success{background:#27ae60;}
+        .btn-warning{background:#f39c12;}
+        .btn-purple{background:#7c3aed;}
+        .btn-danger{background:#e74c3c;}
+        .btn-teal{background:#1abc9c;}
+        .btn-group{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .tip-box{background:#fef9e7;border:2px solid #f7dc6f;border-radius:12px;padding:14px 18px;margin:12px 0;}
+        .tip-title{font-weight:700;color:#7d6608;font-size:15px;margin-bottom:6px;}
+        .tip-content{font-size:14px;color:#5a4a1a;line-height:1.9;}
+        .tip-content p{margin-bottom:8px;}
+        .note-box{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:14px;color:#856404;line-height:1.7;}
+        /* EXERCISES */
+        .ex-wrap{background:#fafcff;border:2px solid #e2e8f0;border-radius:14px;padding:20px 22px;margin:14px 0;}
+        .ex-instruction{background:#e0f0ff;border:1px solid #0d6e9a;border-radius:10px;padding:11px 15px;font-size:14px;color:#1a3a5c;margin-bottom:14px;line-height:1.7;}
+        .ex-instruction strong{color:#c0392b;}
+        /* 37.1 — click W or S */
+        .ws-sentence{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin-bottom:8px;font-size:15px;line-height:2;}
+        .ws-sentence .num{font-weight:700;color:#1a3a5c;margin-right:6px;}
+        .ws-tok{display:inline-block;border:2px solid #e2e8f0;border-radius:16px;padding:1px 8px;cursor:pointer;transition:.15s;user-select:none;margin:0 1px;vertical-align:middle;}
+        .ws-tok:hover{border-color:#0d6e9a;}
+        .ws-tok.sel-w{background:#0d6e9a;color:white;border-color:#0d6e9a;}
+        .ws-tok.sel-s{background:#c0392b;color:white;border-color:#c0392b;}
+        .ws-tok.correct-w{background:#27ae60;color:white;border-color:#27ae60;pointer-events:none;}
+        .ws-tok.wrong-w{background:#e74c3c;color:white;border-color:#e74c3c;pointer-events:none;}
+        /* 37.2 — fill */
+        .fill-items{display:flex;flex-direction:column;gap:8px;margin:10px 0;}
+        .fill-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:11px 16px;font-size:15px;line-height:2;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+        .fill-item .num{font-weight:700;color:#1a3a5c;min-width:20px;}
+        .fill-item input{border:2px solid #0d6e9a;border-radius:8px;padding:4px 10px;font-size:14px;outline:none;min-width:70px;max-width:140px;font-family:"Segoe UI",sans-serif;transition:.2s;}
+        .fill-item input.correct{border-color:#27ae60;background:#d5f5e3;color:#1a6e4a;}
+        .fill-item input.wrong{border-color:#e74c3c;background:#fadbd8;color:#922b21;}
+        /* score */
+        .score-box{border-radius:12px;padding:14px 18px;margin-top:12px;font-size:15px;line-height:1.9;display:none;}
+        .score-box.show{display:block;}
+        .score-box.great{background:#d5f5e3;border:2px solid #27ae60;color:#1a6e4a;}
+        .score-box.good{background:#fef9e7;border:2px solid #f39c12;color:#7d6608;}
+        .score-box.try{background:#fadbd8;border:2px solid #e74c3c;color:#922b21;}
+        .score-box.info{background:#d6eaf8;border:2px solid #2980b9;color:#1a4a7a;}
+        .score-meter{background:#e0e7ee;border-radius:30px;height:12px;margin:8px 0;overflow:hidden;}
+        .score-meter-fill{height:100%;border-radius:30px;transition:width 1s ease;}
+        .big-score{font-size:38px;font-weight:900;text-align:center;margin:4px 0;}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2c3e50;color:white;padding:12px 24px;border-radius:40px;font-size:14px;box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;transition:opacity .4s;pointer-events:none;z-index:999;max-width:90%;text-align:center;}
+        .toast.show{opacity:1;}
+        @media(max-width:650px){.header{padding:18px 16px;}.header h1{font-size:20px;}.section{padding:16px 14px;}.pronoun-table td,.pronoun-table th{padding:8px 10px;}}
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <div class="top-row">
+        <span class="lesson-number">📚 Bài 37</span>
+        <span style="font-size:13px;opacity:.7;">Section C · Phrases, sentences and grammar</span>
+    </div>
+    <h1>👋 <span>Hey, wait for me!</span></h1>
+    <div><span class="phoneme-badge">💪 Strong &amp; Weak Forms 1: Pronouns</span></div>
+    <div class="sub">Dạng mạnh và dạng yếu của đại từ nhân xưng trong tiếng Anh</div>
+    <a href="../index.html" class="nav-link">← Về trang chủ</a>
+</div>
+
+<!-- A: LÝ THUYẾT -->
+<div class="section">
+    <div class="section-title">📖 A. Dạng mạnh và dạng yếu là gì? <span class="badge">Lý thuyết</span></div>
+    <p>Nhiều từ trong tiếng Anh có <strong>hai cách phát âm</strong>:</p>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin:10px 0;">
+        <div style="flex:1;min-width:200px;background:#e0f0ff;border:2px solid #0d6e9a;border-radius:12px;padding:14px 18px;">
+            <div style="font-weight:700;color:#0d6e9a;font-size:16px;margin-bottom:6px;">🔵 Dạng YẾU (Weak form)</div>
+            <p style="font-size:14px;color:#1a3a5c;line-height:1.8;">Dùng <strong>bình thường</strong> trong câu — phát âm nhỏ, nhanh, thường chứa âm /ə/ hoặc bị rút ngắn.<br>⭐ Đây là dạng phổ biến nhất!</p>
+        </div>
+        <div style="flex:1;min-width:200px;background:#fff0f0;border:2px solid #c0392b;border-radius:12px;padding:14px 18px;">
+            <div style="font-weight:700;color:#c0392b;font-size:16px;margin-bottom:6px;">🔴 Dạng MẠNH (Strong form)</div>
+            <p style="font-size:14px;color:#8b1a1a;line-height:1.8;">Dùng khi từ được <strong>nhấn mạnh đặc biệt</strong> hoặc tạo <strong>sự đối lập</strong>.<br>Phát âm to, rõ ràng, đầy đủ.</p>
+        </div>
+    </div>
+    <div class="tip-box">
+        <div class="tip-title">💡 Khi nào dùng dạng MẠNH?</div>
+        <div class="tip-content">
+            <p><strong>1. Khi trả lời Yes/No, nhấn mạnh chủ ngữ:</strong><br>
+            "Will <em>you</em> be there?" — "Yes, will <em>YOU</em> be there?" (<span class="ipa-s">/juː/</span> — mạnh, tạo đối lập)</p>
+            <p><strong>2. Khi đứng cuối câu hoặc bị tách biệt:</strong><br>
+            "Hey, wait for <em>ME</em>!" (<span class="ipa-s">/miː/</span> — mạnh)</p>
+            <p><strong>3. Khi muốn sửa lại thông tin, tạo tương phản:</strong><br>
+            "I didn't mean THEM, I meant the PEOPLE." (them mạnh, nhấn)</p>
+        </div>
+    </div>
+
+    <!-- PRONOUN TABLE -->
+    <p style="margin-top:14px;"><strong>📋 Bảng dạng yếu và dạng mạnh của đại từ nhân xưng:</strong></p>
+    <table class="pronoun-table">
+        <tr>
+            <th>Đại từ</th>
+            <th>🔵 Dạng YẾU (weak)</th>
+            <th>🔴 Dạng MẠNH (strong)</th>
+            <th>Ví dụ dạng yếu</th>
+        </tr>
+        <tr>
+            <td>you</td>
+            <td><span class="ipa-w">/jə/</span></td>
+            <td><span class="ipa-s">/juː/</span></td>
+            <td>Are <span class="hl-w">you</span> coming? <button class="btn btn-blue" style="padding:2px 9px;font-size:11px;" onclick="speakText('Are you coming?',0.75)">🔊</button></td>
+        </tr>
+        <tr>
+            <td>me</td>
+            <td><span class="ipa-w">/mi/</span></td>
+            <td><span class="ipa-s">/miː/</span></td>
+            <td>Give <span class="hl-w">me</span> that. <button class="btn btn-blue" style="padding:2px 9px;font-size:11px;" onclick="speakText('Give me that.',0.75)">🔊</button></td>
+        </tr>
+        <tr>
+            <td>he</td>
+            <td><span class="ipa-w">/i/</span></td>
+            <td><span class="ipa-s">/hiː/</span></td>
+            <td>Is <span class="hl-w">he</span> there? <button class="btn btn-blue" style="padding:2px 9px;font-size:11px;" onclick="speakText('Is he there?',0.75)">🔊</button></td>
+        </tr>
+        <tr>
+            <td>she</td>
+            <td><span class="ipa-w">/ʃi/</span></td>
+            <td><span class="ipa-s">/ʃiː/</span></td>
+            <td><span class="hl-w">She</span> doesn't smoke. <button class="btn btn-blue" style="padding:2px 9px;font-size:11px;" onclick="speakText('She doesn't smoke.',0.75)">🔊</button></td>
+        </tr>
+        <tr>
+            <td>him</td>
+            <td><span class="ipa-w">/ɪm/</span></td>
+            <td><span class="ipa-s">/hɪm/</span></td>
+            <td>Ask <span class="hl-w">him</span>. <button class="btn btn-blue" style="padding:2px 9px;font-size:11px;" onclick="speakText('Ask him.',0.75)">🔊</button></td>
+        </tr>
+        <tr>
+            <td>her</td>
+            <td><span class="ipa-w">/ə/</span> hoặc <span class="ipa-w">/hə/</span></td>
+            <td><span class="ipa-s">/hɜː/</span></td>
+            <td>Give <span class="hl-w">her</span> a chance. <button class="btn btn-blue" style="padding:2px 9px;font-size:11px;" onclick="speakText('Give her a chance.',0.75)">🔊</button></td>
+        </tr>
+        <tr>
+            <td>we</td>
+            <td><span class="ipa-w">/wi/</span></td>
+            <td><span class="ipa-s">/wiː/</span></td>
+            <td>Shall <span class="hl-w">we</span> go? <button class="btn btn-blue" style="padding:2px 9px;font-size:11px;" onclick="speakText('Shall we go?',0.75)">🔊</button></td>
+        </tr>
+        <tr>
+            <td>us</td>
+            <td><span class="ipa-w">/əs/</span></td>
+            <td><span class="ipa-s">/ʌs/</span></td>
+            <td>They told <span class="hl-w">us</span>. <button class="btn btn-blue" style="padding:2px 9px;font-size:11px;" onclick="speakText('They told us.',0.75)">🔊</button></td>
+        </tr>
+        <tr>
+            <td>them</td>
+            <td><span class="ipa-w">/ðəm/</span></td>
+            <td><span class="ipa-s">/ðem/</span></td>
+            <td>Ask <span class="hl-w">them</span>. <button class="btn btn-blue" style="padding:2px 9px;font-size:11px;" onclick="speakText('Ask them.',0.75)">🔊</button></td>
+        </tr>
+    </table>
+    <div class="note-box">
+        ⚠️ <strong>Chú ý "her":</strong> Chữ r ở cuối "her" được phát âm khi từ tiếp theo bắt đầu bằng nguyên âm (r-linking).<br>
+        "Give <em>her</em> a chance" → /ɡɪv ər ə tʃɑːns/ (r linking với "a")<br>
+        "Give <em>her</em> the book" → /ɡɪv ə ðə bʊk/ (không r linking — "the" bắt đầu /ð/)
+    </div>
+</div>
+
+<!-- B: HỘI THOẠI MẪU -->
+<div class="section">
+    <div class="section-title">🎭 B. Hội thoại — Yếu và Mạnh <span class="badge audio">🔊 Nghe</span></div>
+    <p>🔵 = dạng YẾU &nbsp;|&nbsp; 🔴 = dạng MẠNH. Click từng hội thoại để nghe:</p>
+
+    <div class="dialogue-list">
+        <div class="dialogue-item weak-ex">
+            <div><span class="sp sp-a">A:</span> Will <span class="hl-w">you</span><span class="label-w">w</span> be at the meeting on Friday?</div>
+            <div><span class="sp sp-b">B:</span> Yes. Will <span class="hl-s">YOU</span><span class="label-s">s</span> be there?</div>
+            <div class="btn-group" style="margin-top:6px;margin-bottom:0;">
+                <button class="btn btn-blue" style="padding:3px 12px;font-size:12px;" onclick="speakText('Will you be at the meeting on Friday? Yes. Will you be there?',0.8)">🔊 Nghe</button>
+                <button class="btn btn-success" style="padding:3px 12px;font-size:12px;" onclick="speakText('Will you be at the meeting on Friday? Yes. Will you be there?',0.5)">🐢 Chậm</button>
+            </div>
+            <div style="font-size:13px;color:#27ae60;margin-top:4px;">🇻🇳 Bạn có ở cuộc họp vào thứ Sáu không? — Có. Còn BẠN sẽ ở đó không? (nhấn YOU tạo đối lập)</div>
+        </div>
+
+        <div class="dialogue-item strong-ex">
+            <div><span class="sp sp-a">A:</span> Can <span class="hl-w">you</span><span class="label-w">w</span> help <span class="hl-w">me</span><span class="label-w">w</span> carry this suitcase?</div>
+            <div style="font-size:13px;color:#27ae60;margin-top:2px;">🇻🇳 Bạn có thể giúp tôi mang vali này không?</div>
+            <div style="margin-top:8px;font-style:italic;">Hey, wait for <span class="hl-s">ME</span>! <span class="label-s">s</span></div>
+            <div style="font-size:13px;color:#27ae60;">🇻🇳 Này, đợi TÔI với! (ME nhấn mạnh — đứng cuối câu)</div>
+            <div class="btn-group" style="margin-top:6px;margin-bottom:0;">
+                <button class="btn btn-red" style="padding:3px 12px;font-size:12px;" onclick="speakText('Can you help me carry this suitcase? Hey, wait for me!',0.8)">🔊 Nghe</button>
+            </div>
+        </div>
+
+        <div class="dialogue-item weak-ex">
+            <div><span class="sp sp-a">A:</span> Is <span class="hl-w">he</span><span class="label-w">w</span> there?</div>
+            <div><span class="sp sp-b">B:</span> Who? <span class="sp sp-a">A:</span> The boss.</div>
+            <div><span class="sp sp-b">B:</span> No. Everybody else is working, but <span class="hl-s">HE</span><span class="label-s">s</span>'s gone home!</div>
+            <div class="btn-group" style="margin-top:6px;margin-bottom:0;">
+                <button class="btn btn-blue" style="padding:3px 12px;font-size:12px;" onclick="speakText('Is he there? Who? The boss. No. Everybody else is working, but he's gone home!',0.8)">🔊 Nghe</button>
+            </div>
+            <div style="font-size:13px;color:#27ae60;margin-top:4px;">🇻🇳 Anh ấy ở đó không? — Ai? — Sếp. — Không. Tất cả mọi người đang làm việc, nhưng ÔNG ẤY về nhà rồi! (HE nhấn — đối lập với "everybody else")</div>
+        </div>
+
+        <div class="dialogue-item strong-ex">
+            <div><span class="sp sp-a">A:</span> <span class="hl-s">SHE</span><span class="label-s">s</span> doesn't smoke or drink!</div>
+            <div><span class="sp sp-b">B:</span> Ah, that's what <span class="hl-w">she</span><span class="label-w">w</span> told you!</div>
+            <div class="btn-group" style="margin-top:6px;margin-bottom:0;">
+                <button class="btn btn-red" style="padding:3px 12px;font-size:12px;" onclick="speakText('She doesn't smoke or drink! Ah, that's what she told you!',0.8)">🔊 Nghe</button>
+            </div>
+            <div style="font-size:13px;color:#27ae60;margin-top:4px;">🇻🇳 CÔ ẤY không hút thuốc hay uống rượu! — Ừ, đó là điều cô ấy nói với bạn! (SHE đầu câu = mạnh; she trong mệnh đề = yếu)</div>
+        </div>
+
+        <div class="dialogue-item weak-ex">
+            <div><span class="sp sp-a">A:</span> Look – it's <span class="hl-s">HIM</span>! <span class="label-s">s</span></div>
+            <div><span class="sp sp-b">B:</span> Where? I can't see <span class="hl-w">him</span>. <span class="label-w">w</span></div>
+            <div class="btn-group" style="margin-top:6px;margin-bottom:0;">
+                <button class="btn btn-blue" style="padding:3px 12px;font-size:12px;" onclick="speakText('Look it's him! Where? I can't see him.',0.8)">🔊 Nghe</button>
+            </div>
+            <div style="font-size:13px;color:#27ae60;margin-top:4px;">🇻🇳 Nhìn kia — đó là ÔNG ẤY! (him sau is = nhấn mạnh) — Ở đâu? Tôi không thấy anh ấy. (him sau see = yếu)</div>
+        </div>
+
+        <div class="dialogue-item strong-ex">
+            <div><span class="sp sp-a">A:</span> Do you know that woman?</div>
+            <div><span class="sp sp-b">B:</span> <span class="hl-s">HER</span>? <span class="label-s">s</span> No, I don't recognise <span class="hl-w">her</span>. <span class="label-w">w</span></div>
+            <div class="btn-group" style="margin-top:6px;margin-bottom:0;">
+                <button class="btn btn-red" style="padding:3px 12px;font-size:12px;" onclick="speakText('Do you know that woman? Her? No I don't recognise her.',0.8)">🔊 Nghe</button>
+            </div>
+            <div style="font-size:13px;color:#27ae60;margin-top:4px;">🇻🇳 Bạn có biết người phụ nữ đó không? — CÔ ẤY á? (her đứng một mình = mạnh) Không, tôi không nhận ra cô ấy. (her sau recognise = yếu)</div>
+        </div>
+
+        <div class="dialogue-item weak-ex">
+            <div><span class="sp sp-a">A:</span> I'm afraid <span class="hl-w">we</span><span class="label-w">w</span> can't stay any longer.</div>
+            <div><span class="sp sp-b">B:</span> What do you mean, '<span class="hl-s">WE</span>'? <span class="label-s">s</span> I've got plenty of time. (<span class="hl-s">WE</span><span class="label-s">s</span> is strong)</div>
+            <div class="btn-group" style="margin-top:6px;margin-bottom:0;">
+                <button class="btn btn-blue" style="padding:3px 12px;font-size:12px;" onclick="speakText('I'm afraid we can't stay any longer. What do you mean we? I've got plenty of time.',0.8)">🔊 Nghe</button>
+            </div>
+            <div style="font-size:13px;color:#27ae60;margin-top:4px;">🇻🇳 Tôi e rằng chúng ta không thể ở lâu hơn. — Bạn nói "CHÚNG TA" là sao? Tôi còn nhiều thời gian lắm.</div>
+        </div>
+
+        <div class="dialogue-item strong-ex">
+            <div><span class="sp sp-a">A:</span> They told <span class="hl-w">us</span><span class="label-w">w</span> to go this way.</div>
+            <div><span class="sp sp-b">B:</span> Well, they didn't tell <span class="hl-s">US</span>! <span class="label-s">s</span></div>
+            <div class="btn-group" style="margin-top:6px;margin-bottom:0;">
+                <button class="btn btn-red" style="padding:3px 12px;font-size:12px;" onclick="speakText('They told us to go this way. Well they didn't tell us!',0.8)">🔊 Nghe</button>
+            </div>
+            <div style="font-size:13px;color:#27ae60;margin-top:4px;">🇻🇳 Họ bảo chúng ta đi đường này. — Ừ thì họ không nói với CHÚNG TÔI! (US cuối câu = mạnh, đối lập)</div>
+        </div>
+
+        <div class="dialogue-item weak-ex">
+            <div>When I said 'Give <span class="hl-w">them</span><span class="label-w">w</span> a drink', I didn't mean <span class="hl-s">THEM</span>, <span class="label-s">s</span> I meant the people.</div>
+            <div class="btn-group" style="margin-top:6px;margin-bottom:0;">
+                <button class="btn btn-blue" style="padding:3px 12px;font-size:12px;" onclick="speakText('When I said give them a drink I didn't mean them I meant the people.',0.8)">🔊 Nghe</button>
+            </div>
+            <div style="font-size:13px;color:#27ae60;margin-top:4px;">🇻🇳 Khi tôi nói "cho họ uống", tôi không có ý CHÚNG NÓ (loài vật/đồ vật), tôi có ý là mọi người.</div>
+        </div>
+    </div>
+</div>
+
+<!-- BẢNG TỪ MỞ RỘNG -->
+<div class="section">
+    <div class="section-title">📚 C. Từ và câu bổ sung <span class="badge">Luyện tập</span></div>
+    <p><strong>🔵 Ví dụ câu với dạng YẾU — click để nghe:</strong></p>
+    <ul class="sentence-list">
+        <li onclick="speakText('Can you pass me the salt, please?',0.8)">Can <span class="hl-w">you</span> pass <span class="hl-w">me</span> the salt, please?<span class="ipa-line">/kən jə pɑːs mɪ ðə sɔːlt pliːz/</span><span class="vi-line">🇻🇳 Bạn có thể đưa tôi muối không?</span></li>
+        <li onclick="speakText('Tell him I'll call him back later.',0.8)">Tell <span class="hl-w">him</span> I'll call <span class="hl-w">him</span> back later.<span class="ipa-line">/tel ɪm aɪl kɔːl ɪm bæk ˈleɪtər/</span><span class="vi-line">🇻🇳 Nói với anh ấy rằng tôi sẽ gọi lại sau.</span></li>
+        <li onclick="speakText('Did she tell you where she was going?',0.8)">Did <span class="hl-w">she</span> tell <span class="hl-w">you</span> where <span class="hl-w">she</span> was going?<span class="ipa-line">/dɪd ʃɪ tel jə weər ʃɪ wəz ˈɡəʊɪŋ/</span><span class="vi-line">🇻🇳 Cô ấy có nói với bạn cô ấy đi đâu không?</span></li>
+        <li onclick="speakText('We asked them to help us move the furniture.',0.8)">We asked <span class="hl-w">them</span> to help <span class="hl-w">us</span> move the furniture.<span class="ipa-line">/wɪ ɑːskt ðəm tə help əs muːv ðə ˈfɜːnɪtʃər/</span><span class="vi-line">🇻🇳 Chúng tôi nhờ họ giúp chuyển đồ đạc.</span></li>
+        <li onclick="speakText('Give her a chance and let him explain.',0.8)">Give <span class="hl-w">her</span> a chance and let <span class="hl-w">him</span> explain.<span class="ipa-line">/ɡɪv ər ə tʃɑːns ænd let ɪm ɪkˈspleɪn/</span><span class="vi-line">🇻🇳 Cho cô ấy một cơ hội và để anh ấy giải thích.</span></li>
+    </ul>
+    <p style="margin-top:14px;"><strong>🔴 Ví dụ câu với dạng MẠNH — click để nghe:</strong></p>
+    <ul class="sentence-list" style="--border-color:#c0392b;">
+        <li style="border-left-color:#c0392b;" onclick="speakText('Not HIM again!',0.8)">Not <span class="hl-s">HIM</span> again!<span class="ipa-line">/nɒt hɪm əˈɡen/</span><span class="vi-line">🇻🇳 Không phải ÔNG ẤY lại rồi! (nhấn để thể hiện sự ngạc nhiên/chán ghét)</span></li>
+        <li style="border-left-color:#c0392b;" onclick="speakText('I did it, not HIM.',0.8)">I did it, not <span class="hl-s">HIM</span>.<span class="ipa-line">/aɪ dɪd ɪt nɒt hɪm/</span><span class="vi-line">🇻🇳 Tôi đã làm nó, không phải ÔNG ẤY. (đối lập rõ ràng)</span></li>
+        <li style="border-left-color:#c0392b;" onclick="speakText('She didn't do it — HE did!',0.8)"><span class="hl-s">SHE</span> didn't do it — <span class="hl-s">HE</span> did!<span class="ipa-line">/ʃiː ˈdɪdnt duː ɪt | hiː dɪd/</span><span class="vi-line">🇻🇳 CÔ ẤY không làm — ÔNG ẤY mới làm! (cả hai đều mạnh, tạo đối lập)</span></li>
+        <li style="border-left-color:#c0392b;" onclick="speakText('Are YOU going to do something, or just stand there?',0.8)">Are <span class="hl-s">YOU</span> going to do something, or just stand there?<span class="ipa-line">/ɑː juː ˈɡəʊɪŋ tə duː ˈsʌmθɪŋ ɔː dʒʌst stænd ðeər/</span><span class="vi-line">🇻🇳 BẠN có định làm gì không, hay cứ đứng đó thôi? (YOU nhấn mạnh)</span></li>
+        <li style="border-left-color:#c0392b;" onclick="speakText('They told US — not them, US!',0.8)">They told <span class="hl-s">US</span> — not them, <span class="hl-s">US</span>!<span class="ipa-line">/ðeɪ təʊld ʌs | nɒt ðem ʌs/</span><span class="vi-line">🇻🇳 Họ nói với CHÚNG TÔI — không phải họ, CHÚNG TÔI!</span></li>
+    </ul>
+    <div class="btn-group">
+        <button class="btn btn-blue" onclick="speakText('Can you pass me the salt please. Tell him I'll call him back later. Did she tell you where she was going. We asked them to help us.',0.8)">🔊 Nghe câu dạng yếu</button>
+        <button class="btn btn-red" onclick="speakText('Not him again! I did it, not him. She didn't do it — he did! Are you going to do something?',0.8)">🔊 Nghe câu dạng mạnh</button>
+    </div>
+</div>
+
+<!-- KINH NGHIỆM -->
+<div class="section" style="border:2px solid #f39c12;">
+    <div class="section-title">💡 Kinh nghiệm luyện tập <span class="badge tip">🔥 Quan trọng</span></div>
+    <div class="tip-box">
+        <div class="tip-title">🎯 5 bí quyết nắm vững dạng yếu và dạng mạnh</div>
+        <div class="tip-content">
+            <p><strong>1. Dạng YẾU là mặc định — dùng gần như mọi lúc</strong><br>
+            "you" = /jə/, "him" = /ɪm/, "her" = /ə/ hay /hə/ — nói nhanh, nhỏ.<br>
+            Chỉ dùng dạng mạnh khi có lý do đặc biệt.</p>
+            <p><strong>2. Dạng MẠNH khi từ đứng cuối câu hoặc đứng một mình</strong><br>
+            "Hey, wait for ME!" · "HER? I don't know her." · "Yes, I agree with YOU."</p>
+            <p><strong>3. Dạng MẠNH khi tạo đối lập</strong><br>
+            "Not HIM, HER!" · "SHE did it, not HE." · "They told US, not THEM."</p>
+            <p><strong>4. Dạng MẠNH khi trả lời Yes/No và nhấn chủ ngữ</strong><br>
+            "Will YOU be there?" (đối lập với "you" trong câu hỏi gốc)</p>
+            <p><strong>5. Luyện với hội thoại — không luyện từng từ</strong><br>
+            Nghe cả đoạn hội thoại, chú ý khi nào đại từ nhấn mạnh và khi nào không.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 37.1 — Mark W or S
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 37.1 — Đánh dấu W (yếu) hay S (mạnh) <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 Click vào đại từ được gạch chân để chọn <strong style="color:#0d6e9a;">W</strong> (yếu) hoặc <strong style="color:#c0392b;">S</strong> (mạnh) → Click lại để đổi → <strong>"Chấm bài"</strong>.<br>
+            🔊 Nghe câu trước khi chọn!
+        </div>
+        <div id="ex371Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakAllEx371()">🔊 Nghe tất cả</button>
+            <button class="btn btn-warning" onclick="checkEx371()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx371()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx371()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score371" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 37.2 — Complete sentences
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 37.2 — Hoàn thành câu <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🎧 Nghe → Gõ đại từ hoặc cụm từ còn thiếu vào ô → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Ví dụ: What ___did she___ say?</em>
+        </div>
+        <div class="fill-items" id="ex372Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx372()">🔊 Nghe tất cả</button>
+            <button class="btn btn-warning" onclick="checkEx372()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx372()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx372()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score372" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 37.3 — Poem: Comings and goings
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 37.3 — Đọc thơ đúng nhịp <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🔊 Nghe bài thơ → Đọc to theo nhịp → <strong>Từ in đậm = nhấn mạnh (dạng MẠNH)</strong> · từ nhỏ = yếu.<br>
+            💡 <em>Chú ý: các đại từ "her, them, us, do, you" giữa các từ nhấn = dạng YẾU, nói nhanh!</em>
+        </div>
+        <div class="poem-box" id="ex373Poem"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx373()">🔊 Nghe bài thơ</button>
+            <button class="btn btn-success" onclick="speakEx373slow()">🐢 Nghe chậm</button>
+        </div>
+        <div style="margin-top:12px;background:#e0f0ff;border-radius:10px;padding:12px 16px;font-size:14px;color:#1a3a5c;">
+            <strong>📌 Phân tích nhịp:</strong><br>
+            "Don't <strong>SEND</strong> her a<strong>WAY</strong>" → SEND nhấn, her+a không nhấn, WAY nhấn = OooO<br>
+            "<strong>GIVE</strong> her a <strong>CHANCE</strong>" → GIVE nhấn, her+a không nhấn, CHANCE nhấn = OooO<br>
+            "Shall we <strong>WAIT</strong> here for <strong>YOU</strong>?" → WAIT và YOU nhấn, shall/we/here/for yếu
+        </div>
+    </div>
+</div>
+
+<!-- TỔNG KẾT -->
+<div class="section" style="border:2px solid #8e44ad;">
+    <div class="section-title">📌 Tổng kết <span class="badge" style="background:#f5eef8;color:#7d3c98;">✅ Checklist</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px;line-height:1.9;">
+        <div style="background:#e0f0ff;padding:12px 14px;border-radius:10px;border:1px solid #0d6e9a;">✅ <strong>Dạng YẾU</strong> — bình thường, nhanh, nhỏ, /ə/ hoặc ngắn</div>
+        <div style="background:#fff0f0;padding:12px 14px;border-radius:10px;border:1px solid #c0392b;">✅ <strong>Dạng MẠNH</strong> — nhấn mạnh, đối lập, đứng cuối câu</div>
+        <div style="background:#e0f0ff;padding:12px 14px;border-radius:10px;border:1px solid #0d6e9a;">✅ you=/jə/ · me=/mi/ · him=/ɪm/ · her=/ə/ · we=/wi/ · us=/əs/ · them=/ðəm/</div>
+        <div style="background:#fff0f0;padding:12px 14px;border-radius:10px;border:1px solid #c0392b;">✅ Mạnh khi: đứng một mình, cuối câu, tương phản, sau "not"</div>
+        <div style="background:#e0f0ff;padding:12px 14px;border-radius:10px;border:1px solid #0d6e9a;">✅ <strong>her</strong>: r câm bình thường, r liên kết trước nguyên âm</div>
+        <div style="background:#fff0f0;padding:12px 14px;border-radius:10px;border:1px solid #c0392b;">✅ he=/i/ (yếu) — h thường bị nuốt trong câu nói nhanh</div>
+    </div>
+</div>
+
+<div style="text-align:center;padding:20px 0 10px;color:#95a5a6;font-size:14px;border-top:1px solid #e2e8f0;margin-top:10px;">
+    <p>👋 <strong>"Hey, wait for ME!"</strong> — ME mạnh vì đứng cuối và muốn nhấn mạnh!</p>
+    <p style="margin-top:4px;font-size:13px;"><a href="../index.html" style="color:#1a3a5c;font-weight:600;">← Về trang chủ</a></p>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let curUtt=null,_voices=[];
+function _loadVoices(){_voices=speechSynthesis.getVoices();if(_voices.length===0)setTimeout(_loadVoices,200);}
+function _bestVoice(){
+    const prefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+    for(const p of prefs){const v=_voices.find(x=>x.name.includes(p));if(v)return v;}
+    return _voices.find(x=>x.lang.startsWith("en")&&!x.name.toLowerCase().includes("male"))||_voices.find(x=>x.lang.startsWith("en"))||null;
+}
+function speakText(t,rate=0.85){
+    if(!window.speechSynthesis)return;
+    speechSynthesis.cancel();
+    const clean=t.replace(/<[^>]*>/g,"").trim();
+    function doSpeak(){
+        const u=new SpeechSynthesisUtterance(clean);
+        u.lang="en-US";u.rate=rate;u.pitch=1.05;u.volume=1.0;
+        const v=_bestVoice();if(v)u.voice=v;
+        curUtt=u;u.onend=()=>curUtt=null;speechSynthesis.speak(u);
+    }
+    if(_voices.length>0)doSpeak();else{_loadVoices();setTimeout(doSpeak,350);}
+}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);}
+function showScore(id,correct,total,extra){
+    const pct=Math.round(correct/total*100);
+    let cls="try",emoji="😅",msg="Cần luyện thêm!";
+    if(pct>=90){cls="great";emoji="🎉";msg="Xuất sắc!";}
+    else if(pct>=65){cls="good";emoji="👍";msg="Khá tốt!";}
+    const el=document.getElementById("score"+id);
+    el.className=`score-box show ${cls}`;
+    el.innerHTML=`<div class="big-score">${emoji} ${pct}%</div><strong>${msg}</strong> — Đúng <strong>${correct}/${total}</strong>.<div class="score-meter"><div class="score-meter-fill" style="width:${pct}%;background:${pct>=90?"#27ae60":pct>=65?"#f39c12":"#e74c3c"}"></div></div>${extra||""}`;
+    showToast("Kết quả: "+pct+"%");
+}
+if(window.speechSynthesis){_loadVoices();speechSynthesis.onvoiceschanged=_loadVoices;}
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(37)){c.push(37);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+
+// ================================================================
+// EX 37.1 — Mark W or S for underlined pronouns
+// ================================================================
+const EX371=[
+    {num:1,text:"Are [you]w going to talk to [him]w?",parts:[
+        {t:"Are "},
+        {t:"you",id:"a",ans:"w"},
+        {t:" going to talk to "},
+        {t:"him",id:"b",ans:"w"},
+        {t:"?"},
+    ],audio:"Are you going to talk to him?",extra:"No, I think he should talk to me first."},
+    {num:2,text:"Shall I phone [her]w?",parts:[
+        {t:"Shall I phone "},
+        {t:"her",id:"a",ans:"w"},
+        {t:"?"},
+    ],audio:"Shall I phone her? Yes, I think you should.",extra:"Yes, I think you should."},
+    {num:3,text:"You see those people over there? Do you know [them]w?",parts:[
+        {t:"You see those people over there? Do you know "},
+        {t:"them",id:"a",ans:"w"},
+        {t:"?"},
+    ],audio:"You see those people? Do you know them? I know her but I don't know him.",extra:"I know her, but I don't know him."},
+    {num:4,text:"What are you going to give [him]w? I think I'll give [him]w a shirt. What about [you]w?",parts:[
+        {t:"What are you going to give "},
+        {t:"him",id:"a",ans:"w"},
+        {t:"? I think I'll give "},
+        {t:"him",id:"b",ans:"w"},
+        {t:" a shirt. What about "},
+        {t:"you",id:"c",ans:"s"},
+        {t:"?"},
+    ],audio:"What are you going to give him? I'll give him a shirt. What about you?",extra:""},
+    {num:5,text:"Let [him]w come in and ask [him]w what [he]w wants.",parts:[
+        {t:"Let "},
+        {t:"him",id:"a",ans:"w"},
+        {t:" come in and ask "},
+        {t:"him",id:"b",ans:"w"},
+        {t:" what "},
+        {t:"he",id:"c",ans:"w"},
+        {t:" wants."},
+    ],audio:"Let him come in and ask him what he wants.",extra:""},
+    {num:6,text:"She says she'll bring [her]w money tomorrow.",parts:[
+        {t:"She says she'll bring "},
+        {t:"her",id:"a",ans:"w"},
+        {t:" money tomorrow."},
+    ],audio:"She says she'll bring her money tomorrow.",extra:""},
+    {num:7,text:"I'm tired ... shall [we]w go now?",parts:[
+        {t:"I'm tired ... shall "},
+        {t:"we",id:"a",ans:"w"},
+        {t:" go now?"},
+    ],audio:"I'm tired, shall we go now?",extra:""},
+    {num:8,text:"Everybody's leaving. What about [us]w? Shall [we]w go, too?",parts:[
+        {t:"Everybody's leaving. What about "},
+        {t:"us",id:"a",ans:"w"},
+        {t:"? Shall "},
+        {t:"we",id:"b",ans:"w"},
+        {t:" go, too?"},
+    ],audio:"Everybody's leaving. What about us? Shall we go too?",extra:""},
+    {num:9,text:"Tell [us]w when [you]w're ready.",parts:[
+        {t:"Tell "},
+        {t:"us",id:"a",ans:"w"},
+        {t:" when "},
+        {t:"you",id:"b",ans:"w"},
+        {t:"'re ready."},
+    ],audio:"Tell us when you're ready.",extra:""},
+    {num:10,text:"A: Who broke that window? B: [He]s did! C: No, I didn't, [she]s did!",parts:[
+        {t:"A: Who broke that window? B: "},
+        {t:"He",id:"a",ans:"s"},
+        {t:" did! C: No, I didn't, "},
+        {t:"she",id:"b",ans:"s"},
+        {t:" did!"},
+    ],audio:"Who broke that window? He did! No I didn't she did!",extra:""},
+];
+const ex371State={};
+function buildEx371(){
+    const c=document.getElementById("ex371Items");c.innerHTML="";
+    EX371.forEach((sent,si)=>{
+        let html=`<div class="ws-sentence"><span class="num">${sent.num}.</span> `;
+        sent.parts.forEach((p,pi)=>{
+            if(!p.id){html+=p.t;}
+            else{
+                const key=`${si}_${pi}`;
+                ex371State[key]=0;
+                html+=`<span class="ws-tok" id="wst_${key}" onclick="cycleWS(${si},${pi})">${p.t}</span>`;
+            }
+        });
+        html+=` <button class="btn btn-blue" style="padding:2px 9px;font-size:11px;margin-left:4px;" onclick="speakText('${sent.audio}',0.8)">🔊</button>`;
+        if(sent.extra) html+=` <span style="font-size:13px;color:#555;font-style:italic;">${sent.extra}</span>`;
+        html+="</div>";
+        c.innerHTML+=html;
+    });
+}
+function cycleWS(si,pi){
+    const key=`${si}_${pi}`;
+    ex371State[key]=(ex371State[key]+1)%3;
+    const el=document.getElementById(`wst_${key}`);
+    el.classList.remove("sel-w","sel-s");
+    if(ex371State[key]===1){el.classList.add("sel-w");el.textContent=el.textContent.replace(/[WS]$/,"")+" W";}
+    else if(ex371State[key]===2){el.classList.add("sel-s");el.textContent=el.textContent.replace(/[WS ]$/,"")+" S";}
+    else{el.classList.remove("sel-w","sel-s");el.textContent=el.textContent.replace(/ [WS]$/,"");}
+}
+function speakAllEx371(){EX371.forEach(s=>speakText(s.audio,0.8));}
+function checkEx371(){
+    let correct=0,total=0;
+    EX371.forEach((sent,si)=>{
+        sent.parts.forEach((p,pi)=>{
+            if(!p.id)return;total++;
+            const key=`${si}_${pi}`;
+            const el=document.getElementById(`wst_${key}`);
+            const state=ex371State[key];
+            const userAns=state===1?"w":(state===2?"s":"");
+            el.classList.remove("sel-w","sel-s");
+            // strip W/S suffix for display
+            const baseTxt=p.t;
+            if(userAns===p.ans){el.classList.add("correct-w");el.textContent=baseTxt+(p.ans==="w"?" ✅W":" ✅S");correct++;}
+            else{el.classList.add("wrong-w");el.textContent=baseTxt+(p.ans==="w"?" ❌→W":" ❌→S");}
+        });
+    });
+    showScore("371",correct,total,"<br><em style='font-size:13px;'>🔵=W(yếu) 🔴=S(mạnh)</em>");
+}
+function resetEx371(){
+    EX371.forEach((sent,si)=>{
+        sent.parts.forEach((p,pi)=>{
+            if(!p.id)return;
+            const key=`${si}_${pi}`;
+            ex371State[key]=0;
+            const el=document.getElementById(`wst_${key}`);
+            el.className="ws-tok";el.textContent=p.t;
+        });
+    });
+    document.getElementById("score371").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx371(){
+    EX371.forEach((sent,si)=>{
+        sent.parts.forEach((p,pi)=>{
+            if(!p.id)return;
+            const key=`${si}_${pi}`;
+            const el=document.getElementById(`wst_${key}`);
+            el.className="ws-tok correct-w";
+            el.textContent=p.t+" "+(p.ans==="w"?"W":"S");
+        });
+    });
+    document.getElementById("score371").className="score-box info show";
+    document.getElementById("score371").innerHTML="<strong>Đáp án:</strong><br>"+EX371.map(s=>`${s.num}. `+s.parts.filter(p=>p.id).map(p=>`<em>${p.t}</em>=${p.ans.toUpperCase()}`).join(", ")).join(" | ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 37.2 — Complete sentences
+// ================================================================
+const EX372=[
+    {num:"Ex",pre:"What",blank:"did she",suf:"say?",ans:"did she",audio:"What did she say?",vi:"Cô ấy đã nói gì?"},
+    {num:1,pre:"What",blank:"did they",suf:"think about it?",ans:"did they",audio:"What did they think about it?",vi:"Họ nghĩ gì về nó?"},
+    {num:2,pre:"Where",blank:"are we",suf:"tonight?",ans:"are we",audio:"Where are we tonight?",vi:"Tối nay chúng ta ở đâu?"},
+    {num:3,pre:"",blank:"I'm",suf:"ready right now.",ans:"I'm",audio:"I'm ready right now.",vi:"Tôi đã sẵn sàng ngay bây giờ."},
+    {num:4,pre:"Where",blank:"is she",suf:"?",ans:"is she",audio:"Where is she?",vi:"Cô ấy ở đâu?"},
+    {num:5,pre:"",blank:"Please",suf:"come in.",ans:"Please",audio:"Please come in.",vi:"Mời vào."},
+    {num:6,pre:"",blank:"Is he",suf:"feeling all right?",ans:"Is he",audio:"Is he feeling all right?",vi:"Anh ấy có ổn không?"},
+    {num:7,pre:"Tell",blank:"me",suf:".",ans:"me",audio:"Tell me.",vi:"Nói cho tôi biết đi."},
+    {num:8,pre:"I",blank:"gave him",suf:"her phone number but not",audio:"I gave him her phone number but not his.",ans:"gave him",vi:"Tôi đã cho anh ấy số điện thoại của cô ấy nhưng không phải..."},
+];
+function buildEx372(){
+    const c=document.getElementById("ex372Items");c.innerHTML="";
+    EX372.forEach((item,i)=>{
+        const isEx=item.num==="Ex";
+        c.innerHTML+=`<div class="fill-item">
+            <span class="num">${item.num}.</span>
+            ${item.pre?`<span>${item.pre}</span>`:""}
+            <input type="text" id="inp372_${i}" placeholder="?" autocomplete="off"
+                ${isEx?`value="${item.ans}" readonly style="background:#d5f5e3;color:#1a6e4a;"`:""}>
+            <span>${item.suf||""}</span>
+            <button class="btn btn-blue" style="padding:2px 9px;font-size:11px;" onclick="speakText('${item.audio}',0.8)">🔊</button>
+            <span style="font-size:12px;color:#27ae60;">🇻🇳 ${item.vi}</span>
+        </div>`;
+    });
+}
+function speakEx372(){EX372.forEach(x=>speakText(x.audio,0.8));}
+function checkEx372(){
+    let correct=0,total=0;
+    EX372.forEach((item,i)=>{
+        if(item.num==="Ex")return;total++;
+        const inp=document.getElementById(`inp372_${i}`);if(!inp)return;
+        const val=inp.value.trim().toLowerCase().replace(/[']/g,"'");
+        const ans=item.ans.toLowerCase();
+        const ok=val===ans||(val.length>=3&&ans.includes(val));
+        if(ok){inp.classList.add("correct");inp.classList.remove("wrong");correct++;}
+        else{inp.classList.add("wrong");inp.classList.remove("correct");}
+    });
+    showScore("372",correct,total,"<br><em style='font-size:13px;'>Tip: gõ chính xác cụm từ trong câu</em>");
+}
+function resetEx372(){
+    EX372.forEach((item,i)=>{if(item.num==="Ex")return;const inp=document.getElementById(`inp372_${i}`);if(inp){inp.value="";inp.className="";}});
+    document.getElementById("score372").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx372(){
+    EX372.forEach((item,i)=>{const inp=document.getElementById(`inp372_${i}`);if(inp){inp.value=item.ans;inp.classList.add("correct");}});
+    document.getElementById("score372").className="score-box info show";
+    document.getElementById("score372").innerHTML="<strong>Đáp án:</strong> "+EX372.filter(x=>x.num!=="Ex").map(x=>`${x.num}. <strong>${x.ans}</strong>`).join(" | ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 37.3 — Poem: Comings and goings
+// ================================================================
+const POEM_LINES=[
+    ["","What","did she","SAY?"],
+    ["Don't","SEND","her a","WAY"],
+    ["","GIVE","her a","CHANCE"],
+    ["","ASK","her to","DANCE"],
+    ["","GIVE","us a","DRINK"],
+    ["","WHAT","do you","THINK?"],
+    ["","ASK","them to","WAIT"],
+    ["","TELL","them it's","LATE"],
+    ["","WHAT","shall we","DO?"],
+    ["Shall we","WAIT","here for","YOU?"],
+    ["","PLEASE","don't","DELAY"],
+    ["Tell me,","WHAT","do you","SAY?"],
+];
+function buildEx373(){
+    const c=document.getElementById("ex373Poem");
+    c.innerHTML=POEM_LINES.map(row=>
+        `<div style="margin-bottom:6px;">`+
+        row.map((w,i)=>{
+            if(!w) return "";
+            // odd positions (1,3) = stressed (bold, big, colored)
+            // even (0,2) = unstressed if lowercase
+            const isStressed=w===w.toUpperCase()&&w.length>0&&/[A-Z]/.test(w);
+            if(isStressed) return `<span class="poem-strong" style="font-size:18px;">${w} </span>`;
+            return `<span class="poem-weak">${w} </span>`;
+        }).join("")+
+        `</div>`
+    ).join("");
+}
+const POEM_TEXT="What did she say? Don't send her away. Give her a chance. Ask her to dance. Give us a drink. What do you think? Ask them to wait. Tell them it's late. What shall we do? Shall we wait here for you? Please don't delay. Tell me, what do you say?";
+function speakEx373(){speakText(POEM_TEXT,0.85);}
+function speakEx373slow(){speakText(POEM_TEXT,0.5);}
+
+document.addEventListener("DOMContentLoaded",()=>{buildEx371();buildEx372();buildEx373();});
+</script>
+</body>
+</html>
