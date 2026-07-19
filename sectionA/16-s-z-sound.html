@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 16 – It's the wrong size – /s/ and /z/</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#2d6a1a 0%,#1a4010 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 18px;font-size:1.2rem;font-weight:800}
+.header h1{font-size:1.35rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#2d6a1a;border-bottom:2px solid #b8e0a8;padding-bottom:8px;margin-bottom:14px}
+.diagram-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px}
+.diag-card{border-radius:12px;padding:16px;border:1.5px solid}
+.diag-card.s{background:#f0fff0;border-color:#4ab840}
+.diag-card.z{background:#f0f0ff;border-color:#5050d0}
+.diag-card h3{font-size:1.4rem;font-weight:800;margin-bottom:8px}
+.diag-card.s h3{color:#2d6a1a}
+.diag-card.z h3{color:#2020a0}
+.diag-card p{font-size:0.83rem;color:#555;line-height:1.5}
+.ipa{font-style:italic;color:#c0392b;font-weight:700}
+.hl-s{color:#2d6a1a;font-weight:800}
+.hl-z{color:#2020a0;font-weight:800}
+.spell-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.spell-table th{background:#2d6a1a;color:#fff;padding:9px 12px;text-align:left}
+.spell-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.spell-table tr:nth-child(even) td{background:#f0fff0}
+.spell-table .z-row td{background:#f0f0ff}
+.spell-table .z-row:nth-child(even) td{background:#e0e0ff}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:110px;text-align:center;border:1.5px solid}
+.word-card.s-card{background:#f0fff0;border-color:#4ab840}
+.word-card.z-card{background:#f0f0ff;border-color:#8080e0}
+.word-card:hover{transform:translateY(-2px)}
+.word-card.s-card:hover{background:#2d6a1a;color:#fff}
+.word-card.z-card:hover{background:#2020a0;color:#fff}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card:hover .ipa2{color:#cfc}
+.word-card .vn{font-size:0.78rem;margin-top:2px}
+.word-card.s-card .vn{color:#2d6a1a}
+.word-card.z-card .vn{color:#2020a0}
+.word-card:hover .vn{color:#ffe}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{border-radius:9px;padding:10px 14px;cursor:pointer;transition:background 0.2s}
+.sentence-list li.s-sent{background:#f0fff0;border-left:4px solid #2d6a1a}
+.sentence-list li.z-sent{background:#f0f0ff;border-left:4px solid #2020a0}
+.sentence-list li:hover{opacity:0.8}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;margin-top:2px}
+.s-sent .sent-vn{color:#2d6a1a}
+.z-sent .sent-vn{color:#2020a0}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.note-box{background:#fff8e1;border:1px dashed #f5c518;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.85rem}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+.poem-box{background:#f8fff8;border-radius:12px;padding:18px;border:1.5px solid #b8e0a8;margin:10px 0}
+.poem-col{font-size:0.87rem;line-height:2;color:#333}
+.poem-line{cursor:pointer;padding:2px 4px;border-radius:4px;transition:background 0.15s}
+.poem-line:hover{background:#d4f5d4}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-green{background:#2d6a1a;color:#fff}.btn-green:hover{background:#1a4010}
+.btn-indigo{background:#2020a0;color:#fff}.btn-indigo:hover{background:#101070}
+.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.ex-wrap{border:1.5px solid #b8e0a8;border-radius:12px;padding:18px;margin-bottom:16px;background:#f8fff8}
+.ex-label{display:inline-block;background:#2d6a1a;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
+.fill-item input{border:none;border-bottom:2px solid #b8e0a8;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:110px;color:#2d6a1a;font-weight:600}
+.fill-item input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-item input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.ipa-card{background:#f0fff0;border:1.5px solid #b8e0a8;border-radius:10px;padding:10px 14px;margin:5px 0;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background 0.2s}
+.ipa-card:hover{background:#d4f5d4}
+.ipa-card .ipa-text{font-size:1.05rem;font-weight:700;color:#2d6a1a;min-width:90px}
+.ipa-card input{border:none;border-bottom:2px solid #b8e0a8;background:transparent;font-size:0.95rem;padding:2px 5px;outline:none;width:130px;color:#222;font-weight:600}
+.ipa-card input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.ipa-card input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.classify-chip{display:inline-block;border-radius:20px;padding:6px 14px;cursor:pointer;font-size:0.87rem;font-weight:600;transition:all 0.18s;user-select:none;margin:3px;border:2px solid #ccc;background:#f5f5f5}
+.classify-chip.sel-s{background:#2d6a1a;color:#fff;border-color:#2d6a1a}
+.classify-chip.sel-z{background:#2020a0;color:#fff;border-color:#2020a0}
+.col-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+.col-box{border-radius:9px;padding:10px;min-height:70px;border:2px solid}
+.col-box.s-col{background:#f0fff0;border-color:#4ab840}
+.col-box.z-col{background:#f0f0ff;border-color:#8080e0}
+.col-box h5{font-size:0.85rem;font-weight:700;margin-bottom:6px}
+.col-box.s-col h5{color:#2d6a1a}
+.col-box.z-col h5{color:#2020a0}
+.col-chips{display:flex;flex-wrap:wrap;gap:5px;min-height:30px}
+.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
+/* Day picker table */
+.day-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.day-table th{background:#2d6a1a;color:#fff;padding:8px 10px;text-align:center}
+.day-table td{padding:8px 10px;border:1px solid #ddd;text-align:center}
+.day-table tr:nth-child(even) td{background:#f0fff0}
+/* count /s/ /z/ boxes */
+.sz-row{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
+.sz-row .word-lbl{font-weight:700;min-width:100px}
+.sz-count{display:flex;gap:6px}
+.sz-btn{display:inline-flex;align-items:center;justify-content:center;width:30px;height:28px;border-radius:6px;border:2px solid #ccc;cursor:pointer;font-size:0.85rem;font-weight:700;background:#f5f5f5;transition:all 0.18s}
+.sz-btn.sel-s{background:#2d6a1a;color:#fff;border-color:#2d6a1a}
+.sz-btn.sel-z{background:#2020a0;color:#fff;border-color:#2020a0}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 16</span>
+    <span class="phoneme-badge">/s/ &amp; /z/</span>
+  </div>
+  <h1>It's the wrong size, isn't it? – /s/ and /z/</h1>
+  <div class="sub">Phụ âm xát /s/ (vô thanh – sit) và /z/ (hữu thanh – zoo)</div>
+</div>
+<div id="toast" class="toast"></div>
+<div class="container">
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết phát âm</div>
+  <div class="diagram-row">
+    <div class="diag-card s">
+      <h3>/s/ – SIT</h3>
+      <p>
+        <b>Vị trí:</b> Lưỡi chạm nhẹ hai bên răng, đầu lưỡi gần nhưng không chạm lợi trên.<br>
+        <b>Hơi thở:</b> Thổi hơi qua giữa — <b>không có rung</b> cổ họng.<br>
+        🔇 <b>Vô thanh</b> (voiceless)<br><br>
+        <b>🇻🇳 So sánh:</b> Giống /s/ tiếng Việt (sáu, sông) nhưng lưỡi vào vị trí chính xác hơn.<br><br>
+        <b>Cách viết:</b> <em>s, ss, c (trước e/i/y), sc</em><br>
+        <em>sit, sister, bus | class, glasses | city, circle, pencil, place, police | science, scissors</em>
+      </p>
+    </div>
+    <div class="diag-card z">
+      <h3>/z/ – ZOO</h3>
+      <p>
+        <b>Vị trí:</b> Giống /s/ — lưỡi ở cùng vị trí.<br>
+        <b>Hơi thở:</b> Hơi ít hơn, <b>cổ họng rung</b>.<br>
+        🔊 <b>Hữu thanh</b> (voiced)<br><br>
+        <b>🇻🇳 So sánh:</b> Không có âm tương đương trong tiếng Việt chuẩn.<br><br>
+        <b>Cách viết:</b> <em>s (giữa/sau nguyên âm), z, ss (scissors!), zz</em><br>
+        <em>gives, sisters, easy, husband, roses | zoo, zero, size | scissors | jazz</em>
+      </p>
+    </div>
+  </div>
+
+  <div style="background:#f8fff8;border-radius:10px;padding:14px;border:1.5px solid #b8e0a8;margin-bottom:12px">
+    <h4 style="color:#2d6a1a;margin-bottom:10px;font-size:0.95rem">📐 Quy tắc /s/ hay /z/ cho chữ <em>s</em></h4>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:0.85rem">
+      <div style="background:#fff;border-radius:8px;padding:10px;border:1.5px solid #4ab840">
+        <div style="font-weight:700;color:#2d6a1a;margin-bottom:6px">🟢 /s/ khi:</div>
+        <ul style="padding-left:16px;color:#555;line-height:1.7">
+          <li>Đầu từ: <em>sit, see, so</em></li>
+          <li>Sau phụ âm vô thanh: <em>cats /s/, walks /s/</em></li>
+          <li>Viết <em>ss</em>: <em>class, miss</em></li>
+          <li>Viết <em>c</em> trước e/i/y: <em>city, pencil</em></li>
+        </ul>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:10px;border:1.5px solid #8080e0">
+        <div style="font-weight:700;color:#2020a0;margin-bottom:6px">🔵 /z/ khi:</div>
+        <ul style="padding-left:16px;color:#555;line-height:1.7">
+          <li>Giữa nguyên âm: <em>easy, roses, music</em></li>
+          <li>Sau nguyên âm cuối từ: <em>his, was, these</em></li>
+          <li>Viết <em>z</em> hoặc <em>zz</em>: <em>zoo, jazz</em></li>
+          <li>Đuôi -s sau hữu thanh: <em>dogs /z/, runs /z/</em></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    ⚠️ <b>Chữ x thường là /ks/:</b> <em>si<b>x</b> /sɪks/, ne<b>x</b>t /nekst/</em><br>
+    ⚠️ <b>scissors /ˈsɪzəz/:</b> ss = /z/ (ngoại lệ!)<br>
+    ⚠️ Ngày trong tuần có /z/: <em>Monday /ˈmʌn<b>d</b>eɪ/</em> → s trong days = /z/
+  </div>
+
+  <div class="tip-box">
+    <b>💡 Phân biệt /s/ và /z/:</b> Đặt tay lên cổ:<br>
+    /s/ → không rung &nbsp;|&nbsp; /z/ → rung nhẹ<br>
+    <b>place /s/</b> vs <b>plays /z/</b> &nbsp;|&nbsp; <b>zoo /z/</b> vs <b>Sue /s/</b> &nbsp;|&nbsp; <b>so /s/</b> vs <b>show /ʃ/</b>
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-green" onclick="speakText('sit sister bus class glasses city circle pencil place police science scissors six next summer in the city')">🔊 Nghe /s/</button>
+    <button class="btn-indigo" onclick="speakText('gives sisters easy husband roses zoo zero size scissors jazz')">🔊 Nghe /z/</button>
+    <button class="btn-teal" onclick="speakText('ssssss zzzzzz ssssss zzzzzz',0.5)">🐢 So sánh /s/ vs /z/</button>
+  </div>
+</div>
+
+<!-- WORD GRID -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng</div>
+  <div style="display:flex;gap:10px;margin-bottom:8px;font-size:0.85rem">
+    <span style="background:#f0fff0;border:1.5px solid #4ab840;border-radius:8px;padding:4px 10px;color:#2d6a1a;font-weight:700">🟢 /s/ sit</span>
+    <span style="background:#f0f0ff;border:1.5px solid #8080e0;border-radius:8px;padding:4px 10px;color:#2020a0;font-weight:700">🔵 /z/ zoo</span>
+  </div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-green" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> /s/ và /z/ rất phổ biến:<br>
+    <em><b>s</b>oil, <b>s</b>ite, <b>s</b>ample, <b>s</b>tress, <b>s</b>urface, <b>s</b>ettlement, <b>s</b>ize | test<b>s</b> /s/, layer<b>s</b> /z/, value<b>s</b> /z/, bore<b>s</b> /z/</em>
+  </div>
+</div>
+
+<!-- POEM -->
+<div class="section">
+  <div class="section-title">📜 Bài thơ – One day (16.5)</div>
+  <p style="font-size:0.85rem;color:#555;margin-bottom:10px">Click từng dòng để nghe. Chú ý /s/ và /z/ trong các động từ ngôi 3: <em>Gets, Walks, Sits, Comes, Watches, Goes, Does, Eats, Thinks, Stays</em></p>
+  <div class="poem-box">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+      <div id="poem_col1" class="poem-col"></div>
+      <div id="poem_col2" class="poem-col"></div>
+      <div id="poem_col3" class="poem-col"></div>
+    </div>
+  </div>
+  <div class="btn-group">
+    <button class="btn-green" onclick="speakPoem()">🔊 Nghe cả bài thơ</button>
+    <button class="btn-green" onclick="speakPoem(0.65)">🐢 Nghe chậm</button>
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 16.1 IPA → word -->
+  <div class="ex-wrap">
+    <span class="ex-label">16.1</span>
+    <div class="ex-instruction">Đọc phiên âm và gõ từ đúng. Ví dụ: <em>/saɪz/</em> → <b>size</b></div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 16.2 Days/months with /s/ or /z/ -->
+  <div class="ex-wrap">
+    <span class="ex-label">16.2</span>
+    <div class="ex-instruction">Ngày trong tuần và tháng nào có âm /s/ hay /z/ ở cuối? Click để chọn đúng.</div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 16.3 Count /s/ and /z/ in words -->
+  <div class="ex-wrap">
+    <span class="ex-label">16.3</span>
+    <div class="ex-instruction">Đếm số lần xuất hiện của âm <span style="color:#2d6a1a;font-weight:700">/s/</span> và <span style="color:#2020a0;font-weight:700">/z/</span> trong mỗi từ. Click S hoặc Z cho từng âm.</div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 16.4 Fill gaps from 16.3 words -->
+  <div class="ex-wrap">
+    <span class="ex-label">16.4</span>
+    <div class="ex-instruction">Điền từ từ bài 16.3 vào chỗ trống.</div>
+    <div id="ex4Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx4()">🔊 Nghe câu</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- 16.5 Minimal pairs -->
+  <div class="ex-wrap">
+    <span class="ex-label">16.5</span>
+    <div class="ex-instruction">Nghe và chọn từ đúng (minimal pairs /s/ vs /z/, /ʃ/, /θ/).</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+// WORDS
+const words=[
+  {w:"sit",s:"s",ipa:"/sɪt/",vn:"ngồi"},{w:"sister",s:"s",ipa:"/ˈsɪstə/",vn:"chị/em gái"},
+  {w:"city",s:"s",ipa:"/ˈsɪti/",vn:"thành phố"},{w:"science",s:"s",ipa:"/ˈsaɪəns/",vn:"khoa học"},
+  {w:"place",s:"s",ipa:"/pleɪs/",vn:"nơi chốn"},{w:"class",s:"s",ipa:"/klɑːs/",vn:"lớp học"},
+  {w:"size",s:"z",ipa:"/saɪz/",vn:"kích cỡ"},{w:"zoo",s:"z",ipa:"/zuː/",vn:"vườn thú"},
+  {w:"easy",s:"z",ipa:"/ˈiːzi/",vn:"dễ dàng"},{w:"roses",s:"z",ipa:"/ˈrəʊzɪz/",vn:"những bông hồng"},
+  {w:"husband",s:"z",ipa:"/ˈhʌzbənd/",vn:"chồng"},{w:"jazz",s:"z",ipa:"/dʒæz/",vn:"nhạc jazz"},
+  {w:"stress",s:"s",ipa:"/stres/",vn:"ứng suất / áp lực"},{w:"settlement",s:"s",ipa:"/ˈsetlmənt/",vn:"độ lún"},
+  {w:"layers",s:"z",ipa:"/ˈleɪəz/",vn:"các lớp đất"},{w:"values",s:"z",ipa:"/ˈvæljuːz/",vn:"các giá trị"},
+  {w:"surface",s:"s",ipa:"/ˈsɜːfɪs/",vn:"bề mặt"},{w:"bores",s:"z",ipa:"/bɔːz/",vn:"các lỗ khoan"},
+];
+function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card ${w.s}-card" onclick="speakText('${w.w}')"><div class="word">${w.w}</div><div class="ipa2">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div></div>`).join('');}
+function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+
+// SENTENCES
+const sents=[
+  {en:"Summer in the city.",ipa:"/ˈsʌmə ɪn ðə ˈsɪti/",vn:"Mùa hè trong thành phố.",s:"s"},
+  {en:"Have you seen my glasses?",ipa:"/həv jə siːn maɪ ˈɡlɑːsɪz/",vn:"Bạn có thấy kính của tôi không?",s:"z"},
+  {en:"So, I'll see you in the same place next Saturday.",ipa:"/səʊ aɪl siː jə ɪn ðə seɪm pleɪs nekst ˈsætədeɪ/",vn:"Vậy, tôi sẽ gặp bạn ở chỗ cũ vào thứ Bảy tới.",s:"s"},
+  {en:"I saw your sister on the bus yesterday.",ipa:"/aɪ sɔː jə ˈsɪstə ɒn ðə bʌs ˈjestədeɪ/",vn:"Hôm qua tôi gặp chị bạn trên xe buýt.",s:"s"},
+  {en:"My science lessons were the most interesting.",ipa:"/maɪ ˈsaɪəns ˈlesənz wə ðə məʊst ˈɪntrəstɪŋ/",vn:"Các buổi học khoa học là thú vị nhất.",s:"s"},
+  {en:"What time does the zoo close?",ipa:"/wɒt taɪm dəz ðə zuː kləʊz/",vn:"Vườn thú đóng cửa lúc mấy giờ?",s:"z"},
+  {en:"My favourite music is jazz.",ipa:"/maɪ ˈfeɪvərɪt ˈmjuːzɪk ɪz dʒæz/",vn:"Âm nhạc yêu thích của tôi là jazz.",s:"z"},
+  {en:"Roses are my favourite flowers.",ipa:"/ˈrəʊzɪz ɑː maɪ ˈfeɪvərɪt ˈflaʊəz/",vn:"Hoa hồng là loài hoa yêu thích của tôi.",s:"z"},
+  {en:"Soil settlement values must satisfy design criteria.",ipa:"/sɔɪl ˈsetlmənt ˈvæljuːz mʌst ˈsætɪsfaɪ dɪˈzaɪn kraɪˈtɪərɪə/",vn:"Giá trị độ lún phải đáp ứng tiêu chí thiết kế.",s:"s"},
+  {en:"The stress in the soil layers was measured at three sites.",ipa:"/ðə stres ɪn ðə sɔɪl ˈleɪəz wəz ˈmeʒəd ət θriː saɪts/",vn:"Ứng suất trong các lớp đất được đo tại ba địa điểm.",s:"s"},
+  {en:"Surface samples from six boreholes showed sandy layers.",ipa:"/ˈsɜːfɪs ˈsɑːmpəlz frəm sɪks ˈbɔːhəʊlz ʃəʊd ˈsændi ˈleɪəz/",vn:"Các mẫu bề mặt từ sáu lỗ khoan cho thấy các lớp cát.",s:"s"},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li class="${s.s}-sent" onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// POEM (16.5)
+const poem=[
+  {col:1,lines:["Mondays to Fridays –","Gets up.","Walks to the station.","Waits for the train.","Gets off at the fourth stop.","Walks to the office.","Sits in the office.","Has lunch.","Sits in the office","Walks to the station.","Comes home.","Thinks: 'One day …'"]},
+  {col:2,lines:["Saturdays and Sundays –","Gets up. Late.","Does the washing.","Goes shopping.","Comes home.","Watches TV.","Goes out.","Eats out.","Comes home.","Watches TV.","Thinks: 'One day …'"]},
+  {col:3,lines:["One day –","Gets up. Early.","Goes to the station.","Waits for the train.","Doesn't get off at the fourth stop.","Stays on the train.","Doesn't get off at the fifth stop.","Stays on the train.","Where does it go?","Watches through the windows."]},
+];
+function renderPoem(){
+  poem.forEach(col=>{
+    document.getElementById(`poem_col${col.col}`).innerHTML=col.lines.map(l=>`<div class="poem-line" onclick="speakText('${l.replace(/'/g,"\\'")}')">
+      ${l.replace(/(Gets|Walks|Sits|Comes|Watches|Goes|Does|Eats|Thinks|Stays|Waits|Doesn't)/g,m=>`<span style="color:#2020a0;font-weight:700">${m}</span>`)}</div>`).join('');
+  });
+}
+function speakPoem(rate=0.85){
+  const all=poem.flatMap(c=>c.lines).join('. ');
+  speakText(all,rate);
+}
+
+// EX 1: IPA → word (from book 16.1)
+const ex1Book=[
+  {ipa:"/saɪz/",ans:"size",note:"ví dụ"},
+  {ipa:"/seɪ/",ans:"say"},{ipa:"/ˈsæt/",ans:"sat"},
+  {ipa:"/liːvz/",ans:"lives"},{ipa:"/fɪst/",ans:"fist"},
+  {ipa:"/taɪmz/",ans:"times"},{ipa:"/ˈɡlɑːsɪz/",ans:"glasses"},
+];
+function renderEx1(){
+  let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+  ex1Book.forEach((d,i)=>{
+    html+=`<div class="ipa-card" onclick="speakText('${d.ans}')">
+      <span class="ipa-text">${d.ipa}</span>
+      <input id="e1_${i}" type="text" placeholder="từ..." data-ans="${d.ans}">
+      ${d.note?`<span style="font-size:0.75rem;color:#888">(${d.note})</span>`:''}
+    </div>`;
+  });
+  html+='</div>';
+  document.getElementById('ex1Content').innerHTML=html;
+}
+function checkEx1(){let c=0;ex1Book.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);if(inp.value.trim().toLowerCase()===d.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score1',c,ex1Book.length);showToast(c===ex1Book.length?'🎉 Hoàn hảo!':'😅 Xem lại ô đỏ!');}
+function resetEx1(){ex1Book.forEach((_,i)=>{const inp=document.getElementById('e1_'+i);inp.value='';inp.className='';});document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx1(){ex1Book.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);inp.value=d.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 2: days/months with /s/ or /z/ (from book 16.2)
+// Days: Monday/z/, Tuesday/z/, Wednesday/z/, Thursday/z/, Friday/z/, Saturday/s/, Sunday/z/ – actually:
+// Sunday /ˈsʌndeɪ/ final sound /deɪ/, Monday /ˈmʌndeɪ/... the 's' in 'days' context
+// Book asks: which 2 days have /s/? → Saturday, Sunday (both end in -day /deɪ/ but Saturday has /s/ in Satur-)
+// Actually book question: "Which two days of the week have /s/?" → Saturday /s/, Sunday /s/ (initial)
+// "Which three days have /z/?" → Monday, Tuesday, Wednesday (have /z/ somewhere)... 
+// Book answer: /s/ days = Saturday, Sunday (initial /s/); /z/ days = Monday, Tuesday, Wednesday
+// months with /s/: August /ˈɔːɡəst/ has /s/; also September /s/
+const ex2Data={
+  days_s:["Saturday","Sunday"],
+  days_z:["Monday","Tuesday","Wednesday"],
+  months_s:["August","September","December"]
+};
+let ex2sel={days_s:{},days_z:{},months_s:{}};
+const allDays=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+const allMonths=["January","February","March","April","May","June","July","August","September","October","November","December"];
+function renderEx2(){
+  ex2sel={days_s:{},days_z:{},months_s:{}};
+  let html=`
+  <div style="margin-bottom:14px">
+    <div style="font-weight:700;color:#2d6a1a;margin-bottom:6px">1. Hai ngày nào trong tuần có âm /s/?</div>
+    <div style="display:flex;flex-wrap:wrap;gap:7px" id="ds_pool">
+      ${allDays.map(d=>`<span class="classify-chip" id="ds_${d}" onclick="toggleDay('s','${d}')">${d}</span>`).join('')}
+    </div>
+  </div>
+  <div style="margin-bottom:14px">
+    <div style="font-weight:700;color:#2020a0;margin-bottom:6px">2. Ba ngày nào có âm /z/?</div>
+    <div style="display:flex;flex-wrap:wrap;gap:7px" id="dz_pool">
+      ${allDays.map(d=>`<span class="classify-chip" id="dz_${d}" onclick="toggleDay('z','${d}')">${d}</span>`).join('')}
+    </div>
+  </div>
+  <div>
+    <div style="font-weight:700;color:#2d6a1a;margin-bottom:6px">3. Ba tháng nào có âm /s/? (Ví dụ: August)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:7px" id="ms_pool">
+      ${allMonths.map(m=>`<span class="classify-chip" id="ms_${m}" onclick="toggleMonth('${m}')">${m}</span>`).join('')}
+    </div>
+  </div>`;
+  document.getElementById('ex2Content').innerHTML=html;
+}
+function toggleDay(sound,day){
+  const key=sound==='s'?'days_s':'days_z';
+  const elId=`d${sound}_${day}`;
+  const el=document.getElementById(elId);
+  if(ex2sel[key][day]){delete ex2sel[key][day];el.classList.remove('sel-s','sel-z');}
+  else{ex2sel[key][day]=true;el.classList.add(sound==='s'?'sel-s':'sel-z');}
+}
+function toggleMonth(m){
+  const el=document.getElementById('ms_'+m);
+  if(ex2sel.months_s[m]){delete ex2sel.months_s[m];el.classList.remove('sel-s');}
+  else{ex2sel.months_s[m]=true;el.classList.add('sel-s');}
+}
+function checkEx2(){
+  let c=0,tot=0;
+  // check days /s/: Saturday, Sunday
+  ex2Data.days_s.forEach(d=>{tot++;if(ex2sel.days_s[d])c++;});
+  // penalty for wrong selections
+  allDays.forEach(d=>{if(ex2sel.days_s[d]&&!ex2Data.days_s.includes(d))c=Math.max(0,c-0.5);});
+  // check days /z/
+  ex2Data.days_z.forEach(d=>{tot++;if(ex2sel.days_z[d])c++;});
+  // check months /s/
+  ex2Data.months_s.forEach(m=>{tot++;if(ex2sel.months_s[m])c++;});
+  showScore('score2',Math.round(c),tot);
+}
+function resetEx2(){renderEx2();document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){
+  renderEx2();
+  ex2Data.days_s.forEach(d=>{ex2sel.days_s[d]=true;document.getElementById('ds_'+d)?.classList.add('sel-s');});
+  ex2Data.days_z.forEach(d=>{ex2sel.days_z[d]=true;document.getElementById('dz_'+d)?.classList.add('sel-z');});
+  ex2Data.months_s.forEach(m=>{ex2sel.months_s[m]=true;document.getElementById('ms_'+m)?.classList.add('sel-s');});
+  showToast('👁️ Đây là đáp án!');
+}
+
+// EX 3: count /s/ and /z/ (from book 16.3)
+// Words and their /s/ /z/ counts: sit(s:1,z:0), easy(s:0,z:1), places(s:2,z:1 - pla-ces), 
+// these(s:0,z:1), size(s:1,z:1), pronounce(s:1,z:0), style(s:1,z:0), dress(s:0,z:0... s:2), it's(s:1,z:0), certainly(s:2,z:0), words(s:0,z:1), suits(s:1,z:1)
+const ex3Words=[
+  {w:"sit",s:1,z:0,ipa:"/sɪt/"},{w:"easy",s:0,z:1,ipa:"/ˈiːzi/"},
+  {w:"places",s:2,z:1,ipa:"/ˈpleɪsɪz/"},{w:"these",s:0,z:1,ipa:"/ðiːz/"},
+  {w:"size",s:1,z:1,ipa:"/saɪz/"},{w:"pronounce",s:1,z:0,ipa:"/prəˈnaʊns/"},
+  {w:"style",s:1,z:0,ipa:"/staɪl/"},{w:"dress",s:2,z:0,ipa:"/dres/"},
+  {w:"it's",s:1,z:0,ipa:"/ɪts/"},{w:"certainly",s:2,z:0,ipa:"/ˈsɜːtənli/"},
+  {w:"words",s:0,z:1,ipa:"/wɜːdz/"},{w:"suits",s:1,z:1,ipa:"/suːts/"},
+];
+let ex3sel={};
+function renderEx3(){
+  ex3sel={};
+  let html='';
+  ex3Words.forEach((d,i)=>{
+    html+=`<div class="sz-row">
+      <span class="word-lbl" onclick="speakText('${d.w}')" style="cursor:pointer">🔊 ${d.w} <span style="font-size:0.75rem;color:#888">${d.ipa}</span></span>
+      <div class="sz-count">
+        <span style="font-size:0.82rem;color:#888">/s/ ×</span>
+        ${[0,1,2,3].map(n=>`<span class="sz-btn" id="s${i}_${n}" onclick="selSZ('s',${i},${n})">${n}</span>`).join('')}
+        <span style="font-size:0.82rem;color:#888;margin-left:6px">/z/ ×</span>
+        ${[0,1,2,3].map(n=>`<span class="sz-btn" id="z${i}_${n}" onclick="selSZ('z',${i},${n})">${n}</span>`).join('')}
+      </div>
+    </div>`;
+  });
+  document.getElementById('ex3Content').innerHTML=html;
+}
+function selSZ(type,i,n){
+  const key=`${type}_${i}`;
+  ex3sel[key]=n;
+  [0,1,2,3].forEach(x=>{const el=document.getElementById(`${type}${i}_${x}`);if(el){el.className='sz-btn';if(x===n)el.classList.add(`sel-${type==='s'?'s':'z'}`);}});
+}
+function checkEx3(){
+  let c=0,tot=0;
+  ex3Words.forEach((d,i)=>{
+    tot+=2;
+    if(ex3sel[`s_${i}`]===d.s)c++;
+    if(ex3sel[`z_${i}`]===d.z)c++;
+  });
+  showScore('score3',c,tot);
+}
+function resetEx3(){ex3sel={};document.querySelectorAll('.sz-btn').forEach(el=>{el.className='sz-btn';});document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){ex3Words.forEach((d,i)=>{selSZ('s',i,d.s);selSZ('z',i,d.z);});showToast('👁️ Đây là đáp án!');}
+
+// EX 4: fill from 16.4 (using words from 16.3)
+const ex4Items=[
+  {s:"1. A: Do you like this ___ ? B: The ___ doesn't ___ you, but it's the wrong ___, isn't it?",blanks:["dress","style","suit","size"],speak:"Do you like this dress? The style doesn't suit you, but it's the wrong size, isn't it?"},
+  {s:"2. A: Can you ___, ___ these words for me, please?",blanks:["certainly","pronounce"],speak:"Can you certainly pronounce these words for me please?"},
+  {s:"B: Yes, ___.",blanks:["certainly"],speak:"Yes, certainly."},
+];
+function renderEx4(){
+  let gi=0;
+  let html='';
+  ex4Items.forEach((d,si)=>{
+    let sent=d.s;
+    let bi=0;
+    sent=sent.replace(/___/g,()=>{
+      const idx=gi++;
+      const a=d.blanks[bi++];
+      return `<input id="e4_${idx}" type="text" placeholder="..." data-ans="${a}" style="width:${Math.max(70,a.length*13)}px">`;
+    });
+    html+=`<div class="fill-item">${sent}</div>`;
+  });
+  document.getElementById('ex4Content').innerHTML=html;
+}
+function speakEx4(){speakText(ex4Items.map(d=>d.speak).join(' '));}
+function checkEx4(){const inputs=document.querySelectorAll('[id^="e4_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score4',c,inputs.length);}
+function resetEx4(){document.querySelectorAll('[id^="e4_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx4(){document.querySelectorAll('[id^="e4_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 5: minimal pairs (from book 16.6 + extras)
+const ex5Data=[
+  {pair:["place","plays"],sent:"She always ___ the piano after dinner.",ans:1,speak:"She always plays the piano after dinner.",note:"/s/ vs /z/"},
+  {pair:["zoo","Sue"],sent:"___ works at the hospital.",ans:1,speak:"Sue works at the hospital.",note:"/z/ vs /s/"},
+  {pair:["so","show"],sent:"I said '___' but he didn't hear.",ans:0,speak:"I said so but he didn't hear.",note:"/s/ vs /ʃ/"},
+  {pair:["sing","thing"],sent:"Do you like to ___?",ans:0,speak:"Do you like to sing?",note:"/s/ vs /θ/"},
+  {pair:["close","clothes"],sent:"Where are my ___?",ans:1,speak:"Where are my clothes?",note:"/z/ vs /ðz/"},
+  {pair:["bus","buzz"],sent:"I heard a loud ___.",ans:1,speak:"I heard a loud buzz.",note:"/s/ vs /z/"},
+  {pair:["site","size"],sent:"What ___ is the borehole?",ans:0,speak:"What site is the borehole?",note:"/t/ vs /z/"},
+  {pair:["stress","straws"],sent:"Soil ___ increases with depth.",ans:0,speak:"Soil stress increases with depth.",note:"/s/ vs /z/"},
+];
+function renderEx5(){
+  document.getElementById('ex5Content').innerHTML=ex5Data.map((d,i)=>`
+    <div class="mp-item">
+      <span style="font-style:italic;min-width:250px">"${d.sent}"</span>
+      <button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>
+      ${d.pair.map((opt,j)=>`<label><input type="radio" name="mp5_${i}" value="${j}"> <b>${opt}</b></label>`).join(' ')}
+      <span style="font-size:0.77rem;color:#888">${d.note}</span>
+    </div>`).join('');
+}
+function checkEx5(){let c=0;ex5Data.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel&&parseInt(sel.value)===d.ans)c++;});showScore('score5',c,ex5Data.length);}
+function resetEx5(){ex5Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){ex5Data.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp5_${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+
+// INIT
+renderWords();renderSents();renderPoem();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();
+
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(16)){c.push(16);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 13 – Cats and dogs – /k/ and /g/</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#1a6e3a 0%,#0d4522 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 18px;font-size:1.2rem;font-weight:800}
+.header h1{font-size:1.35rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#1a6e3a;border-bottom:2px solid #b8e8c8;padding-bottom:8px;margin-bottom:14px}
+.diagram-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px}
+.diag-card{border-radius:12px;padding:16px;border:1.5px solid;text-align:center}
+.diag-card.k{background:#f0fff5;border-color:#4caf88}
+.diag-card.g{background:#fff0f0;border-color:#e07070}
+.diag-card h3{font-size:1.4rem;font-weight:800;margin-bottom:8px}
+.diag-card.k h3{color:#1a6e3a}
+.diag-card.g h3{color:#a01010}
+.diag-card p{font-size:0.83rem;color:#555;line-height:1.5;text-align:left}
+.ipa{font-style:italic;color:#c0392b;font-weight:700}
+.spell-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.spell-table th{background:#1a6e3a;color:#fff;padding:9px 12px;text-align:left}
+.spell-table td{padding:8px 12px;border-bottom:1px solid #eee;vertical-align:top}
+.spell-table tr:nth-child(even) td{background:#f4faf7}
+.spell-table .g-row td{background:#fff5f5}
+.spell-table .g-row:nth-child(even) td{background:#ffe8e8}
+.hl-k{color:#1a6e3a;font-weight:800;font-size:1.05rem}
+.hl-g{color:#a01010;font-weight:800;font-size:1.05rem}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:110px;text-align:center;border:1.5px solid}
+.word-card.k-card{background:#f0fff5;border-color:#4caf88}
+.word-card.g-card{background:#fff0f0;border-color:#e07070}
+.word-card:hover{transform:translateY(-2px)}
+.word-card.k-card:hover{background:#1a6e3a;color:#fff}
+.word-card.g-card:hover{background:#a01010;color:#fff}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card:hover .ipa2{color:#cfe}
+.word-card .vn{font-size:0.78rem;margin-top:2px}
+.word-card.k-card .vn{color:#1a6e3a}
+.word-card.g-card .vn{color:#a01010}
+.word-card:hover .vn{color:#ffe}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{border-radius:9px;padding:10px 14px;cursor:pointer;transition:background 0.2s}
+.sentence-list li.k-sent{background:#f0fff5;border-left:4px solid #1a6e3a}
+.sentence-list li.g-sent{background:#fff0f0;border-left:4px solid #a01010}
+.sentence-list li:hover{opacity:0.8}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;margin-top:2px}
+.k-sent .sent-vn{color:#1a6e3a}
+.g-sent .sent-vn{color:#a01010}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.note-box{background:#fff8e1;border:1px dashed #f5c518;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.85rem}
+.warn-box{background:#fde8e8;border-left:4px solid #e74c3c;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.warn-box b{color:#c0392b}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-green{background:#1a6e3a;color:#fff}.btn-green:hover{background:#0d4522}
+.btn-red{background:#a01010;color:#fff}.btn-red:hover{background:#700a0a}
+.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.ex-wrap{border:1.5px solid #b8e8c8;border-radius:12px;padding:18px;margin-bottom:16px;background:#f8fff9}
+.ex-label{display:inline-block;background:#1a6e3a;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
+.fill-item input{border:none;border-bottom:2px solid #b8e8c8;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:110px;color:#1a6e3a;font-weight:600}
+.fill-item input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-item input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.ipa-card{background:#f8fff9;border:1.5px solid #b8e8c8;border-radius:10px;padding:12px;margin:5px 0;cursor:pointer;display:flex;align-items:center;gap:12px;transition:background 0.2s}
+.ipa-card:hover{background:#d4f5e2}
+.ipa-card .ipa-text{font-size:1.05rem;font-weight:700;color:#1a6e3a;min-width:80px}
+.ipa-card input{border:none;border-bottom:2px solid #b8e8c8;background:transparent;font-size:0.95rem;padding:2px 5px;outline:none;width:130px;color:#222;font-weight:600}
+.ipa-card input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.ipa-card input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.classify-chip{display:inline-block;border-radius:20px;padding:6px 14px;cursor:pointer;font-size:0.87rem;font-weight:600;transition:all 0.18s;user-select:none;margin:3px;border:2px solid #ccc;background:#f5f5f5}
+.classify-chip:hover{opacity:0.8}
+.classify-chip.sel-k{background:#1a6e3a;color:#fff;border-color:#1a6e3a}
+.classify-chip.sel-g{background:#a01010;color:#fff;border-color:#a01010}
+.col-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+.col-box{border-radius:9px;padding:10px;min-height:70px;border:2px solid}
+.col-box.k-col{background:#f0fff5;border-color:#4caf88}
+.col-box.g-col{background:#fff0f0;border-color:#e07070}
+.col-box h5{font-size:0.85rem;font-weight:700;margin-bottom:6px}
+.col-box.k-col h5{color:#1a6e3a}
+.col-box.g-col h5{color:#a01010}
+.col-chips{display:flex;flex-wrap:wrap;gap:5px;min-height:30px}
+.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 13</span>
+    <span class="phoneme-badge">/k/ &amp; /g/</span>
+  </div>
+  <h1>Cats and dogs – /k/ and /g/</h1>
+  <div class="sub">Phụ âm tắc /k/ (vô thanh) và /g/ (hữu thanh)</div>
+</div>
+<div id="toast" class="toast"></div>
+<div class="container">
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết phát âm</div>
+  <div class="diagram-row">
+    <div class="diag-card k">
+      <h3>/k/ – CAT</h3>
+      <p>
+        <b>1. Dừng không khí:</b> Đưa phần lưng lưỡi chạm vòm miệng.<br>
+        <b>2. Nhả hơi:</b> Nhả lưỡi → luồng hơi thoát ra mạnh.<br>
+        🔇 <b>Vô thanh</b> (voiceless) – cổ họng không rung.<br>
+        📄 Nếu để tờ giấy trước miệng → giấy <b>CHUYỂN ĐỘNG</b>.<br><br>
+        <b>🇻🇳 So sánh:</b> Giống /c/ tiếng Việt (cá, cô) nhưng hơi thở mạnh hơn khi ở đầu từ.
+      </p>
+    </div>
+    <div class="diag-card g">
+      <h3>/g/ – DOG</h3>
+      <p>
+        <b>1. Dừng không khí:</b> Đưa phần lưng lưỡi chạm vòm miệng (giống /k/).<br>
+        <b>2. Nhả hơi:</b> Nhả lưỡi → luồng hơi thoát nhẹ hơn.<br>
+        🔊 <b>Hữu thanh</b> (voiced) – cổ họng <b>rung</b>.<br>
+        📄 Nếu để tờ giấy trước miệng → giấy <b>KHÔNG chuyển động</b>.<br><br>
+        <b>🇻🇳 So sánh:</b> Không có âm tương đương trong tiếng Việt chuẩn – gần như /g/ trong "gà" miền Nam.
+      </p>
+    </div>
+  </div>
+
+  <table class="spell-table">
+    <tr><th colspan="3" style="background:#1a6e3a">🟢 Cách viết âm /k/</th></tr>
+    <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+    <tr><td><b>c</b></td><td><em><span class="hl-k">c</span>ar, <span class="hl-k">c</span>at, <span class="hl-k">c</span>areful, <span class="hl-k">c</span>lean, <span class="hl-k">c</span>olour, fa<span class="hl-k">c</span>t</em></td><td>Trước a, o, u, phụ âm</td></tr>
+    <tr><td><b>k</b></td><td><em><span class="hl-k">k</span>eep, <span class="hl-k">k</span>ey, <span class="hl-k">k</span>ind, <span class="hl-k">k</span>itchen, des<span class="hl-k">k</span>, tal<span class="hl-k">k</span>, wal<span class="hl-k">k</span></em></td><td>Trước e, i hoặc cuối từ</td></tr>
+    <tr><td><b>ck</b></td><td><em>ba<span class="hl-k">ck</span>, bla<span class="hl-k">ck</span>, che<span class="hl-k">ck</span>, po<span class="hl-k">ck</span>et, ti<span class="hl-k">ck</span></em></td><td>Sau nguyên âm ngắn</td></tr>
+    <tr><td><b>ch</b></td><td><em><span class="hl-k">ch</span>ool, sto<span class="hl-k">m</span>a<span class="hl-k">ch</span>, <span class="hl-k">ch</span>emist, ar<span class="hl-k">ch</span>itect</em></td><td>Từ gốc Latin/Hy Lạp</td></tr>
+    <tr><td><b>qu</b></td><td><em><span class="hl-k">qu</span>ick, <span class="hl-k">qu</span>iet, <span class="hl-k">qu</span>arter</em></td><td>/kw/ thường</td></tr>
+    <tr><td><b>x</b></td><td><em>fa<span class="hl-k">x</span>, si<span class="hl-k">x</span>, ta<span class="hl-k">x</span>i</em></td><td>/ks/ = /k/+/s/</td></tr>
+    <tr><th colspan="3" style="background:#a01010;color:#fff">🔴 Cách viết âm /g/</th></tr>
+    <tr class="g-row"><td><b>g</b></td><td><em><span class="hl-g">g</span>arden, <span class="hl-g">g</span>irl, <span class="hl-g">g</span>lass, <span class="hl-g">g</span>o, <span class="hl-g">g</span>old, a<span class="hl-g">g</span>o, hun<span class="hl-g">g</span>ry, ba<span class="hl-g">g</span>, le<span class="hl-g">g</span>, e<span class="hl-g">gg</span>, bi<span class="hl-g">gg</span>er</em></td><td>Trước a, o, u</td></tr>
+    <tr class="g-row"><td><b>gg</b></td><td><em>bi<span class="hl-g">gg</span>er, e<span class="hl-g">gg</span></em></td><td>Giữa nguyên âm</td></tr>
+    <tr class="g-row"><td><b>x (gz)</b></td><td><em>e<span class="hl-g">x</span>am, e<span class="hl-g">x</span>actly</em></td><td>/gz/ khi x giữa nguyên âm, nhấn sau x</td></tr>
+  </table>
+
+  <div class="warn-box">
+    <b>⚠️ g câm (silent g):</b> <em>forei<b>g</b>ner, si<b>g</b>n, hi<b>g</b>h, bou<b>g</b>ht</em> → <b>g không đọc</b><br>
+    <b>⚠️ k câm:</b> <em><b>k</b>now, <b>k</b>nee, <b>k</b>nife</em> → <b>k không đọc</b><br>
+    <b>⚠️ gu → /g/ (không có /w/):</b> <em><b>gu</b>ess, <b>gu</b>est, dialo<b>gu</b>e</em>
+  </div>
+
+  <div class="tip-box">
+    <b>💡 /k/ hay /g/ trong giữa/cuối từ?</b> Thường không nghe rõ trong chuỗi câu:<br>
+    <em>"I li(k)ed the film – the a(c)ting was perfe(c)t."</em><br>
+    <em>"Do you li(k)e fo(lk) musi(c)?"</em> &nbsp; <em>"It was a dar(k) night."</em>
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-green" onclick="speakText('car cat careful clean colour fact keep key kind kitchen desk talk walk back black check pocket tick school stomach chemist architect')">🔊 /k/ cách viết</button>
+    <button class="btn-red" onclick="speakText('garden girl glass go gold ago hungry bag leg egg bigger exam exactly')">🔊 /g/ cách viết</button>
+    <button class="btn-teal" onclick="speakText('Look in the kitchen cupboard. Keep your keys in your pocket.')">🔊 Câu /k/</button>
+    <button class="btn-blue" onclick="speakText('Can you guess the beginning of the dialogue? Are you going jogging again?')">🔊 Câu /g/</button>
+  </div>
+</div>
+
+<!-- WORD GRID -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng</div>
+  <div style="display:flex;gap:10px;margin-bottom:8px;font-size:0.85rem">
+    <span style="background:#f0fff5;border:1.5px solid #4caf88;border-radius:8px;padding:4px 10px;color:#1a6e3a;font-weight:700">🟢 /k/</span>
+    <span style="background:#fff0f0;border:1.5px solid #e07070;border-radius:8px;padding:4px 10px;color:#a01010;font-weight:700">🔴 /g/</span>
+  </div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-green" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> /k/ và /g/ rất phổ biến trong thuật ngữ địa kỹ thuật:<br>
+    <em><b>c</b>lay, <b>c</b>ore, <b>c</b>orridor, <b>c</b>apacity, roc<b>k</b>, dar<b>k</b>, <b>g</b>ravel, <b>g</b>round, <b>g</b>eotechnical, <b>g</b>radient, bi<b>g</b></em>
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 13.1: IPA → word -->
+  <div class="ex-wrap">
+    <span class="ex-label">13.1</span>
+    <div class="ex-instruction">Đọc phiên âm IPA và gõ từ đúng. Chọn từ trong danh sách: <em>ache, again, ago, back, bag, big, bigger, bike, black, called, cake, carry, classical, coffee, cold, comb, come, copy, gave, get, give, great, grey, guess, guest, keys, kiss, walk, work</em></div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 13.2: Complete words with /k/ or /g/ -->
+  <div class="ex-wrap">
+    <span class="ex-label">13.2</span>
+    <div class="ex-instruction">Điền chữ cái phù hợp (<b>c, k, ck, g, gg, qu, ch, x</b>) vào chỗ trống để tạo âm /k/ hoặc /g/.</div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx2()">🔊 Nghe câu</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 13.3: Fill and listen -->
+  <div class="ex-wrap">
+    <span class="ex-label">13.3</span>
+    <div class="ex-instruction">Nghe và điền từ thích hợp vào chỗ trống (tất cả từ đều có âm /k/ hoặc /g/).</div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx3()">🔊 Nghe câu</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 13.4: classify /k/ or /g/ chips -->
+  <div class="ex-wrap">
+    <span class="ex-label">13.4</span>
+    <div class="ex-instruction">Phân loại từ: âm nổi bật là <span style="color:#1a6e3a;font-weight:700">/k/</span> hay <span style="color:#a01010;font-weight:700">/g/</span>? Click chip để chuyển.</div>
+    <div class="col-grid">
+      <div class="col-box k-col"><h5>🟢 /k/ sound</h5><div class="col-chips" id="col_k"></div></div>
+      <div class="col-box g-col"><h5>🔴 /g/ sound</h5><div class="col-chips" id="col_g"></div></div>
+    </div>
+    <div id="chip_pool4" style="display:flex;flex-wrap:wrap;gap:7px;padding:10px;background:#f5f5f5;border-radius:8px;margin-bottom:8px"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- 13.5: minimal pairs back/bag cold/gold -->
+  <div class="ex-wrap">
+    <span class="ex-label">13.5</span>
+    <div class="ex-instruction">Nghe và chọn từ đúng: cặp âm tối giản /k/ vs /g/.</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+// WORDS
+const words=[
+  {w:"cat",sound:"k",ipa:"/kæt/",vn:"con mèo"},{w:"car",sound:"k",ipa:"/kɑː/",vn:"xe hơi"},
+  {w:"kitchen",sound:"k",ipa:"/ˈkɪtʃɪn/",vn:"nhà bếp"},{w:"back",sound:"k",ipa:"/bæk/",vn:"phía sau"},
+  {w:"check",sound:"k",ipa:"/tʃek/",vn:"kiểm tra"},{w:"school",sound:"k",ipa:"/skuːl/",vn:"trường học"},
+  {w:"quick",sound:"k",ipa:"/kwɪk/",vn:"nhanh"},{w:"walk",sound:"k",ipa:"/wɔːk/",vn:"đi bộ"},
+  {w:"dog",sound:"g",ipa:"/dɒɡ/",vn:"con chó"},{w:"garden",sound:"g",ipa:"/ˈɡɑːdən/",vn:"khu vườn"},
+  {w:"gold",sound:"g",ipa:"/ɡəʊld/",vn:"vàng"},{w:"bigger",sound:"g",ipa:"/ˈbɪɡə/",vn:"lớn hơn"},
+  {w:"guess",sound:"g",ipa:"/ɡes/",vn:"đoán"},{w:"exam",sound:"g",ipa:"/ɪɡˈzæm/",vn:"kỳ thi /gz/"},
+  {w:"gravel",sound:"g",ipa:"/ˈɡrævəl/",vn:"sỏi (địa kỹ thuật)"},{w:"rock",sound:"k",ipa:"/rɒk/",vn:"đá/đá tảng"},
+  {w:"capacity",sound:"k",ipa:"/kəˈpæsɪti/",vn:"sức chịu tải"},{w:"geotechnical",sound:"g",ipa:"/ˌdʒiːəʊˈteknɪkəl/",vn:"địa kỹ thuật"},
+];
+function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card ${w.sound}-card" onclick="speakText('${w.w}')"><div class="word">${w.w}</div><div class="ipa2">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div></div>`).join('');}
+function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+
+// SENTENCES
+const sents=[
+  {en:"Look in the kitchen cupboard.",ipa:"/lʊk ɪn ðə ˈkɪtʃɪn ˈkʌbəd/",vn:"Nhìn vào tủ bếp.",sound:"k"},
+  {en:"Keep your keys in your pocket.",ipa:"/kiːp jə kiːz ɪn jə ˈpɒkɪt/",vn:"Giữ chìa khóa trong túi.",sound:"k"},
+  {en:"Can you guess the beginning of the dialogue?",ipa:"/kən jə ɡes ðə bɪˈɡɪnɪŋ əv ðə ˈdaɪəlɒɡ/",vn:"Bạn có thể đoán phần đầu của đoạn hội thoại không?",sound:"g"},
+  {en:"Are you going jogging again?",ipa:"/ə jə ˈɡəʊɪŋ ˈdʒɒɡɪŋ əˈɡen/",vn:"Bạn lại đi chạy bộ à?",sound:"g"},
+  {en:"Can I carry your bags?",ipa:"/kən aɪ ˈkæri jə bæɡz/",vn:"Tôi có thể mang túi của bạn không?",sound:"k"},
+  {en:"Give me a big black coffee again.",ipa:"/ɡɪv mi ə bɪɡ blæk ˈkɒfi əˈɡen/",vn:"Cho tôi một ly cà phê đen lớn nữa.",sound:"g"},
+  {en:"The grey cat walked into the garden.",ipa:"/ðə ɡreɪ kæt wɔːkt ˈɪntə ðə ˈɡɑːdən/",vn:"Con mèo xám bước vào vườn.",sound:"k"},
+  {en:"The guests would like eggs for breakfast.",ipa:"/ðə ɡests wʊd laɪk eɡz fə ˈbrekfəst/",vn:"Các khách muốn ăn trứng cho bữa sáng.",sound:"g"},
+  {en:"Clay and gravel are common soil types.",ipa:"/kleɪ ənd ˈɡrævəl ə ˈkɒmən sɔɪl taɪps/",vn:"Sét và sỏi là các loại đất phổ biến.",sound:"k"},
+  {en:"The geotechnical report covers rock capacity.",ipa:"/ðə ˌdʒiːəʊˈteknɪkəl rɪˈpɔːt ˈkʌvəz rɒk kəˈpæsɪti/",vn:"Báo cáo địa kỹ thuật đề cập đến sức chịu tải của đá.",sound:"g"},
+  {en:"Ground investigation confirmed gravel at 5m.",ipa:"/ɡraʊnd ɪnˌvestɪˈɡeɪʃən kənˈfɜːmd ˈɡrævəl ət faɪv ˈmiːtəz/",vn:"Khảo sát địa chất xác nhận có sỏi ở độ sâu 5m.",sound:"g"},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li class="${s.sound}-sent" onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// EX 1: IPA → word (from book 13.1)
+const ex1Data=[
+  {ipa:"/ɡɪv/",ans:"give"},{ipa:"/bɪɡ/",ans:"big"},{ipa:"/ɡet/",ans:"get"},
+  {ipa:"/kəʊm/",ans:"comb"},{ipa:"/kɪz/",ans:"kiss"},{ipa:"/keɪk/",ans:"cake"},
+  {ipa:"/kɪs/",ans:"kiss"},{ipa:"/eɪk/",ans:"ache"},{ipa:"/ɡest/",ans:"guest"},
+  {ipa:"/bæk/",ans:"back"},{ipa:"/ˈkɒfi/",ans:"coffee"},{ipa:"/əˈɡen/",ans:"again"},
+  {ipa:"/wɔːk/",ans:"walk"},{ipa:"/kɔːld/",ans:"cold"},{ipa:"/bæɡ/",ans:"bag"},
+  {ipa:"/ˈbɪɡə/",ans:"bigger"},{ipa:"/kəʊld/",ans:"cold"},{ipa:"/ˈkæri/",ans:"carry"},
+  {ipa:"/wɜːk/",ans:"work"},{ipa:"/ɡreɪ/",ans:"grey"},
+];
+// Corrected answers matching book order
+const ex1Fixed=[
+  {ipa:"/ɡɪv/",ans:"give"},{ipa:"/bɪɡ/",ans:"big"},{ipa:"/ɡet/",ans:"get"},
+  {ipa:"/kəʊm/",ans:"comb"},{ipa:"/kɪz/",ans:"keys"},{ipa:"/keɪk/",ans:"cake"},
+  {ipa:"/kɪs/",ans:"kiss"},{ipa:"/eɪk/",ans:"ache"},{ipa:"/ɡest/",ans:"guest"},
+  {ipa:"/bæk/",ans:"back"},{ipa:"/ˈkɒfi/",ans:"coffee"},{ipa:"/əˈɡen/",ans:"again"},
+  {ipa:"/wɔːk/",ans:"walk"},{ipa:"/kɔːld/",ans:"called"},{ipa:"/bæɡ/",ans:"bag"},
+  {ipa:"/ˈbɪɡə/",ans:"bigger"},{ipa:"/kəʊld/",ans:"cold"},{ipa:"/ˈkæri/",ans:"carry"},
+  {ipa:"/wɜːk/",ans:"work"},{ipa:"/ɡreɪ/",ans:"grey"},
+];
+function renderEx1(){
+  // Show in 2 columns
+  let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+  ex1Fixed.forEach((d,i)=>{
+    html+=`<div class="ipa-card" onclick="speakText('${d.ans}')">
+      <span class="ipa-text">${d.ipa}</span>
+      <input id="e1_${i}" type="text" placeholder="từ..." data-ans="${d.ans}">
+    </div>`;
+  });
+  html+='</div>';
+  document.getElementById('ex1Content').innerHTML=html;
+}
+function checkEx1(){
+  let c=0;
+  ex1Fixed.forEach((d,i)=>{
+    const inp=document.getElementById('e1_'+i);
+    if(inp.value.trim().toLowerCase()===d.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}
+    else{inp.classList.add('wrong');inp.classList.remove('correct');}
+  });
+  showScore('score1',c,ex1Fixed.length);
+  showToast(c===ex1Fixed.length?'🎉 Hoàn hảo!':'😅 Xem lại ô đỏ nhé!');
+}
+function resetEx1(){ex1Fixed.forEach((_,i)=>{const inp=document.getElementById('e1_'+i);inp.value='';inp.className='';});document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx1(){ex1Fixed.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);inp.value=d.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 2: fill /k/ or /g/ letters
+const ex2Data=[
+  {sent:"Can I carry your ba_s?",blanks:["g"],full:"Can I carry your bags?",hint:"bag → /g/"},
+  {sent:"Give me a bi_ bla__ _offee a_ain.",blanks:["g","ck","c","g"],full:"Give me a big black coffee again.",hint:"big, black, coffee, again"},
+  {sent:"You _ave me _old _offee a_ain.",blanks:["g","c","c","g"],full:"You gave me cold coffee again.",hint:"gave, cold, coffee, again"},
+  {sent:"A _rey _at with _reen eyes wal_ed into the _arden.",blanks:["g","c","g","k","g"],full:"A grey cat with green eyes walked into the garden.",hint:"grey, cat, green, walked, garden"},
+  {sent:"The _uests would li_e e__s for brea_fast.",blanks:["g","k","gg","k"],full:"The guests would like eggs for breakfast.",hint:"guests, like, eggs, breakfast"},
+];
+function renderEx2(){
+  let html='',gi=0;
+  ex2Data.forEach((d,si)=>{
+    let sent=d.sent;
+    let bi=0;
+    sent=sent.replace(/_+/g,()=>{
+      const idx=gi++;
+      const a=d.blanks[bi++];
+      return `<input id="e2_${idx}" type="text" placeholder="${'_'.repeat(a.length)}" data-ans="${a}" style="width:${Math.max(40,a.length*18)}px">`;
+    });
+    html+=`<div class="fill-item">${si+1}. ${sent} <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.full.replace(/'/g,"\\'")}')">🔊</button><br><span style="font-size:0.77rem;color:#888">💡 ${d.hint}</span></div>`;
+  });
+  document.getElementById('ex2Content').innerHTML=html;
+}
+function speakEx2(){speakText(ex2Data.map(d=>d.full).join(' '));}
+function checkEx2(){
+  const inputs=document.querySelectorAll('[id^="e2_"]');
+  let c=0;
+  inputs.forEach(inp=>{
+    if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}
+    else{inp.classList.add('wrong');inp.classList.remove('correct');}
+  });
+  showScore('score2',c,inputs.length);
+}
+function resetEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 3: fill from book 13.3
+const ex3Items=[
+  {s:"Ví dụ: It's time to go",blank:"back",after:".",speak:"It's time to go back."},
+  {s:"1. Shall we",blank:"go",after:"?",speak:"Shall we go?"},
+  {s:"2. I came by",blank:"car",after:".",speak:"I came by car."},
+  {s:"3. When you go out, ___ the",blank2:true,blanks:["lock","keys"],after:".",speak:"When you go out, lock the keys."},
+  {s:"4. I'm going to buy a new",blank:"car",after:" tomorrow.",speak:"I'm going to buy a new car tomorrow."},
+  {s:"5. A: You don't",blank:"take",after2:" sugar in your tea, do you?",blank2w:"take",speak:"You don't take sugar in your tea, do you?"},
+  {s:"6. It's only seven o'clock and it's already",blank:"dark",after:".",speak:"It's only seven o'clock and it's already dark."},
+  {s:"7. Listen and",blank:"copy",after:".",speak:"Listen and copy."},
+  {s:"8. Mark your answer with a",blank:"cross",after:".",speak:"Mark your answer with a cross."},
+];
+const ex3Answers=["back","go","car","lock","keys","car","dark","copy","cross"];
+function renderEx3(){
+  let html='',gi=0;
+  const items=[
+    {s:"Ví dụ: It's time to go ___.",ans:"back"},
+    {s:"1. Shall we ___?",ans:"go"},
+    {s:"2. I came by ___.","ans":"car"},
+    {s:"3. When you go out, ___ the ___.",ans:"lock",ans2:"keys"},
+    {s:"4. I'm going to buy a new ___ tomorrow.",ans:"car"},
+    {s:"5. A: You don't ___ sugar in your tea, do you?",ans:"take"},
+    {s:"6. It's only seven o'clock and it's already ___.",ans:"dark"},
+    {s:"7. Listen and ___.",ans:"copy"},
+    {s:"8. Mark your answer with a ___.",ans:"cross"},
+  ];
+  items.forEach(item=>{
+    let sent=item.s;
+    let bi=0;
+    const blanks=[item.ans,item.ans2].filter(Boolean);
+    sent=sent.replace(/___/g,()=>{
+      const idx=gi++;
+      const a=blanks[bi++];
+      return `<input id="e3_${idx}" type="text" placeholder="..." data-ans="${a}" style="width:90px">`;
+    });
+    html+=`<div class="fill-item">${sent}</div>`;
+  });
+  document.getElementById('ex3Content').innerHTML=html;
+}
+function speakEx3(){speakText("It's time to go back. Shall we go? I came by car. When you go out lock the keys. I'm going to buy a new car tomorrow. You don't take sugar in your tea do you? It's only seven o'clock and it's already dark. Listen and copy. Mark your answer with a cross.");}
+function checkEx3(){
+  const inputs=document.querySelectorAll('[id^="e3_"]');
+  let c=0;
+  inputs.forEach(inp=>{
+    if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}
+    else{inp.classList.add('wrong');inp.classList.remove('correct');}
+  });
+  showScore('score3',c,inputs.length);
+}
+function resetEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 4: classify chips
+const ex4chips=[
+  {label:"back",cat:"k"},{label:"bag",cat:"g"},{label:"cold",cat:"k"},{label:"gold",cat:"g"},
+  {label:"car",cat:"k"},{label:"garden",cat:"g"},{label:"quick",cat:"k"},{label:"give",cat:"g"},
+  {label:"cake",cat:"k"},{label:"egg",cat:"g"},{label:"clock",cat:"k"},{label:"bigger",cat:"g"},
+  {label:"rock",cat:"k"},{label:"gravel",cat:"g"},{label:"capacity",cat:"k"},{label:"ground",cat:"g"},
+];
+let ex4state={};
+function renderEx4(){
+  ex4state={};
+  document.getElementById('chip_pool4').innerHTML=ex4chips.map((c,i)=>`<span class="classify-chip" id="ch4_${i}" onclick="clickChip4(${i})">${c.label}</span>`).join('');
+  document.getElementById('col_k').innerHTML='';
+  document.getElementById('col_g').innerHTML='';
+}
+function clickChip4(i){
+  const cur=ex4state[i];
+  const next=cur===undefined?'k':cur==='k'?'g':undefined;
+  ex4state[i]=next;
+  const el=document.getElementById('ch4_'+i);
+  el.className='classify-chip';
+  if(next==='k'){el.classList.add('sel-k');document.getElementById('col_k').appendChild(el);}
+  else if(next==='g'){el.classList.add('sel-g');document.getElementById('col_g').appendChild(el);}
+  else{document.getElementById('chip_pool4').appendChild(el);}
+}
+function checkEx4(){let c=0;ex4chips.forEach((ch,i)=>{if(ex4state[i]===ch.cat)c++;});showScore('score4',c,ex4chips.length);}
+function resetEx4(){renderEx4();document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx4(){ex4chips.forEach((ch,i)=>{ex4state[i]=ch.cat;const el=document.getElementById('ch4_'+i);el.className='classify-chip sel-'+ch.cat;if(ch.cat==='k')document.getElementById('col_k').appendChild(el);else document.getElementById('col_g').appendChild(el);});showToast('👁️ Đây là đáp án!');}
+
+// EX 5: minimal pairs
+const ex5Data=[
+  {pair:["back","bag"],sent:"I left my ___ in the car.",ans:1,speak:"I left my bag in the car.",note:"bag /bæɡ/ (hữu thanh) vs back /bæk/ (vô thanh)"},
+  {pair:["cold","gold"],sent:"The ring is made of ___.",ans:1,speak:"The ring is made of gold.",note:"gold /ɡəʊld/ vs cold /kəʊld/"},
+  {pair:["coat","goat"],sent:"The farmer has a ___.",ans:1,speak:"The farmer has a goat.",note:"goat /ɡəʊt/ vs coat /kəʊt/"},
+  {pair:["class","glass"],sent:"Can I have a ___ of water?",ans:1,speak:"Can I have a glass of water.",note:"glass /ɡlɑːs/ vs class /klɑːs/"},
+  {pair:["black","flag"],sent:"The soil sample was ___ clay.",ans:0,speak:"The soil sample was black clay.",note:"black /blæk/ vs flag"},
+  {pair:["cap","gap"],sent:"There's a ___ in the data.",ans:1,speak:"There's a gap in the data.",note:"gap /ɡæp/ vs cap /kæp/"},
+  {pair:["core","gore"],sent:"The ___ sample showed rock layers.",ans:0,speak:"The core sample showed rock layers.",note:"core /kɔː/ vs gore"},
+  {pair:["gravel","travel"],sent:"The layer contains fine ___.",ans:0,speak:"The layer contains fine gravel.",note:"gravel /ɡrævəl/ vs travel"},
+];
+function renderEx5(){
+  document.getElementById('ex5Content').innerHTML=ex5Data.map((d,i)=>`
+    <div class="mp-item">
+      <span style="font-style:italic;min-width:240px">"${d.sent}"</span>
+      <button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>
+      ${d.pair.map((opt,j)=>`<label><input type="radio" name="mp5_${i}" value="${j}"> <b>${opt}</b></label>`).join(' ')}
+      <span style="font-size:0.77rem;color:#888">${d.note}</span>
+    </div>`).join('');
+}
+function checkEx5(){let c=0;ex5Data.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel&&parseInt(sel.value)===d.ans)c++;});showScore('score5',c,ex5Data.length);}
+function resetEx5(){ex5Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){ex5Data.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp5_${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+
+// INIT
+renderWords();renderSents();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();
+
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(13)){c.push(13);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>

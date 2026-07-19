@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 23 – What's the news? – /w/ and /j/</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#1a5a2a 0%,#0d3818 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 18px;font-size:1.2rem;font-weight:800}
+.header h1{font-size:1.35rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#1a5a2a;border-bottom:2px solid #a8d8b0;padding-bottom:8px;margin-bottom:14px}
+.diagram-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px}
+.diag-card{border-radius:12px;padding:16px;border:1.5px solid}
+.diag-card.w{background:#f0fff4;border-color:#50b870}
+.diag-card.y{background:#f8f0ff;border-color:#9060d0}
+.diag-card h3{font-size:1.4rem;font-weight:800;margin-bottom:8px}
+.diag-card.w h3{color:#1a5a2a}
+.diag-card.y h3{color:#5a0a9a}
+.diag-card p{font-size:0.83rem;color:#555;line-height:1.5}
+.ipa{font-style:italic;color:#c0392b;font-weight:700}
+.hl-w{color:#1a5a2a;font-weight:800}
+.hl-y{color:#5a0a9a;font-weight:800}
+.spell-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.spell-table th{background:#1a5a2a;color:#fff;padding:9px 12px;text-align:left}
+.spell-table td{padding:8px 12px;border-bottom:1px solid #eee;vertical-align:top}
+.spell-table tr:nth-child(even) td{background:#f0fff4}
+.spell-table .y-row td{background:#f8f0ff}
+.spell-table .y-row:nth-child(even) td{background:#edd5ff}
+.info-box{background:#e8f4ff;border-left:4px solid #2980b9;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.info-box b{color:#1a5276}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:110px;text-align:center;border:1.5px solid}
+.word-card.w-card{background:#f0fff4;border-color:#50b870}
+.word-card.y-card{background:#f8f0ff;border-color:#9060d0}
+.word-card:hover{transform:translateY(-2px)}
+.word-card.w-card:hover{background:#1a5a2a;color:#fff}
+.word-card.y-card:hover{background:#5a0a9a;color:#fff}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card:hover .ipa2{color:#cfc}
+.word-card .vn{font-size:0.78rem;margin-top:2px}
+.word-card.w-card .vn{color:#1a5a2a}
+.word-card.y-card .vn{color:#5a0a9a}
+.word-card:hover .vn{color:#ffe}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{border-radius:9px;padding:10px 14px;cursor:pointer;border-left:4px solid;transition:background 0.2s}
+.sentence-list li.w-sent{background:#f0fff4;border-color:#1a5a2a}
+.sentence-list li.y-sent{background:#f8f0ff;border-color:#5a0a9a}
+.sentence-list li:hover{opacity:0.8}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;margin-top:2px}
+.w-sent .sent-vn{color:#1a5a2a}
+.y-sent .sent-vn{color:#5a0a9a}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.note-box{background:#fff8e1;border:1px dashed #f5c518;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.85rem}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+/* interview box */
+.interview-box{background:#f5f5f5;border-radius:10px;padding:14px;font-size:0.88rem;line-height:1.8}
+.q-row{display:flex;gap:12px;margin:4px 0}
+.q-lbl{font-weight:700;color:#1a5a2a;min-width:90px}
+.a-lbl{font-weight:700;color:#5a0a9a;min-width:90px}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-green{background:#1a5a2a;color:#fff}.btn-green:hover{background:#0d3818}
+.btn-purple{background:#5a0a9a;color:#fff}.btn-purple:hover{background:#3a0670}
+.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.ex-wrap{border:1.5px solid #a8d8b0;border-radius:12px;padding:18px;margin-bottom:16px;background:#f8fff9}
+.ex-label{display:inline-block;background:#1a5a2a;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
+.fill-item input{border:none;border-bottom:2px solid #a8d8b0;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:110px;color:#1a5a2a;font-weight:600}
+.fill-item input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-item input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.ipa-card{background:#f0fff4;border:1.5px solid #a8d8b0;border-radius:10px;padding:10px 14px;margin:5px 0;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background 0.2s}
+.ipa-card:hover{background:#c8f0d8}
+.ipa-card .ipa-text{font-size:1.05rem;font-weight:700;color:#1a5a2a;min-width:100px}
+.ipa-card input{border:none;border-bottom:2px solid #a8d8b0;background:transparent;font-size:0.95rem;padding:2px 5px;outline:none;width:130px;color:#222;font-weight:600}
+.ipa-card input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.ipa-card input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.classify-chip{display:inline-block;border-radius:20px;padding:6px 14px;cursor:pointer;font-size:0.87rem;font-weight:600;transition:all 0.18s;user-select:none;margin:3px;border:2px solid #ccc;background:#f5f5f5}
+.classify-chip.sel-w{background:#1a5a2a;color:#fff;border-color:#1a5a2a}
+.classify-chip.sel-y{background:#5a0a9a;color:#fff;border-color:#5a0a9a}
+.col-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+.col-box{border-radius:9px;padding:10px;min-height:60px;border:2px solid}
+.col-box.w-col{background:#f0fff4;border-color:#50b870}
+.col-box.y-col{background:#f8f0ff;border-color:#9060d0}
+.col-box h5{font-size:0.85rem;font-weight:700;margin-bottom:6px}
+.col-box.w-col h5{color:#1a5a2a}
+.col-box.y-col h5{color:#5a0a9a}
+.col-chips{display:flex;flex-wrap:wrap;gap:5px;min-height:30px}
+.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
+/* match exercise */
+.match-row{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:0.88rem;flex-wrap:wrap}
+.match-q{min-width:120px;font-weight:700;color:#1a5a2a}
+.match-a{font-style:italic;color:#555}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 23</span>
+    <span class="phoneme-badge">/w/ &amp; /j/</span>
+  </div>
+  <h1>What's the news? – /w/ and /j/</h1>
+  <div class="sub">Bán nguyên âm /w/ (môi tròn) và /j/ (lưỡi gần vòm)</div>
+</div>
+<div id="toast" class="toast"></div>
+<div class="container">
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết phát âm</div>
+  <div class="diagram-row">
+    <div class="diag-card w">
+      <h3>/w/ – WEEK</h3>
+      <p>
+        <b>Vị trí:</b> Môi tròn và đẩy ra trước — giống chuẩn bị nói /uː/ rồi nhả ra nhanh.<br>
+        🔊 <b>Hữu thanh</b> (voiced)<br><br>
+        <b>🇻🇳 So sánh:</b> Giống /u/ trong "ua, uê" tiếng Việt khi làm âm đệm.<br><br>
+        <b>Chính tả:</b><br>
+        <b>w</b> → week, wet, way, warm, well, weather, windy, away, always, twelve, swim<br>
+        <b>wh</b> → what, white, which, where<br>
+        <b>qu</b> → one, language, question, quiet, square → thường = /kw/<br><br>
+        <b>/w/ câm:</b> answer, two, who, whole, write, wrong
+      </p>
+    </div>
+    <div class="diag-card y">
+      <h3>/j/ – YES</h3>
+      <p>
+        <b>Vị trí:</b> Lưỡi lên gần vòm trước — giống chuẩn bị nói /iː/ rồi nhả ra nhanh.<br>
+        🔊 <b>Hữu thanh</b> (voiced)<br><br>
+        <b>🇻🇳 So sánh:</b> Giống /i/ trong "ia, iê" tiếng Việt khi làm âm đệm.<br><br>
+        <b>Chính tả:</b><br>
+        <b>y</b> → yes, yesterday, year, young<br>
+        <b>u/ew</b> → usual, student, university, new, view, interview, beautiful, queue, Europe /ˈjʊərəp/<br><br>
+        <b>⚠️ Mỹ:</b> Không nói /j/ trong new /nuː/, student /ˈstuːdənt/<br>
+        <b>Anh:</b> new /njuː/, student /ˈstjuːdənt/
+      </p>
+    </div>
+  </div>
+
+  <table class="spell-table">
+    <tr><th colspan="3" style="background:#1a5a2a">🟢 Cách viết âm /w/</th></tr>
+    <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+    <tr><td><b>w</b></td><td><em><span class="hl-w">w</span>eek, <span class="hl-w">w</span>arm, a<span class="hl-w">w</span>ay, al<span class="hl-w">w</span>ays, t<span class="hl-w">w</span>elve, s<span class="hl-w">w</span>im</em></td><td>Phổ biến</td></tr>
+    <tr><td><b>wh</b></td><td><em><span class="hl-w">wh</span>at, <span class="hl-w">wh</span>ite, <span class="hl-w">wh</span>ich, <span class="hl-w">wh</span>ere</em></td><td>wh câu hỏi = /w/ (trừ who/whose/whole = /h/)</td></tr>
+    <tr><td><b>qu</b></td><td><em><span class="hl-w">qu</span>estion, <span class="hl-w">qu</span>iet, s<span class="hl-w">qu</span>are</em></td><td>qu = /kw/ thường</td></tr>
+    <tr><td><b>w câm</b></td><td><em>ans<span style="text-decoration:line-through">w</span>er, t<span style="text-decoration:line-through">w</span>o, <span style="text-decoration:line-through">w</span>ho, <span style="text-decoration:line-through">w</span>rite, <span style="text-decoration:line-through">w</span>rong</em></td><td>w không đọc!</td></tr>
+    <tr><th colspan="3" style="background:#5a0a9a;color:#fff">🟣 Cách viết âm /j/</th></tr>
+    <tr class="y-row"><td><b>y</b></td><td><em><span class="hl-y">y</span>es, <span class="hl-y">y</span>esterday, <span class="hl-y">y</span>ear, <span class="hl-y">y</span>oung</em></td><td>Phổ biến</td></tr>
+    <tr class="y-row"><td><b>u/ew</b></td><td><em>us<span class="hl-y">u</span>al, st<span class="hl-y">u</span>dent (Anh), n<span class="hl-y">ew</span>, vi<span class="hl-y">ew</span>, bea<span class="hl-y">u</span>tif<span class="hl-y">u</span>l, q<span class="hl-y">u</span>eue, E<span class="hl-y">u</span>rope</em></td><td>/juː/ sau n, t, d... (Anh)</td></tr>
+  </table>
+
+  <div class="note-box">
+    ⚠️ <b>/w/ câm phổ biến:</b> <em>ans<b>w</b>er, t<b>w</b>o, <b>w</b>ho, <b>wh</b>ole, <b>wr</b>ite, <b>wr</b>ong</em> — w không đọc!<br>
+    ⚠️ <b>/j/ Anh-Anh vs Mỹ:</b> <em>new</em> = /njuː/ (Anh) vs /nuː/ (Mỹ) | <em>student</em> = /ˈstjuːdənt/ (Anh) vs /ˈstuːdənt/ (Mỹ)
+  </div>
+
+  <div class="tip-box">
+    <b>💡 Mẹo nhớ:</b><br>
+    /w/ → làm môi tròn như thổi nến, rồi nói nguyên âm tiếp theo<br>
+    /j/ → lưỡi lên gần vòm, rồi nói nguyên âm tiếp theo<br>
+    <b>wet /w/</b> vs <b>yet /j/</b> &nbsp;|&nbsp; <b>wine /w/</b> vs <b>vine /v/</b>
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-green" onclick="speakText('week wet way warm well weather windy away always twelve swim what white which where question quiet square')">🔊 Nghe /w/</button>
+    <button class="btn-purple" onclick="speakText('yes yesterday year young usual student university new view interview beautiful queue Europe')">🔊 Nghe /j/</button>
+    <button class="btn-teal" onclick="speakText('swimming in warm water. twenty one words. What is the answer. quarter to twelve on Wednesday. twenty two languages. the wrong word. the whole world. question and answer. Where will you be waiting.')">🔊 Nghe câu /w/</button>
+    <button class="btn-purple" onclick="speakText('a young university student. a beautiful view. waiting in a queue for an interview. the European Union. I usually walk to work but I used the car yesterday.')">🔊 Nghe câu /j/</button>
+  </div>
+</div>
+
+<!-- WORD GRID -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng</div>
+  <div style="display:flex;gap:10px;margin-bottom:8px;font-size:0.85rem;flex-wrap:wrap">
+    <span style="background:#f0fff4;border:1.5px solid #50b870;border-radius:8px;padding:4px 10px;color:#1a5a2a;font-weight:700">🟢 /w/ week</span>
+    <span style="background:#f8f0ff;border:1.5px solid #9060d0;border-radius:8px;padding:4px 10px;color:#5a0a9a;font-weight:700">🟣 /j/ yes</span>
+  </div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-green" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> /w/ và /j/ xuất hiện:<br>
+    <em><b>w</b>ater, <b>w</b>idth, <b>w</b>eathering, <b>w</b>all, <b>w</b>ell, ground<b>w</b>ater, <b>v</b>ertical | <b>y</b>ield, <b>u</b>nit, <b>u</b>niform, comp<b>u</b>ted, val<b>u</b>e, feat<b>u</b>re</em>
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 23.1: IPA → word -->
+  <div class="ex-wrap">
+    <span class="ex-label">23.1</span>
+    <div class="ex-instruction">Đọc phiên âm và gõ từ đúng. Ví dụ: <em>/ˈjʌŋɡə/</em> → <b>younger</b></div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 23.2: dialogue fill -->
+  <div class="ex-wrap">
+    <span class="ex-label">23.2</span>
+    <div class="ex-instruction">Điền từ vào hội thoại. Chọn từ: <em>away, few, music, quarter, tunes, weather, Wednesday, weekend, west, wet, when, where, windy, yes, yesterday, yet, young</em></div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx2()">🔊 Nghe hội thoại</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 23.3: interview match -->
+  <div class="ex-wrap">
+    <span class="ex-label">23.3</span>
+    <div class="ex-instruction">Nối câu hỏi với câu trả lời đúng trong cuộc phỏng vấn. Sau đó nghe để kiểm tra.</div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx3()">🔊 Nghe phỏng vấn</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 23.4: classify /w/ or /j/ chips -->
+  <div class="ex-wrap">
+    <span class="ex-label">23.4</span>
+    <div class="ex-instruction">Phân loại: âm đầu là <span style="color:#1a5a2a;font-weight:700">/w/</span> hay <span style="color:#5a0a9a;font-weight:700">/j/</span>?</div>
+    <div class="col-grid">
+      <div class="col-box w-col"><h5>🟢 /w/ (week)</h5><div class="col-chips" id="col_w"></div></div>
+      <div class="col-box y-col"><h5>🟣 /j/ (yes)</h5><div class="col-chips" id="col_y"></div></div>
+    </div>
+    <div id="chip_pool4" style="display:flex;flex-wrap:wrap;gap:7px;padding:10px;background:#f5f5f5;border-radius:8px;margin-bottom:8px"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- 23.5: minimal pairs -->
+  <div class="ex-wrap">
+    <span class="ex-label">23.5</span>
+    <div class="ex-instruction">Nghe và chọn từ đúng (minimal pairs /w/ vs /j/, /w/ vs /v/).</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+const words=[
+  {w:"week",s:"w",ipa:"/wiːk/",vn:"tuần"},{w:"weather",s:"w",ipa:"/ˈweðə/",vn:"thời tiết"},
+  {w:"warm",s:"w",ipa:"/wɔːm/",vn:"ấm áp"},{w:"away",s:"w",ipa:"/əˈweɪ/",vn:"đi xa"},
+  {w:"always",s:"w",ipa:"/ˈɔːlweɪz/",vn:"luôn luôn"},{w:"question",s:"w",ipa:"/ˈkwestʃən/",vn:"câu hỏi"},
+  {w:"Wednesday",s:"w",ipa:"/ˈwenzdeɪ/",vn:"thứ Tư"},{w:"twelve",s:"w",ipa:"/twelv/",vn:"mười hai"},
+  {w:"yes",s:"y",ipa:"/jes/",vn:"có / vâng"},{w:"year",s:"y",ipa:"/jɪə/",vn:"năm"},
+  {w:"young",s:"y",ipa:"/jʌŋ/",vn:"trẻ"},{w:"yesterday",s:"y",ipa:"/ˈjestədeɪ/",vn:"hôm qua"},
+  {w:"beautiful",s:"y",ipa:"/ˈbjuːtɪfəl/",vn:"đẹp"},{w:"university",s:"y",ipa:"/ˌjuːnɪˈvɜːsɪti/",vn:"trường đại học"},
+  {w:"queue",s:"y",ipa:"/kjuː/",vn:"hàng chờ"},{w:"Europe",s:"y",ipa:"/ˈjʊərəp/",vn:"châu Âu"},
+  {w:"groundwater",s:"w",ipa:"/ˈɡraʊndˌwɔːtə/",vn:"nước ngầm"},{w:"yield",s:"y",ipa:"/jiːld/",vn:"chảy dẻo (địa kỹ thuật)"},
+];
+function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card ${w.s}-card" onclick="speakText('${w.w}')"><div class="word">${w.w}</div><div class="ipa2">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div></div>`).join('');}
+function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+
+const sents=[
+  {en:"Swimming in warm water.",ipa:"/ˈswɪmɪŋ ɪn wɔːm ˈwɔːtə/",vn:"Bơi lội trong nước ấm.",s:"w"},
+  {en:"Twenty-one words.",ipa:"/ˈtwenti wʌn wɜːdz/",vn:"Hai mươi mốt từ.",s:"w"},
+  {en:"What's the answer?",ipa:"/wɒts ðɪ ˈɑːnsə/",vn:"Câu trả lời là gì?",s:"w"},
+  {en:"Quarter to twelve on Wednesday.",ipa:"/ˈkwɔːtə tə twelv ɒn ˈwenzdeɪ/",vn:"Kém mười lăm mười hai vào thứ Tư.",s:"w"},
+  {en:"Where will you be waiting?",ipa:"/weə wɪl jə bi ˈweɪtɪŋ/",vn:"Bạn sẽ đợi ở đâu?",s:"w"},
+  {en:"A young university student.",ipa:"/ə jʌŋ ˌjuːnɪˈvɜːsɪti ˈstjuːdənt/",vn:"Một sinh viên đại học trẻ.",s:"y"},
+  {en:"A beautiful view.",ipa:"/ə ˈbjuːtɪfəl vjuː/",vn:"Một cảnh đẹp.",s:"y"},
+  {en:"Waiting in a queue for an interview.",ipa:"/ˈweɪtɪŋ ɪn ə kjuː fər ən ˈɪntəvjuː/",vn:"Xếp hàng chờ phỏng vấn.",s:"y"},
+  {en:"I usually walk to work but I used the car yesterday.",ipa:"/aɪ ˈjuːʒuəli wɔːk tə wɜːk bʌt aɪ juːzd ðə kɑː ˈjestədeɪ/",vn:"Thường thì tôi đi bộ đi làm nhưng hôm qua tôi dùng xe.",s:"y"},
+  {en:"The well was used to monitor groundwater levels.",ipa:"/ðə wel wəz juːzd tə ˈmɒnɪtə ˈɡraʊndˌwɔːtə ˈlevəlz/",vn:"Giếng được dùng để theo dõi mực nước ngầm.",s:"w"},
+  {en:"The yield strength of the clay was uniform throughout.",ipa:"/ðə jiːld streŋθ əv ðə kleɪ wəz ˈjuːnɪfɔːm θruːˈaʊt/",vn:"Cường độ chảy dẻo của đất sét đồng đều trong toàn bộ.",s:"y"},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li class="${s.s}-sent" onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// EX 1: IPA → word (from book 23.1)
+const ex1Book=[
+  {ipa:"/ˈjʌŋɡə/",ans:"younger",note:"ví dụ"},
+  {ipa:"/njuːz/",ans:"news"},{ipa:"/fjuː/",ans:"few"},
+  {ipa:"/jet/",ans:"yet"},{ipa:"/ˈwiːkend/",ans:"weekend"},
+  {ipa:"/ˈtjuːnz/",ans:"tunes"},{ipa:"/wen/",ans:"when"},
+  {ipa:"/ˈmjuːzɪk/",ans:"music"},{ipa:"/west/",ans:"west"},
+  {ipa:"/ˈjeləʊ/",ans:"yellow"},{ipa:"/jɪə/",ans:"year"},
+];
+function renderEx1(){
+  let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+  ex1Book.forEach((d,i)=>{
+    html+=`<div class="ipa-card" onclick="speakText('${d.ans}')">
+      <span class="ipa-text">${d.ipa}</span>
+      <input id="e1_${i}" type="text" placeholder="từ..." data-ans="${d.ans}">
+      ${d.note?`<span style="font-size:0.75rem;color:#888">(${d.note})</span>`:''}
+    </div>`;
+  });
+  html+='</div>';
+  document.getElementById('ex1Content').innerHTML=html;
+}
+function checkEx1(){let c=0;ex1Book.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);if(inp.value.trim().toLowerCase()===d.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score1',c,ex1Book.length);showToast(c===ex1Book.length?'🎉 Hoàn hảo!':'😅 Xem lại ô đỏ!');}
+function resetEx1(){ex1Book.forEach((_,i)=>{const inp=document.getElementById('e1_'+i);inp.value='';inp.className='';});document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx1(){ex1Book.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);inp.value=d.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 2: dialogue fill (from book 23.2)
+const ex2Items=[
+  {s:"1. A: ___ 's your interview? B: It's on ___, at ___ past one. A: Good luck!",blanks:["When","Wednesday","quarter"],speak:"When is your interview? It's on Wednesday at quarter past one. Good luck!"},
+  {s:"2. A: Are you going ___ for the ___? B: ___. A: I don't know ___ .",blanks:["away","weekend","yes","yet"],speak:"Are you going away for the weekend? Yes. I don't know yet."},
+  {s:"3. A: Hi! ___ are you? B: We're in ___ Wales. A: What's the ___ like? B: ___ was ___ and ___, but today's beautiful.",blanks:["where","west","weather","Yesterday","wet","windy"],speak:"Hi! Where are you? We're in west Wales. What's the weather like? Yesterday was wet and windy, but today's beautiful."},
+  {s:"4. A: Can you read ___ ? B: No, but I remember a ___ ___ from when I was ___.",blanks:["music","few","tunes","young"],speak:"Can you read music? No, but I remember a few tunes from when I was young."},
+];
+function renderEx2(){
+  let gi=0,html=`<div style="font-size:0.85rem;color:#555;margin-bottom:8px">📦 Từ: <em>away, few, music, quarter, tunes, weather, Wednesday, weekend, west, wet, when, where, windy, yes, yesterday, yet, young</em></div>`;
+  ex2Items.forEach(d=>{
+    let sent=d.s,bi=0;
+    sent=sent.replace(/___/g,()=>{const idx=gi++;const a=d.blanks[bi++];return `<input id="e2_${idx}" type="text" placeholder="..." data-ans="${a}" style="width:${Math.max(65,a.length*11)}px">`;});
+    html+=`<div class="fill-item">${sent} <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button></div>`;
+  });
+  document.getElementById('ex2Content').innerHTML=html;
+}
+function speakEx2(){speakText(ex2Items.map(d=>d.speak).join(' '));}
+function checkEx2(){const inputs=document.querySelectorAll('[id^="e2_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans.toLowerCase()){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score2',c,inputs.length);}
+function resetEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 3: interview match (from book 23.3)
+const ex3Qs=["What?","What colour?","With?","Where?","When?","What time?","Who?","What happened?"];
+const ex3As=[
+  "A wallet.",
+  "Yellow.",
+  "Twelve.",
+  "In the town square.",
+  "Yesterday.",
+  "Money, keys, cards – the usual things.",
+  "Two young men.",
+  "I was waiting in a queue. They were quick. They ran away.",
+];
+// Correct mapping: What→wallet(0), colour→Yellow(1), With→12(2), Where→town sq(3), When→Yesterday(4), time→money/keys(5), Who→two young(6), happened→waiting queue(7)
+const ex3Correct=[0,1,2,3,4,5,6,7];
+let ex3sel={};
+function renderEx3(){
+  ex3sel={};
+  let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0">';
+  html+='<div><b style="color:#1a5a2a">❓ Câu hỏi</b>';
+  ex3Qs.forEach((q,i)=>`${q}`);
+  html+='</div><div><b style="color:#5a0a9a">💬 Câu trả lời</b></div></div>';
+  // Simple dropdown approach
+  html+= ex3Qs.map((q,i)=>`
+    <div class="fill-item" style="display:flex;align-items:center;gap:10px">
+      <span style="font-weight:700;color:#1a5a2a;min-width:110px">${q}</span>
+      <select id="e3_${i}" data-ans="${ex3Correct[i]}" style="border:2px solid #a8d8b0;border-radius:6px;padding:4px 8px;font-size:0.85rem;color:#1a5a2a;background:#f0fff4;min-width:200px" onchange="ex3sel[${i}]=this.value">
+        <option value="">-- chọn --</option>
+        ${ex3As.map((a,j)=>`<option value="${j}">${a.substring(0,40)}${a.length>40?'...':''}</option>`).join('')}
+      </select>
+    </div>`).join('');
+  document.getElementById('ex3Content').innerHTML=html;
+}
+function speakEx3(){speakText("A wallet. Yellow. Twelve. In the town square. Yesterday. Money, keys, cards, the usual things. Two young men. I was waiting in a queue. They were quick. They ran away. Well, we'll see what we can do.");}
+function checkEx3(){
+  let c=0;
+  ex3Qs.forEach((_,i)=>{
+    const sel=document.getElementById('e3_'+i);
+    if(sel&&parseInt(sel.value)===ex3Correct[i]){c++;sel.style.borderColor='#27ae60';sel.style.background='#d4f5e2';}
+    else if(sel){sel.style.borderColor='#e74c3c';sel.style.background='#fde8e8';}
+  });
+  showScore('score3',c,ex3Qs.length);
+}
+function resetEx3(){ex3Qs.forEach((_,i)=>{const sel=document.getElementById('e3_'+i);if(sel){sel.value='';sel.style.borderColor='#a8d8b0';sel.style.background='#f0fff4';}});ex3sel={};document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){ex3Qs.forEach((_,i)=>{const sel=document.getElementById('e3_'+i);if(sel){sel.value=ex3Correct[i];sel.style.borderColor='#27ae60';sel.style.background='#d4f5e2';}});showToast('👁️ Đây là đáp án!');}
+
+// EX 4: classify chips
+const ex4Chips=[
+  {label:"week",cat:"w"},{label:"yes",cat:"y"},{label:"warm",cat:"w"},{label:"year",cat:"y"},
+  {label:"weather",cat:"w"},{label:"young",cat:"y"},{label:"where",cat:"w"},{label:"yesterday",cat:"y"},
+  {label:"twelve",cat:"w"},{label:"university",cat:"y"},{label:"question",cat:"w"},{label:"beautiful",cat:"y"},
+  {label:"groundwater",cat:"w"},{label:"yield",cat:"y"},{label:"Wednesday",cat:"w"},{label:"queue",cat:"y"},
+];
+let ex4state={};
+function renderEx4(){ex4state={};document.getElementById('chip_pool4').innerHTML=ex4Chips.map((c,i)=>`<span class="classify-chip" id="ch4_${i}" onclick="clickChip4(${i})">${c.label}</span>`).join('');document.getElementById('col_w').innerHTML='';document.getElementById('col_y').innerHTML='';}
+function clickChip4(i){const cur=ex4state[i];const next=cur===undefined?'w':cur==='w'?'y':undefined;ex4state[i]=next;const el=document.getElementById('ch4_'+i);el.className='classify-chip';if(next==='w'){el.classList.add('sel-w');document.getElementById('col_w').appendChild(el);}else if(next==='y'){el.classList.add('sel-y');document.getElementById('col_y').appendChild(el);}else{document.getElementById('chip_pool4').appendChild(el);}}
+function checkEx4(){let c=0;ex4Chips.forEach((ch,i)=>{if(ex4state[i]===ch.cat)c++;});showScore('score4',c,ex4Chips.length);}
+function resetEx4(){renderEx4();document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx4(){ex4Chips.forEach((ch,i)=>{ex4state[i]=ch.cat;const el=document.getElementById('ch4_'+i);el.className='classify-chip sel-'+ch.cat;if(ch.cat==='w')document.getElementById('col_w').appendChild(el);else document.getElementById('col_y').appendChild(el);});showToast('👁️ Đây là đáp án!');}
+
+// EX 5: minimal pairs
+const ex5Data=[
+  {pair:["wet","yet"],sent:"Is the paint ___ ?",ans:0,speak:"Is the paint wet?",note:"/w/ vs /j/"},
+  {pair:["wine","vine"],sent:"They grow ___ here.",ans:1,speak:"They grow vine here.",note:"/w/ vs /v/"},
+  {pair:["worse","verse"],sent:"The second ___ was beautiful.",ans:1,speak:"The second verse was beautiful.",note:"/w/ vs /v/"},
+  {pair:["west","best"],sent:"The ___ view was stunning.",ans:0,speak:"The west view was stunning.",note:"/w/ vs /b/"},
+  {pair:["year","ear"],sent:"I hurt my ___ playing sport.",ans:1,speak:"I hurt my ear playing sport.",note:"/j/ vs vowel"},
+  {pair:["yellow","fellow"],sent:"He's a good ___.",ans:1,speak:"He's a good fellow.",note:"/j/ vs /f/"},
+  {pair:["yell","well"],sent:"Shout? No, just speak ___.",ans:1,speak:"Shout? No, just speak well.",note:"/j/ vs /w/"},
+  {pair:["queue","view"],sent:"There was a long ___ outside.",ans:0,speak:"There was a long queue outside.",note:"/kj/ vs /v/"},
+];
+function renderEx5(){document.getElementById('ex5Content').innerHTML=ex5Data.map((d,i)=>`<div class="mp-item"><span style="font-style:italic;min-width:250px">"${d.sent}"</span><button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>${d.pair.map((opt,j)=>`<label><input type="radio" name="mp5_${i}" value="${j}"> <b>${opt}</b></label>`).join(' ')}<span style="font-size:0.77rem;color:#888">${d.note}</span></div>`).join('');}
+function checkEx5(){let c=0;ex5Data.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel&&parseInt(sel.value)===d.ans)c++;});showScore('score5',c,ex5Data.length);}
+function resetEx5(){ex5Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){ex5Data.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp5_${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+
+renderWords();renderSents();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(23)){c.push(23);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>

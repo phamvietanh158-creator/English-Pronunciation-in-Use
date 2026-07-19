@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 21 – That's life! – /l/</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#6a1a00 0%,#420f00 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 18px;font-size:1.4rem;font-weight:800}
+.header h1{font-size:1.35rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#6a1a00;border-bottom:2px solid #f0c8a0;padding-bottom:8px;margin-bottom:14px}
+.diag-card{background:#fff8f0;border-radius:12px;padding:16px;border:1.5px solid #c08050;margin-bottom:14px}
+.diag-card h3{font-size:1.3rem;font-weight:800;color:#6a1a00;margin-bottom:8px}
+.diag-card p{font-size:0.85rem;color:#555;line-height:1.6}
+.ipa{font-style:italic;color:#c0392b;font-weight:700}
+.hl-l{color:#6a1a00;font-weight:800}
+.spell-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.spell-table th{background:#6a1a00;color:#fff;padding:9px 12px;text-align:left}
+.spell-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.spell-table tr:nth-child(even) td{background:#fff8f0}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{background:#fff8f0;border:1.5px solid #c08050;border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:110px;text-align:center}
+.word-card:hover{background:#6a1a00;color:#fff;transform:translateY(-2px)}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card:hover .ipa2{color:#fdc}
+.word-card .vn{font-size:0.78rem;color:#6a1a00;margin-top:2px}
+.word-card:hover .vn{color:#ffe}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{background:#fff8f0;border-radius:9px;padding:10px 14px;cursor:pointer;border-left:4px solid #6a1a00;transition:background 0.2s}
+.sentence-list li:hover{background:#f5d5b0}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;color:#6a1a00;margin-top:2px}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.note-box{background:#fff8e1;border:1px dashed #f5c518;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.85rem}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+.story-box{background:#f8f4ff;border-radius:10px;padding:16px;border:1.5px solid #c0a0e0;font-size:0.9rem;line-height:2}
+.story-box .day{font-weight:700;color:#6a1a00;min-width:90px;display:inline-block}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-brown{background:#6a1a00;color:#fff}.btn-brown:hover{background:#420f00}
+.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.ex-wrap{border:1.5px solid #f0c8a0;border-radius:12px;padding:18px;margin-bottom:16px;background:#fffcf8}
+.ex-label{display:inline-block;background:#6a1a00;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
+.fill-item input{border:none;border-bottom:2px solid #f0c8a0;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:120px;color:#6a1a00;font-weight:600}
+.fill-item input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-item input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.ipa-card{background:#fff8f0;border:1.5px solid #f0c8a0;border-radius:10px;padding:10px 14px;margin:5px 0;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background 0.2s}
+.ipa-card:hover{background:#f5d5b0}
+.ipa-card .ipa-text{font-size:1.05rem;font-weight:700;color:#6a1a00;min-width:100px}
+.ipa-card input{border:none;border-bottom:2px solid #f0c8a0;background:transparent;font-size:0.95rem;padding:2px 5px;outline:none;width:130px;color:#222;font-weight:600}
+.ipa-card input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.ipa-card input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 21</span>
+    <span class="phoneme-badge">/l/</span>
+  </div>
+  <h1>That's life! – /l/</h1>
+  <div class="sub">Phụ âm bên /l/ – hữu thanh, đầu lưỡi chạm lợi trên, hơi qua hai bên</div>
+</div>
+<div id="toast" class="toast"></div>
+<div class="container">
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết phát âm</div>
+  <div class="diag-card">
+    <h3>/l/ – LEARN</h3>
+    <p>
+      <b>Vị trí:</b> Đầu lưỡi chạm vào lợi trên (phía sau răng trên).<br>
+      <b>Hơi thở:</b> Hơi thoát qua <b>hai bên</b> lưỡi. Cổ họng rung.<br>
+      🔊 <b>Hữu thanh</b> (voiced)<br><br>
+      <b>🇻🇳 So sánh:</b> Giống /l/ tiếng Việt (lá, lên, lời) nhưng trong tiếng Anh có hai dạng:<br>
+      • <b>Clear /l/</b> (sáng): trước nguyên âm — <em><b>l</b>earn, <b>l</b>eave, al<b>l</b>ow</em><br>
+      • <b>Dark /l/</b> (tối, /ɫ/): cuối từ hoặc trước phụ âm — <em>fe<b>el</b>, hel<b>p</b>, tab<b>l</b>e</em><br><br>
+      <b>Chính tả:</b> <b>l</b> (learn, leave, language, lovely, alone, feel, help, English), <b>ll</b> (tall, well, yellow)<br>
+      <b>/l/ dài ở cuối:</b> peo<b>ple</b>, sim<b>ple</b>, unc<b>le</b>, lit<b>tle</b><br>
+      <b>l câm:</b> ha<b>l</b>f, ta<b>l</b>k, cou<b>l</b>d
+    </p>
+  </div>
+
+  <table class="spell-table">
+    <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+    <tr><td><b>l</b></td><td><em><span class="hl-l">l</span>earn, <span class="hl-l">l</span>eave, <span class="hl-l">l</span>anguage, <span class="hl-l">l</span>ovely, a<span class="hl-l">l</span>one, fee<span class="hl-l">l</span>, he<span class="hl-l">l</span>p, Eng<span class="hl-l">l</span>ish</em></td><td>Phổ biến nhất</td></tr>
+    <tr><td><b>ll</b></td><td><em>ta<span class="hl-l">ll</span>, we<span class="hl-l">ll</span>, ye<span class="hl-l">ll</span>ow</em></td><td>Đọc là 1 âm /l/</td></tr>
+    <tr><td><b>-le cuối từ</b></td><td><em>peop<span class="hl-l">le</span>, simp<span class="hl-l">le</span>, unc<span class="hl-l">le</span>, litt<span class="hl-l">le</span></em></td><td>/l/ kéo dài, không có nguyên âm rõ</td></tr>
+    <tr><td><b>l câm</b></td><td><em>ha<span style="text-decoration:line-through">l</span>f, ta<span style="text-decoration:line-through">l</span>k, cou<span style="text-decoration:line-through">l</span>d, shou<span style="text-decoration:line-through">l</span>d, wou<span style="text-decoration:line-through">l</span>d</em></td><td>l không đọc!</td></tr>
+  </table>
+
+  <div class="note-box">
+    ⚠️ <b>l câm phổ biến:</b> <em>half /hɑːf/, talk /tɔːk/, walk /wɔːk/, could /kʊd/, should /ʃʊd/, would /wʊd/, calm /kɑːm/, palm /pɑːm/, salmon /ˈsæmən/</em>
+  </div>
+
+  <div class="tip-box">
+    <b>💡 Dark /l/ vs Clear /l/:</b><br>
+    Clear /l/ đầu từ: <em><b>l</b>ight, <b>l</b>ove</em> → lưỡi sạch, âm sáng<br>
+    Dark /l/ cuối từ: <em>fee<b>l</b>, rea<b>l</b></em> → lưỡi nặng hơn, có tiếng vang phía sau<br>
+    <b>light /l/</b> vs <b>right /r/</b> — /l/ đầu lưỡi chạm lợi, /r/ lưỡi không chạm gì!
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-brown" onclick="speakText('learn leave language lovely alone feel help English tall well yellow')">🔊 Nghe /l/ cơ bản</button>
+    <button class="btn-brown" onclick="speakText('people simple uncle little half talk could')">🔊 -le cuối &amp; l câm</button>
+    <button class="btn-teal" onclick="speakText('When shall we leave. Are you alone. How do you feel. Can I help you. Look at those lovely little yellow flowers. Learning a language can be difficult for some people.')">🔊 Nghe câu</button>
+  </div>
+</div>
+
+<!-- WORD GRID -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng</div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-brown" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> /l/ xuất hiện nhiều trong thuật ngữ địa kỹ thuật:<br>
+    <em><b>l</b>ayer, <b>l</b>evel, <b>l</b>oad, <b>l</b>ateral, pi<b>le</b>, samp<b>le</b>, labo<b>rat</b>ory, al<b>l</b>owab<b>le</b>, sett<b>l</b>ement, fai<b>l</b>ure, dri<b>ll</b>ing, wa<b>ll</b></em>
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 21.1: IPA → word -->
+  <div class="ex-wrap">
+    <span class="ex-label">21.1</span>
+    <div class="ex-instruction">Đọc phiên âm và gõ từ đúng. Ví dụ: <em>/fiːl/</em> → <b>feel</b></div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 21.2: picture sentences fill -->
+  <div class="ex-wrap">
+    <span class="ex-label">21.2</span>
+    <div class="ex-instruction">Điền từ đúng vào chỗ trống. Chọn từ: <em>hello, double, middle, bottle, letter, litter, table, alphabet, single, little, apple</em></div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx2()">🔊 Nghe câu</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 21.3: story fill "That's life!" -->
+  <div class="ex-wrap">
+    <span class="ex-label">21.3</span>
+    <div class="ex-instruction">Hoàn thành câu chuyện "That's life!" Điền từ đúng vào mỗi dòng.</div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx3()">🔊 Nghe câu chuyện</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 21.4: l silent or not? -->
+  <div class="ex-wrap">
+    <span class="ex-label">21.4</span>
+    <div class="ex-instruction">Từ nào có <b>l câm</b>? Click <b>✓ Đọc</b> hoặc <b>✗ Câm</b> cho mỗi từ.</div>
+    <div id="ex4Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- 21.5: minimal pairs -->
+  <div class="ex-wrap">
+    <span class="ex-label">21.5</span>
+    <div class="ex-instruction">Nghe và chọn từ đúng (minimal pairs /l/ vs /r/, /l/ vs /n/).</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+const words=[
+  {w:"learn",ipa:"/lɜːn/",vn:"học"},{w:"leave",ipa:"/liːv/",vn:"rời đi"},
+  {w:"language",ipa:"/ˈlæŋɡwɪdʒ/",vn:"ngôn ngữ"},{w:"lovely",ipa:"/ˈlʌvli/",vn:"tuyệt đẹp"},
+  {w:"alone",ipa:"/əˈləʊn/",vn:"một mình"},{w:"feel",ipa:"/fiːl/",vn:"cảm thấy"},
+  {w:"tall",ipa:"/tɔːl/",vn:"cao"},{w:"yellow",ipa:"/ˈjeləʊ/",vn:"màu vàng"},
+  {w:"people",ipa:"/ˈpiːpəl/",vn:"mọi người"},{w:"little",ipa:"/ˈlɪtəl/",vn:"nhỏ"},
+  {w:"uncle",ipa:"/ˈʌŋkəl/",vn:"chú/bác"},{w:"simple",ipa:"/ˈsɪmpəl/",vn:"đơn giản"},
+  {w:"half",ipa:"/hɑːf/",vn:"một nửa (l câm!)"},{w:"talk",ipa:"/tɔːk/",vn:"nói chuyện (l câm!)"},
+  {w:"layer",ipa:"/ˈleɪə/",vn:"lớp đất"},{w:"allowable",ipa:"/əˈlaʊəbəl/",vn:"cho phép"},
+  {w:"pile",ipa:"/paɪl/",vn:"cọc móng"},{w:"drilling",ipa:"/ˈdrɪlɪŋ/",vn:"khoan"},
+];
+function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card" onclick="speakText('${w.w}')"><div class="word">${w.w}</div><div class="ipa2">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div></div>`).join('');}
+function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+
+const sents=[
+  {en:"When shall we leave?",ipa:"/wen ʃæl wi liːv/",vn:"Khi nào chúng ta sẽ đi?"},
+  {en:"Are you alone?",ipa:"/ə jə əˈləʊn/",vn:"Bạn có một mình không?"},
+  {en:"How do you feel?",ipa:"/haʊ də jə fiːl/",vn:"Bạn cảm thấy thế nào?"},
+  {en:"Can I help you?",ipa:"/kən aɪ help jə/",vn:"Tôi có thể giúp bạn không?"},
+  {en:"Look at those lovely little yellow flowers.",ipa:"/lʊk ət ðəʊz ˈlʌvli ˈlɪtəl ˈjeləʊ ˈflaʊəz/",vn:"Nhìn những bông hoa vàng nhỏ xinh đó kìa."},
+  {en:"Learning a language can be difficult for some people.",ipa:"/ˈlɜːnɪŋ ə ˈlæŋɡwɪdʒ kən bi ˈdɪfɪkəlt fə sʌm ˈpiːpəl/",vn:"Học một ngôn ngữ có thể khó khăn với một số người."},
+  {en:"The allowable settlement for the pile foundation is 25 millimetres.",ipa:"/ðɪ əˈlaʊəbəl ˈsetlmənt fə ðə paɪl faʊnˈdeɪʃən ɪz ˈtwenti faɪv ˈmɪlɪˌmiːtəz/",vn:"Độ lún cho phép của móng cọc là 25 mm."},
+  {en:"Lateral load on the wall was calculated from the soil layer.",ipa:"/ˈlætərəl ləʊd ɒn ðə wɔːl wəz ˈkælkjuleɪtɪd frəm ðə sɔɪl ˈleɪə/",vn:"Tải trọng ngang lên tường được tính từ lớp đất."},
+  {en:"Drilling logs showed clay layers below the gravel.",ipa:"/ˈdrɪlɪŋ lɒɡz ʃəʊd kleɪ ˈleɪəz bɪˈləʊ ðə ˈɡrævəl/",vn:"Nhật ký khoan cho thấy các lớp sét bên dưới sỏi."},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// EX 1: IPA → word (from book 21.1)
+const ex1Book=[
+  {ipa:"/fiːl/",ans:"feel",note:"ví dụ"},
+  {ipa:"/leit/",ans:"late"},{ipa:"/lɑːt/",ans:"last"},
+  {ipa:"/lɔːdʒ/",ans:"large"},{ipa:"/kəʊld/",ans:"cold"},
+  {ipa:"/teɪbl/",ans:"table"},{ipa:"/æpl/",ans:"apple"},
+  {ipa:"/ˈlɑːnɪŋ/",ans:"learning"},{ipa:"/bɪˈləʊ/",ans:"below"},
+];
+// From actual book
+const ex1Fixed=[
+  {ipa:"/fiːl/",ans:"feel",note:"ví dụ"},
+  {ipa:"/leit/",ans:"late"},{ipa:"/lɑːt/",ans:"last"},
+  {ipa:"/lɔːdʒ/",ans:"large"},{ipa:"/kəʊld/",ans:"cold"},
+  {ipa:"/teɪbl/",ans:"table"},{ipa:"/æpl/",ans:"apple"},
+  {ipa:"/ˈlɑːnɪŋ/",ans:"learning"},{ipa:"/bɪˈləʊ/",ans:"below"},
+];
+function renderEx1(){
+  let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+  ex1Fixed.forEach((d,i)=>{
+    html+=`<div class="ipa-card" onclick="speakText('${d.ans}')">
+      <span class="ipa-text">${d.ipa}</span>
+      <input id="e1_${i}" type="text" placeholder="từ..." data-ans="${d.ans}">
+      ${d.note?`<span style="font-size:0.75rem;color:#888">(${d.note})</span>`:''}
+    </div>`;
+  });
+  html+='</div>';
+  document.getElementById('ex1Content').innerHTML=html;
+}
+function checkEx1(){let c=0;ex1Fixed.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);if(inp.value.trim().toLowerCase()===d.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score1',c,ex1Fixed.length);showToast(c===ex1Fixed.length?'🎉 Hoàn hảo!':'😅 Xem lại ô đỏ!');}
+function resetEx1(){ex1Fixed.forEach((_,i)=>{const inp=document.getElementById('e1_'+i);inp.value='';inp.className='';});document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx1(){ex1Fixed.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);inp.value=d.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 2: sentences fill (from book 21.2)
+const ex2Items=[
+  {s:"1. Did you say the ___ box or the ___ bin?",blanks:["letter","litter"],speak:"Did you say the letter box or the litter bin?"},
+  {s:"2. ___. My name's L. I'm the twelfth ___ of the ___.",blanks:["Hello","letter","alphabet"],speak:"Hello. My name's L. I'm the twelfth letter of the alphabet."},
+  {s:"3. There's an ___ in the ___ of the ___.",blanks:["apple","middle","table"],speak:"There's an apple in the middle of the table."},
+  {s:"4. Would you like a ___ room or a ___ ?",blanks:["double","single"],speak:"Would you like a double room or a single?"},
+  {s:"5. What's in that little ___?",blanks:["bottle"],speak:"What's in that little bottle?"},
+];
+function renderEx2(){
+  let gi=0,html=`<div style="font-size:0.85rem;color:#555;margin-bottom:8px">📦 Từ cần dùng: <em>hello, double, middle, bottle, letter, litter, table, alphabet, single, little, apple</em></div>`;
+  ex2Items.forEach(d=>{
+    let sent=d.s,bi=0;
+    sent=sent.replace(/___/g,()=>{
+      const idx=gi++;
+      const a=d.blanks[bi++];
+      return `<input id="e2_${idx}" type="text" placeholder="..." data-ans="${a}" style="width:${Math.max(70,a.length*12)}px">`;
+    });
+    html+=`<div class="fill-item">${sent} <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button></div>`;
+  });
+  document.getElementById('ex2Content').innerHTML=html;
+}
+function speakEx2(){speakText(ex2Items.map(d=>d.speak).join(' '));}
+function checkEx2(){const inputs=document.querySelectorAll('[id^="e2_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans.toLowerCase()){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score2',c,inputs.length);}
+function resetEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 3: story "That's life!" (from book 21.3)
+const ex3Story=[
+  {day:"Monday",pre:"My bus was",blank:"late",after:".",speak:"Monday. My bus was late."},
+  {day:"Tuesday",pre:"I",blank:"lost",after:" my wallet.",speak:"Tuesday. I lost my wallet."},
+  {day:"Wednesday",pre:"I",blank:"fell",after:" off a ladder.",speak:"Wednesday. I fell off a ladder."},
+  {day:"Thursday",pre:"I caught a",blank:"cold",after:".",speak:"Thursday. I caught a cold."},
+  {day:"Friday",pre:"I",blank:"lost",after2:true,blank2:"my job",after:" at work.",speak:"Friday. I lost my job at work."},
+  {day:"That's",pre:"",blank:"life",after:"!",speak:"That's life!"},
+];
+function renderEx3(){
+  let gi=0;
+  let html='<div class="story-box">';
+  ex3Story.forEach(d=>{
+    const idx=gi++;
+    let line=`<span class="day">${d.day}</span> ${d.pre} <input id="e3_${idx}" type="text" placeholder="..." data-ans="${d.blank}" style="width:${Math.max(70,d.blank.length*13)}px"> ${d.after}`;
+    if(d.blank2){const idx2=gi++;line=`<span class="day">${d.day}</span> ${d.pre} <input id="e3_${idx}" type="text" placeholder="..." data-ans="${d.blank}" style="width:60px"> <input id="e3_${idx2}" type="text" placeholder="..." data-ans="${d.blank2}" style="width:90px"> ${d.after}`;}
+    html+=`<div style="margin:4px 0">${line}</div>`;
+  });
+  html+='</div>';
+  document.getElementById('ex3Content').innerHTML=html;
+}
+function speakEx3(){speakText(ex3Story.map(d=>d.speak).join(' '));}
+function checkEx3(){const inputs=document.querySelectorAll('[id^="e3_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans.toLowerCase()){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score3',c,inputs.length);}
+function resetEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 4: l silent or not?
+const ex4Words=[
+  {w:"half",ans:"silent",ipa:"/hɑːf/"},{w:"tall",ans:"sound",ipa:"/tɔːl/"},
+  {w:"could",ans:"silent",ipa:"/kʊd/"},{w:"well",ans:"sound",ipa:"/wel/"},
+  {w:"talk",ans:"silent",ipa:"/tɔːk/"},{w:"little",ans:"sound",ipa:"/ˈlɪtəl/"},
+  {w:"calm",ans:"silent",ipa:"/kɑːm/"},{w:"yellow",ans:"sound",ipa:"/ˈjeləʊ/"},
+  {w:"would",ans:"silent",ipa:"/wʊd/"},{w:"alone",ans:"sound",ipa:"/əˈləʊn/"},
+  {w:"people",ans:"sound",ipa:"/ˈpiːpəl/"},{w:"walk",ans:"silent",ipa:"/wɔːk/"},
+];
+let ex4sel={};
+function renderEx4(){
+  ex4sel={};
+  document.getElementById('ex4Content').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">` +
+  ex4Words.map((d,i)=>`
+    <div style="display:flex;align-items:center;gap:8px;padding:6px;background:#f5f5f5;border-radius:8px">
+      <span style="font-weight:700;min-width:70px;cursor:pointer" onclick="speakText('${d.w}')">${d.w}</span>
+      <span style="font-size:0.78rem;color:#888;min-width:80px">${d.ipa}</span>
+      <span id="ex4_${i}_s" style="padding:3px 9px;border-radius:10px;border:1.5px solid #ccc;cursor:pointer;font-size:0.82rem;font-weight:600;background:#f5f5f5;transition:all 0.15s" onclick="selectL(${i},'sound')">✓ Đọc</span>
+      <span id="ex4_${i}_x" style="padding:3px 9px;border-radius:10px;border:1.5px solid #ccc;cursor:pointer;font-size:0.82rem;font-weight:600;background:#f5f5f5;transition:all 0.15s" onclick="selectL(${i},'silent')">✗ Câm</span>
+    </div>`).join('') + '</div>';
+}
+function selectL(i,val){
+  ['s','x'].forEach(v=>{const el=document.getElementById(`ex4_${i}_${v}`);if(el){el.style.background='#f5f5f5';el.style.color='#222';el.style.borderColor='#ccc';}});
+  const key=val==='sound'?'s':'x';
+  const el=document.getElementById(`ex4_${i}_${key}`);
+  if(el){el.style.background=val==='sound'?'#6a1a00':'#e74c3c';el.style.color='#fff';el.style.borderColor=val==='sound'?'#6a1a00':'#e74c3c';}
+  ex4sel[i]=val;
+}
+function checkEx4(){
+  let c=0;
+  ex4Words.forEach((d,i)=>{
+    ['s','x'].forEach(v=>{const el=document.getElementById(`ex4_${i}_${v}`);if(el){el.style.background='#f5f5f5';el.style.color='#222';el.style.borderColor='#ccc';}});
+    if(ex4sel[i]===d.ans){c++;const key=d.ans==='sound'?'s':'x';const el=document.getElementById(`ex4_${i}_${key}`);if(el){el.style.background='#27ae60';el.style.color='#fff';}}
+    else{
+      if(ex4sel[i]){const wk=ex4sel[i]==='sound'?'s':'x';const wel=document.getElementById(`ex4_${i}_${wk}`);if(wel){wel.style.background='#e74c3c';wel.style.color='#fff';}}
+      const ck=d.ans==='sound'?'s':'x';const cel=document.getElementById(`ex4_${i}_${ck}`);if(cel)cel.style.outline='2px solid #27ae60';
+    }
+  });
+  showScore('score4',c,ex4Words.length);
+}
+function resetEx4(){ex4sel={};ex4Words.forEach((_,i)=>{['s','x'].forEach(v=>{const el=document.getElementById(`ex4_${i}_${v}`);if(el){el.style.background='#f5f5f5';el.style.color='#222';el.style.borderColor='#ccc';el.style.outline='none';}});});document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx4(){ex4Words.forEach((d,i)=>{selectL(i,d.ans);});showToast('👁️ Đây là đáp án!');}
+
+// EX 5: minimal pairs (from book 21.4)
+const ex5Data=[
+  {pair:["light","right"],sent:"Turn ___ at the traffic lights.",ans:1,speak:"Turn right at the traffic lights.",note:"/l/ vs /r/"},
+  {pair:["collect","correct"],sent:"Is that ___?",ans:1,speak:"Is that correct?",note:"/l/ vs /r/"},
+  {pair:["lot","rot"],sent:"Don't let the fruit ___.",ans:1,speak:"Don't let the fruit rot.",note:"/l/ vs /r/"},
+  {pair:["lane","rain"],sent:"It started to ___ heavily.",ans:1,speak:"It started to rain heavily.",note:"/l/ vs /r/"},
+  {pair:["long","wrong"],sent:"Am I ___?",ans:1,speak:"Am I wrong?",note:"/l/ vs /r/"},
+  {pair:["fall","far"],sent:"How ___ is it?",ans:1,speak:"How far is it?",note:"/l/ vs /r/"},
+  {pair:["pile","pine"],sent:"A ___ foundation was designed.",ans:0,speak:"A pile foundation was designed.",note:"/l/ vs /n/"},
+  {pair:["level","lever"],sent:"Adjust the ___ carefully.",ans:1,speak:"Adjust the lever carefully.",note:"/l/ vs /v/"},
+];
+function renderEx5(){document.getElementById('ex5Content').innerHTML=ex5Data.map((d,i)=>`<div class="mp-item"><span style="font-style:italic;min-width:240px">"${d.sent}"</span><button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>${d.pair.map((opt,j)=>`<label><input type="radio" name="mp5_${i}" value="${j}"> <b>${opt}</b></label>`).join(' ')}<span style="font-size:0.77rem;color:#888">${d.note}</span></div>`).join('');}
+function checkEx5(){let c=0;ex5Data.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel&&parseInt(sel.value)===d.ans)c++;});showScore('score5',c,ex5Data.length);}
+function resetEx5(){ex5Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){ex5Data.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp5_${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+
+renderWords();renderSents();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(21)){c.push(21);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>

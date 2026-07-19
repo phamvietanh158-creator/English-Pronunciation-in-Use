@@ -1,1072 +1,447 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài 20 - How many hours? (/h/)</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f4f8;
-            color: #1a2a3a;
-            padding: 20px;
-        }
-        .container {
-            max-width: 820px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 28px 32px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-        }
-        .header {
-            border-bottom: 3px solid #1a2a6c;
-            padding-bottom: 20px;
-            margin-bottom: 28px;
-        }
-        .top-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            color: #5a6a7a;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        .lesson-number {
-            font-weight: 700;
-            color: #1a2a6c;
-            background: #e8edf5;
-            padding: 2px 14px;
-            border-radius: 30px;
-            font-size: 13px;
-        }
-        .header h1 {
-            font-size: 28px;
-            margin: 8px 0 4px;
-            color: #0b1a3a;
-        }
-        .header h1 span {
-            background: linear-gradient(135deg, #1a2a6c, #2d4373);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .sub {
-            font-size: 17px;
-            color: #3a4a6a;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-        }
-        .nav-link {
-            display: inline-block;
-            margin-top: 10px;
-            color: #1a2a6c;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            border-bottom: 2px solid transparent;
-            transition: border-color 0.2s;
-        }
-        .nav-link:hover {
-            border-bottom-color: #1a2a6c;
-        }
-        .section {
-            background: #f8faff;
-            border-radius: 18px;
-            padding: 22px 24px;
-            margin-bottom: 28px;
-            border: 1px solid #e6edf6;
-            transition: box-shadow 0.2s;
-        }
-        .section:hover {
-            box-shadow: 0 4px 16px rgba(26,42,108,0.06);
-        }
-        .section-title {
-            font-size: 19px;
-            font-weight: 700;
-            color: #0b1a3a;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-        .badge {
-            font-size: 12px;
-            font-weight: 600;
-            background: #1a2a6c;
-            color: #fff;
-            padding: 2px 14px;
-            border-radius: 30px;
-            letter-spacing: 0.3px;
-        }
-        .badge.tip {
-            background: #e67e22;
-        }
-        .badge.geo {
-            background: #1abc9c;
-        }
-        .badge.silent {
-            background: #8e44ad;
-        }
-        .ipa-text {
-            font-size: 26px;
-            font-family: 'Times New Roman', serif;
-            color: #1a2a6c;
-            background: #eef3fc;
-            padding: 6px 16px;
-            border-radius: 12px;
-            display: inline-block;
-            margin: 6px 0 10px;
-            letter-spacing: 1px;
-        }
-        .vi-text {
-            color: #2a4a6a;
-            font-size: 16px;
-            margin: 4px 0 10px;
-            padding-left: 14px;
-            border-left: 3px solid #1a2a6c;
-        }
-        .btn {
-            border: none;
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: #e8edf5;
-            color: #1a2a6c;
-            margin: 4px 6px 4px 0;
-        }
-        .btn:hover {
-            transform: scale(1.02);
-            filter: brightness(0.96);
-        }
-        .btn-purple {
-            background: #1a2a6c;
-            color: #fff;
-        }
-        .btn-purple:hover {
-            background: #2d4373;
-        }
-        .btn-success {
-            background: #27ae60;
-            color: #fff;
-        }
-        .btn-success:hover {
-            background: #2ecc71;
-        }
-        .btn-outline {
-            background: transparent;
-            border: 2px solid #1a2a6c;
-            color: #1a2a6c;
-        }
-        .btn-outline:hover {
-            background: #1a2a6c;
-            color: #fff;
-        }
-        .btn-orange {
-            background: #e67e22;
-            color: #fff;
-        }
-        .btn-orange:hover {
-            background: #f39c12;
-        }
-        .btn-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 8px;
-        }
-        .word-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            margin: 12px 0;
-        }
-        .word-card {
-            background: #fff;
-            border: 1px solid #dfe8f2;
-            border-radius: 12px;
-            padding: 10px 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.15s;
-        }
-        .word-card:hover {
-            border-color: #1a2a6c;
-            background: #f5f9ff;
-        }
-        .word-card .word {
-            font-weight: 600;
-            font-size: 17px;
-        }
-        .word-card .ipa {
-            color: #3a5a7a;
-            font-family: 'Times New Roman', serif;
-            font-size: 18px;
-        }
-        .word-card .btn-sm {
-            background: none;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            padding: 0 4px;
-            color: #1a2a6c;
-        }
-        .sentence-item {
-            background: #fff;
-            border-radius: 12px;
-            padding: 14px 18px;
-            margin-bottom: 10px;
-            border: 1px solid #e6edf6;
-        }
-        .sentence-item .eng {
-            font-size: 18px;
-            font-weight: 500;
-        }
-        .sentence-item .ipa {
-            font-size: 20px;
-            font-family: 'Times New Roman', serif;
-            color: #1a2a6c;
-            margin: 4px 0;
-        }
-        .sentence-item .meaning {
-            color: #3a5a6a;
-            font-size: 15px;
-        }
-        .sentence-item .highlight {
-            background: #f1c40f;
-            padding: 0 4px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-        .tip-box {
-            background: #fef9e7;
-            border-radius: 14px;
-            padding: 18px 22px;
-            border-left: 5px solid #f39c12;
-        }
-        .tip-title {
-            font-weight: 700;
-            font-size: 18px;
-            color: #b9770e;
-            margin-bottom: 8px;
-        }
-        .tip-content {
-            font-size: 15px;
-            line-height: 1.7;
-            color: #2a3a4a;
-        }
-        .tip-content li {
-            margin-bottom: 4px;
-        }
-        .checklist {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px 20px;
-            margin: 10px 0;
-        }
-        .checklist li {
-            list-style: none;
-            padding: 4px 0;
-            font-size: 15px;
-        }
-        .checklist li::before {
-            content: "☐ ";
-            color: #1a2a6c;
-            font-weight: 700;
-        }
-        .checklist li.done::before {
-            content: "✅ ";
-        }
-        .exercise-box {
-            background: #fff;
-            border-radius: 14px;
-            padding: 18px 20px;
-            margin: 12px 0;
-            border: 1px solid #dfe8f2;
-        }
-        .exercise-box .ex-title {
-            font-weight: 700;
-            font-size: 16px;
-            color: #1a2a6c;
-            margin-bottom: 10px;
-        }
-        .exercise-box .ex-row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 8px 16px;
-            padding: 6px 0;
-        }
-        .exercise-box .ex-row label {
-            font-size: 15px;
-            min-width: 30px;
-            font-weight: 600;
-        }
-        .exercise-box input[type="text"] {
-            border: 1px solid #c0cbd8;
-            border-radius: 8px;
-            padding: 6px 12px;
-            font-size: 15px;
-            width: 140px;
-            background: #fafcff;
-        }
-        .exercise-box input[type="text"]:focus {
-            outline: none;
-            border-color: #1a2a6c;
-            box-shadow: 0 0 0 3px rgba(26,42,108,0.12);
-        }
-        .exercise-box input[type="text"].correct {
-            border-color: #27ae60;
-        }
-        .exercise-box input[type="text"].wrong {
-            border-color: #e74c3c;
-        }
-        .exercise-box .answer {
-            color: #27ae60;
-            font-weight: 600;
-            font-size: 15px;
-            margin-left: 6px;
-            display: none;
-        }
-        .exercise-box .answer.show {
-            display: inline;
-        }
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1a2a6c;
-            color: #fff;
-            padding: 12px 32px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 15px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-            z-index: 999;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-        }
-        .toast.show {
-            opacity: 1;
-        }
-        .divider {
-            border: none;
-            border-top: 2px dashed #d0dce8;
-            margin: 18px 0;
-        }
-        .flex-between {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .silent-box {
-            background: #f4f0ff;
-            border-radius: 12px;
-            padding: 14px 18px;
-            border: 1px solid #d5c8f0;
-            margin: 8px 0;
-        }
-        .silent-box .word {
-            font-weight: 600;
-            color: #8e44ad;
-            font-size: 18px;
-        }
-        @media (max-width: 600px) {
-            .container { padding: 16px; }
-            .header h1 { font-size: 22px; }
-            .word-grid { grid-template-columns: 1fr 1fr; }
-            .checklist { grid-template-columns: 1fr; }
-            .exercise-box input[type="text"] { width: 100%; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 20 – How many hours? – /h/</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#0a5a4a 0%,#063830 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 18px;font-size:1.4rem;font-weight:800}
+.header h1{font-size:1.35rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#0a5a4a;border-bottom:2px solid #a0d8cc;padding-bottom:8px;margin-bottom:14px}
+.diag-card{background:#f0fff8;border-radius:12px;padding:16px;border:1.5px solid #60c0a0;margin-bottom:14px}
+.diag-card h3{font-size:1.3rem;font-weight:800;color:#0a5a4a;margin-bottom:8px}
+.diag-card p{font-size:0.85rem;color:#555;line-height:1.6}
+.ipa{font-style:italic;color:#c0392b;font-weight:700}
+.hl-h{color:#0a5a4a;font-weight:800}
+.spell-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.spell-table th{background:#0a5a4a;color:#fff;padding:9px 12px;text-align:left}
+.spell-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.spell-table tr:nth-child(even) td{background:#f0fff8}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{background:#f0fff8;border:1.5px solid #60c0a0;border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:110px;text-align:center}
+.word-card:hover{background:#0a5a4a;color:#fff;transform:translateY(-2px)}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card:hover .ipa2{color:#aef}
+.word-card .vn{font-size:0.78rem;color:#0a5a4a;margin-top:2px}
+.word-card:hover .vn{color:#ffe}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{background:#f0fff8;border-radius:9px;padding:10px 14px;cursor:pointer;border-left:4px solid #0a5a4a;transition:background 0.2s}
+.sentence-list li:hover{background:#c8f0e8}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;color:#0a5a4a;margin-top:2px}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.note-box{background:#fff8e1;border:1px dashed #f5c518;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.85rem}
+.info-box{background:#e8f4ff;border-left:4px solid #2980b9;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.info-box b{color:#1a5276}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-teal{background:#0a5a4a;color:#fff}.btn-teal:hover{background:#063830}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-cyan{background:#00897b;color:#fff}.btn-cyan:hover{background:#00695c}
+.ex-wrap{border:1.5px solid #a0d8cc;border-radius:12px;padding:18px;margin-bottom:16px;background:#f5fffc}
+.ex-label{display:inline-block;background:#0a5a4a;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
+.fill-item input{border:none;border-bottom:2px solid #a0d8cc;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:120px;color:#0a5a4a;font-weight:600}
+.fill-item input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-item input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.ipa-card{background:#f0fff8;border:1.5px solid #a0d8cc;border-radius:10px;padding:10px 14px;margin:5px 0;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background 0.2s}
+.ipa-card:hover{background:#c8f0e8}
+.ipa-card .ipa-text{font-size:1.05rem;font-weight:700;color:#0a5a4a;min-width:90px}
+.ipa-card input{border:none;border-bottom:2px solid #a0d8cc;background:transparent;font-size:0.95rem;padding:2px 5px;outline:none;width:130px;color:#222;font-weight:600}
+.ipa-card input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.ipa-card input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+/* picture grid */
+.pic-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0}
+.pic-card{background:#f5f5f5;border-radius:10px;padding:10px;border:1.5px solid #ddd;text-align:center}
+.pic-card .emoji{font-size:1.8rem;margin-bottom:4px}
+.pic-card .ctx{font-size:0.78rem;color:#888;margin-bottom:5px;line-height:1.3}
+.pic-card input{border:none;border-bottom:2px solid #a0d8cc;background:transparent;font-size:0.85rem;padding:2px 3px;outline:none;width:100%;text-align:center;color:#0a5a4a;font-weight:600}
+.pic-card input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.pic-card input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
 </head>
 <body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 20</span>
+    <span class="phoneme-badge">/h/</span>
+  </div>
+  <h1>How many hours? – /h/</h1>
+  <div class="sub">Phụ âm thanh hầu /h/ – vô thanh, hơi thoát qua khe hở phía sau</div>
+</div>
+<div id="toast" class="toast"></div>
 <div class="container">
 
-    <!-- ===== HEADER ===== -->
-    <div class="header">
-        <div class="top-row">
-            <span class="lesson-number">📚 Bài 20</span>
-            <span>Section A · Phụ âm</span>
-        </div>
-        <h1>🎯 <span>How many hours?</span></h1>
-        <div class="sub">Âm /h/ — hơi thở nhẹ, không rung thanh quản</div>
-        <a href="../index.html" class="nav-link">← Về trang chủ</a>
-    </div>
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết phát âm</div>
+  <div class="diag-card">
+    <h3>/h/ – HAT</h3>
+    <p>
+      <b>Vị trí:</b> Hơi thoát qua một khe hở nhỏ phía sau miệng (thanh hầu).<br>
+      <b>Hơi thở:</b> Hơi thở nhẹ — <b>không có rung</b> cổ họng.<br>
+      🔇 <b>Vô thanh</b> (voiceless)<br><br>
+      <b>🇻🇳 So sánh:</b> Giống âm /h/ trong tiếng Việt (hà, hoa) nhưng nhẹ hơn, không có âm thanh phụ.<br><br>
+      <b>Chính tả chính:</b> <b>h</b> → hat, here, help, hot, how, behind<br>
+      <b>Chính tả khác:</b> <b>wh</b> → who, whose, whole (chỉ 3 từ này!)
+    </p>
+  </div>
 
-    <!-- ===== PHẦN A: LÝ THUYẾT ===== -->
-    <div class="section">
-        <div class="section-title">
-            📖 A. Cách phát âm /h/
-            <span class="badge">Lý thuyết</span>
-        </div>
-        <p><strong>Khi nói /h/, luồng khí đi qua khe hở nhỏ ở phía sau miệng.</strong> Không có rung thanh quản. Âm này giống như tiếng thở nhẹ.</p>
-        <div class="ipa-text">/h/</div>
-        <div class="vi-text">🇻🇳 Âm /h/ — hơi thở ra nhẹ, không rung dây thanh</div>
-        <div class="btn-group">
-            <button class="btn btn-purple" onclick="speakText('hhhhhhhh', 0.7)">🔊 Nghe /h/</button>
-            <button class="btn btn-success" onclick="speakText('hhhhhhhh', 0.4)">🐢 Chậm</button>
-            <button class="btn btn-orange" onclick="speakText('hello, how are you?', 0.75)">💬 Ví dụ</button>
-        </div>
-    </div>
+  <table class="spell-table">
+    <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+    <tr><td><b>h</b></td><td><em><span class="hl-h">h</span>at, <span class="hl-h">h</span>ere, <span class="hl-h">h</span>elp, <span class="hl-h">h</span>ot, <span class="hl-h">h</span>ow, be<span class="hl-h">h</span>ind</em></td><td>Phổ biến nhất</td></tr>
+    <tr><td><b>wh</b></td><td><em><span class="hl-h">wh</span>o, <span class="hl-h">wh</span>ose, <span class="hl-h">wh</span>ole</em></td><td>Chỉ 3 từ này! Các từ wh khác = /w/</td></tr>
+    <tr><td><b>h câm</b></td><td><em><span style="text-decoration:line-through">h</span>our, <span style="text-decoration:line-through">h</span>onest</em></td><td>h không đọc ở đầu 1 số từ</td></tr>
+    <tr><td><b>h yếu</b></td><td><em>is <span class="hl-h">h</span>e there? <span class="hl-h">h</span>ave you seen him?</em></td><td>h/him/her/his/have/had/has thường mất /h/ trong câu nói nhanh</td></tr>
+  </table>
 
-    <!-- ===== PHẦN B: TỪ VỰNG /h/ ===== -->
-    <div class="section">
-        <div class="section-title">
-            📦 Vocabulary — /h/
-            <span class="badge">Từ vựng</span>
-        </div>
-        <p><strong>/h/</strong> thường viết là <strong>h</strong>, nhưng có một số từ viết <strong>w</strong>.</p>
-        <div class="word-grid" id="vocabH"></div>
-        <div class="btn-group">
-            <button class="btn btn-purple" onclick="speakAll('vocabH')">🔊 Nghe tất cả /h/</button>
-        </div>
-    </div>
+  <div class="note-box">
+    ⚠️ <b>h câm (silent h):</b> <em><b>h</b>our /aʊə/</em>, <em><b>h</b>onest /ˈɒnɪst/</em> — h không đọc!<br>
+    ⚠️ <b>wh = /h/ chỉ trong:</b> <em>who, whose, whole</em> (các từ wh còn lại như <em>what, where, when, which</em> = /w/)
+  </div>
 
-    <!-- ===== PHẦN C: CHỮ H CÂM ===== -->
-    <div class="section">
-        <div class="section-title">
-            🔇 C. Chữ h câm (silent h)
-            <span class="badge silent">🔇 Quan trọng</span>
-        </div>
-        <div class="silent-box">
-            <p><strong>Một số từ bắt đầu bằng <span class="word">h</span> câm:</strong></p>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin:10px 0;">
-                <span style="background:#e8edf5;padding:4px 16px;border-radius:30px;font-size:18px;font-weight:600;">hour /aʊə/</span>
-                <span style="background:#e8edf5;padding:4px 16px;border-radius:30px;font-size:18px;font-weight:600;">honest /ˈɒnɪst/</span>
-                <span style="background:#e8edf5;padding:4px 16px;border-radius:30px;font-size:18px;font-weight:600;">honour /ˈɒnə/</span>
-                <span style="background:#e8edf5;padding:4px 16px;border-radius:30px;font-size:18px;font-weight:600;">heir /eə/</span>
-            </div>
-            <div class="btn-group">
-                <button class="btn btn-purple" onclick="speakText('hour honest honour heir', 0.7)">🔊 Nghe từ h câm</button>
-            </div>
-        </div>
-        <div style="margin-top:12px;">
-            <p><strong>📌 Lưu ý quan trọng:</strong> Trong giao tiếp nhanh, <strong>/h/</strong> ở đầu các từ <em>he, him, her, has, have, had</em> thường bị lược bỏ.</p>
-            <div id="reducedH"></div>
-        </div>
-    </div>
+  <div class="info-box">
+    <b>📢 Quan trọng khi nghe:</b> Trong câu bình thường (hội thoại), /h/ ở đầu các từ chức năng thường <b>mất đi</b>:<br>
+    <em>"Is <b>(h)</b>e there?"</em> → /ɪz i ðeə/<br>
+    <em>"Have you seen <b>(h)</b>im?"</em> → /həv jə siːn ɪm/<br>
+    <em>"<b>(H)</b>as he got time?"</em> → /əz i ɡɒt taɪm/<br>
+    <em>"Do you know <b>(h)</b>er?"</em> → /də jə nəʊ ə/<br>
+    <em>"He went to visit <b>(h)</b>is family."</em> → /hi went tə ˈvɪzɪt ɪz ˈfæməli/
+  </div>
 
-    <!-- ===== PHẦN D: CÂU GIAO TIẾP ===== -->
-    <div class="section">
-        <div class="section-title">
-            💬 D. Câu giao tiếp hàng ngày
-            <span class="badge">🗣️ Speaking</span>
-        </div>
-        <div id="dailySentences"></div>
-    </div>
+  <div class="tip-box">
+    <b>💡 Mẹo nhớ:</b><br>
+    • <b>h thường đọc</b> khi đứng đầu câu hoặc sau dấu phẩy/dừng.<br>
+    • <b>h hay mất</b> khi đứng giữa câu trong từ chức năng (he, him, her, his, have, had, has).<br>
+    • Thử đặt bàn tay 5cm trước miệng khi nói /h/ → cảm nhận hơi ấm thoát ra.
+  </div>
 
-    <!-- ===== PHẦN E: KINH NGHIỆM DEEPSEEK ===== -->
-    <div class="section" style="border:2px solid #f39c12;">
-        <div class="section-title">
-            💡 Kinh nghiệm thực tế
-            <span class="badge tip">🔥 Quan trọng</span>
-        </div>
-        <div class="tip-box">
-            <div class="tip-title">🎯 Các bước để phát âm /h/ chuẩn</div>
-            <div class="tip-content">
-                <ul style="padding-left:22px;">
-                    <li><strong>Bước 1:</strong> Thở ra nhẹ như khi bạn thở dài — đó chính là âm /h/.</li>
-                    <li><strong>Bước 2:</strong> Đặt tay trước miệng — bạn sẽ cảm nhận được luồng hơi thoát ra.</li>
-                    <li><strong>Bước 3:</strong> Không rung thanh quản — nếu rung, bạn sẽ phát âm thành giọng như /ɦ/ (không đúng).</li>
-                    <li><strong>Bước 4:</strong> Phân biệt <em>hair</em> /heə/ và <em>air</em> /eə/ — có /h/ hay không sẽ thay đổi nghĩa.</li>
-                    <li><strong>Bước 5:</strong> Chú ý các từ <em>whole</em> /həʊl/ và <em>hole</em> /həʊl/ — /h/ vẫn được phát âm ở đầu.</li>
-                    <li><strong>Bước 6:</strong> Trong hội thoại nhanh, <strong>he, him, her, have, has</strong> thường bị nuốt âm /h/.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== PHẦN F: CÂU CUỘC SỐNG ===== -->
-    <div class="section" style="border:2px solid #27ae60;">
-        <div class="section-title">
-            🌱 Câu ví dụ — Cuộc sống
-            <span class="badge">🏠 Life</span>
-        </div>
-        <div id="lifeSentences"></div>
-    </div>
-
-    <!-- ===== PHẦN G: CÂU ĐỊA KỸ THUẬT ===== -->
-    <div class="section" style="border:2px solid #1abc9c;">
-        <div class="section-title">
-            🏗️ Câu ví dụ — Địa kỹ thuật
-            <span class="badge geo">🪨 Geotech</span>
-        </div>
-        <div id="geotechSentences"></div>
-    </div>
-
-    <!-- ===== PHẦN H: BÀI TẬP 20.1 ===== -->
-    <div class="section">
-        <div class="section-title">
-            📝 Exercise 20.1 — Viết từ theo phiên âm
-            <span class="badge">Bài tập sách</span>
-        </div>
-        <div class="exercise-box">
-            <div class="ex-title">Viết từ tiếng Anh cho các phiên âm sau:</div>
-            <div id="ex20_1"></div>
-            <div class="btn-group">
-                <button class="btn btn-purple" onclick="checkEx20_1()">✅ Kiểm tra</button>
-                <button class="btn btn-outline" onclick="resetEx20_1()">🔄 Làm lại</button>
-                <button class="btn btn-success" onclick="showAllEx20_1()">🔓 Xem đáp án</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== PHẦN I: BÀI TẬP 20.2 ===== -->
-    <div class="section">
-        <div class="section-title">
-            📝 Exercise 20.2 — Hoàn thành hội thoại
-            <span class="badge">Bài tập sách</span>
-        </div>
-        <div class="exercise-box">
-            <div class="ex-title">Điền từ còn thiếu vào đoạn hội thoại:</div>
-            <div id="ex20_2"></div>
-            <div class="btn-group">
-                <button class="btn btn-purple" onclick="checkEx20_2()">✅ Kiểm tra</button>
-                <button class="btn btn-outline" onclick="resetEx20_2()">🔄 Làm lại</button>
-                <button class="btn btn-success" onclick="showAllEx20_2()">🔓 Xem đáp án</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== PHẦN J: BÀI TẬP 20.3 ===== -->
-    <div class="section">
-        <div class="section-title">
-            📝 Exercise 20.3 — Hoàn thành tiêu đề tranh
-            <span class="badge">Bài tập sách</span>
-        </div>
-        <div class="exercise-box">
-            <div class="ex-title">Điền từ thích hợp vào chỗ trống:</div>
-            <div id="ex20_3"></div>
-            <div class="btn-group">
-                <button class="btn btn-purple" onclick="checkEx20_3()">✅ Kiểm tra</button>
-                <button class="btn btn-outline" onclick="resetEx20_3()">🔄 Làm lại</button>
-                <button class="btn btn-success" onclick="showAllEx20_3()">🔓 Xem đáp án</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== PHẦN K: BÀI TẬP MỞ RỘNG ===== -->
-    <div class="section" style="border:2px solid #8e44ad;">
-        <div class="section-title">
-            🎯 Bài tập mở rộng — Phân biệt /h/ và không /h/
-            <span class="badge">🔊 Bonus</span>
-        </div>
-        <div class="exercise-box">
-            <div class="ex-title">Chọn từ đúng để hoàn thành câu:</div>
-            <div id="ex20_bonus"></div>
-            <div class="btn-group">
-                <button class="btn btn-purple" onclick="checkEx20Bonus()">✅ Kiểm tra</button>
-                <button class="btn btn-outline" onclick="resetEx20Bonus()">🔄 Làm lại</button>
-                <button class="btn btn-success" onclick="showAllEx20Bonus()">🔓 Xem đáp án</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== TỔNG KẾT ===== -->
-    <div class="section" style="border:2px solid #1a2a6c;">
-        <div class="section-title">
-            📌 Tổng kết — Checklist
-            <span class="badge">✅ Nhớ</span>
-        </div>
-        <ul class="checklist">
-            <li class="done">/h/ — luồng hơi nhẹ, không rung thanh quản</li>
-            <li class="done">Thường viết là <strong>h</strong> (hat, how, help)</li>
-            <li class="done">Một số từ viết <strong>w</strong> (who, whose, whole)</li>
-            <li class="done">Chữ <strong>h</strong> câm trong <em>hour, honest, honour</em></li>
-            <li class="done">Trong nói nhanh, /h/ bị lược ở <em>he, him, her, has</em></li>
-            <li class="done">Phân biệt <em>hair</em> /heə/ và <em>air</em> /eə/</li>
-        </ul>
-    </div>
-
-    <!-- ===== FOOTER ===== -->
-    <div style="text-align:center;padding:20px 0 4px;color:#95a5a6;border-top:1px solid #e6edf6;margin-top:8px;">
-        <p><a href="../index.html" style="color:#1a2a6c;font-weight:600;text-decoration:none;">← Về trang chủ</a></p>
-        <p style="font-size:13px;margin-top:6px;">English Pronunciation in Use · Bài 20 · /h/</p>
-    </div>
-
+  <div class="btn-group">
+    <button class="btn-teal" onclick="speakText('hat here help hot how behind who whose whole hour honest')">🔊 Nghe /h/ cơ bản</button>
+    <button class="btn-teal" onclick="speakText('Hi hello how are you. Whose hat is this. It is hot in here. We had a whole month holiday. Can you help me for half an hour.')">🔊 Nghe câu /h/</button>
+    <button class="btn-blue" onclick="speakText('Is he there. Have you seen him. Has he got time. Do you know her. He went to visit his family.',0.8)">🔊 /h/ mờ trong câu</button>
+  </div>
 </div>
 
-<!-- ===== TOAST ===== -->
-<div class="toast" id="toast"></div>
+<!-- WORD GRID -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng</div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-teal" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> /h/ xuất hiện trong nhiều thuật ngữ:<br>
+    <em><b>h</b>ole, bore<b>h</b>ole, <b>h</b>orizontal, <b>h</b>ard, <b>h</b>igh, <b>h</b>eave, <b>h</b>ydraulic, <b>h</b>alf metre, de<b>pt</b><b>h</b> (h câm)</em>
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 20.1: IPA → word -->
+  <div class="ex-wrap">
+    <span class="ex-label">20.1</span>
+    <div class="ex-instruction">Đọc phiên âm và gõ từ đúng. Ví dụ: <em>/hed/</em> → <b>head</b></div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 20.2: dialogue fill -->
+  <div class="ex-wrap">
+    <span class="ex-label">20.2</span>
+    <div class="ex-instruction">Hoàn thành đoạn hội thoại. Tất cả từ cần điền đều có âm /h/.</div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx2()">🔊 Nghe hội thoại</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 20.3: picture titles -->
+  <div class="ex-wrap">
+    <span class="ex-label">20.3</span>
+    <div class="ex-instruction">Điền tiêu đề ảnh đúng. Chọn từ: <em>half, hand, home, perhaps, who, happy, happen, hours, helping, how, hi, house, holiday, history</em></div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx3()">🔊 Nghe tiêu đề</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 20.4: h silent or not? -->
+  <div class="ex-wrap">
+    <span class="ex-label">20.4</span>
+    <div class="ex-instruction">Trong câu sau, chữ <b>h</b> gạch chân được đọc hay không? Click <b>✓ Đọc</b> hoặc <b>✗ Câm</b>.</div>
+    <div id="ex4Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx4()">🔊 Nghe câu</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- 20.5: minimal pairs -->
+  <div class="ex-wrap">
+    <span class="ex-label">20.5</span>
+    <div class="ex-instruction">Nghe và chọn từ đúng (minimal pairs /h/ vs zero, /h/ vs /w/).</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+</div>
+</div>
 
 <script>
-    // ===== TTS =====
-    let currentUtterance = null;
-    function speakText(text, rate = 0.85, callback) {
-        if (currentUtterance) {
-            speechSynthesis.cancel();
-            currentUtterance = null;
-        }
-        if (!window.speechSynthesis) {
-            alert('Trình duyệt không hỗ trợ TTS. Dùng Chrome/Edge nhé!');
-            if (callback) callback();
-            return;
-        }
-        const cleanText = text.replace(/<[^>]*>/g, '').trim();
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        utterance.lang = 'en-US';
-        utterance.rate = rate;
-        utterance.pitch = 1.0;
-        const voices = speechSynthesis.getVoices();
-        const femaleVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'));
-        if (femaleVoice) utterance.voice = femaleVoice;
-        currentUtterance = utterance;
-        utterance.onend = function() { currentUtterance = null; if (callback) callback(); };
-        utterance.onerror = function() { currentUtterance = null; if (callback) callback(); };
-        speechSynthesis.speak(utterance);
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+// WORDS
+const words=[
+  {w:"hat",ipa:"/hæt/",vn:"chiếc mũ"},{w:"here",ipa:"/hɪə/",vn:"ở đây"},
+  {w:"help",ipa:"/help/",vn:"giúp đỡ"},{w:"hot",ipa:"/hɒt/",vn:"nóng"},
+  {w:"how",ipa:"/haʊ/",vn:"như thế nào"},{w:"behind",ipa:"/bɪˈhaɪnd/",vn:"phía sau"},
+  {w:"who",ipa:"/huː/",vn:"ai (wh=/h/)"},{w:"whose",ipa:"/huːz/",vn:"của ai"},
+  {w:"whole",ipa:"/həʊl/",vn:"toàn bộ"},{w:"hour",ipa:"/aʊə/",vn:"giờ (h câm!)"},
+  {w:"honest",ipa:"/ˈɒnɪst/",vn:"trung thực (h câm!)"},{w:"half",ipa:"/hɑːf/",vn:"một nửa"},
+  {w:"holiday",ipa:"/ˈhɒlɪdeɪ/",vn:"kỳ nghỉ"},{w:"history",ipa:"/ˈhɪstəri/",vn:"lịch sử"},
+  {w:"borehole",ipa:"/ˈbɔːhəʊl/",vn:"lỗ khoan"},{w:"horizontal",ipa:"/ˌhɒrɪˈzɒntəl/",vn:"nằm ngang"},
+  {w:"hydraulic",ipa:"/haɪˈdrɔːlɪk/",vn:"thủy lực"},{w:"heave",ipa:"/hiːv/",vn:"trồi (địa kỹ thuật)"},
+];
+function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card" onclick="speakText('${w.w}')"><div class="word">${w.w}</div><div class="ipa2">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div></div>`).join('');}
+function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+
+// SENTENCES
+const sents=[
+  {en:"Hi, hello, how are you?",ipa:"/haɪ həˈləʊ haʊ ə jə/",vn:"Chào, xin chào, bạn khỏe không?"},
+  {en:"Whose hat is this?",ipa:"/huːz hæt ɪz ðɪs/",vn:"Đây là mũ của ai?"},
+  {en:"It's hot in here.",ipa:"/ɪts hɒt ɪn hɪə/",vn:"Trong này nóng quá."},
+  {en:"We had a whole month's holiday.",ipa:"/wiː həd ə həʊl mʌnθs ˈhɒlɪdeɪ/",vn:"Chúng tôi đã có một tháng nghỉ dài."},
+  {en:"Can you help me for half an hour?",ipa:"/kən jə help mi fə hɑːf ən ˈaʊə/",vn:"Bạn có thể giúp tôi trong nửa tiếng không?"},
+  {en:"Who's who?",ipa:"/huːz huː/",vn:"Ai là ai?"},
+  {en:"Is he there? Have you seen him?",ipa:"/ɪz i ðeə həv jə siːn ɪm/",vn:"Anh ấy ở đó không? Bạn có thấy anh ấy không? (/h/ mờ!)"},
+  {en:"Has he got time? Do you know her?",ipa:"/əz i ɡɒt taɪm də jə nəʊ ə/",vn:"Anh ấy có thời gian không? Bạn có biết cô ấy không? (/h/ mờ!)"},
+  {en:"He went to visit his family.",ipa:"/hi went tə ˈvɪzɪt ɪz ˈfæməli/",vn:"Anh ấy đã đi thăm gia đình. (his /h/ mờ)"},
+  {en:"The horizontal borehole was drilled to half a metre.",ipa:"/ðə ˌhɒrɪˈzɒntəl ˈbɔːhəʊl wəz drɪld tə hɑːf ə ˈmiːtə/",vn:"Lỗ khoan nằm ngang được khoan sâu nửa mét.",},
+  {en:"Hydraulic pressure caused heave in the foundation.",ipa:"/haɪˈdrɔːlɪk ˈpreʃə kɔːzd hiːv ɪn ðə faʊnˈdeɪʃən/",vn:"Áp suất thủy lực gây ra hiện tượng trồi đất trong móng."},
+  {en:"How many hours did the investigation take?",ipa:"/haʊ ˈmeni ˈaʊəz dɪd ðɪ ɪnˌvestɪˈɡeɪʃən teɪk/",vn:"Cuộc điều tra mất bao nhiêu giờ?"},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// EX 1: IPA → word (from book 20.1)
+const ex1Book=[
+  {ipa:"/hed/",ans:"head",note:"ví dụ"},
+  {ipa:"/hæt/",ans:"hat"},{ipa:"/haʊ/",ans:"how"},
+  {ipa:"/həʊm/",ans:"home"},{ipa:"/hɑːf/",ans:"half"},
+  {ipa:"/haɪ/",ans:"high"},{ipa:"/hjuː/",ans:"who"},
+];
+// Exact from book
+const ex1Fixed=[
+  {ipa:"/hed/",ans:"head",note:"ví dụ"},
+  {ipa:"/hæt/",ans:"hat"},{ipa:"/haʊ/",ans:"how"},
+  {ipa:"/həʊm/",ans:"home"},{ipa:"/hɑːf/",ans:"half"},
+  {ipa:"/haɪ/",ans:"high"},{ipa:"/huː/",ans:"who"},
+];
+function renderEx1(){
+  let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+  ex1Fixed.forEach((d,i)=>{
+    html+=`<div class="ipa-card" onclick="speakText('${d.ans}')">
+      <span class="ipa-text">${d.ipa}</span>
+      <input id="e1_${i}" type="text" placeholder="từ..." data-ans="${d.ans}">
+      ${d.note?`<span style="font-size:0.75rem;color:#888">(${d.note})</span>`:''}
+    </div>`;
+  });
+  html+='</div>';
+  document.getElementById('ex1Content').innerHTML=html;
+}
+function checkEx1(){let c=0;ex1Fixed.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);if(inp.value.trim().toLowerCase()===d.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score1',c,ex1Fixed.length);showToast(c===ex1Fixed.length?'🎉 Hoàn hảo!':'😅 Xem lại ô đỏ!');}
+function resetEx1(){ex1Fixed.forEach((_,i)=>{const inp=document.getElementById('e1_'+i);inp.value='';inp.className='';});document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx1(){ex1Fixed.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);inp.value=d.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 2: dialogue (from book 20.2) - directions to castle with /h/ words
+const ex2Items=[
+  {s:"A: Excuse me, can you tell me ___ to get to the castle?",blanks:["how"],speak:"Excuse me can you tell me how to get to the castle?"},
+  {s:"B: Yes. Go past the ___ and the ___, then there's a road ___.",blanks:["hospital","hotel","here"],speak:"Yes. Go past the hospital and the hotel, then there's a road here."},
+  {s:"Those ___. You go up a ___, and the castle's at the top.",blanks:["houses","hill"],speak:"Those houses. You go up a hill, and the castle's at the top."},
+  {s:"A: Thanks for your ___!",blanks:["help"],speak:"Thanks for your help!"},
+];
+function renderEx2(){
+  let gi=0,html='';
+  ex2Items.forEach(d=>{
+    let sent=d.s,bi=0;
+    sent=sent.replace(/___/g,()=>{
+      const idx=gi++;
+      const a=d.blanks[bi++];
+      return `<input id="e2_${idx}" type="text" placeholder="..." data-ans="${a}" style="width:${Math.max(70,a.length*12)}px">`;
+    });
+    html+=`<div class="fill-item">${sent}</div>`;
+  });
+  document.getElementById('ex2Content').innerHTML=html;
+}
+function speakEx2(){speakText(ex2Items.map(d=>d.speak).join(' '));}
+function checkEx2(){const inputs=document.querySelectorAll('[id^="e2_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score2',c,inputs.length);}
+function resetEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 3: picture titles (from book 20.3)
+const ex3Data=[
+  {label:"1. A ___ hand",ans:"helping",emoji:"🤝",ctx:"người giúp người",speak:"A helping hand"},
+  {label:"2. A ___ family",ans:"happy",emoji:"👨‍👩‍👧",ctx:"gia đình vui vẻ",speak:"A happy family"},
+  {label:"3. ___ many ___?",ans2:["how","hours"],emoji:"✈️",ctx:"bảng thông tin chuyến bay",speak:"How many hours?"},
+  {label:"4. ___ lessons?",ans:"history",emoji:"📚",ctx:"lịch sử",speak:"History lessons?"},
+  {label:"5. ___ a ___",ans2:["perhaps","house"],emoji:"🏠",ctx:"có lẽ là một ngôi nhà",speak:"Perhaps a house."},
+  {label:"6. ___ did it ___?",ans2:["how","happen"],emoji:"🚗",ctx:"chuyện xảy ra thế nào?",speak:"How did it happen?"},
+  {label:"7. ___ !",ans2:["hi","home"],emoji:"👋",ctx:"người về nhà",speak:"Hi! Home!"},
+];
+function renderEx3(){
+  let gi=0;
+  let html=`<div style="font-size:0.85rem;color:#555;margin-bottom:8px">📦 Từ cần dùng: <em>half, hand, home, perhaps, who, happy, happen, hours, helping, how, hi, house, holiday, history</em></div>`;
+  ex3Data.forEach((d,i)=>{
+    if(d.ans2){
+      let label=d.label;
+      let bi2=0;
+      label=label.replace(/___/g,()=>{
+        const idx=gi++;
+        const a=d.ans2[bi2++];
+        return `<input id="e3_${idx}" type="text" placeholder="..." data-ans="${a}" style="width:80px">`;
+      });
+      html+=`<div class="fill-item">${d.emoji} ${label} <span style="font-size:0.78rem;color:#888">(${d.ctx})</span> <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak}')">🔊</button></div>`;
+    } else {
+      const idx=gi++;
+      html+=`<div class="fill-item">${d.emoji} ${d.label.replace('___',`<input id="e3_${idx}" type="text" placeholder="..." data-ans="${d.ans}" style="width:90px">`)}<span style="font-size:0.78rem;color:#888;margin-left:5px">(${d.ctx})</span> <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak}')">🔊</button></div>`;
     }
+  });
+  document.getElementById('ex3Content').innerHTML=html;
+}
+function speakEx3(){speakText(ex3Data.map(d=>d.speak).join('. '));}
+function checkEx3(){const inputs=document.querySelectorAll('[id^="e3_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score3',c,inputs.length);}
+function resetEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
 
-    function speakAll(containerId) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        const words = container.querySelectorAll('.word-card .word');
-        let text = '';
-        words.forEach(el => text += el.textContent + '. ');
-        if (text) speakText(text, 0.75);
-    }
+// EX 4: h silent or pronounced?
+const ex4Data=[
+  {sent:"Is <u>he</u> there?",h:"he",ans:"silent",speak:"Is he there?",note:"he giữa câu → /h/ mờ"},
+  {sent:"<u>H</u>ave you seen him?",h:"Have",ans:"silent",speak:"Have you seen him?",note:"have đầu câu nhưng yếu form"},
+  {sent:"<u>H</u>as he got time?",h:"Has",ans:"silent",speak:"Has he got time?",note:"has yếu form"},
+  {sent:"<u>H</u>i, hello!",h:"Hi",ans:"sound",speak:"Hi hello!",note:"Hi đầu câu, nhấn mạnh → đọc"},
+  {sent:"<u>H</u>ot in here.",h:"Hot",ans:"sound",speak:"Hot in here.",note:"Hot = từ nội dung → đọc"},
+  {sent:"Can you help me? We had a <u>wh</u>ole holiday.",h:"whole",ans:"sound",speak:"Can you help me? We had a whole holiday.",note:"whole: wh = /h/ đặc biệt"},
+  {sent:"It took an <u>h</u>our.",h:"hour",ans:"silent",speak:"It took an hour.",note:"hour: h câm"},
+  {sent:"Do you know <u>h</u>er?",h:"her",ans:"silent",speak:"Do you know her?",note:"her giữa câu → /h/ mờ"},
+];
+let ex4sel={};
+function renderEx4(){
+  ex4sel={};
+  document.getElementById('ex4Content').innerHTML=ex4Data.map((d,i)=>`
+    <div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap;font-size:0.9rem">
+      <span style="font-style:italic;min-width:260px">"${d.sent}"</span>
+      <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>
+      <span style="display:inline-flex;gap:5px">
+        <span id="tc4_${i}_sound" style="display:inline-block;padding:4px 12px;border-radius:12px;border:2px solid #ccc;cursor:pointer;font-size:0.85rem;font-weight:600;background:#f5f5f5;transition:all 0.18s" onclick="selectH(${i},'sound')">✓ Đọc</span>
+        <span id="tc4_${i}_silent" style="display:inline-block;padding:4px 12px;border-radius:12px;border:2px solid #ccc;cursor:pointer;font-size:0.85rem;font-weight:600;background:#f5f5f5;transition:all 0.18s" onclick="selectH(${i},'silent')">✗ Câm</span>
+      </span>
+      <span style="font-size:0.77rem;color:#888">${d.note}</span>
+    </div>`).join('');
+}
+function selectH(i,val){
+  ['sound','silent'].forEach(v=>{const el=document.getElementById(`tc4_${i}_${v}`);if(el){el.style.background='#f5f5f5';el.style.color='#222';el.style.borderColor='#ccc';}});
+  const el=document.getElementById(`tc4_${i}_${val}`);
+  if(el){el.style.background=val==='sound'?'#0a5a4a':'#e74c3c';el.style.color='#fff';el.style.borderColor=val==='sound'?'#0a5a4a':'#e74c3c';}
+  ex4sel[i]=val;
+}
+function speakEx4(){speakText(ex4Data.map(d=>d.speak).join(' '));}
+function checkEx4(){
+  let c=0;
+  ex4Data.forEach((d,i)=>{
+    ['sound','silent'].forEach(v=>{const el=document.getElementById(`tc4_${i}_${v}`);if(el){el.style.background='#f5f5f5';el.style.color='#222';el.style.borderColor='#ccc';}});
+    const correct=document.getElementById(`tc4_${i}_${d.ans}`);
+    if(correct)correct.style.outline='3px solid #27ae60';
+    if(ex4sel[i]===d.ans){c++;document.getElementById(`tc4_${i}_${d.ans}`).style.background=d.ans==='sound'?'#27ae60':'#27ae60';document.getElementById(`tc4_${i}_${d.ans}`).style.color='#fff';}
+    else if(ex4sel[i]){const wrong=document.getElementById(`tc4_${i}_${ex4sel[i]}`);if(wrong){wrong.style.background='#e74c3c';wrong.style.color='#fff';}}
+  });
+  showScore('score4',c,ex4Data.length);
+}
+function resetEx4(){ex4sel={};ex4Data.forEach((_,i)=>{['sound','silent'].forEach(v=>{const el=document.getElementById(`tc4_${i}_${v}`);if(el){el.style.background='#f5f5f5';el.style.color='#222';el.style.borderColor='#ccc';el.style.outline='none';}});});document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx4(){ex4Data.forEach((d,i)=>{selectH(i,d.ans);});showToast('👁️ Đây là đáp án!');}
 
-    function speakPhrase(eng) {
-        speakText(eng, 0.75);
-    }
+// EX 5: minimal pairs (from book 20.4)
+const ex5Data=[
+  {pair:["hear","ear"],sent:"I can't ___ you – speak up!",ans:0,speak:"I can't hear you, speak up!",note:"/h/ vs vowel"},
+  {pair:["high","eye"],sent:"She has a beautiful ___.",ans:1,speak:"She has a beautiful eye.",note:"/h/ vs vowel"},
+  {pair:["hill","ill"],sent:"She's ___ in bed.",ans:1,speak:"She's ill in bed.",note:"/h/ vs vowel"},
+  {pair:["hair","air"],sent:"The ___ was warm today.",ans:1,speak:"The air was warm today.",note:"/h/ vs vowel"},
+  {pair:["who","woo"],sent:"___ is there?",ans:0,speak:"Who is there?",note:"wh=/h/ vs /w/"},
+  {pair:["whole","role"],sent:"She played the leading ___.",ans:1,speak:"She played the leading role.",note:"/h/ whole vs /r/ role"},
+  {pair:["how","ow"],sent:"___ did that happen?",ans:0,speak:"How did that happen?",note:"/h/ vs vowel"},
+  {pair:["his","is"],sent:"Where ___ hat?",ans:0,speak:"Where his hat?",note:"/h/ strong vs weak"},
+];
+function renderEx5(){document.getElementById('ex5Content').innerHTML=ex5Data.map((d,i)=>`<div class="mp-item"><span style="font-style:italic;min-width:230px">"${d.sent}"</span><button class="btn-cyan" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>${d.pair.map((opt,j)=>`<label><input type="radio" name="mp5_${i}" value="${j}"> <b>${opt}</b></label>`).join(' ')}<span style="font-size:0.77rem;color:#888">${d.note}</span></div>`).join('');}
+function checkEx5(){let c=0;ex5Data.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel&&parseInt(sel.value)===d.ans)c++;});showScore('score5',c,ex5Data.length);}
+function resetEx5(){ex5Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){ex5Data.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp5_${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
 
-    // ===== TOAST =====
-    function showToast(msg) {
-        const toast = document.getElementById('toast');
-        toast.textContent = msg;
-        toast.classList.add('show');
-        clearTimeout(toast._timer);
-        toast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
-    }
+// INIT
+renderWords();renderSents();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();
 
-    // ===== DATA =====
-    const vocabH = [
-        { word: 'hat', ipa: '/hæt/' },
-        { word: 'here', ipa: '/hɪə/' },
-        { word: 'help', ipa: '/help/' },
-        { word: 'hot', ipa: '/hɒt/' },
-        { word: 'how', ipa: '/haʊ/' },
-        { word: 'behind', ipa: '/bɪˈhaɪnd/' },
-        { word: 'who', ipa: '/huː/' },
-        { word: 'whose', ipa: '/huːz/' },
-        { word: 'whole', ipa: '/həʊl/' },
-        { word: 'hello', ipa: '/həˈləʊ/' },
-        { word: 'happy', ipa: '/ˈhæpi/' },
-        { word: 'home', ipa: '/həʊm/' },
-        { word: 'holiday', ipa: '/ˈhɒlədeɪ/' },
-        { word: 'history', ipa: '/ˈhɪstəri/' },
-        { word: 'perhaps', ipa: '/pəˈhæps/' },
-        { word: 'happen', ipa: '/ˈhæpən/' },
-    ];
-
-    const reducedH = [
-        { eng: 'Is he there?', ipa: '/ɪz i ðeə/' },
-        { eng: 'Have you seen him?', ipa: '/hæv juː siːn ɪm/' },
-        { eng: 'Has he got time?', ipa: '/hæz i ɡɒt taɪm/' },
-        { eng: 'Do you know her?', ipa: '/duː juː nəʊ ə/' },
-        { eng: 'He went to visit his family.', ipa: '/hiː went tə ˈvɪzɪt ɪz ˈfæməli/' },
-    ];
-
-    const dailySentences = [
-        { eng: 'Hi, hello, how are you?', ipa: '/haɪ həˈləʊ haʊ ɑː juː/' },
-        { eng: 'Whose hat is this?', ipa: '/huːz hæt ɪz ðɪs/' },
-        { eng: 'It\'s hot in here.', ipa: '/ɪts hɒt ɪn hɪə/' },
-        { eng: 'We had a whole month\'s holiday.', ipa: '/wiː hæd ə həʊl mʌnθs ˈhɒlədeɪ/' },
-        { eng: 'Can you help me for half an hour?', ipa: '/kæn juː help miː fə hɑːf ən aʊə/' },
-        { eng: 'Who\'s who?', ipa: '/huːz huː/' },
-    ];
-
-    const lifeSentences = [
-        { eng: 'How many hours do you work every day?', ipa: '/haʊ ˈmeni aʊəz duː juː wɜːk ˈevri deɪ/', meaning: 'Bạn làm việc bao nhiêu giờ mỗi ngày?', highlight: ['How', 'hours'] },
-        { eng: 'I hope you have a happy holiday.', ipa: '/aɪ həʊp juː hæv ə ˈhæpi ˈhɒlədeɪ/', meaning: 'Tôi hy vọng bạn có một kỳ nghỉ vui vẻ.', highlight: ['hope', 'have', 'happy', 'holiday'] },
-        { eng: 'Her house is behind the hill.', ipa: '/hɜː haʊs ɪz bɪˈhaɪnd ðə hɪl/', meaning: 'Nhà cô ấy ở sau ngọn đồi.', highlight: ['Her', 'house', 'behind', 'hill'] },
-        { eng: 'Who helped you with your homework?', ipa: '/huː helpd juː wɪð jɔː ˈhəʊmwɜːk/', meaning: 'Ai đã giúp bạn làm bài tập về nhà?', highlight: ['Who', 'helped', 'homework'] },
-        { eng: 'He has been here for an hour already.', ipa: '/hiː hæz biːn hɪə fər ən ˈaʊər ɔːlˈredi/', meaning: 'Anh ấy đã ở đây được một giờ rồi.', highlight: ['He', 'has', 'here', 'hour'] },
-        { eng: 'Perhaps we can have some hot chocolate.', ipa: '/pəˈhæps wiː kæn hæv sʌm hɒt ˈtʃɒklət/', meaning: 'Có lẽ chúng ta có thể uống chút sô-cô-la nóng.', highlight: ['Perhaps', 'have', 'hot'] },
-        { eng: 'The whole history of this place is interesting.', ipa: '/ðə həʊl ˈhɪstəri əv ðɪs pleɪs ɪz ˈɪntrəstɪŋ/', meaning: 'Toàn bộ lịch sử của nơi này thật thú vị.', highlight: ['whole', 'history'] },
-    ];
-
-    const geotechSentences = [
-        { eng: 'How deep is the borehole?', ipa: '/haʊ diːp ɪz ðə ˈbɔːhəʊl/', meaning: 'Lỗ khoan sâu bao nhiêu?', highlight: ['How', 'borehole'] },
-        { eng: 'The whole hillside is unstable.', ipa: '/ðə həʊl ˈhɪlsaɪd ɪz ʌnˈsteɪbl/', meaning: 'Toàn bộ sườn đồi không ổn định.', highlight: ['whole', 'hillside'] },
-        { eng: 'Has the soil been tested for hardness?', ipa: '/hæz ðə sɔɪl biːn ˈtestɪd fə ˈhɑːdnəs/', meaning: 'Đất đã được kiểm tra độ cứng chưa?', highlight: ['Has', 'hardness'] },
-        { eng: 'Her house is built on soft ground.', ipa: '/hɜː haʊs ɪz bɪlt ɒn sɒft ɡraʊnd/', meaning: 'Nhà của cô ấy được xây trên nền đất mềm.', highlight: ['Her', 'house'] },
-        { eng: 'How heavy is the hammer for the test?', ipa: '/haʊ ˈhevi ɪz ðə ˈhæmə fə ðə test/', meaning: 'Búa thí nghiệm nặng bao nhiêu?', highlight: ['How', 'heavy', 'hammer'] },
-        { eng: 'The highway needs to be reinforced.', ipa: '/ðə ˈhaɪweɪ niːdz tə biː ˌriːɪnˈfɔːst/', meaning: 'Đường cao tốc cần được gia cố.', highlight: ['highway'] },
-        { eng: 'Help! The hill is having a landslide.', ipa: '/help ðə hɪl ɪz ˈhævɪŋ ə ˈlændslaɪd/', meaning: 'Cứu! Ngọn đồi đang có sạt lở.', highlight: ['Help', 'hill', 'having'] },
-    ];
-
-    // ===== RENDER =====
-    function renderWordGrid(containerId, data) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        container.innerHTML = '';
-        data.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'word-card';
-            div.innerHTML = `
-                <span class="word">${item.word}</span>
-                <span class="ipa">${item.ipa}</span>
-                <button class="btn-sm" onclick="speakText('${item.word}', 0.75)" title="Nghe">🔊</button>
-            `;
-            container.appendChild(div);
-        });
-    }
-
-    function renderReducedH() {
-        const container = document.getElementById('reducedH');
-        if (!container) return;
-        container.innerHTML = '';
-        reducedH.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'sentence-item';
-            div.style.borderLeft = '3px solid #8e44ad';
-            div.innerHTML = `
-                <div class="eng">${item.eng}</div>
-                <div class="ipa">${item.ipa}</div>
-                <button class="btn btn-purple" onclick="speakText('${item.eng}', 0.7)" style="padding:4px 16px;font-size:13px;margin-top:4px;">🔊 Nghe</button>
-            `;
-            container.appendChild(div);
-        });
-    }
-
-    function renderSentences(containerId, data, highlightColor = '#f1c40f') {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        container.innerHTML = '';
-        data.forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'sentence-item';
-            let engHtml = item.eng;
-            if (item.highlight) {
-                item.highlight.forEach(h => {
-                    const regex = new RegExp(`\\b${h}\\b`, 'gi');
-                    engHtml = engHtml.replace(regex, `<span class="highlight">${h}</span>`);
-                });
-            }
-            div.innerHTML = `
-                <div class="eng">${engHtml}</div>
-                <div class="ipa">${item.ipa}</div>
-                <div class="meaning">🇻🇳 ${item.meaning}</div>
-                <button class="btn btn-purple" onclick="speakText('${item.eng}', 0.75)" style="padding:4px 16px;font-size:13px;margin-top:6px;">🔊 Nghe</button>
-            `;
-            container.appendChild(div);
-        });
-    }
-
-    // ===== INIT RENDER =====
-    renderWordGrid('vocabH', vocabH);
-    renderReducedH();
-    renderSentences('dailySentences', dailySentences.map(s => ({ ...s, highlight: [] })));
-    renderSentences('lifeSentences', lifeSentences);
-    renderSentences('geotechSentences', geotechSentences);
-
-    // ===== EXERCISE 20.1 =====
-    const ex20_1Data = [
-        { ipa: '/hæt/', answer: 'hat' },
-        { ipa: '/haʊ/', answer: 'how' },
-        { ipa: '/həʊm/', answer: 'home' },
-        { ipa: '/hɑːf/', answer: 'half' },
-        { ipa: '/hɑː/', answer: 'ha' },
-        { ipa: '/huː/', answer: 'who' },
-    ];
-
-    function renderEx20_1() {
-        const container = document.getElementById('ex20_1');
-        container.innerHTML = '';
-        ex20_1Data.forEach((item, idx) => {
-            const div = document.createElement('div');
-            div.className = 'ex-row';
-            div.innerHTML = `
-                <label>${idx+1}.</label>
-                <span style="font-family:'Times New Roman',serif;font-size:22px;color:#1a2a6c;min-width:80px;">${item.ipa}</span>
-                <span style="font-weight:300;color:#5a6a7a;">→</span>
-                <input type="text" id="ex20_1_${idx}" placeholder="Viết từ..." data-answer="${item.answer}">
-                <span class="answer" id="ex20_1_ans_${idx}">${item.answer}</span>
-            `;
-            container.appendChild(div);
-        });
-    }
-    renderEx20_1();
-
-    function checkEx20_1() {
-        let correct = 0;
-        ex20_1Data.forEach((item, idx) => {
-            const input = document.getElementById(`ex20_1_${idx}`);
-            const ans = document.getElementById(`ex20_1_ans_${idx}`);
-            const val = input.value.trim().toLowerCase();
-            if (val === item.answer.toLowerCase()) {
-                input.className = 'correct';
-                ans.classList.add('show');
-                correct++;
-            } else {
-                input.className = 'wrong';
-                ans.classList.remove('show');
-            }
-        });
-        showToast(`✅ ${correct}/${ex20_1Data.length} đúng`);
-    }
-
-    function resetEx20_1() {
-        ex20_1Data.forEach((item, idx) => {
-            const input = document.getElementById(`ex20_1_${idx}`);
-            const ans = document.getElementById(`ex20_1_ans_${idx}`);
-            input.value = '';
-            input.className = '';
-            ans.classList.remove('show');
-        });
-    }
-
-    function showAllEx20_1() {
-        ex20_1Data.forEach((item, idx) => {
-            const input = document.getElementById(`ex20_1_${idx}`);
-            const ans = document.getElementById(`ex20_1_ans_${idx}`);
-            input.value = item.answer;
-            input.className = 'correct';
-            ans.classList.add('show');
-        });
-        showToast('🔓 Đã hiển thị đáp án');
-    }
-
-    // ===== EXERCISE 20.2 =====
-    const ex20_2Data = [
-        { blank: 'how', hint: 'Excuse me, can you tell me ______ to get to the castle?' },
-        { blank: 'hotel', hint: 'Go past the ______' },
-        { blank: 'hospital', hint: 'and the ______' },
-        { blank: 'behind', hint: 'then there\'s a road ______' },
-        { blank: 'hills', hint: 'those ______' },
-        { blank: 'hill', hint: 'You go up a ______' },
-        { blank: 'help', hint: 'Thanks for your ______!' },
-    ];
-
-    function renderEx20_2() {
-        const container = document.getElementById('ex20_2');
-        container.innerHTML = '';
-        ex20_2Data.forEach((item, idx) => {
-            const div = document.createElement('div');
-            div.className = 'ex-row';
-            div.innerHTML = `
-                <label>${idx+1}.</label>
-                <span style="font-size:15px;flex:1;">${item.hint}</span>
-                <input type="text" id="ex20_2_${idx}" placeholder="từ..." data-answer="${item.blank}" style="width:120px;">
-                <span class="answer" id="ex20_2_ans_${idx}">${item.blank}</span>
-            `;
-            container.appendChild(div);
-        });
-    }
-    renderEx20_2();
-
-    function checkEx20_2() {
-        let correct = 0;
-        ex20_2Data.forEach((item, idx) => {
-            const input = document.getElementById(`ex20_2_${idx}`);
-            const ans = document.getElementById(`ex20_2_ans_${idx}`);
-            const val = input.value.trim().toLowerCase();
-            if (val === item.blank.toLowerCase()) {
-                input.className = 'correct';
-                ans.classList.add('show');
-                correct++;
-            } else {
-                input.className = 'wrong';
-                ans.classList.remove('show');
-            }
-        });
-        showToast(`✅ ${correct}/${ex20_2Data.length} đúng`);
-    }
-
-    function resetEx20_2() {
-        ex20_2Data.forEach((item, idx) => {
-            const input = document.getElementById(`ex20_2_${idx}`);
-            const ans = document.getElementById(`ex20_2_ans_${idx}`);
-            input.value = '';
-            input.className = '';
-            ans.classList.remove('show');
-        });
-    }
-
-    function showAllEx20_2() {
-        ex20_2Data.forEach((item, idx) => {
-            const input = document.getElementById(`ex20_2_${idx}`);
-            const ans = document.getElementById(`ex20_2_ans_${idx}`);
-            input.value = item.blank;
-            input.className = 'correct';
-            ans.classList.add('show');
-        });
-        showToast('🔓 Đã hiển thị đáp án');
-    }
-
-    // ===== EXERCISE 20.3 =====
-    const ex20_3Data = [
-        { blank: 'helping', hint: 'A ______ hand' },
-        { blank: 'how', hint: '______ many?' },
-        { blank: 'happy', hint: 'A ______ family' },
-        { blank: 'who', hint: '______ is it?' },
-        { blank: 'half', hint: '______ a dozen' },
-        { blank: 'how', hint: '______ did it happen?' },
-        { blank: 'hi', hint: 'Say ______' },
-        { blank: 'who', hint: '______\'s at home?' },
-    ];
-
-    function renderEx20_3() {
-        const container = document.getElementById('ex20_3');
-        container.innerHTML = '';
-        ex20_3Data.forEach((item, idx) => {
-            const div = document.createElement('div');
-            div.className = 'ex-row';
-            div.innerHTML = `
-                <label>${idx+1}.</label>
-                <span style="font-size:15px;flex:1;">${item.hint}</span>
-                <input type="text" id="ex20_3_${idx}" placeholder="từ..." data-answer="${item.blank}" style="width:120px;">
-                <span class="answer" id="ex20_3_ans_${idx}">${item.blank}</span>
-            `;
-            container.appendChild(div);
-        });
-    }
-    renderEx20_3();
-
-    function checkEx20_3() {
-        let correct = 0;
-        ex20_3Data.forEach((item, idx) => {
-            const input = document.getElementById(`ex20_3_${idx}`);
-            const ans = document.getElementById(`ex20_3_ans_${idx}`);
-            const val = input.value.trim().toLowerCase();
-            if (val === item.blank.toLowerCase()) {
-                input.className = 'correct';
-                ans.classList.add('show');
-                correct++;
-            } else {
-                input.className = 'wrong';
-                ans.classList.remove('show');
-            }
-        });
-        showToast(`✅ ${correct}/${ex20_3Data.length} đúng`);
-    }
-
-    function resetEx20_3() {
-        ex20_3Data.forEach((item, idx) => {
-            const input = document.getElementById(`ex20_3_${idx}`);
-            const ans = document.getElementById(`ex20_3_ans_${idx}`);
-            input.value = '';
-            input.className = '';
-            ans.classList.remove('show');
-        });
-    }
-
-    function showAllEx20_3() {
-        ex20_3Data.forEach((item, idx) => {
-            const input = document.getElementById(`ex20_3_${idx}`);
-            const ans = document.getElementById(`ex20_3_ans_${idx}`);
-            input.value = item.blank;
-            input.className = 'correct';
-            ans.classList.add('show');
-        });
-        showToast('🔓 Đã hiển thị đáp án');
-    }
-
-    // ===== BONUS EXERCISE =====
-    const ex20BonusData = [
-        { sentence: 'I need to buy a new ______.', options: ['hair', 'air'], correct: 'hair' },
-        { sentence: 'Please wait for one ______.', options: ['hour', 'our'], correct: 'hour' },
-        { sentence: '______ are you feeling today?', options: ['How', 'Ow'], correct: 'How' },
-        { sentence: 'That is ______ phone.', options: ['her', 'er'], correct: 'her' },
-        { sentence: 'We ______ a great time.', options: ['had', 'ad'], correct: 'had' },
-    ];
-
-    function renderEx20Bonus() {
-        const container = document.getElementById('ex20_bonus');
-        container.innerHTML = '';
-        ex20BonusData.forEach((item, idx) => {
-            const div = document.createElement('div');
-            div.className = 'ex-row';
-            div.innerHTML = `
-                <label>${idx+1}.</label>
-                <span style="font-size:15px;flex:1;">${item.sentence}</span>
-                <select id="ex20_bonus_${idx}" data-correct="${item.correct}" style="border:1px solid #c0cbd8;border-radius:8px;padding:6px 10px;background:#fafcff;">
-                    <option value="">-- Chọn --</option>
-                    ${item.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
-                </select>
-                <span class="answer" id="ex20_bonus_ans_${idx}">✓ ${item.correct}</span>
-            `;
-            container.appendChild(div);
-        });
-    }
-    renderEx20Bonus();
-
-    function checkEx20Bonus() {
-        let correct = 0;
-        ex20BonusData.forEach((item, idx) => {
-            const select = document.getElementById(`ex20_bonus_${idx}`);
-            const ans = document.getElementById(`ex20_bonus_ans_${idx}`);
-            if (select.value === item.correct) {
-                select.style.borderColor = '#27ae60';
-                ans.classList.add('show');
-                correct++;
-            } else {
-                select.style.borderColor = '#e74c3c';
-                ans.classList.remove('show');
-            }
-        });
-        showToast(`✅ ${correct}/${ex20BonusData.length} đúng`);
-    }
-
-    function resetEx20Bonus() {
-        ex20BonusData.forEach((item, idx) => {
-            const select = document.getElementById(`ex20_bonus_${idx}`);
-            const ans = document.getElementById(`ex20_bonus_ans_${idx}`);
-            select.value = '';
-            select.style.borderColor = '#c0cbd8';
-            ans.classList.remove('show');
-        });
-    }
-
-    function showAllEx20Bonus() {
-        ex20BonusData.forEach((item, idx) => {
-            const select = document.getElementById(`ex20_bonus_${idx}`);
-            const ans = document.getElementById(`ex20_bonus_ans_${idx}`);
-            select.value = item.correct;
-            select.style.borderColor = '#27ae60';
-            ans.classList.add('show');
-        });
-        showToast('🔓 Đã hiển thị đáp án');
-    }
-
-    // ===== MARK COMPLETED =====
-    setTimeout(() => {
-        let completed = [];
-        try {
-            const data = localStorage.getItem('epu_completed');
-            if (data) completed = JSON.parse(data);
-        } catch {}
-        if (!completed.includes(20)) {
-            completed.push(20);
-            localStorage.setItem('epu_completed', JSON.stringify(completed));
-        }
-    }, 1000);
-
-    // Load voices
-    if (window.speechSynthesis) {
-        speechSynthesis.getVoices();
-        speechSynthesis.onvoiceschanged = () => {
-            speechSynthesis.getVoices();
-        };
-    }
-
-    console.log('✅ Bài 20 - How many hours? đã sẵn sàng!');
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(20)){c.push(20);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
 </script>
 </body>
 </html>
