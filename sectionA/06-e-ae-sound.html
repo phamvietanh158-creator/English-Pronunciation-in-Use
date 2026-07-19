@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 6 - /e/ và /æ/ | Bread and jam</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;background:#f0f4f8;padding:20px 15px;min-height:100vh;}
+        .container{max-width:1000px;margin:0 auto;}
+        .header{background:linear-gradient(135deg,#6b0f3a,#a8184d);color:white;padding:24px 28px;border-radius:20px;margin-bottom:25px;box-shadow:0 8px 30px rgba(107,15,58,.35);}
+        .header .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+        .lesson-number{background:rgba(255,255,255,.15);padding:4px 18px;border-radius:30px;font-size:14px;border:1px solid rgba(255,255,255,.2);}
+        .header h1{font-size:26px;font-weight:800;margin-top:8px;}
+        .header h1 span{color:#f1c40f;}
+        .phoneme-badge{display:inline-block;background:#f1c40f;color:#6b0f3a;font-size:22px;font-weight:900;padding:4px 18px;border-radius:12px;margin-top:8px;font-family:"Courier New",monospace;}
+        .header .sub{font-size:14px;opacity:.85;margin-top:6px;}
+        .nav-link{display:inline-block;margin-top:12px;color:#f1c40f;text-decoration:none;font-weight:600;font-size:14px;}
+        .section{background:white;border-radius:16px;padding:22px 26px;margin-bottom:20px;border:1px solid #e2e8f0;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+        .section-title{font-size:18px;font-weight:700;color:#6b0f3a;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+        .badge{background:#eef2f7;font-size:13px;font-weight:600;padding:2px 14px;border-radius:30px;color:#2c3e50;}
+        .badge.audio{background:#d5f5e3;color:#1a6e4a;}
+        .badge.tip{background:#fef9e7;color:#7d6608;}
+        .badge.geo{background:#d6eaf8;color:#1a4a7a;}
+        .section p{font-size:15px;line-height:1.9;color:#2c3e50;margin-bottom:10px;}
+        .ipa-e{font-family:"Courier New",monospace;color:#6b0f3a;background:#fce4ec;padding:2px 10px;border-radius:6px;font-size:15px;}
+        .ipa-ae{font-family:"Courier New",monospace;color:#1a5276;background:#d6eaf8;padding:2px 10px;border-radius:6px;font-size:15px;}
+        .note-box{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:14px;color:#856404;line-height:1.7;}
+        /* DIAGRAM */
+        .diagram-box{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0;}
+        .diagram-card{flex:1;min-width:180px;border-radius:14px;padding:16px 18px;}
+        .dc-e{background:linear-gradient(135deg,#fce4ec,#f8bbd0);border:2px solid #a8184d;}
+        .dc-ae{background:linear-gradient(135deg,#d6eaf8,#a9cce3);border:2px solid #1a5276;}
+        .phoneme{font-size:48px;font-weight:900;font-family:"Courier New",monospace;line-height:1.1;text-align:center;}
+        .dc-e .phoneme{color:#6b0f3a;}
+        .dc-ae .phoneme{color:#1a5276;}
+        .desc{font-size:13px;color:#444;line-height:1.7;margin-top:8px;}
+        .desc li{margin-left:14px;margin-bottom:3px;}
+        /* WORD GRID */
+        .word-grid{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .word-card{background:white;border:2px solid #e2e8f0;border-radius:12px;padding:10px 14px;min-width:115px;cursor:pointer;transition:.2s;}
+        .word-card.we:hover{border-color:#a8184d;box-shadow:0 4px 14px rgba(168,24,77,.15);}
+        .word-card.wae:hover{border-color:#1a5276;box-shadow:0 4px 14px rgba(26,82,118,.15);}
+        .word-card .word{font-size:16px;font-weight:700;color:#1a2a3a;}
+        .word-card .ipa{font-family:"Courier New",monospace;font-size:12px;margin-top:2px;}
+        .we .ipa{color:#6b0f3a;}
+        .wae .ipa{color:#1a5276;}
+        .word-card .vi{font-size:12px;color:#27ae60;margin-top:2px;}
+        .hle{background:#a8184d;color:white;border-radius:3px;padding:0 2px;}
+        .hlae{background:#1a5276;color:white;border-radius:3px;padding:0 2px;}
+        /* SPELL TABLE */
+        .spell-table{width:100%;border-collapse:collapse;margin:12px 0;}
+        .spell-table th{background:#6b0f3a;color:white;padding:8px 12px;text-align:left;font-size:14px;}
+        .spell-table td{padding:8px 12px;border-bottom:1px solid #e2e8f0;font-size:14px;}
+        .spell-table tr:nth-child(even){background:#fef5f8;}
+        .spell-table .spl{font-family:"Courier New",monospace;color:#6b0f3a;font-weight:700;}
+        /* SENTENCE LIST */
+        .sentence-list{list-style:none;padding:0;margin:10px 0;}
+        .sentence-list li{padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:15px;line-height:1.8;background:#f8fafc;cursor:pointer;transition:.2s;}
+        .sl-e{border-left:4px solid #a8184d;}
+        .sl-e:hover{background:#fce4ec;}
+        .sl-ae{border-left:4px solid #1a5276;}
+        .sl-ae:hover{background:#d6eaf8;}
+        .sentence-list li .ipa-s{font-family:"Courier New",monospace;font-size:12px;display:block;margin-top:3px;}
+        .sl-e .ipa-s{color:#6b0f3a;}
+        .sl-ae .ipa-s{color:#1a5276;}
+        .sentence-list li .vi-s{font-size:13px;color:#27ae60;display:block;margin-top:2px;}
+        /* BUTTONS */
+        .btn{background:#3498db;color:white;border:none;padding:8px 20px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px;}
+        .btn:hover{transform:scale(1.03);opacity:.9;}
+        .btn-e{background:#a8184d;}
+        .btn-ae{background:#1a5276;}
+        .btn-success{background:#27ae60;}
+        .btn-warning{background:#f39c12;}
+        .btn-purple{background:#7c3aed;}
+        .btn-danger{background:#e74c3c;}
+        .btn-teal{background:#1abc9c;}
+        .btn-group{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .tip-box{background:#fef9e7;border:2px solid #f7dc6f;border-radius:12px;padding:14px 18px;margin:12px 0;}
+        .tip-title{font-weight:700;color:#7d6608;font-size:15px;margin-bottom:6px;}
+        .tip-content{font-size:14px;color:#5a4a1a;line-height:1.9;}
+        .tip-content p{margin-bottom:8px;}
+        .geo-box{background:#eafaf1;border:2px solid #1abc9c;border-radius:12px;padding:14px 18px;margin:10px 0;}
+        .geo-title{font-weight:700;color:#1a6e4a;font-size:15px;margin-bottom:6px;}
+        .geo-content{font-size:14px;color:#1a4a3a;line-height:1.9;}
+        /* EXERCISES */
+        .ex-wrap{background:#fafcff;border:2px solid #e2e8f0;border-radius:14px;padding:20px 22px;margin:14px 0;}
+        .ex-instruction{background:#fce4ec;border:1px solid #a8184d;border-radius:10px;padding:11px 15px;font-size:14px;color:#6b0f3a;margin-bottom:14px;line-height:1.7;}
+        .ex-instruction strong{color:#e74c3c;}
+        /* IPA -> word */
+        .ipa-items{display:flex;flex-direction:column;gap:8px;margin:10px 0;}
+        .ipa-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:11px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+        .ipa-item .num{font-weight:700;color:#6b0f3a;min-width:20px;}
+        .ipa-item .ipa-q{font-family:"Courier New",monospace;font-size:16px;color:#6b0f3a;font-weight:700;min-width:90px;}
+        .ipa-item input{border:2px solid #a8184d;border-radius:8px;padding:4px 12px;font-size:15px;outline:none;min-width:80px;max-width:130px;font-family:"Segoe UI",sans-serif;transition:.2s;}
+        .ipa-item input.correct{border-color:#27ae60;background:#d5f5e3;color:#1a6e4a;}
+        .ipa-item input.wrong{border-color:#e74c3c;background:#fadbd8;color:#922b21;}
+        /* numbers grid */
+        .numbers-grid{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .num-card{background:white;border:2px solid #e2e8f0;border-radius:12px;padding:10px 16px;text-align:center;min-width:70px;cursor:pointer;transition:.2s;user-select:none;}
+        .num-card:hover{border-color:#a8184d;}
+        .num-card .num-val{font-size:22px;font-weight:700;}
+        .num-card .num-word{font-size:11px;color:#888;margin-top:2px;}
+        .num-card.has-e{border-color:#a8184d;background:#fce4ec;}
+        .num-card.no-e{border-color:#bbb;background:#f5f5f5;color:#999;}
+        .num-card.correct-e{border-color:#27ae60;background:#d5f5e3;}
+        .num-card.wrong-e{border-color:#e74c3c;background:#fadbd8;}
+        /* match items */
+        .match-col{display:flex;flex-direction:column;gap:8px;}
+        .match-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:10px 16px;font-size:15px;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:space-between;}
+        .match-item:hover{border-color:#a8184d;background:#fce4ec;}
+        .match-item.selected{border-color:#a8184d;background:#fce4ec;}
+        .match-item.matched-ok{border-color:#27ae60;background:#d5f5e3;pointer-events:none;}
+        .match-item.matched-err{border-color:#e74c3c;background:#fadbd8;}
+        /* choice */
+        .choice-items{display:flex;flex-direction:column;gap:10px;margin:10px 0;}
+        .choice-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;}
+        .choice-item .num{font-weight:700;color:#6b0f3a;}
+        .choice-btn{display:inline-block;padding:5px 18px;border-radius:20px;border:2px solid #e2e8f0;margin:4px 6px 0 0;cursor:pointer;font-size:14px;font-weight:600;transition:.2s;background:white;color:#333;user-select:none;}
+        .choice-btn:hover{border-color:#a8184d;color:#a8184d;}
+        .choice-btn.sel-e{background:#a8184d;color:white;border-color:#a8184d;}
+        .choice-btn.sel-ae{background:#1a5276;color:white;border-color:#1a5276;}
+        .choice-btn.correct-c{background:#27ae60;color:white;border-color:#27ae60;pointer-events:none;}
+        .choice-btn.wrong-c{background:#e74c3c;color:white;border-color:#e74c3c;pointer-events:none;}
+        /* score */
+        .score-box{border-radius:12px;padding:14px 18px;margin-top:12px;font-size:15px;line-height:1.9;display:none;}
+        .score-box.show{display:block;}
+        .score-box.great{background:#d5f5e3;border:2px solid #27ae60;color:#1a6e4a;}
+        .score-box.good{background:#fef9e7;border:2px solid #f39c12;color:#7d6608;}
+        .score-box.try{background:#fadbd8;border:2px solid #e74c3c;color:#922b21;}
+        .score-box.info{background:#d6eaf8;border:2px solid #2980b9;color:#1a4a7a;}
+        .score-meter{background:#e0e7ee;border-radius:30px;height:12px;margin:8px 0;overflow:hidden;}
+        .score-meter-fill{height:100%;border-radius:30px;transition:width 1s ease;}
+        .big-score{font-size:38px;font-weight:900;text-align:center;margin:4px 0;}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2c3e50;color:white;padding:12px 24px;border-radius:40px;font-size:14px;box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;transition:opacity .4s;pointer-events:none;z-index:999;max-width:90%;text-align:center;}
+        .toast.show{opacity:1;}
+        @media(max-width:650px){.header{padding:18px 16px;}.header h1{font-size:20px;}.section{padding:16px 14px;}.diagram-box{flex-direction:column;}}
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <div class="top-row">
+        <span class="lesson-number">📚 Bài 6</span>
+        <span style="font-size:13px;opacity:.7;">Section A · Vowels</span>
+    </div>
+    <h1>🍞 <span>Bread and jam</span></h1>
+    <div><span class="phoneme-badge">/e/ và /æ/</span></div>
+    <div class="sub">Nguyên âm ngắn /e/ (bread) và nguyên âm ngắn /æ/ (jam)</div>
+    <a href="../index.html" class="nav-link">← Về trang chủ</a>
+</div>
+
+<!-- A: /e/ cách phát âm -->
+<div class="section">
+    <div class="section-title">🔴 A. Cách phát âm <span class="ipa-e">/e/</span> — Nguyên âm NGẮN <span class="badge audio">🔊 Nghe</span></div>
+    <div class="diagram-box">
+        <div class="diagram-card dc-e">
+            <div class="phoneme">/e/</div>
+            <div style="text-align:center;font-size:13px;color:#6b0f3a;margin-top:4px;">"e" ngắn — bread, check</div>
+            <ul class="desc">
+                <li>Há miệng <strong>khá rộng</strong>.</li>
+                <li>Lưỡi ở <strong>giữa miệng</strong>, hơi nâng về phía trước.</li>
+                <li>Môi <strong>kéo ngang</strong> nhẹ.</li>
+                <li>Âm <strong>NGẮN</strong>.</li>
+                <li>🎯 Target: <span class="ipa-e">/e/</span></li>
+            </ul>
+        </div>
+        <div style="flex:1;min-width:220px;padding:10px 0;font-size:14px;line-height:2;color:#2c3e50;">
+            <p><strong>📌 Cách phát âm /e/:</strong></p>
+            <p>1. Há miệng rộng, hàm xuống nhẹ.</p>
+            <p>2. Lưỡi nằm ở giữa, không chạm đâu cả.</p>
+            <p>3. Môi kéo hơi ngang — không tròn.</p>
+            <p>4. Âm ngắn, dứt khoát: /e/.</p>
+            <p>🇻🇳 Gần giống âm "e" trong tiếng Việt (ví dụ: "em") nhưng <em>miệng mở rộng hơn một chút</em>.</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-e" onclick="speakText('bread check letter red sentence',0.75)">🔊 Nghe /e/</button>
+        <button class="btn btn-success" onclick="speakText('bread check letter red sentence',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- B: /e/ chính tả + từ vựng -->
+<div class="section">
+    <div class="section-title">🔴 B. Chính tả &amp; Từ có âm <span class="ipa-e">/e/</span> <span class="badge">Spelling &amp; Từ vựng</span></div>
+    <table class="spell-table">
+        <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+        <tr><td class="spl">e</td><td>check, leg, letter, red, sentence, bed, best, dress, egg, felt, help, next, seven, step, text, well, when, then</td><td>Phổ biến nhất</td></tr>
+        <tr><td class="spl">ea</td><td>bread, head, read (quá khứ), dead, heavy, health, meant, weather, already</td><td>ea = /e/ (không phải /iː/!)</td></tr>
+        <tr><td class="spl">ie</td><td>friend</td><td>Chỉ một số từ</td></tr>
+        <tr><td class="spl">a</td><td>any, many</td><td>Ngoại lệ đặc biệt</td></tr>
+        <tr><td class="spl">ai</td><td>again, said</td><td>Ngoại lệ — ai = /e/ chứ không phải /eɪ/</td></tr>
+    </table>
+    <div class="note-box">
+        ⚠️ <strong>read</strong>: hiện tại = /riːd/ (/iː/) · quá khứ = /red/ (/e/) — cùng chữ, khác âm!<br>
+        ⚠️ <strong>said</strong> = /sed/ (/e/) — không phải /seɪd/!<br>
+        ⚠️ <strong>again</strong> = /əˈɡen/ (/e/) — không phải /əˈɡeɪn/!<br>
+        ⚠️ <strong>any, many</strong>: chữ "a" đọc là /e/ — không phải /æ/!
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 Bộ từ vựng /e/ — Click để nghe:</strong></p>
+    <div class="word-grid">
+        <div class="word-card we" onclick="speakText('bread',0.8)"><div class="word">br<span class="hle">ea</span>d</div><div class="ipa">/bred/</div><div class="vi">🇻🇳 bánh mì</div></div>
+        <div class="word-card we" onclick="speakText('head',0.8)"><div class="word">h<span class="hle">ea</span>d</div><div class="ipa">/hed/</div><div class="vi">🇻🇳 cái đầu</div></div>
+        <div class="word-card we" onclick="speakText('friend',0.8)"><div class="word">fr<span class="hle">ie</span>nd</div><div class="ipa">/frend/</div><div class="vi">🇻🇳 bạn bè</div></div>
+        <div class="word-card we" onclick="speakText('said',0.8)"><div class="word">s<span class="hle">ai</span>d</div><div class="ipa">/sed/</div><div class="vi">🇻🇳 đã nói (say)</div></div>
+        <div class="word-card we" onclick="speakText('again',0.8)"><div class="word">ag<span class="hle">ai</span>n</div><div class="ipa">/əˈɡen/</div><div class="vi">🇻🇳 một lần nữa</div></div>
+        <div class="word-card we" onclick="speakText('check',0.8)"><div class="word">ch<span class="hle">e</span>ck</div><div class="ipa">/tʃek/</div><div class="vi">🇻🇳 kiểm tra / séc</div></div>
+        <div class="word-card we" onclick="speakText('letter',0.8)"><div class="word">l<span class="hle">e</span>tter</div><div class="ipa">/ˈlet.ər/</div><div class="vi">🇻🇳 lá thư / chữ cái</div></div>
+        <div class="word-card we" onclick="speakText('best',0.8)"><div class="word">b<span class="hle">e</span>st</div><div class="ipa">/best/</div><div class="vi">🇻🇳 tốt nhất</div></div>
+        <div class="word-card we" onclick="speakText('seven',0.8)"><div class="word">s<span class="hle">e</span>v<span class="hle">e</span>n</div><div class="ipa">/ˈsev.ən/</div><div class="vi">🇻🇳 số bảy</div></div>
+        <div class="word-card we" onclick="speakText('sentence',0.8)"><div class="word">s<span class="hle">e</span>nt<span class="hle">e</span>nce</div><div class="ipa">/ˈsen.təns/</div><div class="vi">🇻🇳 câu / bản án</div></div>
+        <div class="word-card we" onclick="speakText('twelve',0.8)"><div class="word">tw<span class="hle">e</span>lv<span class="hle">e</span></div><div class="ipa">/twelv/</div><div class="vi">🇻🇳 số mười hai</div></div>
+        <div class="word-card we" onclick="speakText('next',0.8)"><div class="word">n<span class="hle">e</span>xt</div><div class="ipa">/nekst/</div><div class="vi">🇻🇳 tiếp theo</div></div>
+        <div class="word-card we" onclick="speakText('any',0.8)"><div class="word"><span class="hle">a</span>ny</div><div class="ipa">/ˈen.i/</div><div class="vi">🇻🇳 bất kỳ</div></div>
+        <div class="word-card we" onclick="speakText('many',0.8)"><div class="word">m<span class="hle">a</span>ny</div><div class="ipa">/ˈmen.i/</div><div class="vi">🇻🇳 nhiều</div></div>
+        <div class="word-card we" onclick="speakText('cheque',0.8)"><div class="word">ch<span class="hle">e</span>qu<span class="hle">e</span></div><div class="ipa">/tʃek/</div><div class="vi">🇻🇳 tờ séc</div></div>
+        <div class="word-card we" onclick="speakText('weather',0.8)"><div class="word">w<span class="hle">ea</span>th<span class="hle">e</span>r</div><div class="ipa">/ˈweð.ər/</div><div class="vi">🇻🇳 thời tiết</div></div>
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 15 câu luyện /e/ — click để nghe:</strong></p>
+    <ul class="sentence-list">
+        <li class="sl-e" onclick="speakText('Tell me again.',0.8)">T<span class="hle">e</span>ll m<span class="hle">e</span> ag<span class="hle">ai</span>n.<span class="ipa-s">/tel miː əˈɡen/</span><span class="vi-s">🇻🇳 Nói lại cho tôi nghe.</span></li>
+        <li class="sl-e" onclick="speakText('Send me a cheque.',0.8)">S<span class="hle">e</span>nd m<span class="hle">e</span> a ch<span class="hle">e</span>qu<span class="hle">e</span>.<span class="ipa-s">/send miː ə tʃek/</span><span class="vi-s">🇻🇳 Gửi cho tôi một tờ séc.</span></li>
+        <li class="sl-e" onclick="speakText('Correct these sentences.',0.8)">Corr<span class="hle">e</span>ct th<span class="hle">e</span>s<span class="hle">e</span> s<span class="hle">e</span>nt<span class="hle">e</span>nc<span class="hle">e</span>s.<span class="ipa-s">/kəˈrekt ðiːz ˈsen.tən.sɪz/</span><span class="vi-s">🇻🇳 Sửa các câu này.</span></li>
+        <li class="sl-e" onclick="speakText('Twenty to twelve.',0.8)">Tw<span class="hle">e</span>nty to tw<span class="hle">e</span>lv<span class="hle">e</span>.<span class="ipa-s">/ˈtwen.ti tə twelv/</span><span class="vi-s">🇻🇳 Hai mươi phút nữa là mười hai giờ.</span></li>
+        <li class="sl-e" onclick="speakText('Help your friend.',0.8)">H<span class="hle">e</span>lp your fr<span class="hle">ie</span>nd.<span class="ipa-s">/help jɔː frend/</span><span class="vi-s">🇻🇳 Giúp đỡ bạn của bạn đi.</span></li>
+        <li class="sl-e" onclick="speakText('She said it was the best weather in ten years.',0.8)">She s<span class="hle">ai</span>d it was the b<span class="hle">e</span>st w<span class="hle">ea</span>th<span class="hle">e</span>r in t<span class="hle">e</span>n y<span class="hle">ea</span>rs.<span class="ipa-s">/ʃiː sed ɪt wəz ðə best ˈweð.ər ɪn ten jɪəz/</span><span class="vi-s">🇻🇳 Cô ấy nói đó là thời tiết tốt nhất trong mười năm.</span></li>
+        <li class="sl-e" onclick="speakText('He read the letter again and again.',0.8)">He r<span class="hle">ea</span>d the l<span class="hle">e</span>tt<span class="hle">e</span>r ag<span class="hle">ai</span>n and ag<span class="hle">ai</span>n.<span class="ipa-s">/hiː red ðə ˈlet.ər əˈɡen ænd əˈɡen/</span><span class="vi-s">🇻🇳 Anh ấy đọc lá thư đi đọc lại nhiều lần.</span></li>
+        <li class="sl-e" onclick="speakText('My friend checked the text message.',0.8)">My fr<span class="hle">ie</span>nd ch<span class="hle">e</span>ck<span class="hle">e</span>d the t<span class="hle">e</span>xt m<span class="hle">e</span>ssag<span class="hle">e</span>.<span class="ipa-s">/maɪ frend tʃekt ðə tekst ˈmes.ɪdʒ/</span><span class="vi-s">🇻🇳 Bạn tôi kiểm tra tin nhắn.</span></li>
+        <li class="sl-e" onclick="speakText('The best sentence has the next seven words.',0.8)">The b<span class="hle">e</span>st s<span class="hle">e</span>nt<span class="hle">e</span>nc<span class="hle">e</span> has the n<span class="hle">e</span>xt s<span class="hle">e</span>v<span class="hle">e</span>n words.<span class="ipa-s">/ðə best ˈsen.təns hæz ðə nekst ˈsev.ən wɜːdz/</span><span class="vi-s">🇻🇳 Câu tốt nhất có bảy từ tiếp theo.</span></li>
+        <li class="sl-e" onclick="speakText('Send the next letter when you're ready.',0.8)">S<span class="hle">e</span>nd the n<span class="hle">e</span>xt l<span class="hle">e</span>tt<span class="hle">e</span>r wh<span class="hle">e</span>n you're r<span class="hle">ea</span>dy.<span class="ipa-s">/send ðə nekst ˈlet.ər wen jɔːr ˈred.i/</span><span class="vi-s">🇻🇳 Gửi thư tiếp theo khi bạn sẵn sàng.</span></li>
+        <li class="sl-e" onclick="speakText('Well, he said he felt better.',0.8)">W<span class="hle">e</span>ll, he s<span class="hle">ai</span>d he f<span class="hle">e</span>lt b<span class="hle">e</span>tt<span class="hle">e</span>r.<span class="ipa-s">/wel | hiː sed hiː felt ˈbet.ər/</span><span class="vi-s">🇻🇳 À, anh ấy nói anh ấy cảm thấy khỏe hơn.</span></li>
+        <li class="sl-e" onclick="speakText('Any help is welcome, then.',0.8)"><span class="hle">A</span>ny h<span class="hle">e</span>lp is w<span class="hle">e</span>lcom<span class="hle">e</span>, th<span class="hle">e</span>n.<span class="ipa-s">/ˈen.i help ɪz ˈwel.kəm ðen/</span><span class="vi-s">🇻🇳 Vậy thì bất kỳ sự giúp đỡ nào cũng được chào đón.</span></li>
+        <li class="sl-e" onclick="speakText('Ten steps to the left, then check again.',0.8)">T<span class="hle">e</span>n st<span class="hle">e</span>ps to the l<span class="hle">e</span>ft, th<span class="hle">e</span>n ch<span class="hle">e</span>ck ag<span class="hle">ai</span>n.<span class="ipa-s">/ten steps tə ðə left | ðen tʃek əˈɡen/</span><span class="vi-s">🇻🇳 Mười bước sang trái, rồi kiểm tra lại.</span></li>
+        <li class="sl-e" onclick="speakText('The settlement test was next on the agenda.',0.75)">The s<span class="hle">e</span>ttl<span class="hle">e</span>m<span class="hle">e</span>nt t<span class="hle">e</span>st was n<span class="hle">e</span>xt on the ag<span class="hle">e</span>nda.<span class="ipa-s">/ðə ˈset.l.mənt test wəz nekst ɒn ðiː əˈdʒen.də/</span><span class="vi-s">🇻🇳 Thí nghiệm lún là tiếp theo trong chương trình. <em>(địa kỹ thuật)</em></span></li>
+        <li class="sl-e" onclick="speakText('Check the stress level and then record the result.',0.75)">Ch<span class="hle">e</span>ck the str<span class="hle">e</span>ss l<span class="hle">e</span>v<span class="hle">e</span>l and th<span class="hle">e</span>n r<span class="hle">e</span>cord the r<span class="hle">e</span>sult.<span class="ipa-s">/tʃek ðə stres ˈlev.əl ænd ðen rɪˈkɔːd ðə rɪˈzʌlt/</span><span class="vi-s">🇻🇳 Kiểm tra mức độ ứng suất rồi ghi lại kết quả. <em>(địa kỹ thuật)</em></span></li>
+    </ul>
+    <div class="btn-group">
+        <button class="btn btn-e" onclick="speakText('Tell me again. Send me a cheque. Correct these sentences. Twenty to twelve. Help your friend.',0.8)">🔊 Nghe 5 câu sách gốc</button>
+        <button class="btn btn-success" onclick="speakText('Tell me again. Send me a cheque. Correct these sentences.',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- C: /æ/ cách phát âm -->
+<div class="section">
+    <div class="section-title">🔵 C. Cách phát âm <span class="ipa-ae">/æ/</span> — Nguyên âm NGẮN <span class="badge audio">🔊 Nghe</span></div>
+    <div class="diagram-box">
+        <div class="diagram-card dc-ae">
+            <div class="phoneme">/æ/</div>
+            <div style="text-align:center;font-size:13px;color:#1a5276;margin-top:4px;">"a" rộng — jam, back</div>
+            <ul class="desc">
+                <li>Há miệng <strong>rộng nhất</strong> trong hai âm.</li>
+                <li>Lưỡi phần trước <strong>thấp và rộng</strong>.</li>
+                <li>Môi <strong>kéo ngang rộng</strong>.</li>
+                <li>Hàm dưới <strong>xuống nhiều</strong>.</li>
+                <li>🎯 Target: <span class="ipa-ae">/æ/</span></li>
+            </ul>
+        </div>
+        <div style="flex:1;min-width:220px;padding:10px 0;font-size:14px;line-height:2;color:#2c3e50;">
+            <p><strong>📌 Phân biệt /e/ vs /æ/:</strong></p>
+            <p>• <strong>/e/</strong>: miệng mở vừa, giữa · <em>bed, check, friend</em></p>
+            <p>• <strong>/æ/</strong>: miệng mở RỘNG hơn, môi kéo ngang · <em>bad, back, jam</em></p>
+            <p>🇻🇳 /æ/ gần như âm "a" trong tiếng Việt nhưng <em>miệng mở rộng hơn và kéo ngang</em>.</p>
+            <p>✋ Thử: nói "aaaah" rộng miệng rồi rút ngắn lại = /æ/.</p>
+        </div>
+    </div>
+    <div class="tip-box">
+        <div class="tip-title">🎯 Mẹo phân biệt /e/ và /æ/</div>
+        <div class="tip-content">
+            <p><strong>Minimal pairs kinh điển:</strong><br>
+            men /men/ vs man /mæn/ · bed /bed/ vs bad /bæd/ · head /hed/ vs had /hæd/<br>
+            pepper /ˈpep.ər/ vs paper /ˈpeɪ.pər/ · set /set/ vs sat /sæt/ · better /ˈbet.ər/ vs batter /ˈbæt.ər/</p>
+            <p><strong>Quy tắc nhớ:</strong> /æ/ = "a" mà há rộng và kéo ngang · /e/ = "e" miệng mở vừa</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-e" onclick="speakText('men bed head pepper set better',0.7)">🔊 /e/ — men, bed...</button>
+        <button class="btn btn-ae" onclick="speakText('man bad had paper sat batter',0.7)">🔊 /æ/ — man, bad...</button>
+        <button class="btn btn-purple" onclick="speakText('men man. bed bad. head had. set sat.',0.6)">🔊 So sánh minimal pairs</button>
+    </div>
+</div>
+
+<!-- D: /æ/ chính tả + từ vựng -->
+<div class="section">
+    <div class="section-title">🔵 D. Chính tả &amp; Từ có âm <span class="ipa-ae">/æ/</span> <span class="badge">Spelling &amp; Từ vựng</span></div>
+    <p><strong>/æ/ hầu như luôn được viết là chữ "a"</strong> trước phụ âm:</p>
+    <div style="background:#d6eaf8;border-radius:10px;padding:12px 16px;margin:10px 0;font-size:14px;line-height:2.2;color:#1a5276;">
+        back · camera · factory · hat · jam · manager · map · plan · traffic ·
+        bag · bank · can · cash · cat · class · flat · hand · land · lamp ·
+        last · man · pass · ran · sand · thank · that · travel
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 Bộ từ vựng /æ/ — Click để nghe:</strong></p>
+    <div class="word-grid">
+        <div class="word-card wae" onclick="speakText('jam',0.8)"><div class="word">j<span class="hlae">a</span>m</div><div class="ipa">/dʒæm/</div><div class="vi">🇻🇳 mứt / tắc đường</div></div>
+        <div class="word-card wae" onclick="speakText('back',0.8)"><div class="word">b<span class="hlae">a</span>ck</div><div class="ipa">/bæk/</div><div class="vi">🇻🇳 phía sau / lưng</div></div>
+        <div class="word-card wae" onclick="speakText('map',0.8)"><div class="word">m<span class="hlae">a</span>p</div><div class="ipa">/mæp/</div><div class="vi">🇻🇳 bản đồ</div></div>
+        <div class="word-card wae" onclick="speakText('hat',0.8)"><div class="word">h<span class="hlae">a</span>t</div><div class="ipa">/hæt/</div><div class="vi">🇻🇳 cái mũ</div></div>
+        <div class="word-card wae" onclick="speakText('cash',0.8)"><div class="word">c<span class="hlae">a</span>sh</div><div class="ipa">/kæʃ/</div><div class="vi">🇻🇳 tiền mặt</div></div>
+        <div class="word-card wae" onclick="speakText('bank',0.8)"><div class="word">b<span class="hlae">a</span>nk</div><div class="ipa">/bæŋk/</div><div class="vi">🇻🇳 ngân hàng</div></div>
+        <div class="word-card wae" onclick="speakText('plan',0.8)"><div class="word">pl<span class="hlae">a</span>n</div><div class="ipa">/plæn/</div><div class="vi">🇻🇳 kế hoạch / bản vẽ</div></div>
+        <div class="word-card wae" onclick="speakText('factory',0.8)"><div class="word">f<span class="hlae">a</span>ctory</div><div class="ipa">/ˈfæk.tər.i/</div><div class="vi">🇻🇳 nhà máy</div></div>
+        <div class="word-card wae" onclick="speakText('manager',0.8)"><div class="word">m<span class="hlae">a</span>n<span class="hlae">a</span>ger</div><div class="ipa">/ˈmæn.ɪ.dʒər/</div><div class="vi">🇻🇳 người quản lý</div></div>
+        <div class="word-card wae" onclick="speakText('camera',0.8)"><div class="word">c<span class="hlae">a</span>mer<span class="hlae">a</span></div><div class="ipa">/ˈkæm.ər.ə/</div><div class="vi">🇻🇳 máy ảnh</div></div>
+        <div class="word-card wae" onclick="speakText('traffic',0.8)"><div class="word">tr<span class="hlae">a</span>ffic</div><div class="ipa">/ˈtræf.ɪk/</div><div class="vi">🇻🇳 giao thông</div></div>
+        <div class="word-card wae" onclick="speakText('jacket',0.8)"><div class="word">j<span class="hlae">a</span>cket</div><div class="ipa">/ˈdʒæk.ɪt/</div><div class="vi">🇻🇳 áo khoác</div></div>
+        <div class="word-card wae" onclick="speakText('flat',0.8)"><div class="word">fl<span class="hlae">a</span>t</div><div class="ipa">/flæt/</div><div class="vi">🇻🇳 căn hộ / phẳng</div></div>
+        <div class="word-card wae" onclick="speakText('bag',0.8)"><div class="word">b<span class="hlae">a</span>g</div><div class="ipa">/bæɡ/</div><div class="vi">🇻🇳 cái túi</div></div>
+        <div class="word-card wae" onclick="speakText('travel',0.8)"><div class="word">tr<span class="hlae">a</span>vel</div><div class="ipa">/ˈtræv.əl/</div><div class="vi">🇻🇳 du lịch / di chuyển</div></div>
+        <div class="word-card wae" onclick="speakText('hand',0.8)"><div class="word">h<span class="hlae">a</span>nd</div><div class="ipa">/hænd/</div><div class="vi">🇻🇳 bàn tay</div></div>
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 15 câu luyện /æ/ — click để nghe:</strong></p>
+    <ul class="sentence-list">
+        <li class="sl-ae" onclick="speakText('Thanks for the cash.',0.8)">Th<span class="hlae">a</span>nks for the c<span class="hlae">a</span>sh.<span class="ipa-s">/θæŋks fɔː ðə kæʃ/</span><span class="vi-s">🇻🇳 Cảm ơn vì tiền mặt.</span></li>
+        <li class="sl-ae" onclick="speakText('I ran to the bank.',0.8)">I r<span class="hlae">a</span>n to the b<span class="hlae">a</span>nk.<span class="ipa-s">/aɪ ræn tə ðə bæŋk/</span><span class="vi-s">🇻🇳 Tôi chạy đến ngân hàng.</span></li>
+        <li class="sl-ae" onclick="speakText('Where's my black jacket?',0.8)">Where's my bl<span class="hlae">a</span>ck j<span class="hlae">a</span>cket?<span class="ipa-s">/weəz maɪ blæk ˈdʒæk.ɪt/</span><span class="vi-s">🇻🇳 Áo khoác đen của tôi đâu rồi?</span></li>
+        <li class="sl-ae" onclick="speakText('That man works in a jam factory.',0.8)">Th<span class="hlae">a</span>t m<span class="hlae">a</span>n works in a j<span class="hlae">a</span>m f<span class="hlae">a</span>ctory.<span class="ipa-s">/ðæt mæn wɜːks ɪn ə dʒæm ˈfæk.tər.i/</span><span class="vi-s">🇻🇳 Người đàn ông đó làm việc trong nhà máy mứt.</span></li>
+        <li class="sl-ae" onclick="speakText('Let me carry your bags.',0.8)">Let me c<span class="hlae">a</span>rry your b<span class="hlae">a</span>gs.<span class="ipa-s">/let miː ˈkær.i jɔː bæɡz/</span><span class="vi-s">🇻🇳 Để tôi xách túi cho bạn.</span></li>
+        <li class="sl-ae" onclick="speakText('Can you hand me the map?',0.8)">C<span class="hlae">a</span>n you h<span class="hlae">a</span>nd me the m<span class="hlae">a</span>p?<span class="ipa-s">/kæn ju hænd miː ðə mæp/</span><span class="vi-s">🇻🇳 Bạn có thể đưa tôi tấm bản đồ không?</span></li>
+        <li class="sl-ae" onclick="speakText('The manager packed her bag and left.',0.8)">The m<span class="hlae">a</span>n<span class="hlae">a</span>ger p<span class="hlae">a</span>cked her b<span class="hlae">a</span>g and left.<span class="ipa-s">/ðə ˈmæn.ɪ.dʒər pækt hər bæɡ ænd left/</span><span class="vi-s">🇻🇳 Người quản lý đóng gói túi và ra đi.</span></li>
+        <li class="sl-ae" onclick="speakText('My flat is at the back of the factory.',0.8)">My fl<span class="hlae">a</span>t is <span class="hlae">a</span>t the b<span class="hlae">a</span>ck of the f<span class="hlae">a</span>ctory.<span class="ipa-s">/maɪ flæt ɪz æt ðə bæk əv ðə ˈfæk.tər.i/</span><span class="vi-s">🇻🇳 Căn hộ tôi ở phía sau nhà máy.</span></li>
+        <li class="sl-ae" onclick="speakText('Traffic was bad and I had to travel by hand.',0.8)">Tr<span class="hlae">a</span>ffic w<span class="hlae">a</span>s b<span class="hlae">a</span>d <span class="hlae">a</span>nd I h<span class="hlae">a</span>d to tr<span class="hlae">a</span>vel by h<span class="hlae">a</span>nd.<span class="ipa-s">/ˈtræf.ɪk wəz bæd ænd aɪ hæd tə ˈtræv.əl baɪ hænd/</span><span class="vi-s">🇻🇳 Giao thông tắc và tôi phải đi bộ.</span></li>
+        <li class="sl-ae" onclick="speakText('She ran back to grab her camera and bag.',0.8)">She r<span class="hlae">a</span>n b<span class="hlae">a</span>ck to gr<span class="hlae">a</span>b her c<span class="hlae">a</span>mer<span class="hlae">a</span> and b<span class="hlae">a</span>g.<span class="ipa-s">/ʃiː ræn bæk tə ɡræb hər ˈkæm.ər.ə ænd bæɡ/</span><span class="vi-s">🇻🇳 Cô ấy chạy trở lại để lấy máy ảnh và túi.</span></li>
+        <li class="sl-ae" onclick="speakText('That plan was actually quite bad.',0.8)">Th<span class="hlae">a</span>t pl<span class="hlae">a</span>n w<span class="hlae">a</span>s <span class="hlae">a</span>ctu<span class="hlae">a</span>lly quite b<span class="hlae">a</span>d.<span class="ipa-s">/ðæt plæn wəz ˈæk.tʃu.ə.li kwaɪt bæd/</span><span class="vi-s">🇻🇳 Kế hoạch đó thực ra khá tệ.</span></li>
+        <li class="sl-ae" onclick="speakText('He packed his laptop and passport in his hand luggage.',0.75)">He p<span class="hlae">a</span>cked his l<span class="hlae">a</span>ptop and p<span class="hlae">a</span>ssport in his h<span class="hlae">a</span>nd lugg<span class="hlae">a</span>ge.<span class="ipa-s">/hiː pækt hɪz ˈlæp.tɒp ænd ˈpɑːs.pɔːt ɪn hɪz hænd ˈlʌɡ.ɪdʒ/</span><span class="vi-s">🇻🇳 Anh ấy nhét laptop và hộ chiếu vào hành lý xách tay.</span></li>
+        <li class="sl-ae" onclick="speakText('The bank manager asked about the cash transaction.',0.75)">The b<span class="hlae">a</span>nk m<span class="hlae">a</span>n<span class="hlae">a</span>ger <span class="hlae">a</span>sked <span class="hlae">a</span>bout the c<span class="hlae">a</span>sh tr<span class="hlae">a</span>ns<span class="hlae">a</span>ction.<span class="ipa-s">/ðə bæŋk ˈmæn.ɪ.dʒər ɑːskt əˈbaʊt ðə kæʃ trænˈzæk.ʃən/</span><span class="vi-s">🇻🇳 Người quản lý ngân hàng hỏi về giao dịch tiền mặt.</span></li>
+        <li class="sl-ae" onclick="speakText('Can the lab sample data match the plan?',0.75)">C<span class="hlae">a</span>n the l<span class="hlae">a</span>b s<span class="hlae">a</span>mple d<span class="hlae">a</span>ta m<span class="hlae">a</span>tch the pl<span class="hlae">a</span>n?<span class="ipa-s">/kæn ðə læb ˈsæm.pəl ˈdeɪ.tə mætʃ ðə plæn/</span><span class="vi-s">🇻🇳 Dữ liệu mẫu phòng thí nghiệm có khớp với kế hoạch không? <em>(địa kỹ thuật)</em></span></li>
+        <li class="sl-ae" onclick="speakText('The sand and gravel samples came back from the lab.',0.75)">The s<span class="hlae">a</span>nd <span class="hlae">a</span>nd gr<span class="hlae">a</span>vel s<span class="hlae">a</span>mples c<span class="hlae">a</span>me b<span class="hlae">a</span>ck from the l<span class="hlae">a</span>b.<span class="ipa-s">/ðə sænd ænd ˈɡræv.əl ˈsæm.pəlz keɪm bæk frəm ðə læb/</span><span class="vi-s">🇻🇳 Các mẫu cát và sỏi đã quay lại từ phòng thí nghiệm. <em>(địa kỹ thuật)</em></span></li>
+    </ul>
+    <div class="btn-group">
+        <button class="btn btn-ae" onclick="speakText('Thanks for the cash. I ran to the bank. Where's my black jacket? That man works in a jam factory. Let me carry your bags.',0.8)">🔊 Nghe 5 câu sách gốc</button>
+        <button class="btn btn-success" onclick="speakText('Thanks for the cash. I ran to the bank. Where's my black jacket?',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- GEO + CUỘC SỐNG -->
+<div class="section" style="border:2px solid #1abc9c;">
+    <div class="section-title">🏗️ Từ &amp; Câu địa kỹ thuật <span class="badge geo">🪨 Geotech</span></div>
+    <div class="word-grid">
+        <div class="word-card we" onclick="speakText('settlement',0.8)"><div class="word">s<span class="hle">e</span>ttl<span class="hle">e</span>m<span class="hle">e</span>nt</div><div class="ipa">/ˈset.l.mənt/</div><div class="vi">🇻🇳 độ lún</div></div>
+        <div class="word-card wae" onclick="speakText('sand',0.8)"><div class="word">s<span class="hlae">a</span>nd</div><div class="ipa">/sænd/</div><div class="vi">🇻🇳 cát</div></div>
+        <div class="word-card we" onclick="speakText('stress',0.8)"><div class="word">str<span class="hle">e</span>ss</div><div class="ipa">/stres/</div><div class="vi">🇻🇳 ứng suất</div></div>
+        <div class="word-card wae" onclick="speakText('sample',0.8)"><div class="word">s<span class="hlae">a</span>mple</div><div class="ipa">/ˈsæm.pəl/</div><div class="vi">🇻🇳 mẫu thử</div></div>
+        <div class="word-card wae" onclick="speakText('gravel',0.8)"><div class="word">gr<span class="hlae">a</span>vel</div><div class="ipa">/ˈɡræv.əl/</div><div class="vi">🇻🇳 sỏi / đá dăm</div></div>
+        <div class="word-card we" onclick="speakText('level',0.8)"><div class="word">l<span class="hle">e</span>v<span class="hle">e</span>l</div><div class="ipa">/ˈlev.əl/</div><div class="vi">🇻🇳 mực nước / cốt</div></div>
+    </div>
+    <div class="geo-box">
+        <div class="geo-title">🪨 Kinh nghiệm phát âm từ chuyên ngành</div>
+        <div class="geo-content">
+            • <strong>settlement</strong> /ˈset.l.mənt/ — /e/ trong "set" · stress từ SETTLE-ment<br>
+            • <strong>stress</strong> /stres/ — /e/ ngắn · "str-ESS" nhấn vần sau<br>
+            • <strong>sample</strong> /ˈsæm.pəl/ — /æ/ rộng trong "sam" · "SAM-ple"<br>
+            • <strong>gravel</strong> /ˈɡræv.əl/ — /æ/ trong "grav" · "GRAV-el"<br>
+            • <strong>sand</strong> /sænd/ — /æ/ rộng · phân biệt với "send" /send/ /e/
+        </div>
+    </div>
+</div>
+
+<!-- KINH NGHIỆM -->
+<div class="section" style="border:2px solid #f39c12;">
+    <div class="section-title">💡 Kinh nghiệm luyện tập <span class="badge tip">🔥 Quan trọng</span></div>
+    <div class="tip-box">
+        <div class="tip-title">🎯 5 bí quyết phân biệt /e/ và /æ/</div>
+        <div class="tip-content">
+            <p><strong>1. /æ/ = há rộng hơn /e/</strong><br>
+            Đặt ngón tay dưới cằm: khi nói /æ/ hàm mở hơn /e/ → ngón tay bị đẩy xuống nhiều hơn.</p>
+            <p><strong>2. Cẩn thận "ea" = /e/ không phải /iː/</strong><br>
+            bread /bred/ · head /hed/ · read (quá khứ) /red/ · dead /ded/ · weather /ˈweð.ər/<br>
+            Người học hay đọc nhầm bread = /briːd/!</p>
+            <p><strong>3. "said" và "again" = /e/</strong><br>
+            said /sed/ (không phải /seɪd/) · again /əˈɡen/ (không phải /əˈɡeɪn/)</p>
+            <p><strong>4. "any" và "many" = /e/</strong><br>
+            any /ˈen.i/ · many /ˈmen.i/ — chữ "a" đọc là /e/, không phải /æ/!</p>
+            <p><strong>5. Luyện theo số đếm để nhớ /e/</strong><br>
+            ten /ten/ · seven /ˈsev.ən/ · twelve /twelv/ · eleven /ɪˈlev.ən/ — tất cả có /e/!</p>
+        </div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 6.1 — IPA to word
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 6.1 — Đọc phiên âm, viết từ <span class="badge">Bài tập sách</span></div>
+    <p>Ví dụ: /mæp/ → <strong>map</strong></p>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            ✏️ Nhìn phiên âm → Gõ từ tiếng Anh vào ô → <strong>"Chấm bài"</strong>.
+        </div>
+        <div class="ipa-items" id="ex61Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx61()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx61()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx61()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score61" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 6.2 — Numbers with /e/
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 6.2 — Số nào có âm /e/? <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 Click vào số bạn nghĩ có âm <strong style="color:#a8184d;">/e/</strong> → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Ví dụ: 7 (seven) có /e/ ✓</em>
+        </div>
+        <div class="numbers-grid" id="ex62Grid"></div>
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx62()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx62()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx62()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score62" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 6.3 — Match phrases
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 6.3 — Nối câu có /æ/ và /e/ <span class="badge">Bài tập sách</span></div>
+    <p>Ví dụ: "The first plan" + "was the best" → "The first plan was the best."</p>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 Click vế trái → Click vế phải để nối → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Mỗi câu có cả từ /æ/ và /e/.</em>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;" id="ex63Container"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakAllEx63()">🔊 Nghe tất cả</button>
+            <button class="btn btn-warning" onclick="checkEx63()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx63()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx63()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score63" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 6.4 — Minimal pair choose
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 6.4 — Nghe chọn từ đúng <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🔊 Nhấn ▶️ → Chọn từ đúng → <strong>"Chấm bài"</strong>. Nhấn 🔀 để tạo bộ câu mới.
+        </div>
+        <div class="choice-items" id="ex64Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="randomizeEx64()">🔀 Tạo câu mới</button>
+            <button class="btn btn-warning" onclick="checkEx64()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx64()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx64()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score64" class="score-box"></div>
+    </div>
+</div>
+
+<!-- TỔNG KẾT -->
+<div class="section" style="border:2px solid #8e44ad;">
+    <div class="section-title">📌 Tổng kết <span class="badge" style="background:#f5eef8;color:#7d3c98;">✅ Checklist</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px;line-height:1.9;">
+        <div style="background:#fce4ec;padding:12px 14px;border-radius:10px;border:1px solid #a8184d;">✅ <strong>/e/ NGẮN</strong> — bread, check, friend, said, again</div>
+        <div style="background:#d6eaf8;padding:12px 14px;border-radius:10px;border:1px solid #1a5276;">✅ <strong>/æ/ NGẮN</strong> — jam, back, map, plan, bank</div>
+        <div style="background:#fce4ec;padding:12px 14px;border-radius:10px;border:1px solid #a8184d;">✅ <strong>/e/ viết</strong> — e · ea (bread) · ie (friend) · a (any) · ai (said)</div>
+        <div style="background:#d6eaf8;padding:12px 14px;border-radius:10px;border:1px solid #1a5276;">✅ <strong>/æ/ viết</strong> — a (hầu hết trường hợp)</div>
+        <div style="background:#fce4ec;padding:12px 14px;border-radius:10px;border:1px solid #a8184d;">✅ <strong>Cẩn thận:</strong> said=/sed/ · again=/əˈɡen/ · any=/ˈen.i/</div>
+        <div style="background:#d6eaf8;padding:12px 14px;border-radius:10px;border:1px solid #1a5276;">✅ <strong>/æ/ rộng hơn /e/</strong> — há miệng rộng, kéo ngang</div>
+    </div>
+</div>
+
+<div style="text-align:center;padding:20px 0 10px;color:#95a5a6;font-size:14px;border-top:1px solid #e2e8f0;margin-top:10px;">
+    <p>🍞 <strong>"Bread and jam"</strong> — BREAD=/e/ · JAM=/æ/ — hai âm ngắn, hai cách há miệng!</p>
+    <p style="margin-top:4px;font-size:13px;"><a href="../index.html" style="color:#6b0f3a;font-weight:600;">← Về trang chủ</a></p>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let curUtt=null,_voices=[];
+function _loadVoices(){_voices=speechSynthesis.getVoices();if(_voices.length===0)setTimeout(_loadVoices,200);}
+function _bestVoice(){
+    const prefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+    for(const p of prefs){const v=_voices.find(x=>x.name.includes(p));if(v)return v;}
+    return _voices.find(x=>x.lang.startsWith("en")&&!x.name.toLowerCase().includes("male"))||_voices.find(x=>x.lang.startsWith("en"))||null;
+}
+function speakText(t,rate=0.85){
+    if(!window.speechSynthesis)return;
+    speechSynthesis.cancel();
+    const clean=t.replace(/<[^>]*>/g,"").trim();
+    function doSpeak(){
+        const u=new SpeechSynthesisUtterance(clean);
+        u.lang="en-GB";u.rate=rate;u.pitch=1.05;u.volume=1.0;
+        const v=_bestVoice();if(v)u.voice=v;
+        curUtt=u;u.onend=()=>curUtt=null;speechSynthesis.speak(u);
+    }
+    if(_voices.length>0)doSpeak();else{_loadVoices();setTimeout(doSpeak,350);}
+}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);}
+function showScore(id,correct,total,extra){
+    const pct=Math.round(correct/total*100);
+    let cls="try",emoji="😅",msg="Cần luyện thêm!";
+    if(pct>=90){cls="great";emoji="🎉";msg="Xuất sắc!";}
+    else if(pct>=65){cls="good";emoji="👍";msg="Khá tốt!";}
+    const el=document.getElementById("score"+id);
+    el.className=`score-box show ${cls}`;
+    el.innerHTML=`<div class="big-score">${emoji} ${pct}%</div><strong>${msg}</strong> — Đúng <strong>${correct}/${total}</strong>.<div class="score-meter"><div class="score-meter-fill" style="width:${pct}%;background:${pct>=90?"#27ae60":pct>=65?"#f39c12":"#e74c3c"}"></div></div>${extra||""}`;
+    showToast("Kết quả: "+pct+"%");
+}
+if(window.speechSynthesis){_loadVoices();speechSynthesis.onvoiceschanged=_loadVoices;}
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(6)){c.push(6);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+
+// ================================================================
+// EX 6.1 — IPA to word
+// ================================================================
+const EX61=[
+    {num:"Ex",ipa:"/mæp/",ans:"map",audio:"map",vi:"bản đồ"},
+    {num:1,ipa:"/hænd/",ans:"hand",audio:"hand",vi:"bàn tay"},
+    {num:2,ipa:"/best/",ans:"best",audio:"best",vi:"tốt nhất"},
+    {num:3,ipa:"/eɡ/",ans:"egg",audio:"egg",vi:"quả trứng"},
+    {num:4,ipa:"/mæn/",ans:"man",audio:"man",vi:"đàn ông"},
+    {num:5,ipa:"/men/",ans:"men",audio:"men",vi:"những người đàn ông"},
+    {num:6,ipa:"/ˈmeni/",ans:"many",audio:"many",vi:"nhiều"},
+    {num:7,ipa:"/hæv/",ans:"have",audio:"have",vi:"có"},
+    {num:8,ipa:"/nekst/",ans:"next",audio:"next",vi:"tiếp theo"},
+];
+function buildEx61(){
+    const c=document.getElementById("ex61Items");c.innerHTML="";
+    EX61.forEach((item,i)=>{
+        const isEx=item.num==="Ex";
+        c.innerHTML+=`<div class="ipa-item">
+            <span class="num">${item.num}.</span>
+            <span class="ipa-q">${item.ipa}</span>
+            <span>→</span>
+            <input type="text" id="inp61_${i}" placeholder="?" autocomplete="off"
+                ${isEx?`value="${item.ans}" readonly style="background:#d5f5e3;color:#1a6e4a;border-color:#27ae60;"`:""}>
+            <button class="btn btn-e" style="padding:2px 9px;font-size:11px;" onclick="speakText('${item.audio}',0.8)">🔊</button>
+            <span style="font-size:12px;color:#27ae60;">🇻🇳 ${item.vi}</span>
+        </div>`;
+    });
+}
+function checkEx61(){
+    let correct=0,total=0;
+    EX61.forEach((item,i)=>{
+        if(item.num==="Ex")return;total++;
+        const inp=document.getElementById(`inp61_${i}`);if(!inp)return;
+        if(inp.value.trim().toLowerCase()===item.ans){inp.classList.add("correct");inp.classList.remove("wrong");correct++;}
+        else{inp.classList.add("wrong");inp.classList.remove("correct");}
+    });
+    showScore("61",correct,total);
+}
+function resetEx61(){EX61.forEach((item,i)=>{if(item.num==="Ex")return;const inp=document.getElementById(`inp61_${i}`);if(inp){inp.value="";inp.className="";}});document.getElementById("score61").className="score-box";showToast("Đã đặt lại!");}
+function revealEx61(){
+    EX61.forEach((item,i)=>{const inp=document.getElementById(`inp61_${i}`);if(inp){inp.value=item.ans;inp.classList.add("correct");}});
+    document.getElementById("score61").className="score-box info show";
+    document.getElementById("score61").innerHTML="<strong>Đáp án:</strong> "+EX61.map(x=>`${x.num}. <strong>${x.ans}</strong>`).join(" | ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 6.2 — Numbers with /e/
+// ================================================================
+const NUMBERS=[
+    {val:3,word:"three",hasE:false},{val:7,word:"seven",hasE:true},{val:8,word:"eight",hasE:false},
+    {val:10,word:"ten",hasE:true},{val:11,word:"eleven",hasE:true},{val:12,word:"twelve",hasE:true},
+    {val:13,word:"thirteen",hasE:true},{val:17,word:"seventeen",hasE:true},{val:18,word:"eighteen",hasE:true},
+    {val:20,word:"twenty",hasE:true},{val:70,word:"seventy",hasE:true},{val:80,word:"eighty",hasE:false},{val:100,word:"hundred",hasE:true},
+];
+const ex62Sel={};
+function buildEx62(){
+    const c=document.getElementById("ex62Grid");c.innerHTML="";
+    NUMBERS.forEach((n,i)=>{
+        ex62Sel[i]=false;
+        c.innerHTML+=`<div class="num-card" id="nc62_${i}" onclick="toggleNum62(${i})">
+            <div class="num-val">${n.val}</div>
+            <div class="num-word">${n.word}</div>
+        </div>`;
+    });
+}
+function toggleNum62(i){
+    ex62Sel[i]=!ex62Sel[i];
+    const el=document.getElementById(`nc62_${i}`);
+    el.classList.toggle("has-e",ex62Sel[i]);
+    el.classList.toggle("no-e",!ex62Sel[i]&&false);
+    if(ex62Sel[i])speakText(NUMBERS[i].word,0.8);
+}
+function checkEx62(){
+    let correct=0,total=NUMBERS.length;
+    NUMBERS.forEach((n,i)=>{
+        const el=document.getElementById(`nc62_${i}`);
+        el.classList.remove("has-e","no-e","correct-e","wrong-e");
+        el.style.pointerEvents="none";
+        if(n.hasE&&ex62Sel[i]){el.classList.add("correct-e");correct++;}
+        else if(!n.hasE&&!ex62Sel[i]){el.classList.add("correct-e");correct++;}
+        else{el.classList.add("wrong-e");}
+    });
+    showScore("62",correct,total,"<br><em style='font-size:13px;'>Xanh lá = đúng · Đỏ = sai</em>");
+}
+function resetEx62(){
+    NUMBERS.forEach((_,i)=>{ex62Sel[i]=false;const el=document.getElementById(`nc62_${i}`);el.className="num-card";el.style.pointerEvents="";});
+    document.getElementById("score62").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx62(){
+    NUMBERS.forEach((n,i)=>{
+        const el=document.getElementById(`nc62_${i}`);
+        el.classList.remove("has-e","no-e","wrong-e");el.style.pointerEvents="none";
+        el.classList.add("correct-e");
+        el.style.background=n.hasE?"#d5f5e3":"#f5f5f5";
+        el.style.borderColor=n.hasE?"#27ae60":"#bbb";
+    });
+    const hasE=NUMBERS.filter(n=>n.hasE).map(n=>n.val).join(", ");
+    document.getElementById("score62").className="score-box info show";
+    document.getElementById("score62").innerHTML=`<strong>Có /e/:</strong> ${hasE}<br><em style='font-size:13px;'>seven(7), ten(10), eleven(11), twelve(12), thirteen(13), seventeen(17), eighteen(18), twenty(20), seventy(70), hundred(100)</em>`;
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 6.3 — Match phrases
+// ================================================================
+const EX63_LEFT=[
+    {id:"L1",text:"The first plan",ans:"R5",full:"The first plan was the best."},
+    {id:"L2",text:"He said",ans:"R2",full:"He said 'Thank you.'"},
+    {id:"L3",text:"How many",ans:"R4",full:"How many stamps do you need?"},
+    {id:"L4",text:"I haven't got",ans:"R1",full:"I haven't got any milk."},
+    {id:"L5",text:"I'll be back",ans:"R3",full:"I'll be back again tomorrow."},
+    {id:"L6",text:"My friends live",ans:"R6",full:"My friends live in a flat over there."},
+];
+const EX63_RIGHT=[
+    {id:"R1",text:"any milk."},
+    {id:"R2",text:"'Thank you.'"},
+    {id:"R3",text:"again tomorrow."},
+    {id:"R4",text:"stamps do you need?"},
+    {id:"R5",text:"was the best."},
+    {id:"R6",text:"in a flat over there."},
+];
+const EX63_AUDIO={
+    "L1":"The first plan was the best.",
+    "L2":"He said Thank you.",
+    "L3":"How many stamps do you need?",
+    "L4":"I haven't got any milk.",
+    "L5":"I'll be back again tomorrow.",
+    "L6":"My friends live in a flat over there.",
+};
+let ex63SelL=null,ex63SelR=null;
+const ex63Matched={};
+function buildEx63(){
+    const c=document.getElementById("ex63Container");c.innerHTML="";
+    // Left col
+    let leftHtml=`<div class="match-col">`;
+    EX63_LEFT.forEach(item=>{leftHtml+=`<div class="match-item" id="ml_${item.id}" onclick="selEx63L('${item.id}')">${item.text}</div>`;});
+    leftHtml+="</div>";
+    // Right col
+    let rightHtml=`<div class="match-col">`;
+    // Shuffle
+    const shuffled=[...EX63_RIGHT].sort(()=>Math.random()-.5);
+    shuffled.forEach(item=>{rightHtml+=`<div class="match-item" id="mr_${item.id}" onclick="selEx63R('${item.id}')">${item.text}</div>`;});
+    rightHtml+="</div>";
+    c.innerHTML=leftHtml+rightHtml;
+}
+function selEx63L(id){
+    if(ex63Matched[id])return;
+    if(ex63SelL){document.getElementById(`ml_${ex63SelL}`).classList.remove("selected");}
+    ex63SelL=id;
+    document.getElementById(`ml_${id}`).classList.add("selected");
+    tryMatchEx63();
+}
+function selEx63R(id){
+    if(Object.values(ex63Matched).includes(id))return;
+    if(ex63SelR){document.getElementById(`mr_${ex63SelR}`).classList.remove("selected");}
+    ex63SelR=id;
+    document.getElementById(`mr_${id}`).classList.add("selected");
+    tryMatchEx63();
+}
+function tryMatchEx63(){
+    if(!ex63SelL||!ex63SelR)return;
+    const leftItem=EX63_LEFT.find(x=>x.id===ex63SelL);
+    const correct=leftItem.ans===ex63SelR;
+    const lEl=document.getElementById(`ml_${ex63SelL}`);
+    const rEl=document.getElementById(`mr_${ex63SelR}`);
+    lEl.classList.remove("selected");rEl.classList.remove("selected");
+    if(correct){
+        lEl.classList.add("matched-ok");rEl.classList.add("matched-ok");
+        lEl.innerHTML=leftItem.text+` <span style="font-size:12px;color:#1a6e4a;"> ✅</span>`;
+        ex63Matched[ex63SelL]=ex63SelR;
+        showToast("✅ Đúng rồi! "+leftItem.full);
+        speakText(leftItem.full,0.8);
+    } else {
+        lEl.classList.add("matched-err");rEl.classList.add("matched-err");
+        setTimeout(()=>{lEl.classList.remove("matched-err");rEl.classList.remove("matched-err");},800);
+        showToast("❌ Thử lại!");
+    }
+    ex63SelL=null;ex63SelR=null;
+}
+function speakAllEx63(){EX63_LEFT.forEach(x=>speakText(x.full,0.8));}
+function checkEx63(){
+    const correct=Object.keys(ex63Matched).length;
+    showScore("63",correct,EX63_LEFT.length,"<br><em style='font-size:13px;'>Nối đúng = tự động xanh lá khi chơi</em>");
+}
+function resetEx63(){
+    Object.keys(ex63Matched).forEach(k=>delete ex63Matched[k]);
+    ex63SelL=null;ex63SelR=null;
+    buildEx63();
+    document.getElementById("score63").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx63(){
+    EX63_LEFT.forEach(item=>{
+        const lEl=document.getElementById(`ml_${item.id}`);
+        const rEl=document.getElementById(`mr_${item.ans}`);
+        if(lEl){lEl.className="match-item matched-ok";lEl.innerHTML=item.text+" ✅";}
+        if(rEl){rEl.className="match-item matched-ok";}
+        ex63Matched[item.id]=item.ans;
+    });
+    document.getElementById("score63").className="score-box info show";
+    document.getElementById("score63").innerHTML="<strong>Đáp án:</strong><br>"+EX63_LEFT.map(x=>`"${x.text}" + "${EX63_RIGHT.find(r=>r.id===x.ans).text}" → <em>${x.full}</em>`).join("<br>");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 6.4 — Minimal pairs listen
+// ================================================================
+const EX64=[
+    {num:1,pair:["men","man"],vowels:["e","ae"],hint:"sound pair 15"},
+    {num:2,pair:["cat","cut"],vowels:["ae","?"],hint:"sound pair 9"},
+    {num:3,pair:["had","hard"],vowels:["ae","?"],hint:"sound pair 7"},
+    {num:4,pair:["pepper","paper"],vowels:["e","?"],hint:"sound pair 16"},
+    {num:5,pair:["head","heard"],vowels:["e","?"],hint:"sound pair 17"},
+    {num:6,pair:["set","sit"],vowels:["e","?"],hint:"sound pair 3"},
+    {num:7,pair:["better","butter"],vowels:["e","?"],hint:"sound pair 18"},
+    {num:8,pair:["bad","bed"],vowels:["ae","e"],hint:"/æ/ vs /e/"},
+    {num:9,pair:["ban","Ben"],vowels:["ae","e"],hint:"/æ/ vs /e/"},
+    {num:10,pair:["can","ken"],vowels:["ae","e"],hint:"/æ/ vs /e/"},
+];
+let ex64Correct=[];
+function initEx64(){ex64Correct=EX64.map(x=>{
+    const valid=[0,1].filter(j=>x.vowels[j]!=="?");
+    return valid[Math.floor(Math.random()*valid.length)];
+});}
+function buildEx64(){
+    initEx64();
+    const c=document.getElementById("ex64Items");c.innerHTML="";
+    EX64.forEach((item,i)=>{
+        c.innerHTML+=`<div class="choice-item">
+            <span class="num">${item.num}.</span>
+            <small style="color:#888;font-style:italic;">${item.hint}</small><br>
+            ${item.pair.map((w,j)=>`<span class="choice-btn" id="cb64_${i}_${j}" onclick="selC64(${i},${j})">${w}</span>`).join("")}
+            <button class="btn btn-e" style="padding:3px 10px;font-size:11px;margin-left:6px;" onclick="speakText('${item.pair[ex64Correct[i]]}',0.7)">▶️ Nghe</button>
+        </div>`;
+    });
+}
+const ex64Sel={};
+function selC64(i,j){
+    ex64Sel[i]=j;
+    [0,1].forEach(k=>{document.getElementById(`cb64_${i}_${k}`).classList.remove("sel-e","sel-ae");});
+    document.getElementById(`cb64_${i}_${j}`).classList.add(EX64[i].vowels[j]==="e"?"sel-e":"sel-ae");
+}
+function randomizeEx64(){initEx64();buildEx64();Object.keys(ex64Sel).forEach(k=>delete ex64Sel[k]);document.getElementById("score64").className="score-box";showToast("Câu hỏi mới!");}
+function checkEx64(){
+    let correct=0;
+    EX64.forEach((_,i)=>{
+        const ans=ex64Correct[i];
+        [0,1].forEach(j=>{
+            const el=document.getElementById(`cb64_${i}_${j}`);if(!el)return;
+            el.style.pointerEvents="none";
+            if(j===ans){if(ex64Sel[i]===j){el.classList.add("correct-c");correct++;}else el.style.textDecoration="underline dotted #27ae60";}
+            else if(ex64Sel[i]===j)el.classList.add("wrong-c");
+        });
+    });
+    showScore("64",correct,EX64.length,"<br><em style='font-size:13px;'>Nhấn 🔀 để nghe bộ câu mới!</em>");
+}
+function resetEx64(){buildEx64();Object.keys(ex64Sel).forEach(k=>delete ex64Sel[k]);document.getElementById("score64").className="score-box";showToast("Đã đặt lại!");}
+function revealEx64(){
+    EX64.forEach((_,i)=>{const ans=ex64Correct[i];[0,1].forEach(j=>{const el=document.getElementById(`cb64_${i}_${j}`);if(!el)return;el.classList.remove("sel-e","sel-ae","wrong-c");el.style.pointerEvents="none";if(j===ans)el.classList.add("correct-c");});});
+    document.getElementById("score64").className="score-box info show";
+    document.getElementById("score64").innerHTML="<strong>Đáp án:</strong> "+EX64.map((x,i)=>`${x.num}. <strong>${x.pair[ex64Correct[i]]}</strong>`).join(" | ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+document.addEventListener("DOMContentLoaded",()=>{buildEx61();buildEx62();buildEx63();buildEx64();});
+</script>
+</body>
+</html>
