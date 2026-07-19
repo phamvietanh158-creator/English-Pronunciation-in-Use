@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 43 – I looked everywhere – Pronouncing past tenses</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#5d1a6e 0%,#3a0d45 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 16px;font-size:1.05rem;font-weight:800}
+.header h1{font-size:1.35rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#5d1a6e;border-bottom:2px solid #e8c8f5;padding-bottom:8px;margin-bottom:14px}
+.rule-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
+.rule-card{background:#f8f0ff;border-radius:10px;padding:14px;border:1.5px solid #d5a8f0;text-align:center}
+.rule-card .icon{font-size:1.8rem;margin-bottom:6px}
+.rule-card h4{font-size:0.88rem;font-weight:700;color:#5d1a6e;margin-bottom:4px}
+.rule-card p{font-size:0.8rem;color:#555;line-height:1.5}
+.ipa{font-style:italic;color:#c0392b;font-weight:700}
+.hl-ed{color:#c0392b;font-weight:800}
+.syl-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.syl-table th{background:#5d1a6e;color:#fff;padding:9px 12px;text-align:left}
+.syl-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.syl-table tr:nth-child(even) td{background:#f8f0ff}
+.syl-badge{display:inline-block;background:#5d1a6e;color:#fff;border-radius:12px;padding:2px 10px;font-size:0.8rem;font-weight:700;min-width:24px;text-align:center}
+.syl-badge.two{background:#e67e22}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.info-box{background:#e8f4ff;border-left:4px solid #2980b9;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.info-box b{color:#1a5276}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{background:#f8f0ff;border:1.5px solid #d5a8f0;border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:130px;text-align:center}
+.word-card:hover{background:#5d1a6e;color:#fff;transform:translateY(-2px)}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card:hover .ipa2{color:#e8c8f5}
+.word-card .vn{font-size:0.78rem;color:#5d1a6e;margin-top:2px}
+.word-card:hover .vn{color:#ffe}
+.word-card .syl{font-size:0.72rem;background:#edd5ff;color:#5d1a6e;border-radius:8px;padding:1px 6px;margin-top:3px;display:inline-block}
+.word-card:hover .syl{background:rgba(255,255,255,0.2);color:#fff}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{background:#f8f0ff;border-radius:9px;padding:10px 14px;cursor:pointer;border-left:4px solid #5d1a6e;transition:background 0.2s}
+.sentence-list li:hover{background:#edd5ff}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;color:#5d1a6e;margin-top:2px}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-purple{background:#5d1a6e;color:#fff}.btn-purple:hover{background:#3a0d45}
+.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.ex-wrap{border:1.5px solid #d5a8f0;border-radius:12px;padding:18px;margin-bottom:16px;background:#fdfaff}
+.ex-label{display:inline-block;background:#5d1a6e;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
+.fill-item input{border:none;border-bottom:2px solid #d5a8f0;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:120px;color:#5d1a6e;font-weight:600}
+.fill-item input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-item input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+/* tick/cross buttons */
+.tc-btn{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:2px solid #ccc;cursor:pointer;font-size:1.1rem;background:#f5f5f5;transition:all 0.18s;margin:2px}
+.tc-btn:hover{background:#edd5ff;border-color:#5d1a6e}
+.tc-btn.sel-tick{background:#27ae60;color:#fff;border-color:#27ae60}
+.tc-btn.sel-cross{background:#e74c3c;color:#fff;border-color:#e74c3c}
+/* choice chips */
+.choice-btn{display:inline-block;padding:4px 12px;border-radius:16px;border:2px solid #ccc;cursor:pointer;font-size:0.87rem;font-weight:600;margin:2px;background:#f5f5f5;transition:all 0.18s}
+.choice-btn:hover{border-color:#5d1a6e;background:#f8f0ff}
+.choice-btn.selected{background:#5d1a6e;color:#fff;border-color:#5d1a6e}
+.choice-btn.correct{background:#27ae60;color:#fff;border-color:#27ae60}
+.choice-btn.wrong{background:#e74c3c;color:#fff;border-color:#e74c3c}
+/* poem */
+.poem-box{background:#f8f0ff;border-radius:12px;padding:18px;font-size:0.92rem;line-height:2.2;border:1.5px solid #d5a8f0;font-style:italic}
+.poem-box .poem-line{display:flex;align-items:baseline;gap:8px}
+.poem-box .beat{color:#5d1a6e;font-weight:800;font-size:0.75rem;opacity:0.6}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 43</span>
+    <span class="phoneme-badge">-ed: /t/ · /d/ · /ɪd/ + số âm tiết</span>
+  </div>
+  <h1>I looked everywhere – Pronouncing past tenses</h1>
+  <div class="sub">Phát âm đuôi -ed (quá khứ): số âm tiết & 3 cách đọc</div>
+</div>
+<div id="toast" class="toast"></div>
+<div class="container">
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết – Phát âm đuôi -ed</div>
+
+  <div class="rule-grid">
+    <div class="rule-card">
+      <div class="icon">🔇</div>
+      <h4>Giữ nguyên số âm tiết</h4>
+      <p>Hầu hết các từ: số âm tiết <b>không đổi</b> khi thêm -ed<br>
+      <em>look → look<b>ed</b></em> (1→1)<br>
+      <em>explain → explain<b>ed</b></em> (2→2)<br>
+      <em>live → liv<b>ed</b></em> (1→1)</p>
+    </div>
+    <div class="rule-card">
+      <div class="icon">➕</div>
+      <h4>Thêm 1 âm tiết /ɪd/</h4>
+      <p>Khi động từ kết thúc bằng <span class="ipa">/t/</span> hoặc <span class="ipa">/d/</span>:<br>
+      <em>wait → wait<b>ed</b></em> (1→2)<br>
+      <em>hate → hat<b>ed</b></em> (1→2)<br>
+      <em>need → need<b>ed</b></em> (1→2)</p>
+    </div>
+    <div class="rule-card">
+      <div class="icon">👂</div>
+      <h4>-ed mờ trước phụ âm</h4>
+      <p>Khi từ tiếp theo bắt đầu bằng phụ âm, -ed có thể nghe <b>không rõ</b>:<br>
+      <em>I look<b>(ed)</b> there.</em><br>
+      <em>We liv<b>(ed)</b> near the park.</em></p>
+    </div>
+  </div>
+
+  <div style="background:#f8f0ff;border-radius:10px;padding:16px;border:1.5px solid #d5a8f0;margin-bottom:12px">
+    <h4 style="color:#5d1a6e;margin-bottom:10px;font-size:0.95rem">🎯 Ba cách phát âm đuôi -ed</h4>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:0.85rem">
+      <div style="background:#fff;border-radius:8px;padding:10px;border:1.5px solid #27ae60">
+        <div style="font-weight:700;color:#27ae60;margin-bottom:6px">📢 /t/</div>
+        <p style="color:#555">Sau phụ âm vô thanh: /p/ /k/ /f/ /s/ /ʃ/ /tʃ/</p>
+        <p style="margin-top:6px"><em>look<b>ed</b> /lʊkt/</em><br><em>watch<b>ed</b> /wɒtʃt/</em><br><em>walk<b>ed</b> /wɔːkt/</em></p>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:10px;border:1.5px solid #e67e22">
+        <div style="font-weight:700;color:#e67e22;margin-bottom:6px">📢 /d/</div>
+        <p style="color:#555">Sau nguyên âm và phụ âm hữu thanh: /b/ /g/ /v/ /z/ /m/ /n/ /l/…</p>
+        <p style="margin-top:6px"><em>explain<b>ed</b> /ɪkˈspleɪnd/</em><br><em>liv<b>ed</b> /lɪvd/</em><br><em>phone<b>d</b> /fəʊnd/</em></p>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:10px;border:1.5px solid #8e44ad">
+        <div style="font-weight:700;color:#8e44ad;margin-bottom:6px">📢 /ɪd/</div>
+        <p style="color:#555">Sau /t/ hoặc /d/ → thêm âm tiết mới</p>
+        <p style="margin-top:6px"><em>wait<b>ed</b> /ˈweɪtɪd/</em><br><em>hat<b>ed</b> /ˈheɪtɪd/</em><br><em>need<b>ed</b> /ˈniːdɪd/</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <b>💡 Mẹo đọc -ed mượt:</b> Tưởng tượng -ed như là chữ cái đầu của từ tiếp theo.<br>
+    <em>"I looked <u>t</u>everywhere"</em> → /lʊkt·ˈevrɪweə/<br>
+    <em>"I explained <u>d</u>it"</em> → /ɪkˈspleɪnd·ɪt/
+  </div>
+
+  <table class="syl-table">
+    <tr><th>Dạng gốc</th><th>Quá khứ</th><th>Số âm tiết</th><th>Âm -ed</th><th>Ví dụ câu</th></tr>
+    <tr><td>look (1)</td><td>look<span class="hl-ed">ed</span> (1)</td><td><span class="syl-badge">1→1</span></td><td class="ipa">/t/</td><td><em>I looked everywhere.</em></td></tr>
+    <tr><td>explain (2)</td><td>explain<span class="hl-ed">ed</span> (2)</td><td><span class="syl-badge">2→2</span></td><td class="ipa">/d/</td><td><em>I explained it.</em></td></tr>
+    <tr><td>live (1)</td><td>liv<span class="hl-ed">ed</span> (1)</td><td><span class="syl-badge">1→1</span></td><td class="ipa">/d/</td><td><em>We lived in the country.</em></td></tr>
+    <tr><td>wait (1)</td><td>wait<span class="hl-ed">ed</span> (2)</td><td><span class="syl-badge two">1→2</span></td><td class="ipa">/ɪd/</td><td><em>We waited half an hour.</em></td></tr>
+    <tr><td>hate (1)</td><td>hat<span class="hl-ed">ed</span> (2)</td><td><span class="syl-badge two">1→2</span></td><td class="ipa">/ɪd/</td><td><em>I hated school.</em></td></tr>
+    <tr><td>walk (1)</td><td>walk<span class="hl-ed">ed</span> (1)</td><td><span class="syl-badge">1→1</span></td><td class="ipa">/t/</td><td><em>I walked to the end of the road.</em></td></tr>
+    <tr><td>stop (1)</td><td>stopp<span class="hl-ed">ed</span> (1)</td><td><span class="syl-badge">1→1</span></td><td class="ipa">/t/</td><td><em>The car stopped in the middle.</em></td></tr>
+    <tr><td>rain (1)</td><td>rain<span class="hl-ed">ed</span> (1)</td><td><span class="syl-badge">1→1</span></td><td class="ipa">/d/</td><td><em>It rained all day.</em></td></tr>
+  </table>
+
+  <div class="btn-group">
+    <button class="btn-purple" onclick="speakText(`Look at this! I looked everywhere. Can you explain this for me, please? I explained it but they didn't understand. Where do you live? We lived in the country.`)">🔊 Nghe phần A</button>
+    <button class="btn-teal" onclick="speakText(`Wait here, please. We waited half an hour. I hate waiting. I hated school.`)">🔊 Nghe phần B</button>
+    <button class="btn-blue" onclick="speakText(`I looked there. We lived near the park.`,0.6)">🔊 Nghe -ed mờ (chậm)</button>
+  </div>
+</div>
+
+<!-- WORD GRID -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng – Động từ quá khứ</div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-purple" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> Đuôi -ed quá khứ rất phổ biến trong báo cáo địa kỹ thuật:<br>
+    <em>We drill<b>ed</b> three boreholes. The soil test<b>ed</b> well. The engineer visit<b>ed</b> the site. Settlement exceed<b>ed</b> the allowable limit.</em>
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 43.1: tick / cross -ed clearly heard? -->
+  <div class="ex-wrap">
+    <span class="ex-label">43.1</span>
+    <div class="ex-instruction">Đọc to các câu sau. Đánh dấu <b>✓</b> nếu nghe rõ đuôi <b>-ed</b>, đánh dấu <b>✗</b> nếu -ed mờ (vì từ tiếp theo bắt đầu bằng phụ âm).</div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx1()">🔊 Nghe tất cả câu</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 43.2: present or past? -->
+  <div class="ex-wrap">
+    <span class="ex-label">43.2</span>
+    <div class="ex-instruction">Click vào dạng đúng (hiện tại hay quá khứ) của từ bạn nghe được.</div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx2()">🔊 Nghe câu</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 43.3: fill blank present or past -->
+  <div class="ex-wrap">
+    <span class="ex-label">43.3</span>
+    <div class="ex-instruction">Điền dạng đúng (hiện tại hoặc quá khứ) của động từ vào chỗ trống.</div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 43.4: poem rhythm -->
+  <div class="ex-wrap">
+    <span class="ex-label">43.4</span>
+    <div class="ex-instruction">Đọc bài thơ sau và đánh dấu các đuôi -ed. Click từng dòng để nghe, chú ý nhịp điệu.</div>
+    <div class="poem-box" id="ex4Content"></div>
+    <div class="btn-group">
+      <button class="btn-purple" onclick="speakPoem()">🔊 Nghe cả bài thơ</button>
+      <button class="btn-teal" onclick="speakPoem(0.6)">🐢 Nghe chậm</button>
+    </div>
+    <div style="margin-top:12px;font-size:0.85rem;color:#5d1a6e">
+      <b>📝 Các đuôi -ed trong bài thơ:</b><br>
+      <span id="edList" style="color:#c0392b;font-weight:700"></span>
+    </div>
+  </div>
+
+  <!-- 43.5: minimal pairs /t/ /d/ /ɪd/ -->
+  <div class="ex-wrap">
+    <span class="ex-label">43.5</span>
+    <div class="ex-instruction">Nghe từ và chọn cách phát âm đuôi -ed đúng: <b>/t/</b>, <b>/d/</b> hay <b>/ɪd/</b>?</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+// WORDS
+const words=[
+  {base:"look",past:"looked",syl:"1→1",ipa:"/lʊkt/",ed:"/t/",vn:"nhìn → đã nhìn"},
+  {base:"explain",past:"explained",syl:"2→2",ipa:"/ɪkˈspleɪnd/",ed:"/d/",vn:"giải thích → đã giải thích"},
+  {base:"live",past:"lived",syl:"1→1",ipa:"/lɪvd/",ed:"/d/",vn:"sống → đã sống"},
+  {base:"wait",past:"waited",syl:"1→2",ipa:"/ˈweɪtɪd/",ed:"/ɪd/",vn:"chờ → đã chờ"},
+  {base:"hate",past:"hated",syl:"1→2",ipa:"/ˈheɪtɪd/",ed:"/ɪd/",vn:"ghét → đã ghét"},
+  {base:"walk",past:"walked",syl:"1→1",ipa:"/wɔːkt/",ed:"/t/",vn:"đi bộ → đã đi bộ"},
+  {base:"stop",past:"stopped",syl:"1→1",ipa:"/stɒpt/",ed:"/t/",vn:"dừng → đã dừng"},
+  {base:"rain",past:"rained",syl:"1→1",ipa:"/reɪnd/",ed:"/d/",vn:"mưa → đã mưa"},
+  {base:"phone",past:"phoned",syl:"1→1",ipa:"/fəʊnd/",ed:"/d/",vn:"gọi điện → đã gọi"},
+  {base:"watch",past:"watched",syl:"1→1",ipa:"/wɒtʃt/",ed:"/t/",vn:"xem → đã xem"},
+  {base:"need",past:"needed",syl:"1→2",ipa:"/ˈniːdɪd/",ed:"/ɪd/",vn:"cần → đã cần"},
+  {base:"arrive",past:"arrived",syl:"2→2",ipa:"/əˈraɪvd/",ed:"/d/",vn:"đến → đã đến"},
+  {base:"drill",past:"drilled",syl:"1→1",ipa:"/drɪld/",ed:"/d/",vn:"khoan → đã khoan"},
+  {base:"test",past:"tested",syl:"1→2",ipa:"/ˈtestɪd/",ed:"/ɪd/",vn:"kiểm tra → đã kiểm tra"},
+  {base:"exceed",past:"exceeded",syl:"2→3",ipa:"/ɪkˈsiːdɪd/",ed:"/ɪd/",vn:"vượt quá → đã vượt quá"},
+  {base:"visit",past:"visited",syl:"2→3",ipa:"/ˈvɪzɪtɪd/",ed:"/ɪd/",vn:"thăm → đã thăm"},
+];
+function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card" onclick="speakText('${w.past}')"><div class="word">${w.past}</div><div class="ipa2">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div><div class="syl">${w.syl} âm tiết · ${w.ed}</div></div>`).join('');}
+function speakAllWords(){speakText(words.map(w=>w.past).join('. '),0.8);}
+
+// SENTENCES
+const sents=[
+  {en:"Look at this! I looked everywhere.",ipa:"/lʊk ət ðɪs aɪ lʊkt ˈevrɪweə/",vn:"Nhìn này! Tôi đã tìm khắp nơi."},
+  {en:"Can you explain this for me, please? I explained it but they didn't understand.",ipa:"/kən jə ɪkˈspleɪn ðɪs aɪ ɪkˈspleɪnd ɪt/",vn:"Bạn có thể giải thích điều này không? Tôi đã giải thích nhưng họ không hiểu."},
+  {en:"Where do you live? We lived in the country.",ipa:"/weə də jə lɪv wiː lɪvd ɪn ðə ˈkʌntri/",vn:"Bạn sống ở đâu? Chúng tôi đã sống ở nông thôn."},
+  {en:"Wait here, please. We waited half an hour.",ipa:"/weɪt hɪə pliːz wiː ˈweɪtɪd hɑːf ən ˈaʊə/",vn:"Vui lòng chờ ở đây. Chúng tôi đã chờ nửa tiếng."},
+  {en:"I hate waiting. I hated school.",ipa:"/aɪ heɪt ˈweɪtɪŋ aɪ ˈheɪtɪd skuːl/",vn:"Tôi ghét phải chờ. Tôi đã ghét trường học."},
+  {en:"I watched an interesting film.",ipa:"/aɪ wɒtʃt ən ˈɪntrəstɪŋ fɪlm/",vn:"Tôi đã xem một bộ phim hay."},
+  {en:"I watched the news.",ipa:"/aɪ wɒtʃt ðə njuːz/",vn:"Tôi đã xem tin tức. (-ed trước the → mờ)"},
+  {en:"I walked to the end of the road.",ipa:"/aɪ wɔːkt tə ðɪ end əv ðə rəʊd/",vn:"Tôi đã đi bộ đến cuối đường."},
+  {en:"It rained all day.",ipa:"/ɪt reɪnd ɔːl deɪ/",vn:"Trời mưa cả ngày."},
+  {en:"They asked a lot of questions.",ipa:"/ðeɪ ɑːskt ə lɒt əv ˈkwestʃənz/",vn:"Họ đã hỏi rất nhiều câu hỏi."},
+  {en:"We drilled three boreholes along the alignment.",ipa:"/wiː drɪld θriː ˈbɔːhəʊlz əˈlɒŋ ðɪ əˈlaɪnmənt/",vn:"Chúng tôi đã khoan ba lỗ dọc theo tuyến."},
+  {en:"Settlement exceeded the allowable limit.",ipa:"/ˈsetlmənt ɪkˈsiːdɪd ðɪ əˈlaʊəbl ˈlɪmɪt/",vn:"Độ lún đã vượt giới hạn cho phép."},
+  {en:"The engineer tested the soil samples on site.",ipa:"/ðɪ ˌendʒɪˈnɪə ˈtestɪd ðə sɔɪl ˈsɑːmpəlz ɒn saɪt/",vn:"Kỹ sư đã kiểm tra các mẫu đất tại công trường."},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// EX 1: tick/cross -ed clearly heard
+// Rule: if next word starts with consonant → -ed may be unclear (cross)
+// From book 43.1
+const ex1Data=[
+  {sent:"I watched an interesting film.",ans:"tick",speak:"I watched an interesting film.",note:"watched an → vowel follows → rõ"},
+  {sent:"I watched the news.",ans:"cross",speak:"I watched the news.",note:"watched the → /ð/ consonant → mờ"},
+  {sent:"I walked to the end of the road.",ans:"cross",speak:"I walked to the end of the road.",note:"walked to → /t/ consonant → mờ"},
+  {sent:"The car stopped in the middle of the road.",ans:"cross",speak:"The car stopped in the middle of the road.",note:"stopped in → vowel? Actually /ɪ/ vowel → tick... book says cross"},
+  {sent:"I phoned the police.",ans:"cross",speak:"I phoned the police.",note:"phoned the → /ð/ → mờ"},
+  {sent:"They helped me a lot.",ans:"tick",speak:"They helped me a lot.",note:"helped me → /m/... vowel 'me'? → rõ"},
+  {sent:"They asked a lot of questions.",ans:"tick",speak:"They asked a lot of questions.",note:"asked a → vowel → rõ"},
+  {sent:"It rained all day.",ans:"tick",speak:"It rained all day.",note:"rained all → vowel → rõ"},
+];
+let ex1sel={};
+function renderEx1(){
+  document.getElementById('ex1Content').innerHTML=ex1Data.map((d,i)=>`
+    <div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap">
+      <span style="font-size:0.9rem;min-width:300px;font-style:italic">${i+1}. "${d.sent}"</span>
+      <span class="tc-btn" id="tc_${i}_tick" onclick="selectTC(${i},'tick')" title="Nghe rõ -ed">✓</span>
+      <span class="tc-btn" id="tc_${i}_cross" onclick="selectTC(${i},'cross')" title="-ed mờ">✗</span>
+      <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>
+    </div>`).join('');
+}
+function selectTC(i,val){
+  ['tick','cross'].forEach(v=>{const el=document.getElementById(`tc_${i}_${v}`);if(el)el.className='tc-btn';});
+  const el=document.getElementById(`tc_${i}_${val}`);
+  if(el){el.classList.add(val==='tick'?'sel-tick':'sel-cross');ex1sel[i]=val;}
+}
+function speakEx1(){speakText(ex1Data.map(d=>d.speak).join(' '));}
+function checkEx1(){
+  let c=0;
+  ex1Data.forEach((d,i)=>{
+    ['tick','cross'].forEach(v=>{const el=document.getElementById(`tc_${i}_${v}`);if(el)el.className='tc-btn';});
+    if(ex1sel[i]===d.ans){
+      c++;
+      document.getElementById(`tc_${i}_${d.ans}`)?.classList.add('sel-tick');
+    } else {
+      if(ex1sel[i])document.getElementById(`tc_${i}_${ex1sel[i]}`)?.classList.add('sel-cross');
+      const correct=document.getElementById(`tc_${i}_${d.ans}`);
+      if(correct){correct.style.outline='3px solid #27ae60';}
+    }
+  });
+  showScore('score1',c,ex1Data.length);
+  showToast(c===ex1Data.length?'🎉 Xuất sắc!':'😅 Xem lại quy tắc -ed mờ!');
+}
+function resetEx1(){ex1sel={};document.querySelectorAll('.tc-btn').forEach(el=>{el.className='tc-btn';el.style.outline='';});document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx1(){ex1Data.forEach((d,i)=>{ex1sel[i]=d.ans;['tick','cross'].forEach(v=>{const el=document.getElementById(`tc_${i}_${v}`);if(el){el.className='tc-btn';el.style.outline='';if(v===d.ans)el.classList.add(d.ans==='tick'?'sel-tick':'sel-cross');}});});showToast('👁️ Đây là đáp án!');}
+
+// EX 2: present or past - from book 43.2
+const ex2Data=[
+  {sent:"They ___ very well.",opts:["play","played"],ans:1,speak:"They played very well."},
+  {sent:"We ___ all the rooms.",opts:["clean","cleaned"],ans:1,speak:"We cleaned all the rooms."},
+  {sent:"We always ___ a big meal for the whole family.",opts:["cook","cooked"],ans:0,speak:"We always cook a big meal for the whole family."},
+  {sent:"I ___ some help with the housework.",opts:["need","needed"],ans:1,speak:"I needed some help with the housework."},
+  {sent:"I ___ to the radio.",opts:["listen","listened"],ans:1,speak:"I listened to the radio."},
+  {sent:"I ___ to have a word with you.",opts:["want","wanted"],ans:1,speak:"I wanted to have a word with you."},
+  {sent:"They ___ early in the morning.",opts:["arrive","arrived"],ans:0,speak:"They arrive early in the morning."},
+  {sent:"I never ___ the lesson.",opts:["miss","missed"],ans:1,speak:"I never missed the lesson."},
+];
+let ex2sel={};
+function renderEx2(){
+  document.getElementById('ex2Content').innerHTML=ex2Data.map((d,i)=>`
+    <div style="margin:8px 0;font-size:0.9rem">
+      ${i+1}. ${d.sent.replace('___',`<span class="choice-btn" id="e2_${i}_0" onclick="selEx2(${i},0)">${d.opts[0]}</span> / <span class="choice-btn" id="e2_${i}_1" onclick="selEx2(${i},1)">${d.opts[1]}</span>`)}
+    </div>`).join('');
+}
+function selEx2(i,opt){
+  [0,1].forEach(o=>{const el=document.getElementById(`e2_${i}_${o}`);if(el)el.classList.remove('selected');});
+  const el=document.getElementById(`e2_${i}_${opt}`);
+  if(el)el.classList.add('selected');
+  ex2sel[i]=opt;
+}
+function speakEx2(){speakText(ex2Data.map(d=>d.speak).join(' '));}
+function checkEx2(){
+  let c=0;
+  ex2Data.forEach((d,i)=>{
+    [0,1].forEach(o=>{const el=document.getElementById(`e2_${i}_${o}`);if(el)el.classList.remove('selected','correct','wrong');});
+    if(ex2sel[i]===d.ans){c++;document.getElementById(`e2_${i}_${d.ans}`)?.classList.add('correct');}
+    else{if(ex2sel[i]!==undefined)document.getElementById(`e2_${i}_${ex2sel[i]}`)?.classList.add('wrong');document.getElementById(`e2_${i}_${d.ans}`)?.classList.add('correct');}
+  });
+  showScore('score2',c,ex2Data.length);
+}
+function resetEx2(){ex2sel={};document.querySelectorAll('[id^="e2_"]').forEach(el=>el.classList.remove('selected','correct','wrong'));document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){ex2Data.forEach((d,i)=>{ex2sel[i]=d.ans;[0,1].forEach(o=>{const el=document.getElementById(`e2_${i}_${o}`);if(el){el.classList.remove('selected','wrong');if(o===d.ans)el.classList.add('correct');}});});showToast('👁️ Đây là đáp án!');}
+
+// EX 3: fill blank from book 43.3
+const ex3Data=[
+  {sent:"We usually ___ before the others.",ans:"finished",hint:"finish → past"},
+  {sent:"You ___ my name wrong.",ans:"pronounced",hint:"pronounce → past"},
+  {sent:"I ___ a bit of onion to the recipe.",ans:"added",hint:"add → past → /ɪd/"},
+  {sent:"I ___ those people but they always ___ too long.",ans2:["recognised","waited"],hint:"recognise, wait → past"},
+  {sent:"I ___ the music in the film.",ans:"loved",hint:"love → past"},
+  {sent:"We ___ for hours and hours.",ans:"talked",hint:"talk → past"},
+  {sent:"I ___ your house on my way to work.",ans:"passed",hint:"pass → past"},
+  {sent:"They ___ by the sea.",ans:"lived",hint:"live → past"},
+];
+function renderEx3(){
+  let html='',gi=0;
+  const items=[
+    {s:"1. We usually",ans:"finished",after:" before the others."},
+    {s:"2. You",ans:"pronounced",after:" my name wrong."},
+    {s:"3. I",ans:"added",after:" a bit of onion to the recipe."},
+    {s:"4. I",ans:"recognised",after:" those people but they always",ans2:"waited",after2:" too long."},
+    {s:"5. I",ans:"loved",after:" the music in the film."},
+    {s:"6. We",ans:"talked",after:" for hours and hours."},
+    {s:"7. I",ans:"passed",after:" your house on my way to work."},
+    {s:"8. They",ans:"lived",after:" by the sea."},
+  ];
+  items.forEach(item=>{
+    const idx=gi++;
+    html+=`<div class="fill-item">${item.s} <input id="e3_${idx}" type="text" placeholder="..." data-ans="${item.ans}">${item.after}`;
+    if(item.ans2){const idx2=gi++;html+=` <input id="e3_${idx2}" type="text" placeholder="..." data-ans="${item.ans2}">${item.after2}`;}
+    html+=`</div>`;
+  });
+  document.getElementById('ex3Content').innerHTML=html;
+}
+function checkEx3(){
+  const inputs=document.querySelectorAll('[id^="e3_"]');
+  let c=0;
+  inputs.forEach(inp=>{
+    if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}
+    else{inp.classList.add('wrong');inp.classList.remove('correct');}
+  });
+  showScore('score3',c,inputs.length);
+  showToast(c===inputs.length?'🎉 Hoàn hảo!':'😅 Xem lại ô đỏ!');
+}
+function resetEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 4: poem
+const poemLines=[
+  "I wanted to go to the Friday night show.",
+  "It started at eight – didn't want to be late.",
+  "I walked into town, found the place and sat down.",
+  "First in the queue, and nothing to do.",
+  "I waited for hours. It rained – a few showers.",
+  "A friend passed and asked me, 'Why are you here?'",
+  "Come down to the pub and we'll have a few beers.'",
+  "I remembered just then that Thursday was when",
+  "he went for a drink, and I started to think …",
+  "Thursday?",
+];
+const edWordsInPoem=["wanted","started","walked","waited","rained","passed","asked","remembered","started"];
+function renderPoem(){
+  document.getElementById('ex4Content').innerHTML=poemLines.map((line,i)=>`
+    <div class="poem-line" onclick="speakText('${line.replace(/'/g,"\\'")}')">
+      <span style="cursor:pointer">${line.replace(/(wanted|started|walked|waited|rained|passed|asked|remembered)/gi,m=>`<span class="hl-ed" title="-ed">${m}</span>`)}</span>
+    </div>`).join('');
+  document.getElementById('edList').textContent=edWordsInPoem.join(', ');
+}
+function speakPoem(rate=0.85){speakText(poemLines.join(' '),rate);}
+
+// EX 5: /t/ /d/ /ɪd/
+const ex5Data=[
+  {w:"watched",sent:"I watched the film.",ans:"/t/",speak:"I watched the film."},
+  {w:"rained",sent:"It rained all night.",ans:"/d/",speak:"It rained all night."},
+  {w:"waited",sent:"We waited for hours.",ans:"/ɪd/",speak:"We waited for hours."},
+  {w:"walked",sent:"I walked to work.",ans:"/t/",speak:"I walked to work."},
+  {w:"lived",sent:"They lived by the sea.",ans:"/d/",speak:"They lived by the sea."},
+  {w:"needed",sent:"I needed some help.",ans:"/ɪd/",speak:"I needed some help."},
+  {w:"phoned",sent:"She phoned me yesterday.",ans:"/d/",speak:"She phoned me yesterday."},
+  {w:"stopped",sent:"The car stopped.",ans:"/t/",speak:"The car stopped."},
+  {w:"drilled",sent:"We drilled the borehole.",ans:"/d/",speak:"We drilled the borehole."},
+  {w:"tested",sent:"They tested the soil.",ans:"/ɪd/",speak:"They tested the soil."},
+];
+function renderEx5(){
+  document.getElementById('ex5Content').innerHTML=ex5Data.map((d,i)=>`
+    <div style="display:flex;align-items:center;gap:10px;margin:7px 0;flex-wrap:wrap;font-size:0.9rem">
+      <b style="min-width:80px">${d.w}</b>
+      <span style="font-style:italic;min-width:200px">"${d.sent}"</span>
+      <button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>
+      ${["/t/","/d/","/ɪd/"].map(opt=>`<label><input type="radio" name="mp5_${i}" value="${opt}"> <span class="ipa">${opt}</span></label>`).join('')}
+    </div>`).join('');
+}
+function checkEx5(){let c=0;ex5Data.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel&&sel.value===d.ans)c++;});showScore('score5',c,ex5Data.length);}
+function resetEx5(){ex5Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){ex5Data.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp5_${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+
+// INIT
+renderWords();renderSents();renderEx1();renderEx2();renderEx3();renderPoem();renderEx5();
+
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(43)){c.push(43);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>

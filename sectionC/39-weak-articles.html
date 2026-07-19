@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 39 – Strong/Weak 3: Articles, Comparatives, 'there'</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#1a5c3a 0%,#0d3d24 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 16px;font-size:1.15rem;font-weight:800;letter-spacing:1px}
+.header h1{font-size:1.35rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#1a5c3a;border-bottom:2px solid #e0f0e8;padding-bottom:8px;margin-bottom:14px}
+
+/* Diagram */
+.diagram-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
+.diag-card{background:#f8f9fa;border-radius:10px;padding:14px;text-align:center;border:1.5px solid #e0e0e0}
+.diag-card .icon{font-size:2rem;margin-bottom:6px}
+.diag-card h4{font-size:0.88rem;font-weight:700;color:#1a5c3a;margin-bottom:4px}
+.diag-card p{font-size:0.8rem;color:#555;line-height:1.4}
+
+/* Theory table */
+.theory-table{width:100%;border-collapse:collapse;font-size:0.88rem;margin:12px 0}
+.theory-table th{background:#1a5c3a;color:#fff;padding:9px 12px;text-align:left}
+.theory-table td{padding:9px 12px;border-bottom:1px solid #eee;vertical-align:top}
+.theory-table tr:nth-child(even) td{background:#f4faf7}
+.ipa{font-style:italic;color:#c0392b;font-weight:700}
+.weak{color:#e67e22;font-weight:700}
+.strong{color:#2980b9;font-weight:700}
+.example-phrase{background:#f8f4ff;padding:3px 8px;border-radius:5px;font-style:italic;color:#444}
+
+/* Spell table */
+.spell-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.spell-table th{background:#2c7a4b;color:#fff;padding:9px}
+.spell-table td{padding:9px 10px;border-bottom:1px solid #e5e5e5;vertical-align:top}
+.spell-table tr:nth-child(even) td{background:#f4faf7}
+
+/* Word grid */
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{background:#f4faf7;border:1.5px solid #b2dfcd;border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:130px;text-align:center}
+.word-card:hover{background:#1a5c3a;color:#fff;transform:translateY(-2px)}
+.word-card:hover .ipa,.word-card:hover .vn{color:#cfe;}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .hl{color:#c0392b;background:#ffe8e8;padding:0 2px;border-radius:3px}
+.word-card:hover .hl{color:#ffcdd2;background:rgba(255,255,255,0.15)}
+.word-card .ipa{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card .vn{font-size:0.78rem;color:#2c7a4b;margin-top:2px}
+
+/* Sentence list */
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{background:#f8f9fa;border-radius:9px;padding:10px 14px;cursor:pointer;border-left:4px solid #1a5c3a;transition:background 0.2s}
+.sentence-list li:hover{background:#e8f5ee}
+.sent-en{font-size:0.95rem;font-weight:600;color:#222}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;color:#2c7a4b;margin-top:2px}
+
+/* Tip / Geo / Note boxes */
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+.note-box{background:#fff8e1;border:1px dashed #f5c518;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.85rem}
+
+/* Audio buttons */
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-green{background:#1a5c3a;color:#fff}.btn-green:hover{background:#0d3d24}
+.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-purple{background:#8e44ad;color:#fff}.btn-purple:hover{background:#7d3c98}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.btn-gray{background:#95a5a6;color:#fff}.btn-gray:hover{background:#7f8c8d}
+
+/* Exercise */
+.ex-wrap{border:1.5px solid #b2dfcd;border-radius:12px;padding:18px;margin-bottom:16px;background:#fcfffe}
+.ex-label{display:inline-block;background:#1a5c3a;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+
+/* Fill blank */
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.8}
+.fill-item input{border:none;border-bottom:2px solid #b2dfcd;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:110px;text-align:center;color:#1a5c3a;font-weight:600}
+.fill-item input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-item input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+
+/* Classify chips */
+.chip-pool{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0;min-height:36px;padding:8px;background:#f5f5f5;border-radius:8px}
+.classify-chip{background:#d5e8d4;border:1.5px solid #82b366;border-radius:20px;padding:5px 13px;cursor:pointer;font-size:0.87rem;font-weight:600;transition:all 0.18s;user-select:none}
+.classify-chip:hover{background:#1a5c3a;color:#fff}
+.classify-chip.selected-a{background:#2980b9;color:#fff;border-color:#2471a3}
+.classify-chip.selected-b{background:#e74c3c;color:#fff;border-color:#c0392b}
+.classify-chip.selected-c{background:#8e44ad;color:#fff;border-color:#7d3c98}
+.classify-chip.selected-d{background:#f39c12;color:#fff;border-color:#d68910}
+.col-grid{display:grid;gap:10px;margin:10px 0}
+.col-grid-2{grid-template-columns:1fr 1fr}
+.col-grid-3{grid-template-columns:1fr 1fr 1fr}
+.col-box{background:#f8f9fa;border:1.5px solid #ddd;border-radius:9px;padding:10px;min-height:70px}
+.col-box h5{font-size:0.82rem;text-align:center;margin-bottom:6px;color:#555}
+.col-chips{display:flex;flex-wrap:wrap;gap:5px;min-height:30px}
+
+/* Minimal pairs */
+.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem}
+.mp-item span{font-weight:700;min-width:90px}
+.mp-item label{cursor:pointer}
+.mp-item input[type=radio]{margin-right:4px}
+
+/* Toast */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* Weak/strong highlight in sentences */
+.w-form{color:#e67e22;font-weight:700;text-decoration:underline dotted}
+.s-form{color:#2980b9;font-weight:700;text-decoration:underline solid}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 39</span>
+    <span class="phoneme-badge">/ə/ · /ðən/ · /əz/ · /ðeə/</span>
+  </div>
+  <h1>There's a spider – Strong and Weak Forms 3</h1>
+  <div class="sub">Dạng mạnh & yếu: Mạo từ, So sánh hơn, 'there' &amp; 'there's'</div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<div class="container">
+
+<!-- SECTION A: LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết phát âm</div>
+
+  <div class="diagram-grid">
+    <div class="diag-card">
+      <div class="icon">📖</div>
+      <h4>Mạo từ <em>a / an</em></h4>
+      <p>Dạng yếu: <span class="ipa">/ə/</span> &nbsp;(trước phụ âm)<br>
+         Dạng yếu: <span class="ipa">/ən/</span> &nbsp;(trước nguyên âm)<br>
+         Dạng mạnh: <span class="ipa">/eɪ/ &amp; /æn/</span> khi nhấn mạnh</p>
+    </div>
+    <div class="diag-card">
+      <div class="icon">⚖️</div>
+      <h4>So sánh hơn: <em>than / as</em></h4>
+      <p>Dạng yếu: <span class="ipa">than /ðən/</span><br>
+         Dạng yếu: <span class="ipa">as /əz/</span><br>
+         Đuôi <em>-er</em> phát âm là <span class="ipa">/ə/</span></p>
+    </div>
+    <div class="diag-card">
+      <div class="icon">📍</div>
+      <h4><em>There / there's / there are</em></h4>
+      <p>Dạng yếu: <span class="ipa">/ðə/</span> &nbsp;(khi là "có")<br>
+         <em>there are</em> → <span class="ipa">/ðər ə/</span><br>
+         Dạng mạnh: <span class="ipa">/ðeə/</span> khi chỉ địa điểm</p>
+    </div>
+  </div>
+
+  <table class="theory-table">
+    <tr>
+      <th>Từ</th><th>Dạng yếu (weak)</th><th>Dạng mạnh (strong)</th><th>Khi nào dùng mạnh?</th>
+    </tr>
+    <tr>
+      <td><b>a</b></td>
+      <td><span class="ipa weak">/ə/</span></td>
+      <td><span class="ipa strong">/eɪ/</span></td>
+      <td>Nhấn mạnh: "Not <em>two</em>, <strong>a</strong> cup!"</td>
+    </tr>
+    <tr>
+      <td><b>an</b></td>
+      <td><span class="ipa weak">/ən/</span></td>
+      <td><span class="ipa strong">/æn/</span></td>
+      <td>Nhấn mạnh</td>
+    </tr>
+    <tr>
+      <td><b>than</b></td>
+      <td><span class="ipa weak">/ðən/</span></td>
+      <td><span class="ipa strong">/ðæn/</span></td>
+      <td>Hiếm khi dùng dạng mạnh</td>
+    </tr>
+    <tr>
+      <td><b>as</b></td>
+      <td><span class="ipa weak">/əz/</span></td>
+      <td><span class="ipa strong">/æz/</span></td>
+      <td>Hiếm khi dùng dạng mạnh</td>
+    </tr>
+    <tr>
+      <td><b>there's / there are</b></td>
+      <td><span class="ipa weak">/ðəz/ · /ðər ə/</span></td>
+      <td><span class="ipa strong">/ðeəz/ · /ðeər ɑː/</span></td>
+      <td>Khi "there" chỉ <b>địa điểm</b>: "Over <strong>there</strong>!"</td>
+    </tr>
+  </table>
+
+  <div class="tip-box">
+    <b>💡 Mẹo nhớ:</b> Mạo từ <em>a/an</em> và từ <em>than/as</em> trong câu bình thường <b>luôn dùng dạng yếu</b>.
+    Nhớ: <em>a university</em> → /ə juːnɪˈvɜːsɪti/ vì <em>u</em> đọc là /j/ (phụ âm) → dùng <em>a</em> không phải <em>an</em>.
+    Còn <em>there</em> dạng mạnh <span class="ipa strong">/ðeə/</span> chỉ xuất hiện khi nó chỉ vị trí!
+  </div>
+
+  <div class="note-box">
+    ⚠️ <b>Ngoại lệ u → /j/:</b> Một số từ bắt đầu bằng <em>u</em> nhưng âm đầu là phụ âm /j/:
+    <em>a university</em>, <em>a useful present</em>, <em>a unique idea</em>. Ngược lại: <em>an umbrella</em>, <em>an uncle</em>.
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-green" onclick="speakText('a cup of coffee, please. a piece of cake, please. a lot of visitors. a Thursday morning in November. an invitation to a party. an umbrella in the rain.')">🔊 Nghe ví dụ A (thường)</button>
+    <button class="btn-teal" onclick="speakText('a cup of coffee, please. a piece of cake, please. a lot of visitors. a Thursday morning in November. an invitation to a party. an umbrella in the rain.', 0.5)">🐢 Chậm</button>
+  </div>
+  <div class="btn-group" style="margin-top:8px">
+    <button class="btn-green" onclick="speakText('The new computer is better than the old one. The old computer was not as good as the new one.')">🔊 Nghe so sánh hơn</button>
+    <button class="btn-blue" onclick="speakText('There is a bridge over the river. There are ten millimetres in a centimetre. Where are my glasses? Over there!')">🔊 Nghe there / there are</button>
+  </div>
+</div>
+
+<!-- SECTION B: BẢNG CHÍNH TẢ -->
+<div class="section">
+  <div class="section-title">📋 Bảng chính tả – Dạng yếu & mạnh</div>
+  <table class="spell-table">
+    <tr><th>Từ</th><th>Ví dụ dạng yếu</th><th>Ví dụ dạng mạnh</th></tr>
+    <tr>
+      <td><b>a</b> /ə/</td>
+      <td><em>a cup of coffee</em>, <em>a lot of visitors</em></td>
+      <td>"It's <strong>A</strong> problem, not no problem!"</td>
+    </tr>
+    <tr>
+      <td><b>an</b> /ən/</td>
+      <td><em>an umbrella</em>, <em>an invitation</em></td>
+      <td>"That was <strong>AN</strong> incredible goal!"</td>
+    </tr>
+    <tr>
+      <td><b>than</b> /ðən/</td>
+      <td><em>better than the old one</em></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><b>as</b> /əz/</td>
+      <td><em>not as good as the new one</em></td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><b>there's</b> /ðəz/</td>
+      <td><em>There's a bridge over the river</em></td>
+      <td><em>There's the book I lost!</em> (chỉ vị trí)</td>
+    </tr>
+    <tr>
+      <td><b>there are</b> /ðər ə/</td>
+      <td><em>There are ten millimetres in a centimetre</em></td>
+      <td><em>There are the keys!</em> (chỉ vị trí)</td>
+    </tr>
+  </table>
+</div>
+
+<!-- SECTION C: TỪ VỰNG -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng – Nhận diện dạng yếu</div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="tip-box" style="margin-top:10px">
+    <b>🇻🇳 vs 🇺🇸:</b> Tiếng Việt không có khái niệm dạng yếu/mạnh của từ. Người học VN hay nhấn mạnh tất cả từ đều nhau → nghe "nặng nề". Hãy để <em>a, an, than, as, there's</em> "mờ" đi trong câu!
+  </div>
+  <div class="btn-group">
+    <button class="btn-green" onclick="speakAllWords()">🔊 Nghe tất cả từ</button>
+  </div>
+</div>
+
+<!-- SECTION D: CÂU LUYỆN -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> Trong báo cáo địa kỹ thuật, <em>there is / there are</em> rất phổ biến để mô tả điều kiện địa chất:
+    "There is a soft clay layer at 5m depth." / "There are three boreholes along the alignment."
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- EX 39.1: Nhận diện a / an -->
+  <div class="ex-wrap">
+    <span class="ex-label">39.1</span>
+    <div class="ex-instruction">Điền <b>a</b> hoặc <b>an</b> vào chỗ trống. Sau đó đọc to cả câu và chú ý dạng yếu /ə/ hoặc /ən/.</div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- EX 39.2: Vòng tròn âm /ə/ -->
+  <div class="ex-wrap">
+    <span class="ex-label">39.2</span>
+    <div class="ex-instruction">Nghe các câu sau. Click vào từ có âm <b>/ə/</b> (dạng yếu) để đánh dấu. Có thể có nhiều từ trong một câu.</div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx2Sentences()">🔊 Nghe câu</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- EX 39.3: Fill blank - than / as / there / there's / there are -->
+  <div class="ex-wrap">
+    <span class="ex-label">39.3</span>
+    <div class="ex-instruction">Điền từ thích hợp vào chỗ trống: <b>tall, there, there's, there are, older, longer, as, than</b>. (Một số từ dùng nhiều hơn 1 lần)</div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- EX 39.4: Weak / Strong classify -->
+  <div class="ex-wrap">
+    <span class="ex-label">39.4</span>
+    <div class="ex-instruction">Click vào từ được gạch chân trong đoạn hội thoại và phân loại: <b>W</b> (weak – dạng yếu) hay <b>S</b> (strong – dạng mạnh)?</div>
+    <div id="ex4Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx4()">🔊 Nghe hội thoại</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- EX 39.5: Minimal pairs -->
+  <div class="ex-wrap">
+    <span class="ex-label">39.5</span>
+    <div class="ex-instruction">Nghe câu và chọn từ đúng bạn nghe được (weak hay strong form).</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+
+</div>
+</div>
+
+<script>
+// ===== TTS =====
+const voicePrefs = ["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice = null;
+function getVoice() {
+  if (cachedVoice) return cachedVoice;
+  const vs = speechSynthesis.getVoices();
+  for (const p of voicePrefs) { const v = vs.find(x=>x.name===p); if(v){cachedVoice=v;return v;} }
+  return vs.find(v=>v.lang.startsWith('en')) || null;
+}
+function speakText(t, rate=0.85) {
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(t);
+  u.voice = getVoice(); u.lang='en-GB'; u.rate=rate; u.pitch=1.05;
+  speechSynthesis.speak(u);
+}
+speechSynthesis.onvoiceschanged = () => { cachedVoice = null; };
+
+// ===== TOAST =====
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ===== SCORE =====
+function showScore(id, correct, total) {
+  const el = document.getElementById(id);
+  const pct = Math.round(correct/total*100);
+  let cls, emoji, msg;
+  if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!'}
+  else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!'}
+  else{cls='score-try';emoji='😅';msg='Cần luyện thêm!'}
+  el.className='score-box show '+cls;
+  el.innerHTML=`<div class="big-score">${pct}%</div>
+    <div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>
+    ${emoji} ${msg} — Đúng ${correct}/${total}`;
+}
+
+// ===== WORDS =====
+const words = [
+  {w:'a cup', hl:'a', ipa:'/ə kʌp/', vn:'một tách'},
+  {w:'an umbrella', hl:'an', ipa:'/ən ʌmˈbrelə/', vn:'một cái ô'},
+  {w:'better than', hl:'than', ipa:'/ˈbetə ðən/', vn:'tốt hơn'},
+  {w:'as good as', hl:'as...as', ipa:'/əz ɡʊd əz/', vn:'tốt như'},
+  {w:'there\'s a', hl:"there's", ipa:'/ðəz ə/', vn:'có một'},
+  {w:'there are', hl:'there are', ipa:'/ðər ə/', vn:'có (số nhiều)'},
+  {w:'a university', hl:'a', ipa:'/ə juːnɪˈvɜːsɪti/', vn:'một trường đại học'},
+  {w:'an invitation', hl:'an', ipa:'/ən ɪnvɪˈteɪʃən/', vn:'một lời mời'},
+  {w:'longer than', hl:'than', ipa:'/ˈlɒŋɡə ðən/', vn:'dài hơn'},
+  {w:'older than', hl:'than', ipa:'/ˈəʊldə ðən/', vn:'già hơn'},
+  {w:'as tall as', hl:'as...as', ipa:'/əz tɔːl əz/', vn:'cao bằng'},
+  {w:'over there', hl:'there', ipa:'/ˈəʊvə ðeə/', vn:'ở đó (chỉ vị trí)'},
+  {w:'a useful', hl:'a', ipa:'/ə ˈjuːsfəl/', vn:'một (cái) hữu ích'},
+  {w:'there\'s no', hl:"there's", ipa:'/ðəz nəʊ/', vn:'không có'},
+  {w:'a borehole', hl:'a', ipa:'/ə ˈbɔːhəʊl/', vn:'một lỗ khoan'},
+  {w:'an engineer', hl:'an', ipa:'/ən ˌendʒɪˈnɪə/', vn:'một kỹ sư'},
+  {w:'deeper than', hl:'than', ipa:'/ˈdiːpə ðən/', vn:'sâu hơn'},
+  {w:'as strong as', hl:'as...as', ipa:'/əz strɒŋ əz/', vn:'chắc bằng'},
+];
+
+function renderWords() {
+  const g = document.getElementById('wordGrid');
+  g.innerHTML = words.map(w=>`
+    <div class="word-card" onclick="speakText('${w.w}')">
+      <div class="word">${w.w.replace(w.hl,`<span class="hl">${w.hl}</span>`)}</div>
+      <div class="ipa">${w.ipa}</div>
+      <div class="vn">🇻🇳 ${w.vn}</div>
+    </div>`).join('');
+}
+function speakAllWords() {
+  const txt = words.map(w=>w.w).join('. ');
+  speakText(txt, 0.8);
+}
+
+// ===== SENTENCES =====
+const sentences = [
+  {en:"A cup of coffee, please.", ipa:"/ə kʌp əv ˈkɒfi pliːz/", vn:"Cho tôi một tách cà phê."},
+  {en:"An umbrella in the rain.", ipa:"/ən ʌmˈbrelə ɪn ðə reɪn/", vn:"Một cái ô khi trời mưa."},
+  {en:"A university is an interesting place.", ipa:"/ə juːnɪˈvɜːsɪti ɪz ən ˈɪntrəstɪŋ pleɪs/", vn:"Một trường đại học là nơi thú vị."},
+  {en:"The new computer is better than the old one.", ipa:"/ðə njuː kəmˈpjuːtə ɪz ˈbetə ðən ðɪ əʊld wʌn/", vn:"Máy tính mới tốt hơn cái cũ."},
+  {en:"The old computer wasn't as good as the new one.", ipa:"/ðɪ əʊld kəmˈpjuːtə ˈwɒznt əz ɡʊd əz ðə njuː wʌn/", vn:"Máy tính cũ không tốt bằng cái mới."},
+  {en:"There's a bridge over the river.", ipa:"/ðəz ə brɪdʒ ˈəʊvə ðə ˈrɪvə/", vn:"Có một cây cầu bắc qua sông."},
+  {en:"There are ten millimetres in a centimetre.", ipa:"/ðər ə ten ˈmɪlɪˌmiːtəz ɪn ə ˈsentɪˌmiːtə/", vn:"Có 10 mm trong 1 cm."},
+  {en:"Where are my glasses? Over there!", ipa:"/weər ɑː maɪ ˈɡlɑːsɪz ˈəʊvə ðeə/", vn:"Kính của tôi đâu rồi? Ở đó kìa!"},
+  {en:"There's a spider in the room.", ipa:"/ðəz ə ˈspaɪdər ɪn ðə ruːm/", vn:"Có một con nhện trong phòng."},
+  {en:"Is there? Where?", ipa:"/ɪz ðeə weə/", vn:"Có thật không? Ở đâu?"},
+  {en:"There, look!", ipa:"/ðeə lʊk/", vn:"Ở đó kìa, nhìn đi!"},
+  {en:"Well, actually, there are two – one there and one there!", ipa:"/wel ˈæktʃuəli ðər ə tuː wʌn ðeə ənd wʌn ðeə/", vn:"Thật ra có hai con – một con ở đó và một con ở đây!"},
+  {en:"There is a soft clay layer beneath the foundation.", ipa:"/ðər ɪz ə sɒft kleɪ ˈleɪər bɪˈniːθ ðə faʊnˈdeɪʃən/", vn:"Có một lớp sét mềm bên dưới móng."},
+  {en:"There are three boreholes along the corridor.", ipa:"/ðər ə θriː ˈbɔːhəʊlz əˈlɒŋ ðə ˈkɒrɪdɔː/", vn:"Có ba lỗ khoan dọc theo hành lang."},
+  {en:"The settlement is greater than expected.", ipa:"/ðə ˈsetlmənt ɪz ˈɡreɪtə ðən ɪkˈspektɪd/", vn:"Độ lún lớn hơn dự kiến."},
+];
+
+function renderSentences() {
+  const ul = document.getElementById('sentList');
+  ul.innerHTML = sentences.map(s=>`
+    <li onclick="speakText('${s.en.replace(/'/g,"\\'")}')">
+      <div class="sent-en">${s.en}</div>
+      <div class="sent-ipa">${s.ipa}</div>
+      <div class="sent-vn">🇻🇳 ${s.vn}</div>
+    </li>`).join('');
+}
+
+// ===== EX 1: a / an =====
+const ex1Data = [
+  {before:"Please give me", blank:"a", after:"cup of coffee."},
+  {before:"She's going to", blank:"an", after:"interview tomorrow."},
+  {before:"It was", blank:"a", after:"useful meeting."},
+  {before:"He bought", blank:"an", after:"old bicycle."},
+  {before:"There was", blank:"an", after:"umbrella by the door."},
+  {before:"That was", blank:"a", after:"Thursday morning."},
+  {before:"They sent", blank:"an", after:"invitation to the party."},
+  {before:"She studies at", blank:"a", after:"university in London."},
+];
+function renderEx1() {
+  document.getElementById('ex1Content').innerHTML = ex1Data.map((d,i)=>`
+    <div class="fill-item">${d.before} <input id="e1_${i}" type="text" placeholder="a/an" maxlength="3"> ${d.after}
+    <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.before} ${d.blank} ${d.after}')">🔊</button></div>`).join('');
+}
+function checkEx1() {
+  let c=0;
+  ex1Data.forEach((d,i)=>{
+    const inp=document.getElementById('e1_'+i);
+    if(inp.value.trim().toLowerCase()===d.blank){inp.classList.add('correct');inp.classList.remove('wrong');c++;}
+    else{inp.classList.add('wrong');inp.classList.remove('correct');}
+  });
+  showScore('score1',c,ex1Data.length);
+  showToast(c===ex1Data.length?'🎉 Hoàn hảo!':'😅 Xem lại các ô đỏ nhé!');
+}
+function resetEx1() {
+  ex1Data.forEach((_,i)=>{const inp=document.getElementById('e1_'+i);inp.value='';inp.className='';});
+  document.getElementById('score1').className='score-box';
+  showToast('🔄 Đã làm lại!');
+}
+function revealEx1() {
+  ex1Data.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);inp.value=d.blank;inp.classList.add('correct');});
+  showToast('👁️ Đây là đáp án!');
+}
+
+// ===== EX 2: circle /ə/ =====
+const ex2Data = [
+  {text:"There's a cat on the mat.", targets:["a"], sent:"There's a cat on the mat."},
+  {text:"There's a fish in a dish.", targets:["a","a"], sent:"There's a fish in a dish."},
+  {text:"There's a dog in the fog, and a mouse in the house.", targets:["a","a"], sent:"There's a dog in the fog, and a mouse in the house."},
+  {text:"There's a film on TV.", targets:["a"], sent:"There's a film on TV."},
+  {text:"You can sit on my knee.", targets:[], sent:"You can sit on my knee."},
+  {text:"There are two cups of tea.", targets:[], sent:"There are two cups of tea."},
+  {text:"One for you, one for me.", targets:[], sent:"One for you, one for me."},
+];
+let ex2Selected = [];
+function renderEx2() {
+  ex2Selected = ex2Data.map(()=>[]);
+  const div = document.getElementById('ex2Content');
+  div.innerHTML = ex2Data.map((d,si)=>{
+    const words2 = d.text.split(/(\s+|[.,!?])/);
+    return `<div style="margin:8px 0;font-size:0.9rem">${words2.map((tok,wi)=>{
+      if(/^[a-zA-Z']+$/.test(tok)){
+        return `<span class="classify-chip" id="e2_${si}_${wi}" onclick="toggleEx2(${si},${wi},'${tok}')" style="display:inline;margin:2px">${tok}</span>`;
+      }
+      return `<span>${tok}</span>`;
+    }).join('')}</div>`;
+  }).join('');
+}
+function toggleEx2(si, wi, tok) {
+  const el = document.getElementById(`e2_${si}_${wi}`);
+  const key = `${si}_${wi}`;
+  if(ex2Selected[si].includes(wi)){
+    ex2Selected[si]=ex2Selected[si].filter(x=>x!==wi);
+    el.classList.remove('selected-a');
+  } else {
+    ex2Selected[si].push(wi);
+    el.classList.add('selected-a');
+  }
+}
+function speakEx2Sentences(){
+  speakText(ex2Data.map(d=>d.sent).join(' '));
+}
+function checkEx2(){
+  let correct=0, total=0;
+  ex2Data.forEach((d,si)=>{
+    // Count target 'a' words in text
+    const words2=d.text.split(/(\s+|[.,!?])/);
+    const targetIdxs=[];
+    words2.forEach((tok,wi)=>{if(tok==='a')targetIdxs.push(wi);});
+    total += targetIdxs.length || 1;
+    if(targetIdxs.length===0){
+      if(ex2Selected[si].length===0) correct++;
+    } else {
+      targetIdxs.forEach(ti=>{if(ex2Selected[si].includes(ti))correct++;});
+    }
+  });
+  showScore('score2',correct,total);
+}
+function resetEx2(){
+  ex2Selected=ex2Data.map(()=>[]);
+  document.querySelectorAll('[id^="e2_"]').forEach(el=>el.classList.remove('selected-a','selected-b'));
+  document.getElementById('score2').className='score-box';
+  showToast('🔄 Đã làm lại!');
+}
+function revealEx2(){
+  ex2Data.forEach((d,si)=>{
+    const words2=d.text.split(/(\s+|[.,!?])/);
+    words2.forEach((tok,wi)=>{
+      const el=document.getElementById(`e2_${si}_${wi}`);
+      if(!el)return;
+      if(tok==='a'){el.classList.add('selected-a');}
+    });
+  });
+  showToast('👁️ Đây là đáp án!');
+}
+
+// ===== EX 3: fill blank =====
+const ex3Data = [
+  {parts:["Tessa's taller ","","  than Terry, but she isn't ","","  Ted."], blanks:["than","as tall as"], answers:["than","as tall as"]},
+  {parts:["Ted's ","","  Tessa, but he isn't ","","  old ","","  Terry."], blanks:["older than","as","as"], answers:["older than","as","as"]},
+  {parts:["The Channel Tunnel is ","","  the tunnel in Japan."], blanks:["longer than"], answers:["longer than"]},
+  {parts:["How many dollars ","","  in a pound?"], blanks:["are there"], answers:["are there"]},
+  {parts:["I think ","","  about one and a half … or maybe ","","  one and a half pounds in a dollar."], blanks:["there are","there are"], answers:["there are","there are"]},
+];
+
+function renderEx3(){
+  const div=document.getElementById('ex3Content');
+  let html='';
+  const items=[
+    {sent:"1. Tessa's taller ___ Terry, but she isn't ___ Ted.", answers:["than","as tall as"]},
+    {sent:"2. Ted's ___ Tessa, but he isn't ___ old ___ Terry.", answers:["older than","as","as"]},
+    {sent:"3. The Channel Tunnel is ___ the tunnel in Japan.", answers:["longer than"]},
+    {sent:"4. How many dollars ___ in a pound?", answers:["are there"]},
+    {sent:"5. I think ___ about one and a half … or maybe ___ one and a half pounds in a dollar.", answers:["there are","there are"]},
+  ];
+  let gi=0;
+  items.forEach((item,ii)=>{
+    const parts=item.sent.split('___');
+    let row=`<div class="fill-item">`;
+    parts.forEach((p,pi)=>{
+      row+=p;
+      if(pi<parts.length-1){
+        row+=`<input id="e3_${gi}" type="text" placeholder="..." style="width:130px">`;
+        gi++;
+      }
+    });
+    row+=`</div>`;
+    html+=row;
+  });
+  div.innerHTML=html;
+}
+const ex3Answers=["than","as tall as","older than","as","as","longer than","are there","there are","there are"];
+function checkEx3(){
+  let c=0;
+  ex3Answers.forEach((ans,i)=>{
+    const inp=document.getElementById('e3_'+i);
+    if(!inp)return;
+    if(inp.value.trim().toLowerCase()===ans.toLowerCase()){inp.classList.add('correct');inp.classList.remove('wrong');c++;}
+    else{inp.classList.add('wrong');inp.classList.remove('correct');}
+  });
+  showScore('score3',c,ex3Answers.length);
+  showToast(c===ex3Answers.length?'🎉 Hoàn hảo!':'😅 Xem lại nhé!');
+}
+function resetEx3(){
+  ex3Answers.forEach((_,i)=>{const inp=document.getElementById('e3_'+i);if(inp){inp.value='';inp.className='';}});
+  document.getElementById('score3').className='score-box';
+  showToast('🔄 Đã làm lại!');
+}
+function revealEx3(){
+  ex3Answers.forEach((ans,i)=>{const inp=document.getElementById('e3_'+i);if(inp){inp.value=ans;inp.classList.add('correct');}});
+  showToast('👁️ Đây là đáp án!');
+}
+
+// ===== EX 4: weak/strong classify =====
+// Dialogue from book ex 39.4
+const ex4Dialog = [
+  {speaker:"A",text:"What are you doing",ul:"there",answer:"W"},
+  {speaker:"B",text:"",ul:"There's",answer:"W",rest:" a spider in the room."},
+  {speaker:"A",text:"Is ",ul:"there",answer:"W",rest:"? Where?"},
+  {speaker:"B",text:"",ul:"There",answer:"S",rest:", look!"},
+  {speaker:"A",text:"No, ",ul:"there",answer:"W",rest:" isn't!"},
+  {speaker:"B",text:"Yes, ",ul:"there",answer:"S",rest:" is!"},
+  {speaker:"A",text:"Well, actually, ",ul:"there are",answer:"W",rest:" two – one "},
+  {speaker:"A",text:"",ul:"there",answer:"S",rest:" and one "},
+  {speaker:"A",text:"",ul:"there",answer:"S",rest:"!"},
+];
+let ex4Selected={};
+function renderEx4(){
+  const div=document.getElementById('ex4Content');
+  div.innerHTML=ex4Dialog.map((line,i)=>`
+    <div style="margin:5px 0;font-size:0.92rem">
+      <b>${line.speaker}:</b> ${line.text||''}
+      <span id="e4_${i}" class="classify-chip" style="text-decoration:underline" onclick="cycleEx4(${i})">${line.ul}</span>
+      ${line.rest||''}
+      <span style="font-size:0.78rem;color:#888">[<span id="e4l_${i}">?</span>]</span>
+    </div>`).join('');
+}
+function cycleEx4(i){
+  const cur=ex4Selected[i];
+  const next=cur===undefined?'W':cur==='W'?'S':undefined;
+  ex4Selected[i]=next;
+  const el=document.getElementById('e4_'+i);
+  const lbl=document.getElementById('e4l_'+i);
+  el.classList.remove('selected-a','selected-b');
+  if(next==='W'){el.classList.add('selected-a');lbl.textContent='W';}
+  else if(next==='S'){el.classList.add('selected-b');lbl.textContent='S';}
+  else{lbl.textContent='?';}
+}
+function speakEx4(){
+  speakText("What are you doing there. There's a spider in the room. Is there? Where? There, look! No, there isn't! Yes, there is! Well, actually, there are two – one there and one there!");
+}
+function checkEx4(){
+  let c=0;
+  ex4Dialog.forEach((line,i)=>{
+    if(ex4Selected[i]===line.answer) c++;
+  });
+  showScore('score4',c,ex4Dialog.length);
+  showToast(c===ex4Dialog.length?'🎉 Xuất sắc!':'😅 Thử lại nhé!');
+}
+function resetEx4(){
+  ex4Selected={};
+  ex4Dialog.forEach((_,i)=>{
+    document.getElementById('e4_'+i).classList.remove('selected-a','selected-b');
+    document.getElementById('e4l_'+i).textContent='?';
+  });
+  document.getElementById('score4').className='score-box';
+  showToast('🔄 Đã làm lại!');
+}
+function revealEx4(){
+  ex4Dialog.forEach((line,i)=>{
+    ex4Selected[i]=line.answer;
+    const el=document.getElementById('e4_'+i);
+    const lbl=document.getElementById('e4l_'+i);
+    el.classList.remove('selected-a','selected-b');
+    if(line.answer==='W'){el.classList.add('selected-a');lbl.textContent='W';}
+    else{el.classList.add('selected-b');lbl.textContent='S';}
+  });
+  showToast('👁️ Đây là đáp án!');
+}
+
+// ===== EX 5: Minimal pairs =====
+const ex5Data = [
+  {sentence:"She's going to __ art school.", options:["a /ə/","an /ən/"], answer:0, speak:"She's going to a art school."},
+  {sentence:"Is __ spider? Where?", options:["there /ðeə/ (strong)","there /ðə/ (weak)"], answer:1, speak:"Is there a spider? Where?"},
+  {sentence:"He's taller __ his brother.", options:["than /ðæn/ (strong)","than /ðən/ (weak)"], answer:1, speak:"He's taller than his brother."},
+  {sentence:"Put it over __!", options:["there /ðeə/ (strong)","there /ðə/ (weak)"], answer:0, speak:"Put it over there!"},
+  {sentence:"It's not __ good __ the new model.", options:["as /æz/...as /æz/","as /əz/...as /əz/"], answer:1, speak:"It's not as good as the new model."},
+  {sentence:"__ ten boreholes along the corridor.", options:["There are /ðeər ɑː/","There are /ðər ə/"], answer:1, speak:"There are ten boreholes along the corridor."},
+];
+function renderEx5(){
+  document.getElementById('ex5Content').innerHTML=ex5Data.map((d,i)=>`
+    <div class="mp-item">
+      <span style="min-width:260px;font-style:italic">"${d.sentence}"</span>
+      <button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak}')">🔊</button>
+      ${d.options.map((opt,j)=>`<label><input type="radio" name="mp${i}" value="${j}"> ${opt}</label>`).join(' ')}
+    </div>`).join('');
+}
+function checkEx5(){
+  let c=0;
+  ex5Data.forEach((d,i)=>{
+    const sel=document.querySelector(`input[name="mp${i}"]:checked`);
+    if(sel && parseInt(sel.value)===d.answer) c++;
+  });
+  showScore('score5',c,ex5Data.length);
+  showToast(c===ex5Data.length?'🎉 Hoàn hảo!':'😅 Nghe lại và thử tiếp!');
+}
+function resetEx5(){
+  ex5Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp${i}"]:checked`);if(sel)sel.checked=false;});
+  document.getElementById('score5').className='score-box';
+  showToast('🔄 Đã làm lại!');
+}
+function revealEx5(){
+  ex5Data.forEach((d,i)=>{
+    const inp=document.querySelector(`input[name="mp${i}"][value="${d.answer}"]`);
+    if(inp)inp.checked=true;
+  });
+  showToast('👁️ Đây là đáp án!');
+}
+
+// ===== INIT =====
+renderWords();
+renderSentences();
+renderEx1();
+renderEx2();
+renderEx3();
+renderEx4();
+renderEx5();
+
+// localStorage
+setTimeout(()=>{
+  try {
+    let c=[];
+    try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}
+    if(!c.includes(39)){c.push(39);localStorage.setItem("epu_completed",JSON.stringify(c));}
+  } catch{}
+}, 1000);
+</script>
+</body>
+</html>

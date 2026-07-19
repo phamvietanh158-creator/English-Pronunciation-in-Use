@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 41 – They're here! Contractions</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#b5451b 0%,#7a2d0e 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 16px;font-size:1.05rem;font-weight:800}
+.header h1{font-size:1.35rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#b5451b;border-bottom:2px solid #f5d5c8;padding-bottom:8px;margin-bottom:14px}
+.theory-table{width:100%;border-collapse:collapse;font-size:0.88rem;margin:10px 0}
+.theory-table th{background:#b5451b;color:#fff;padding:9px 12px;text-align:left}
+.theory-table td{padding:9px 12px;border-bottom:1px solid #eee;vertical-align:top}
+.theory-table tr:nth-child(even) td{background:#fff5f2}
+.contr{color:#b5451b;font-weight:800;font-size:1.05rem}
+.full{color:#2980b9;font-weight:700}
+.ipa{font-style:italic;color:#c0392b;font-weight:700}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.note-box{background:#fff8e1;border:1px dashed #f5c518;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.85rem}
+.warn-box{background:#fde8e8;border-left:4px solid #e74c3c;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.warn-box b{color:#c0392b}
+.info-box{background:#e8f4ff;border-left:4px solid #2980b9;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{background:#fff5f2;border:1.5px solid #f5a585;border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:130px;text-align:center}
+.word-card:hover{background:#b5451b;color:#fff;transform:translateY(-2px)}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card:hover .ipa2{color:#f5d5c8}
+.word-card .vn{font-size:0.78rem;color:#b5451b;margin-top:2px}
+.word-card:hover .vn{color:#ffe}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{background:#fff5f2;border-radius:9px;padding:10px 14px;cursor:pointer;border-left:4px solid #b5451b;transition:background 0.2s}
+.sentence-list li:hover{background:#fde0d5}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;color:#b5451b;margin-top:2px}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-red{background:#b5451b;color:#fff}.btn-red:hover{background:#7a2d0e}
+.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.ex-wrap{border:1.5px solid #f5a585;border-radius:12px;padding:18px;margin-bottom:16px;background:#fffaf8}
+.ex-label{display:inline-block;background:#b5451b;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.dialogue-line{margin:6px 0;font-size:0.9rem;line-height:1.7}
+.sp{font-weight:700;color:#b5451b}
+.choice-btn{display:inline-block;padding:4px 12px;border-radius:16px;border:2px solid #ccc;cursor:pointer;font-size:0.85rem;font-weight:600;margin:2px;background:#f5f5f5;transition:all 0.18s}
+.choice-btn:hover{border-color:#b5451b;background:#fff5f2}
+.choice-btn.selected{background:#b5451b;color:#fff;border-color:#b5451b}
+.choice-btn.correct{background:#27ae60;color:#fff;border-color:#27ae60}
+.choice-btn.wrong{background:#e74c3c;color:#fff;border-color:#e74c3c}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
+.fill-item input{border:none;border-bottom:2px solid #f5a585;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:180px;color:#b5451b;font-weight:600}
+.fill-item input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-item input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.informal-card{background:#f8f4ff;border:1.5px solid #c9a0f5;border-radius:10px;padding:10px 14px;margin:6px 0;font-size:0.9rem;cursor:pointer}
+.informal-card:hover{background:#edd5ff}
+.informal-card .orig{color:#4a1a6e;font-weight:700}
+.informal-card .form{color:#e67e22;font-style:italic}
+.classify-chip{display:inline-block;background:#f5e0d5;border:1.5px solid #e08060;border-radius:20px;padding:5px 13px;cursor:pointer;font-size:0.87rem;font-weight:600;transition:all 0.18s;user-select:none;margin:3px}
+.classify-chip:hover{background:#b5451b;color:#fff}
+.classify-chip.sel-c{background:#b5451b;color:#fff;border-color:#7a2d0e}
+.classify-chip.sel-f{background:#2980b9;color:#fff;border-color:#2471a3}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.contr-badge{display:inline-block;background:#b5451b;color:#fff;border-radius:5px;padding:1px 7px;font-size:0.95rem;font-weight:800;margin:0 2px}
+.full-badge{display:inline-block;background:#2980b9;color:#fff;border-radius:5px;padding:1px 7px;font-size:0.95rem;font-weight:700;margin:0 2px}
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 41</span>
+    <span class="phoneme-badge">'s · 're · 've · 'd · 'll · can't · isn't</span>
+  </div>
+  <h1>They're here! – Contractions</h1>
+  <div class="sub">Rút gọn (Contractions): dạng viết & phát âm trong giao tiếp</div>
+</div>
+<div id="toast" class="toast"></div>
+<div class="container">
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết – Contractions là gì?</div>
+
+  <p style="font-size:0.9rem;margin-bottom:12px;line-height:1.6">
+    <b>Contraction</b> (rút gọn) là cách viết tắt dạng yếu của trợ động từ bằng dấu nháy đơn <b>'</b>.
+    Đây là cách nói tự nhiên trong hội thoại và văn viết không trang trọng.
+  </p>
+
+  <table class="theory-table">
+    <tr><th>Dạng đầy đủ</th><th>Contraction</th><th>IPA</th><th>Ví dụ</th></tr>
+    <tr><td><span class="full">is</span></td><td><span class="contr">'s</span></td><td class="ipa">/z/ /s/ /ɪz/</td><td><em>It<b>'s</b> raining. She<b>'s</b> here.</em></td></tr>
+    <tr><td><span class="full">is not</span></td><td><span class="contr">isn't</span></td><td class="ipa">/ɪznt/</td><td><em>It <b>isn't</b> raining.</em></td></tr>
+    <tr><td><span class="full">are</span></td><td><span class="contr">'re</span></td><td class="ipa">/ə/</td><td><em>They<b>'re</b> here. You<b>'re</b> right.</em></td></tr>
+    <tr><td><span class="full">are not</span></td><td><span class="contr">aren't</span></td><td class="ipa">/ɑːnt/</td><td><em>They <b>aren't</b> ready.</em></td></tr>
+    <tr><td><span class="full">have</span></td><td><span class="contr">'ve</span></td><td class="ipa">/v/ /əv/</td><td><em>I<b>'ve</b> done it. They<b>'ve</b> arrived.</em></td></tr>
+    <tr><td><span class="full">has</span></td><td><span class="contr">'s</span></td><td class="ipa">/z/ /s/</td><td><em>Where<b>'s</b> he gone? She<b>'s</b> left.</em></td></tr>
+    <tr><td><span class="full">had / would</span></td><td><span class="contr">'d</span></td><td class="ipa">/d/</td><td><em>I<b>'d</b> love to go. She<b>'d</b> arrived.</em></td></tr>
+    <tr><td><span class="full">will</span></td><td><span class="contr">'ll</span></td><td class="ipa">/l/</td><td><em>I<b>'ll</b> see you later. It<b>'ll</b> be fine.</em></td></tr>
+    <tr><td><span class="full">cannot</span></td><td><span class="contr">can't</span></td><td class="ipa">/kɑːnt/</td><td><em>They <b>can't</b> be – it's only ten to three!</em></td></tr>
+    <tr><td><span class="full">I am</span></td><td><span class="contr">I'm</span></td><td class="ipa">/aɪm/</td><td><em><b>I'm</b> afraid they haven't arrived.</em></td></tr>
+    <tr><td><span class="full">let us</span></td><td><span class="contr">let's</span></td><td class="ipa">/lets/</td><td><em><b>Let's</b> go!</em></td></tr>
+  </table>
+
+  <div class="warn-box">
+    <b>⚠️ Quan trọng:</b> Khi trợ động từ là từ quan trọng nhất / được nhấn mạnh → dùng dạng đầy đủ, KHÔNG dùng contraction.<br>
+    <em>"Yes, it <b class="contr">is</b>!"</em> ✅ &nbsp;|&nbsp; <em>"They <b class="full">are</b>!"</em> ✅ &nbsp;|&nbsp; <em>"Yes, I <b class="full">am</b>!"</em> ✅<br>
+    <small>(Không nói: "Yes, it's!" hay "Yes, I'm!" khi nhấn mạnh)</small>
+  </div>
+
+  <div class="tip-box">
+    <b>💡 's = is hay has?</b><br>
+    • <em>It<b>'s</b> raining.</em> → <b>'s = is</b> (tiếp theo là V-ing)<br>
+    • <em>Where<b>'s</b> he gone?</em> → <b>'s = has</b> (tiếp theo là past participle)<br>
+    • <em>She<b>'s</b> a teacher.</em> → <b>'s = is</b> (tiếp theo là danh từ/tính từ)
+  </div>
+
+  <div class="info-box">
+    <b>📱 Informal contractions (trong nhạc, phim hoạt hình):</b><br>
+    <em>going to</em> → <b>gonna</b> &nbsp;|&nbsp; <em>want to</em> → <b>wanna</b> &nbsp;|&nbsp;
+    <em>isn't it?</em> → <b>innit?</b><br>
+    <em>don't you?</em> → <b>dontcha</b> &nbsp;|&nbsp; <em>and</em> → <b>'n'</b> &nbsp;|&nbsp;
+    <em>them</em> → <b>'em</b> &nbsp;|&nbsp; <em>him</em> → <b>'im</b> &nbsp;|&nbsp; <em>because</em> → <b>'cos</b>
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-red" onclick="speakText(`It's raining again. They're here. I've done the shopping. I'd love to go somewhere warm. I'm afraid they haven't arrived yet. Let's go.`)">🔊 Nghe contractions</button>
+    <button class="btn-teal" onclick="speakText(`Yes, it is! Of course you are! Yes, I am! They are!`)">🔊 Nghe dạng mạnh (không rút gọn)</button>
+    <button class="btn-red" onclick="speakText(`One of these days I'm gonna leave this town. I just wanna have a good time. Rock and roll will never die.`, 0.5)">🐢 Informal chậm</button>
+  </div>
+</div>
+
+<!-- WORD GRID -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng – Contractions thông dụng</div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-red" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+</div>
+
+<!-- INFORMAL CONTRACTIONS -->
+<div class="section">
+  <div class="section-title">🎵 Informal Contractions – Nghe & Viết lại</div>
+  <p style="font-size:0.87rem;color:#555;margin-bottom:10px">Click để nghe câu informal, sau đó nhớ dạng viết chuẩn:</p>
+  <div id="informalCards"></div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 41.1: contraction hay full form? -->
+  <div class="ex-wrap">
+    <span class="ex-label">41.1</span>
+    <div class="ex-instruction">Mỗi dòng có hai lựa chọn: <span class="contr-badge">rút gọn</span> hay <span class="full-badge">dạng đầy đủ</span>? Click chọn dạng bạn nghĩ sẽ nghe được. (Theo ngữ cảnh câu.)</div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx1()">🔊 Nghe hội thoại</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 41.2: viết dạng chuẩn từ informal -->
+  <div class="ex-wrap">
+    <span class="ex-label">41.2</span>
+    <div class="ex-instruction">Nghe câu informal rồi viết lại bằng dạng chuẩn (như ví dụ: <em>gonna → going to</em>).</div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 41.3: 's = is hay has? -->
+  <div class="ex-wrap">
+    <span class="ex-label">41.3</span>
+    <div class="ex-instruction">Trong các câu sau, <b>'s</b> là <b>is</b> hay <b>has</b>? Click để chọn.</div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 41.4: phân loại chip -->
+  <div class="ex-wrap">
+    <span class="ex-label">41.4</span>
+    <div class="ex-instruction">Phân loại: dùng <span class="contr-badge">Contraction</span> hay <span class="full-badge">Full form</span> trong ngữ cảnh này?</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0">
+      <div style="background:#fff5f2;border:2px solid #b5451b;border-radius:10px;padding:12px">
+        <div style="font-weight:700;color:#b5451b;margin-bottom:8px">✂️ Dùng Contraction</div>
+        <div id="col_contr" style="display:flex;flex-wrap:wrap;gap:6px;min-height:50px"></div>
+      </div>
+      <div style="background:#f0f6ff;border:2px solid #2980b9;border-radius:10px;padding:12px">
+        <div style="font-weight:700;color:#2980b9;margin-bottom:8px">💪 Dùng Full Form</div>
+        <div id="col_full" style="display:flex;flex-wrap:wrap;gap:6px;min-height:50px"></div>
+      </div>
+    </div>
+    <div id="chip_pool4" style="display:flex;flex-wrap:wrap;gap:7px;padding:10px;background:#f5f5f5;border-radius:8px;margin-bottom:8px"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- 41.5: minimal pairs -->
+  <div class="ex-wrap">
+    <span class="ex-label">41.5</span>
+    <div class="ex-instruction">Nghe câu và chọn dạng bạn nghe được: rút gọn hay đầy đủ?</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+// WORDS
+const words=[
+  {w:"It's raining",ipa:"/ɪts ˈreɪnɪŋ/",vn:"Trời đang mưa"},
+  {w:"They're here",ipa:"/ðeə hɪə/",vn:"Họ ở đây rồi"},
+  {w:"I've done it",ipa:"/aɪv dʌn ɪt/",vn:"Tôi đã làm xong"},
+  {w:"I'd love to",ipa:"/aɪd lʌv tə/",vn:"Tôi rất muốn"},
+  {w:"I'll see you",ipa:"/aɪl siː jə/",vn:"Tôi sẽ gặp bạn"},
+  {w:"can't be",ipa:"/kɑːnt biː/",vn:"không thể là"},
+  {w:"isn't it?",ipa:"/ɪznt ɪt/",vn:"phải không?"},
+  {w:"aren't they?",ipa:"/ɑːnt ðeɪ/",vn:"họ không phải vậy à?"},
+  {w:"let's go",ipa:"/lets ɡəʊ/",vn:"Nào đi thôi"},
+  {w:"I'm afraid",ipa:"/aɪm əˈfreɪd/",vn:"Tôi e rằng"},
+  {w:"haven't arrived",ipa:"/hævnt əˈraɪvd/",vn:"chưa đến"},
+  {w:"where's he gone?",ipa:"/weəz hi ɡɒn/",vn:"Anh ấy đi đâu rồi?"},
+  {w:"it'll be fine",ipa:"/ɪtl biː faɪn/",vn:"mọi thứ sẽ ổn thôi"},
+  {w:"we'd better",ipa:"/wiːd ˈbetə/",vn:"tốt hơn là chúng ta nên"},
+  {w:"you're right",ipa:"/jə raɪt/",vn:"bạn đúng rồi"},
+  {w:"hasn't started",ipa:"/hæznt ˈstɑːtɪd/",vn:"chưa bắt đầu"},
+];
+function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card" onclick="speakText('${w.w.replace(/'/g,"\\'")}')"><div class="word">${w.w}</div><div class="ipa2">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div></div>`).join('');}
+function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+
+// SENTENCES
+const sents=[
+  {en:"It's raining again.",ipa:"/ɪts ˈreɪnɪŋ əˈɡen/",vn:"Trời lại mưa rồi."},
+  {en:"They're here! They can't be – it's only ten to three!",ipa:"/ðeə hɪə ðeɪ kɑːnt biː ɪts ˈəʊnli ten tə θriː/",vn:"Họ đến rồi! Không thể – mới chỉ mười giờ kém mười chứ!"},
+  {en:"They are! Yes, it is!",ipa:"/ðeɪ ɑː jes ɪt ɪz/",vn:"Họ đến thật! Có, đúng vậy! (dạng mạnh)"},
+  {en:"I've done the shopping. It's on the kitchen table.",ipa:"/aɪv dʌn ðə ˈʃɒpɪŋ ɪts ɒn ðə ˈkɪtʃɪn ˈteɪbl/",vn:"Tôi đã đi mua đồ rồi. Nó ở trên bàn bếp."},
+  {en:"The weather's better than last year, isn't it?",ipa:"/ðə ˈweðəz ˈbetə ðən lɑːst jɪə ɪznt ɪt/",vn:"Thời tiết tốt hơn năm ngoái, phải không?"},
+  {en:"It certainly is.",ipa:"/ɪt ˈsɜːtnli ɪz/",vn:"Chắc chắn rồi. (dạng mạnh – cuối câu)"},
+  {en:"Right then, I'm going. No, I'll see you later.",ipa:"/raɪt ðen aɪm ˈɡəʊɪŋ nəʊ aɪl siː jə ˈleɪtə/",vn:"Thôi nhé, tôi đi đây. Không, tôi sẽ gặp bạn sau."},
+  {en:"I'd love to go somewhere warm for a change.",ipa:"/aɪd lʌv tə ɡəʊ ˈsʌmweə wɔːm fər ə tʃeɪndʒ/",vn:"Tôi rất muốn đi đâu đó ấm áp một lần."},
+  {en:"I'm afraid they haven't arrived yet. They're here now!",ipa:"/aɪm əˈfreɪd ðeɪ hævnt əˈraɪvd jet ðeə hɪə naʊ/",vn:"Tôi e họ chưa đến. Họ đến rồi!"},
+  {en:"Let's go.",ipa:"/lets ɡəʊ/",vn:"Đi thôi!"},
+  {en:"I don't think the concert's finished yet, has it? It's, actually.",ipa:"/aɪ dəʊnt θɪŋk ðə ˈkɒnsəts ˈfɪnɪʃt jet hæz ɪt ɪts ˈæktʃuəli/",vn:"Tôi không nghĩ buổi hòa nhạc đã kết thúc – nó kết thúc rồi à?"},
+  {en:"One of these days I'm gonna leave this town.",ipa:"/wʌn əv ðiːz deɪz aɪm ˈɡɒnə liːv ðɪs taʊn/",vn:"Một ngày nào đó tôi sẽ rời khỏi thị trấn này."},
+  {en:"The borehole's been drilled to 20 metres.",ipa:"/ðə ˈbɔːhəʊlz bɪn drɪld tə ˈtwenti ˈmiːtəz/",vn:"Lỗ khoan đã được khoan sâu 20 mét. ('s = has)"},
+  {en:"The report's ready for review.",ipa:"/ðə rɪˈpɔːts ˈredi fə rɪˈvjuː/",vn:"Báo cáo đã sẵn sàng để xem xét. ('s = is)"},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// INFORMAL CARDS
+const informalData=[
+  {informal:"I'm gonna leave this town.",standard:"I'm going to leave this town.",speak:"I'm going to leave this town."},
+  {informal:"I just wanna have a good time.",standard:"I just want to have a good time.",speak:"I just want to have a good time."},
+  {informal:"Nice place, this, innit?",standard:"Nice place, this, isn't it?",speak:"Nice place, this, isn't it?"},
+  {informal:"Why dontcha wanna come with us?",standard:"Why don't you want to come with us?",speak:"Why don't you want to come with us?"},
+  {informal:"Tell 'im to come now!",standard:"Tell him to come now!",speak:"Tell him to come now!"},
+  {informal:"Can you see 'em? Not yet.",standard:"Can you see them? Not yet.",speak:"Can you see them? Not yet."},
+  {informal:"Rock 'n' roll will never die.",standard:"Rock and roll will never die.",speak:"Rock and roll will never die."},
+];
+function renderInformal(){
+  document.getElementById('informalCards').innerHTML=informalData.map((d,i)=>`
+    <div class="informal-card" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">
+      <div class="form">🎵 "${d.informal}"</div>
+      <div class="orig" style="margin-top:4px">✍️ Chuẩn: "${d.standard}"</div>
+    </div>`).join('');
+}
+
+// EX 1: contraction or full form (from book 41.1)
+const ex1=[
+  {sp:"A",text:"Why haven't you done the shopping?",speak:"Why haven't you done the shopping?"},
+  {sp:"B",pre:"",opts:["I've","I have"],ans:0,post:" done the shopping. ",opts2:["It's","It is"],ans2:0,post2:" on the kitchen table.",speak:"I've done the shopping. It's on the kitchen table."},
+  {sp:"A",pre:"The ",opts:["weather's","weather is"],ans:0,post:" better than last year, isn't it?",speak:"The weather's better than last year, isn't it?"},
+  {sp:"B",pre:"It certainly ",opts:["'s","is"],ans:1,post:".",speak:"It certainly is."},
+  {sp:"A",pre:"Right then, ",opts:["I'm","I am"],ans:0,post:" going. Are you coming with us?",speak:"Right then, I'm going. Are you coming with us?"},
+  {sp:"B",pre:"No, ",opts:["I'll","I will"],ans:0,post:" see you later.",speak:"No, I'll see you later."},
+  {sp:"A",pre:"",opts:["What's","What is"],ans:0,post:" the time?",speak:"What's the time?"},
+  {sp:"B",pre:"",opts:["It's","It is"],ans:0,post:" twenty to seven.",speak:"It's twenty to seven."},
+  {sp:"A",pre:"They aren't ready yet.",speak:"They aren't ready yet."},
+  {sp:"B",pre:"",opts:["We're","We are"],ans:0,post:" ready!",speak:"We are ready!",ans_note:"(nhấn mạnh → We are)"},
+  {sp:"A",pre:"",opts:["I'd","I would"],ans:0,post:" love to go somewhere warm for a change.",speak:"I'd love to go somewhere warm for a change."},
+  {sp:"B",pre:"",opts:["I'd","I would"],ans:0,post:" too!",speak:"I'd too!"},
+  {sp:"A",pre:"",opts:["I'm","I am"],ans:0,post:" afraid they ",opts2:["haven't","have not"],ans2:0,post2:" arrived yet. ",opts3:["They're","They are"],ans3:0,post3:" here now!",speak:"I'm afraid they haven't arrived yet. They're here now!"},
+  {sp:"A",pre:"",opts:["Let's","Let us"],ans:0,post:" go.",speak:"Let's go."},
+  {sp:"B",pre:"I don't think the ",opts:["concert's","concert has"],ans:0,post:" finished yet, has it?",speak:"I don't think the concert has finished yet, has it?"},
+  {sp:"A",pre:"",opts:["It's","It has"],ans:0,post:", actually.",speak:"It has, actually.",ans_note:"('s = has)"},
+];
+let ex1sel={};
+function renderEx1(){
+  let html='';
+  const items=[
+    {sp:"A",text:"Why haven't you done the shopping?"},
+    {sp:"B",parts:["",[[0,"I've","I have"]]," done the shopping. ",[[1,"It's","It is"]]," on the kitchen table."],answers:[0,0]},
+    {sp:"A",parts:["The ",[[2,"weather's","weather is"]]," better than last year, isn't it?"],answers:[0]},
+    {sp:"B",parts:["It certainly ",[[3,"'s","is"]],"."],answers:[1]},
+    {sp:"A",parts:["Right then, ",[[4,"I'm","I am"]]," going. Are you coming with us?"],answers:[0]},
+    {sp:"B",parts:["No, ",[[5,"I'll","I will"]]," see you later."],answers:[0]},
+    {sp:"A",parts:["",[[6,"What's","What is"]]," the time?"],answers:[0]},
+    {sp:"B",parts:["",[[7,"It's","It is"]]," twenty to seven."],answers:[0]},
+    {sp:"A",text:"They aren't ready yet."},
+    {sp:"B",parts:["",[[8,"We're","We are"]]," ready! <small style='color:#888'>(nhấn mạnh)</small>"],answers:[1]},
+    {sp:"A",parts:["",[[9,"I'd","I would"]]," love to go somewhere warm for a change."],answers:[0]},
+    {sp:"B",parts:["",[[10,"I'd","I would"]]," too!"],answers:[0]},
+    {sp:"A",parts:["",[[11,"I'm","I am"]]," afraid they ",[[12,"haven't","have not"]]," arrived yet. ",[[13,"They're","They are"]]," here now!"],answers:[0,0,0]},
+    {sp:"A",parts:["",[[14,"Let's","Let us"]]," go."],answers:[0]},
+    {sp:"B",parts:["I don't think the ",[[15,"concert's","concert has"]]," finished yet, has it?"],answers:[0]},
+    {sp:"A",parts:["",[[16,"It's","It has"]],", actually. <small style='color:#888'>('s = has)</small>"],answers:[1]},
+  ];
+  const answerMap={0:0,1:0,2:0,3:1,4:0,5:0,6:0,7:0,8:1,9:0,10:0,11:0,12:0,13:0,14:0,15:0,16:1};
+  items.forEach((item,li)=>{
+    if(item.text){html+=`<div class="dialogue-line"><span class="sp">${item.sp}:</span> ${item.text}</div>`;return;}
+    let row=`<div class="dialogue-line"><span class="sp">${item.sp}:</span> `;
+    item.parts.forEach(p=>{
+      if(typeof p==='string'){row+=p;}
+      else{
+        const[idx,opt1,opt2]=p;
+        const correct=answerMap[idx];
+        row+=`<span class="choice-btn" id="ch1_${idx}_0" data-idx="${idx}" data-opt="0" data-correct="${correct===0?1:0}" onclick="selectChoice1(${idx},0)">${opt1}</span>`;
+        row+=`<span class="choice-btn" id="ch1_${idx}_1" data-idx="${idx}" data-opt="1" data-correct="${correct===1?1:0}" onclick="selectChoice1(${idx},1)">${opt2}</span>`;
+      }
+    });
+    row+='</div>';
+    html+=row;
+  });
+  document.getElementById('ex1Content').innerHTML=html;
+}
+function selectChoice1(idx,opt){
+  [0,1].forEach(o=>{const el=document.getElementById(`ch1_${idx}_${o}`);if(el){el.classList.remove('selected');}});
+  const el=document.getElementById(`ch1_${idx}_${opt}`);
+  if(el){el.classList.add('selected');ex1sel[idx]=opt;}
+}
+function speakEx1(){speakText("Why haven't you done the shopping? I've done the shopping. It's on the kitchen table. The weather is better than last year, isn't it? It certainly is. Right then, I'm going. Are you coming with us? No, I'll see you later. What's the time? It's twenty to seven. They aren't ready yet. We are ready! I'd love to go somewhere warm. I'd too! I'm afraid they haven't arrived yet. They're here now! Let's go. I don't think the concert has finished yet, has it? It has, actually.");}
+function checkEx1(){
+  const answerMap={0:0,1:0,2:0,3:1,4:0,5:0,6:0,7:0,8:1,9:0,10:0,11:0,12:0,13:0,14:0,15:0,16:1};
+  let c=0,tot=0;
+  Object.entries(answerMap).forEach(([idx,correct])=>{
+    tot++;
+    const el0=document.getElementById(`ch1_${idx}_0`);
+    if(!el0)return;
+    if(ex1sel[idx]===correct)c++;
+    [0,1].forEach(o=>{const el=document.getElementById(`ch1_${idx}_${o}`);if(el){el.classList.remove('selected','correct','wrong');}});
+    [0,1].forEach(o=>{const el=document.getElementById(`ch1_${idx}_${o}`);if(el){if(o===correct)el.classList.add('correct');else if(ex1sel[idx]===o)el.classList.add('wrong');}});
+  });
+  showScore('score1',c,tot);
+}
+function resetEx1(){
+  ex1sel={};
+  document.querySelectorAll('[id^="ch1_"]').forEach(el=>el.classList.remove('selected','correct','wrong'));
+  document.getElementById('score1').className='score-box';
+  showToast('🔄 Đã làm lại!');
+}
+function revealEx1(){
+  const answerMap={0:0,1:0,2:0,3:1,4:0,5:0,6:0,7:0,8:1,9:0,10:0,11:0,12:0,13:0,14:0,15:0,16:1};
+  Object.entries(answerMap).forEach(([idx,correct])=>{
+    ex1sel[parseInt(idx)]=correct;
+    [0,1].forEach(o=>{const el=document.getElementById(`ch1_${idx}_${o}`);if(el){el.classList.remove('selected','wrong');if(o===correct)el.classList.add('correct');}});
+  });
+  showToast('👁️ Đây là đáp án!');
+}
+
+// EX 2: write standard form
+const ex2Data=[
+  {informal:"I'm gonna leave this town.",standard:"I'm going to leave this town.",speak:"I'm gonna leave this town."},
+  {informal:"I just wanna have a good time.",standard:"I just want to have a good time.",speak:"I just wanna have a good time."},
+  {informal:"Why dontcha wanna come with us?",standard:"Why don't you want to come with us?",speak:"Why don't you want to come with us."},
+  {informal:"Tell 'im to come now!",standard:"Tell him to come now!",speak:"Tell him to come now."},
+  {informal:"Can you see 'em?",standard:"Can you see them?",speak:"Can you see them."},
+];
+function renderEx2(){
+  document.getElementById('ex2Content').innerHTML=`
+    <div class="note-box" style="margin-bottom:10px">📝 Ví dụ: <em>"Are you gonna be with us?"</em> → <em>"Are you going to be with us?"</em></div>
+    ${ex2Data.map((d,i)=>`
+    <div class="fill-item">
+      <span style="color:#4a1a6e;font-style:italic">"${d.informal}"</span>
+      <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem;margin:0 6px" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button><br>
+      → <input id="e2_${i}" type="text" placeholder="viết dạng chuẩn..." style="width:90%">
+    </div>`).join('')}`;
+}
+function checkEx2(){
+  let c=0;
+  ex2Data.forEach((d,i)=>{
+    const inp=document.getElementById('e2_'+i);
+    const val=inp.value.trim().toLowerCase().replace(/[.!?]/g,'');
+    const ans=d.standard.toLowerCase().replace(/[.!?]/g,'');
+    if(val===ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}
+    else{inp.classList.add('wrong');inp.classList.remove('correct');}
+  });
+  showScore('score2',c,ex2Data.length);
+  showToast(c===ex2Data.length?'🎉 Hoàn hảo!':'😅 Xem gợi ý bên dưới!');
+}
+function resetEx2(){ex2Data.forEach((_,i)=>{const inp=document.getElementById('e2_'+i);inp.value='';inp.className='';});document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){ex2Data.forEach((d,i)=>{const inp=document.getElementById('e2_'+i);inp.value=d.standard;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 3: 's = is or has?
+const ex3Data=[
+  {sent:"It's raining outside.",answer:"is",speak:"It's raining outside."},
+  {sent:"She's been waiting for an hour.",answer:"has",speak:"She's been waiting for an hour."},
+  {sent:"Where's he gone?",answer:"has",speak:"Where's he gone?"},
+  {sent:"The weather's great today.",answer:"is",speak:"The weather's great today."},
+  {sent:"It's on the kitchen table.",answer:"is",speak:"It's on the kitchen table."},
+  {sent:"The concert's finished.",answer:"has",speak:"The concert's finished."},
+  {sent:"The borehole's drilled to 20m.",answer:"has",speak:"The borehole's drilled to 20 metres."},
+  {sent:"The report's ready for review.",answer:"is",speak:"The report's ready for review."},
+];
+let ex3sel={};
+function renderEx3(){
+  document.getElementById('ex3Content').innerHTML=ex3Data.map((d,i)=>`
+    <div style="margin:8px 0;font-size:0.9rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="font-style:italic;min-width:260px" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊 "${d.sent}"</span>
+      <span class="choice-btn" id="e3_${i}_is" onclick="selectEx3(${i},'is')">is</span>
+      <span class="choice-btn" id="e3_${i}_has" onclick="selectEx3(${i},'has')">has</span>
+    </div>`).join('');
+}
+function selectEx3(i,val){
+  ['is','has'].forEach(v=>{const el=document.getElementById(`e3_${i}_${v}`);if(el)el.classList.remove('selected');});
+  const el=document.getElementById(`e3_${i}_${val}`);
+  if(el)el.classList.add('selected');
+  ex3sel[i]=val;
+}
+function checkEx3(){
+  let c=0;
+  ex3Data.forEach((d,i)=>{
+    ['is','has'].forEach(v=>{const el=document.getElementById(`e3_${i}_${v}`);if(el)el.classList.remove('selected','correct','wrong');});
+    if(ex3sel[i]===d.answer){c++;document.getElementById(`e3_${i}_${d.answer}`).classList.add('correct');}
+    else{
+      if(ex3sel[i])document.getElementById(`e3_${i}_${ex3sel[i]}`)?.classList.add('wrong');
+      document.getElementById(`e3_${i}_${d.answer}`)?.classList.add('correct');
+    }
+  });
+  showScore('score3',c,ex3Data.length);
+}
+function resetEx3(){ex3sel={};document.querySelectorAll('[id^="e3_"]').forEach(el=>el.classList.remove('selected','correct','wrong'));document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){ex3Data.forEach((d,i)=>{ex3sel[i]=d.answer;['is','has'].forEach(v=>{const el=document.getElementById(`e3_${i}_${v}`);if(el){el.classList.remove('selected','wrong');if(v===d.answer)el.classList.add('correct');}});});showToast('👁️ Đây là đáp án!');}
+
+// EX 4: classify chips
+const ex4chips=[
+  {label:"It's raining. (câu kể)",cat:"C"},
+  {label:"Yes, it is! (nhấn mạnh)",cat:"F"},
+  {label:"I've done it. (thông thường)",cat:"C"},
+  {label:"Of course I have! (cuối câu)",cat:"F"},
+  {label:"I'll see you later.",cat:"C"},
+  {label:"They are! (tương phản)",cat:"F"},
+  {label:"Let's go!",cat:"C"},
+  {label:"Yes, I am! (trả lời ngắn)",cat:"F"},
+  {label:"I'd love to. (câu thường)",cat:"C"},
+  {label:"We are ready! (nhấn mạnh)",cat:"F"},
+];
+let ex4state={};
+function renderEx4(){
+  ex4state={};
+  document.getElementById('chip_pool4').innerHTML=ex4chips.map((c,i)=>`<span class="classify-chip" id="ch4_${i}" onclick="clickChip4(${i})">${c.label}</span>`).join('');
+  document.getElementById('col_contr').innerHTML='';
+  document.getElementById('col_full').innerHTML='';
+}
+function clickChip4(i){
+  const cur=ex4state[i];
+  const next=cur===undefined?'C':cur==='C'?'F':undefined;
+  ex4state[i]=next;
+  const el=document.getElementById('ch4_'+i);
+  el.className='classify-chip';
+  if(next==='C'){el.classList.add('sel-c');document.getElementById('col_contr').appendChild(el);}
+  else if(next==='F'){el.classList.add('sel-f');document.getElementById('col_full').appendChild(el);}
+  else{document.getElementById('chip_pool4').appendChild(el);}
+}
+function checkEx4(){let c=0;ex4chips.forEach((ch,i)=>{if(ex4state[i]===ch.cat)c++;});showScore('score4',c,ex4chips.length);}
+function resetEx4(){renderEx4();document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx4(){ex4chips.forEach((ch,i)=>{ex4state[i]=ch.cat;const el=document.getElementById('ch4_'+i);el.className='classify-chip '+(ch.cat==='C'?'sel-c':'sel-f');if(ch.cat==='C')document.getElementById('col_contr').appendChild(el);else document.getElementById('col_full').appendChild(el);});showToast('👁️ Đây là đáp án!');}
+
+// EX 5: minimal pairs
+const ex5=[
+  {sent:"'s = is hay has?",opts:["It's raining. (is)","It's finished. (has)"],answer:0,speak:"It's raining.",ans_opt:"It's raining."},
+  {sent:"Nghe và chọn câu đúng:",opts:["They're here.","They are here. (nhấn mạnh)"],answer:1,speak:"They are here.",ans_opt:"They are here."},
+  {sent:"Câu nào dùng contraction?",opts:["I've done it.","I have done it."],answer:0,speak:"I've done it."},
+  {sent:"Câu nào nhấn mạnh (full form)?",opts:["Can you play? Maybe I can.","Can you play? Maybe I could."],answer:0,speak:"Can you play? Maybe I can."},
+  {sent:"'d = had hay would?",opts:["I'd love to go. (would)","I'd arrived. (had)"],answer:0,speak:"I'd love to go.",ans_opt:"I'd love to go."},
+];
+function renderEx5(){
+  document.getElementById('ex5Content').innerHTML=ex5.map((d,i)=>`
+    <div class="mp-item" style="display:flex;align-items:flex-start;gap:10px;margin:8px 0;font-size:0.9rem;flex-wrap:wrap">
+      <span style="min-width:220px;font-weight:600">${i+1}. ${d.sent}</span>
+      <button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>
+      ${d.opts.map((opt,j)=>`<label style="cursor:pointer"><input type="radio" name="mp5_${i}" value="${j}"> ${opt}</label>`).join('<br>')}
+    </div>`).join('');
+}
+function checkEx5(){let c=0;ex5.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel&&parseInt(sel.value)===d.answer)c++;});showScore('score5',c,ex5.length);}
+function resetEx5(){ex5.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){ex5.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp5_${i}"][value="${d.answer}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+
+// INIT
+renderWords();renderSents();renderInformal();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();
+
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(41)){c.push(41);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>
