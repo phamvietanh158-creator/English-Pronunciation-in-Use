@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 26 – Pink and orange – Consonant groups at the end</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#8a1a4a 0%,#5a0a30 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 16px;font-size:0.9rem;font-weight:800}
+.header h1{font-size:1.3rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#8a1a4a;border-bottom:2px solid #f0a8c8;padding-bottom:8px;margin-bottom:14px}
+.rule-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
+.rule-card{border-radius:10px;padding:14px;border:1.5px solid;text-align:center}
+.rule-card.one{background:#fff8fc;border-color:#d060a0}
+.rule-card.two{background:#f0f8ff;border-color:#4080d0}
+.rule-card.three{background:#f0fff4;border-color:#40a060}
+.rule-card h4{font-size:0.9rem;font-weight:700;margin-bottom:8px}
+.rule-card.one h4{color:#8a1a4a}
+.rule-card.two h4{color:#1a3a7a}
+.rule-card.three h4{color:#1a5a2a}
+.rule-card p{font-size:0.82rem;color:#555;line-height:1.6;text-align:left}
+.hl-c{color:#c0392b;font-weight:800;background:#ffe8e8;padding:0 2px;border-radius:3px}
+.cluster-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.cluster-table th{background:#8a1a4a;color:#fff;padding:9px 12px;text-align:left}
+.cluster-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.cluster-table tr:nth-child(even) td{background:#fff8fc}
+.badge{display:inline-block;background:#8a1a4a;color:#fff;border-radius:10px;padding:2px 8px;font-size:0.8rem;font-weight:700;margin-right:4px}
+.info-box{background:#e8f4ff;border-left:4px solid #2980b9;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.info-box b{color:#1a5276}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{background:#fff8fc;border:1.5px solid #d060a0;border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:110px;text-align:center}
+.word-card:hover{background:#8a1a4a;color:#fff;transform:translateY(-2px)}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card:hover .ipa2{color:#fcc}
+.word-card .vn{font-size:0.78rem;color:#8a1a4a;margin-top:2px}
+.word-card:hover .vn{color:#ffe}
+.word-card .cl{font-size:0.72rem;background:#f0d0e0;color:#8a1a4a;border-radius:8px;padding:1px 6px;margin-top:3px;display:inline-block}
+.word-card:hover .cl{background:rgba(255,255,255,0.2);color:#fff}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{background:#fff8fc;border-radius:9px;padding:10px 14px;cursor:pointer;border-left:4px solid #8a1a4a;transition:background 0.2s}
+.sentence-list li:hover{background:#f5c0d8}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;color:#8a1a4a;margin-top:2px}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-pink{background:#8a1a4a;color:#fff}.btn-pink:hover{background:#5a0a30}
+.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.ex-wrap{border:1.5px solid #f0a8c8;border-radius:12px;padding:18px;margin-bottom:16px;background:#fffafc}
+.ex-label{display:inline-block;background:#8a1a4a;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
+.fill-input{border:none;border-bottom:2px solid #f0a8c8;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:110px;color:#8a1a4a;font-weight:600}
+.fill-input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.pair-btn{padding:5px 14px;border-radius:16px;border:2px solid #ccc;cursor:pointer;font-size:0.88rem;font-weight:600;background:#f5f5f5;transition:all 0.18s;margin:2px}
+.pair-btn:hover{border-color:#8a1a4a;background:#fff8fc}
+.pair-btn.selected{background:#8a1a4a;color:#fff;border-color:#8a1a4a}
+.pair-btn.correct{background:#27ae60;color:#fff;border-color:#27ae60}
+.pair-btn.wrong{background:#e74c3c;color:#fff;border-color:#e74c3c}
+.dialogue-box{background:#f8f8f8;border-radius:10px;padding:14px;font-size:0.88rem;line-height:1.8;border:1.5px solid #ddd;margin:8px 0}
+.sp{font-weight:700;color:#8a1a4a}
+.hl-word{background:#ffe8f0;border-radius:3px;padding:1px 3px;cursor:pointer;border-bottom:2px dotted #d060a0;transition:all 0.18s}
+.hl-word.sel{background:#8a1a4a;color:#fff;border-bottom-color:#8a1a4a}
+.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 26</span>
+    <span class="phoneme-badge">Cụm phụ âm cuối từ · Consonant groups at the end</span>
+  </div>
+  <h1>Pink and orange – Consonant groups at the end of words</h1>
+  <div class="sub">Cụm 1, 2, 3 phụ âm cuối từ — không thêm nguyên âm!</div>
+</div>
+<div id="toast" class="toast"></div>
+<div class="container">
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết – Cụm phụ âm cuối từ</div>
+  <div class="rule-grid">
+    <div class="rule-card one">
+      <h4>🔤 1 phụ âm cuối từ</h4>
+      <p><em>sto<span class="hl-c">p</span>, si<span class="hl-c">ck</span></em><br>
+      (ck = 2 chữ nhưng chỉ 1 âm /k/)<br><br>
+      Đây là trường hợp phổ biến nhất.</p>
+    </div>
+    <div class="rule-card two">
+      <h4>🔤🔤 2 phụ âm cuối từ</h4>
+      <p><em>stop<span class="hl-c">s</span> (ps = 2 âm)</em><br>
+      <em>stam<span class="hl-c">p</span> (mp = 2 âm)</em><br>
+      <em>si<span class="hl-c">x</span> (x = /ks/ = 2 âm)</em><br><br>
+      <b>Ví dụ:</b> arrived, ask, build, dance, find, finished, help, stops, stamp, six</p>
+    </div>
+    <div class="rule-card three">
+      <h4>🔤🔤🔤 3 phụ âm cuối từ</h4>
+      <p><em>stamp<span class="hl-c">s</span> (mps = 3 âm)</em><br>
+      <em>six<span class="hl-c">th</span> (xth = /ksθ/ = 3 âm)</em><br><br>
+      <b>Ví dụ:</b> asks, builds, crisps, danced, helps, sixth, stamps</p>
+    </div>
+  </div>
+
+  <table class="cluster-table">
+    <tr><th>Cụm</th><th>IPA</th><th>Ví dụ</th><th>Số âm</th></tr>
+    <tr><td>-ps</td><td>/ps/</td><td><em>stop<b>s</b></em></td><td><span class="badge">2</span></td></tr>
+    <tr><td>-mp</td><td>/mp/</td><td><em>sta<b>mp</b></em></td><td><span class="badge">2</span></td></tr>
+    <tr><td>-x/-ks</td><td>/ks/</td><td><em>si<b>x</b></em></td><td><span class="badge">2</span></td></tr>
+    <tr><td>-nd</td><td>/nd/</td><td><em>fi<b>nd</b></em></td><td><span class="badge">2</span></td></tr>
+    <tr><td>-ld</td><td>/ld/</td><td><em>bui<b>ld</b></em></td><td><span class="badge">2</span></td></tr>
+    <tr><td>-sk</td><td>/sk/</td><td><em>a<b>sk</b></em></td><td><span class="badge">2</span></td></tr>
+    <tr><td>-lp</td><td>/lp/</td><td><em>he<b>lp</b></em></td><td><span class="badge">2</span></td></tr>
+    <tr><td>-vd</td><td>/vd/</td><td><em>arri<b>ved</b></em></td><td><span class="badge">2</span></td></tr>
+    <tr><td>-ŋkt/-nct</td><td>/ŋkt/</td><td><em>dan<b>ced</b></em> → /dɑːnst/</td><td><span class="badge">3</span></td></tr>
+    <tr><td>-sks</td><td>/sks/</td><td><em>a<b>sks</b></em></td><td><span class="badge">3</span></td></tr>
+    <tr><td>-ldz</td><td>/ldz/</td><td><em>bui<b>lds</b></em></td><td><span class="badge">3</span></td></tr>
+    <tr><td>-ksθ</td><td>/ksθ/</td><td><em>si<b>xth</b></em></td><td><span class="badge">3</span></td></tr>
+    <tr><td>-mps</td><td>/mps/</td><td><em>sta<b>mps</b></em></td><td><span class="badge">3</span></td></tr>
+    <tr><td>-sps</td><td>/sps/</td><td><em>cri<b>sps</b></em></td><td><span class="badge">3</span></td></tr>
+    <tr><td>-lps</td><td>/lps/</td><td><em>he<b>lps</b></em></td><td><span class="badge">3</span></td></tr>
+  </table>
+
+  <div class="info-box">
+    <b>📢 Quan trọng khi nghe:</b> Đôi khi không nghe rõ một âm trong cụm cuối từ:<br>
+    <em>sto<b>(p)</b>s, as<b>(k)</b>, stam<b>(p)</b>, stam<b>(p)</b>s, hel<b>(p)</b>, hel<b>(p)</b>ed, frien<b>(d)</b>s, wan<b>(t)</b>s, buil<b>(d)</b>s</em>
+  </div>
+
+  <div class="tip-box">
+    <b>💡 Quy tắc vàng:</b> Đừng thêm nguyên âm VÀO GIỮA hoặc SAU cụm phụ âm cuối!<br>
+    ❌ <em>helps-uh</em> &nbsp;|&nbsp; ✅ <em>helps</em> /helps/<br>
+    ❌ <em>ask-uh</em> &nbsp;|&nbsp; ✅ <em>ask</em> /ɑːsk/<br>
+    <b>🇻🇳 Lỗi phổ biến:</b> Thêm /ə/ sau từ kết thúc bằng phụ âm — <em>stamp-uh</em> thay vì <em>stamp</em>!
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-pink" onclick="speakText('stop sick stops stamp six stamps sixth arrived ask build dance find finished help')">🔊 Nghe từ sách</button>
+    <button class="btn-blue" onclick="speakText('asks builds crisps danced helps sixth stamps')">🔊 Nghe 3 phụ âm cuối</button>
+    <button class="btn-teal" onclick="speakText('stops helps asks builds crisps sixth stamps danced',0.6)">🐢 Nghe chậm</button>
+  </div>
+</div>
+
+<!-- WORD GRID -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng</div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-pink" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> Cụm phụ âm cuối từ trong địa kỹ thuật:<br>
+    <em>test<b>s</b>, result<b>s</b>, depth<b>s</b>, field<b>s</b>, build<b>s</b>, strength<b>s</b>, ground<b>s</b>, demand<b>s</b>, finds, holds, extends</em>
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 26.1: circle word you hear (from book) -->
+  <div class="ex-wrap">
+    <span class="ex-label">26.1</span>
+    <div class="ex-instruction">Chọn từ nào có cụm phụ âm cuối nhiều hơn (khó hơn). Click để nghe và chọn.</div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 26.2: fill from 26.1 words -->
+  <div class="ex-wrap">
+    <span class="ex-label">26.2</span>
+    <div class="ex-instruction">Điền từ từ bài 26.1 vào câu. (Đúng theo sách 26.2)</div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx2()">🔊 Nghe câu</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 26.3: underline consonant groups in dialogues -->
+  <div class="ex-wrap">
+    <span class="ex-label">26.3</span>
+    <div class="ex-instruction">Click vào từ có <b>cụm phụ âm cuối</b> (2+ phụ âm) trong hội thoại. (Đúng theo sách 26.3)</div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx3()">🔊 Nghe hội thoại</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 26.4: complete phrases -->
+  <div class="ex-wrap">
+    <span class="ex-label">26.4</span>
+    <div class="ex-instruction">Điền từ đúng vào chỗ trống. Chọn từ: <em>boots, physics, west, silence, thousands, isn't, banks, last</em>. (Đúng theo sách 26.4)</div>
+    <div id="ex4Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx4()">🔊 Nghe cụm từ</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- 26.5: minimal pairs -->
+  <div class="ex-wrap">
+    <span class="ex-label">26.5</span>
+    <div class="ex-instruction">Nghe và chọn từ đúng (minimal pairs: có hay không có phụ âm cuối bổ sung).</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+// WORDS
+const words=[
+  {w:"stop",cl:"-p",ipa:"/stɒp/",vn:"dừng"},{w:"sick",cl:"-k",ipa:"/sɪk/",vn:"bệnh"},
+  {w:"stops",cl:"-ps",ipa:"/stɒps/",vn:"dừng (ngôi 3)"},{w:"stamp",cl:"-mp",ipa:"/stæmp/",vn:"con tem"},
+  {w:"six",cl:"-ks",ipa:"/sɪks/",vn:"sáu"},{w:"stamps",cl:"-mps",ipa:"/stæmps/",vn:"những con tem"},
+  {w:"sixth",cl:"-ksθ",ipa:"/sɪksθ/",vn:"thứ sáu"},{w:"arrived",cl:"-vd",ipa:"/əˈraɪvd/",vn:"đã đến"},
+  {w:"ask",cl:"-sk",ipa:"/ɑːsk/",vn:"hỏi"},{w:"build",cl:"-ld",ipa:"/bɪld/",vn:"xây dựng"},
+  {w:"dance",cl:"-ns",ipa:"/dɑːns/",vn:"khiêu vũ"},{w:"find",cl:"-nd",ipa:"/faɪnd/",vn:"tìm"},
+  {w:"finished",cl:"-ʃt",ipa:"/ˈfɪnɪʃt/",vn:"đã xong"},{w:"help",cl:"-lp",ipa:"/help/",vn:"giúp"},
+  {w:"asks",cl:"-sks",ipa:"/ɑːsks/",vn:"hỏi (ngôi 3)"},{w:"builds",cl:"-ldz",ipa:"/bɪldz/",vn:"xây (ngôi 3)"},
+  {w:"crisps",cl:"-sps",ipa:"/krɪsps/",vn:"khoai tây chiên giòn"},{w:"helps",cl:"-lps",ipa:"/helps/",vn:"giúp (ngôi 3)"},
+  {w:"tests",cl:"-sts",ipa:"/tests/",vn:"thí nghiệm"},{w:"depths",cl:"-pθs",ipa:"/depθs/",vn:"chiều sâu (nhiều)"},
+];
+function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card" onclick="speakText('${w.w}')"><div class="word">${w.w}</div><div class="ipa2">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div><div class="cl">${w.cl}</div></div>`).join('');}
+function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+
+// SENTENCES
+const sents=[
+  {en:"Stops, stamps, asks, builds – don't add a vowel at the end!",ipa:"/stɒps stæmps ɑːsks bɪldz/",vn:"Stops, stamps, asks, builds – không thêm nguyên âm cuối!"},
+  {en:"Have you seen that film?",ipa:"/həv jə siːn ðæt fɪlm/",vn:"Bạn đã xem bộ phim đó chưa?"},
+  {en:"Be there at six. Is that when it starts?",ipa:"/bi ðeər ət sɪks ɪz ðæt wen ɪt stɑːts/",vn:"Hãy ở đó lúc 6 giờ. Đó là khi nó bắt đầu à?"},
+  {en:"I can't speak French. Have some of these biscuits.",ipa:"/aɪ kɑːnt spiːk frentʃ həv sʌm əv ðiːz ˈbɪskɪts/",vn:"Tôi không biết nói tiếng Pháp. Ăn một ít bánh quy này đi."},
+  {en:"I found some money in the street today. Fifty pence.",ipa:"/aɪ faʊnd sʌm ˈmʌni ɪn ðə striːt təˈdeɪ ˈfɪfti pens/",vn:"Hôm nay tôi tìm thấy tiền trên phố. Năm mươi pence."},
+  {en:"What's for lunch? Fish and chips.",ipa:"/wɒts fə lʌntʃ fɪʃ ənd tʃɪps/",vn:"Bữa trưa ăn gì? Cá và khoai tây chiên."},
+  {en:"I only slept six hours last night.",ipa:"/aɪ ˈəʊnli slept sɪks ˈaʊəz lɑːst naɪt/",vn:"Đêm qua tôi chỉ ngủ sáu tiếng."},
+  {en:"What colour are your new gloves? Pink and orange!",ipa:"/wɒt ˈkʌlər ə jə njuː ɡlʌvz pɪŋk ənd ˈɒrɪndʒ/",vn:"Găng tay mới của bạn màu gì? Hồng và cam!"},
+  {en:"Field tests confirmed depths of five and six metres.",ipa:"/fiːld tests kənˈfɜːmd depθs əv faɪv ənd sɪks ˈmiːtəz/",vn:"Thí nghiệm hiện trường xác nhận chiều sâu 5 và 6 mét."},
+  {en:"The project builds on previous ground investigations.",ipa:"/ðə ˈprɒdʒekt bɪldz ɒn ˈpriːvɪəs ɡraʊnd ɪnˌvestɪˈɡeɪʃənz/",vn:"Dự án được xây dựng dựa trên các cuộc khảo sát địa chất trước đó."},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// EX 1: word pairs (from book 26.1)
+const ex1Simple=[
+  {pair:["cold","colder"],ans:1,note:"-ld vs -ldr"},
+  {pair:["dance","dancer"],ans:1,note:"-ns vs -ns+r"},
+  {pair:["old","older"],ans:1,note:"-ld vs -ldr"},
+  {pair:["sent","centre"],ans:0,note:"-nt cluster"},
+  {pair:["fast","faster"],ans:0,note:"-st cluster"},
+  {pair:["sleep","asleep"],ans:0,note:"-lp is harder"},
+];
+let ex1sel={};
+function renderEx1(){
+  ex1sel={};
+  document.getElementById('ex1Content').innerHTML=`<div style="font-size:0.85rem;color:#555;margin-bottom:8px">Từ nào có cụm phụ âm cuối nhiều hơn / khó hơn?</div>`+
+  ex1Simple.map((d,i)=>`
+    <div style="display:flex;align-items:center;gap:12px;margin:6px 0">
+      <span style="font-size:0.82rem;color:#888;min-width:20px">${i+1}.</span>
+      ${d.pair.map((w,j)=>`<span class="pair-btn" id="p1_${i}_${j}" onclick="selP1(${i},${j})">${w}</span>`).join(' vs ')}
+      <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.pair.join(', ')}')">🔊</button>
+      <span style="font-size:0.77rem;color:#888">${d.note}</span>
+    </div>`).join('');
+}
+function selP1(i,j){[0,1].forEach(x=>{const el=document.getElementById(`p1_${i}_${x}`);if(el)el.className='pair-btn';});document.getElementById(`p1_${i}_${j}`)?.classList.add('selected');ex1sel[i]=j;}
+function checkEx1(){let c=0;ex1Simple.forEach((d,i)=>{[0,1].forEach(x=>{const el=document.getElementById(`p1_${i}_${x}`);if(el)el.className='pair-btn';});if(ex1sel[i]===d.ans){c++;document.getElementById(`p1_${i}_${d.ans}`)?.classList.add('correct');}else{if(ex1sel[i]!==undefined)document.getElementById(`p1_${i}_${ex1sel[i]}`)?.classList.add('wrong');document.getElementById(`p1_${i}_${d.ans}`)?.classList.add('correct');}});showScore('score1',c,ex1Simple.length);}
+function resetEx1(){ex1sel={};document.querySelectorAll('[id^="p1_"]').forEach(el=>el.className='pair-btn');document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx1(){ex1Simple.forEach((d,i)=>{ex1sel[i]=d.ans;[0,1].forEach(x=>{const el=document.getElementById(`p1_${i}_${x}`);if(el){el.className='pair-btn';if(x===d.ans)el.classList.add('correct');}});});showToast('👁️ Đây là đáp án!');}
+
+// EX 2: fill from 26.1 words (from book 26.2)
+const ex2Items=[
+  {s:"1. Yesterday was ___, but today's ___.",blanks:["cold","colder"],speak:"Yesterday was cold but today's colder."},
+  {s:"2. My wife's a good ___, but I can't ___ at all.",blanks:["dancer","dance"],speak:"My wife's a good dancer but I can't dance at all."},
+  {s:"3. I'm ___ than you, but not too ___ to learn English.",blanks:["older","old"],speak:"I'm older than you but not too old to learn English."},
+  {s:"4. I ___ my daughter to buy some things in the shopping ___.",blanks:["sent","centre"],speak:"I sent my daughter to buy some things in the shopping centre."},
+  {s:"5. The bus is ___ but the train's ___.",blanks:["fast","faster"],speak:"The bus is fast but the train's faster."},
+];
+function renderEx2(){
+  let gi=0,html='';
+  ex2Items.forEach(d=>{
+    let sent=d.s,bi=0;
+    sent=sent.replace(/___/g,()=>{const idx=gi++;const a=d.blanks[bi++];return `<input class="fill-input" id="e2_${idx}" type="text" placeholder="..." data-ans="${a}" style="width:${Math.max(70,a.length*12)}px">`;});
+    html+=`<div class="fill-item">${sent} <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button></div>`;
+  });
+  document.getElementById('ex2Content').innerHTML=html;
+}
+function speakEx2(){speakText(ex2Items.map(d=>d.speak).join(' '));}
+function checkEx2(){const inputs=document.querySelectorAll('[id^="e2_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score2',c,inputs.length);}
+function resetEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value='';inp.className='fill-input';});document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 3: click words with end clusters in dialogues (from book 26.3)
+// Words with consonant clusters at end
+const ex3Correct=new Set(["film","six","starts","France","French","biscuits","found","street","pence","lunch","chips","slept","hours","last","night","gloves","pink","orange"]);
+const ex3Words=["film","six","starts","France","French","biscuits","found","street","pence","lunch","chips","slept","hours","last","night","gloves","pink","orange"];
+let ex3sel=new Set();
+function renderEx3(){
+  ex3sel=new Set();
+  const lines=[
+    "1. A: Have you seen that [film]? B: No, I haven't.",
+    "2. A: Be there at [six]. B: Is that when it [starts]?",
+    "3. A: Have you been to [France]? B: Yes, once.",
+    "4. A: How do you say 'Hello' in [French]? B: I can't speak [French].",
+    "5. A: Have some of these [biscuits]. B: No, thanks, I don't like them.",
+    "6. A: I [found] some money in the [street] today. B: How much? A: Fifty [pence].",
+    "7. A: What's for [lunch]? B: Fish and [chips].",
+    "8. A: I only [slept] six [hours] [last] [night]. B: I didn't sleep at all!",
+    "9. A: What colour are your new [gloves]? B: [Pink] and [orange]!",
+  ];
+  let html='<div style="font-size:0.85rem;color:#555;margin-bottom:8px">Click vào từ có cụm phụ âm cuối từ (2+ âm liên tiếp):</div>';
+  lines.forEach(line=>{
+    html+=`<div class="fill-item" style="margin:6px 0">${line.replace(/\[(\w+)\]/g,(m,w)=>`<span class="hl-word" id="ex3_${w}" onclick="toggleEx3('${w}')">${w}</span>`)}</div>`;
+  });
+  document.getElementById('ex3Content').innerHTML=html;
+}
+function toggleEx3(id){
+  const el=document.getElementById('ex3_'+id);
+  if(!el)return;
+  if(ex3sel.has(id)){ex3sel.delete(id);el.classList.remove('sel');}
+  else{ex3sel.add(id);el.classList.add('sel');}
+}
+function speakEx3(){speakText("Have you seen that film? No, I haven't. Be there at six. Is that when it starts? Have you been to France? Yes, once. How do you say Hello in French? I can't speak French. Have some of these biscuits. No thanks. I found some money in the street today. How much? Fifty pence. What's for lunch? Fish and chips. I only slept six hours last night. I didn't sleep at all! What colour are your new gloves? Pink and orange!");}
+function checkEx3(){let c=0;ex3Correct.forEach(w=>{if(ex3sel.has(w))c++;const el=document.getElementById('ex3_'+w);if(el)el.style.outline='2px solid #27ae60';});showScore('score3',c,ex3Correct.size);}
+function resetEx3(){ex3sel=new Set();document.querySelectorAll('.hl-word').forEach(el=>{el.classList.remove('sel');el.style.outline='none';});document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){ex3sel=new Set(ex3Correct);ex3Correct.forEach(w=>{const el=document.getElementById('ex3_'+w);if(el)el.classList.add('sel');});showToast('👁️ Đây là đáp án!');}
+
+// EX 4: complete phrases (from book 26.4)
+const ex4Items=[
+  {s:"first and ___",ans:"last",speak:"first and last"},
+  {s:"maths and ___",ans:"physics",speak:"maths and physics"},
+  {s:"it wasn't and it ___",ans:"isn't",speak:"it wasn't and it isn't"},
+  {s:"hundreds and ___",ans:"thousands",speak:"hundreds and thousands"},
+  {s:"socks and ___",ans:"boots",speak:"socks and boots"},
+  {s:"shops and ___",ans:"banks",speak:"shops and banks"},
+  {s:"sound and ___",ans:"silence",speak:"sound and silence"},
+  {s:"from east to ___",ans:"west",speak:"from east to west"},
+];
+function renderEx4(){
+  let gi=0;
+  document.getElementById('ex4Content').innerHTML=`<div style="font-size:0.85rem;color:#555;margin-bottom:8px">📦 Từ: <em>boots, physics, west, silence, thousands, isn't, banks, last</em></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">`+
+  ex4Items.map(d=>{const idx=gi++;return `<div class="fill-item">${d.s.replace('___',`<input class="fill-input" id="e4_${idx}" type="text" placeholder="..." data-ans="${d.ans}" style="width:90px">`)}<button class="btn-pink" style="padding:2px 7px;font-size:0.75rem;margin-left:4px" onclick="speakText('${d.speak}')">🔊</button></div>`;}).join('')+'</div>';
+}
+function speakEx4(){speakText(ex4Items.map(d=>d.speak).join('. '));}
+function checkEx4(){const inputs=document.querySelectorAll('[id^="e4_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score4',c,inputs.length);}
+function resetEx4(){document.querySelectorAll('[id^="e4_"]').forEach(inp=>{inp.value='';inp.className='fill-input';});document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx4(){document.querySelectorAll('[id^="e4_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 5: minimal pairs
+const ex5Data=[
+  {pair:["cold","colder"],sent:"It gets ___ in December.",ans:0,speak:"It gets cold in December.",note:"-ld vs -ldr"},
+  {pair:["ask","asks"],sent:"She always ___ too many questions.",ans:1,speak:"She always asks too many questions.",note:"-sk vs -sks"},
+  {pair:["stamp","stamps"],sent:"I need two ___ for this letter.",ans:1,speak:"I need two stamps for this letter.",note:"-mp vs -mps"},
+  {pair:["six","sixth"],sent:"Today is the ___ of June.",ans:1,speak:"Today is the sixth of June.",note:"-ks vs -ksθ"},
+  {pair:["help","helps"],sent:"She ___ me with my homework.",ans:1,speak:"She helps me with my homework.",note:"-lp vs -lps"},
+  {pair:["build","builds"],sent:"He ___ websites for a living.",ans:1,speak:"He builds websites for a living.",note:"-ld vs -ldz"},
+  {pair:["find","finds"],sent:"She always ___ the best deals.",ans:1,speak:"She always finds the best deals.",note:"-nd vs -ndz"},
+  {pair:["test","tests"],sent:"The site investigation ___ were completed.",ans:1,speak:"The site investigation tests were completed.",note:"-st vs -sts"},
+];
+function renderEx5(){document.getElementById('ex5Content').innerHTML=ex5Data.map((d,i)=>`<div class="mp-item"><span style="font-style:italic;min-width:260px">"${d.sent}"</span><button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>${d.pair.map((opt,j)=>`<label><input type="radio" name="mp5_${i}" value="${j}"> <b>${opt}</b></label>`).join(' ')}<span style="font-size:0.77rem;color:#888">${d.note}</span></div>`).join('');}
+function checkEx5(){let c=0;ex5Data.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel&&parseInt(sel.value)===d.ans)c++;});showScore('score5',c,ex5Data.length);}
+function resetEx5(){ex5Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){ex5Data.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp5_${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+
+renderWords();renderSents();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(26)){c.push(26);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>
