@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 28 - Syllables</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #e8956f 0%, #c67856 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .lesson-num {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        .home-link {
+            color: white;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        
+        .home-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .phoneme-badge {
+            display: inline-block;
+            background: #ffd700;
+            color: #333;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-right: 15px;
+        }
+        
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #c67856;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #e8956f;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .theory-box {
+            background: #fff9e6;
+            padding: 20px;
+            border-left: 4px solid #e8956f;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .syllable-rule {
+            background: #f0f8ff;
+            padding: 15px;
+            border-left: 4px solid #4a90e2;
+            margin: 12px 0;
+            border-radius: 5px;
+        }
+        
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .word-card {
+            background: linear-gradient(135deg, #fef5f0 0%, #fff5ed 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e8956f;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .word-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(230, 137, 111, 0.3);
+            background: linear-gradient(135deg, #ffe8d9 0%, #ffd9c9 100%);
+        }
+        
+        .word-text {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .highlight {
+            color: #c67856;
+            font-weight: bold;
+        }
+        
+        .ipa {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+        
+        .meaning {
+            font-size: 0.85em;
+            color: #e8956f;
+            font-weight: 500;
+        }
+        
+        .syllable-count {
+            display: inline-block;
+            background: #e8956f;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            margin-left: 5px;
+        }
+        
+        .sentence-list {
+            list-style: none;
+        }
+        
+        .sentence-item {
+            background: #fef5f0;
+            padding: 15px;
+            margin: 12px 0;
+            border-left: 4px solid #e8956f;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .sentence-item:hover {
+            background: #ffe8d9;
+            padding-left: 20px;
+        }
+        
+        .sentence-text {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .sentence-ipa {
+            font-size: 0.85em;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 3px;
+        }
+        
+        .sentence-meaning {
+            font-size: 0.9em;
+            color: #e8956f;
+            font-weight: 500;
+        }
+        
+        .ex-wrap {
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        
+        .ex-instruction {
+            background: #e8f4f8;
+            padding: 12px;
+            border-left: 4px solid #4a90e2;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            color: #333;
+        }
+        
+        .input-group {
+            margin: 10px 0;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .input-group input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            flex: 0 0 100px;
+        }
+        
+        .fill-item {
+            background: white;
+            padding: 12px;
+            margin: 8px 0;
+            border-left: 3px solid #e8956f;
+            border-radius: 4px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .fill-item input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .classify-chip {
+            display: inline-block;
+            background: white;
+            border: 2px solid #e8956f;
+            color: #c67856;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .classify-chip:hover {
+            background: #e8956f;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .classify-chip.selected {
+            background: #c67856;
+            color: white;
+            border-color: #c67856;
+        }
+        
+        .classify-column {
+            background: #fef5f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            min-height: 100px;
+            border: 2px dashed #e8956f;
+        }
+        
+        .classify-column-title {
+            font-weight: bold;
+            color: #c67856;
+            margin-bottom: 10px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-success {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .btn-warning {
+            background: #ff9800;
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background: #e68900;
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0b7dda;
+            transform: translateY(-2px);
+        }
+        
+        .score-box {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+        }
+        
+        .score-box.show {
+            display: block;
+        }
+        
+        .big-score {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .score-meter {
+            width: 100%;
+            height: 30px;
+            background: #ddd;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .score-bar {
+            height: 100%;
+            background: #4caf50;
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .score-text {
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+        
+        .tip-box {
+            background: #fffacd;
+            border-left: 4px solid #ffd700;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .geo-box {
+            background: #e0f7fa;
+            border-left: 4px solid #00bcd4;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .note-box {
+            background: #fff9e6;
+            border-left: 4px solid #ffb300;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        .toast.show {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .emoji {
+            font-size: 1.2em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: #e8956f;
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        tr:hover {
+            background: #ffe8d9;
+        }
+        
+        .spell-table {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-top">
+                <div class="lesson-num">📚 Bài 28</div>
+                <a href="../index.html" class="home-link">← Về trang chủ</a>
+            </div>
+            <h1>One House, Two Houses</h1>
+            <div>
+                <span class="phoneme-badge">Syllables</span>
+            </div>
+            <p class="subtitle">Học cách đếm và phát âm đúng số âm tiết trong tiếng Anh</p>
+        </div>
+
+        <!-- PHẦN 1: LÝ THUYẾT -->
+        <div class="section">
+            <h2 class="section-title">🎯 Lý Thuyết Âm Tiết</h2>
+            
+            <div class="theory-box">
+                <strong>Âm tiết (Syllable) là gì?</strong><br>
+                Âm tiết là một đơn vị phát âm có chứa một âm nguyên âm (vowel sound). Mỗi lần bạn nghe một âm nguyên âm rõ ràng, đó là một âm tiết.
+            </div>
+            
+            <h3 style="margin-top: 20px; color: #c67856;">📊 Cách Đếm Âm Tiết</h3>
+            
+            <div class="syllable-rule">
+                <strong>Quy tắc chính:</strong> Số âm tiết = số lượng âm nguyên âm rõ ràng bạn nghe
+                <br><br>
+                ✓ <strong>internet</strong> (3 âm nguyên) = 3 âm tiết<br>
+                ✓ <strong>under-line</strong> (3 âm nguyên) = 3 âm tiết<br>
+                ✓ <strong>six-ty</strong> (2 âm nguyên) = 2 âm tiết<br>
+                ✓ <strong>house</strong> (1 âm nguyên) = 1 âm tiết
+            </div>
+            
+            <div class="syllable-rule">
+                <strong>⚠️ Lưu ý quan trọng:</strong> Không phải lúc nào số chữ cái cũng bằng số âm tiết!
+                <br><br>
+                ✓ <strong>business</strong> = 2 âm tiết (không phải 3, dù có 3 chữ 'u', 'i', 'e')<br>
+                ✓ <strong>interested</strong> = 3 âm tiết (không phải 4, dù có 4 chữ nguyên âm)
+            </div>
+            
+            <div class="theory-box">
+                <strong>🔊 Kiểu âm tiết phổ biến:</strong><br>
+                1️⃣ <strong>Chỉ có âm nguyên âm</strong> (VCC): <em>/iː/ = /i/ (no)</em><br>
+                2️⃣ <strong>Phụ âm + Âm nguyên</strong> (CVC): <em>/d/ + /ɪ/ + /d/ = did</em><br>
+                3️⃣ <strong>Phụ âm + Âm nguyên + Phụ âm</strong> (CVCC): <em>/k/ + /æ/ + /t/ = cat</em><br>
+                4️⃣ <strong>Nhiều phụ âm</strong> (CCVCC): <em>/n/ + /j/ + /uː/ + /z/ = news</em>
+            </div>
+            
+            <div class="note-box">
+                <strong>💡 Mẹo phát âm:</strong> Đếm số lần bạn bật hàm khi nói một từ, đó chính là số âm tiết!
+            </div>
+        </div>
+
+        <!-- PHẦN 2: TỪNG LỰA CHỌN BỞI SỐ ÂM TIẾT -->
+        <div class="section">
+            <h2 class="section-title">📝 Từ Vựng Theo Số Âm Tiết</h2>
+            
+            <h3 style="color: #c67856; margin: 20px 0 15px 0;">🔹 1 Âm Tiết</h3>
+            <div class="word-grid">
+                <div class="word-card" onclick="speakText('house')">
+                    <div class="word-text">house</div>
+                    <div class="ipa">/haʊs/</div>
+                    <div class="meaning">🇻🇳 nhà</div>
+                </div>
+                <div class="word-card" onclick="speakText('why')">
+                    <div class="word-text">why</div>
+                    <div class="ipa">/waɪ/</div>
+                    <div class="meaning">🇻🇳 tại sao</div>
+                </div>
+                <div class="word-card" onclick="speakText('white')">
+                    <div class="word-text">white</div>
+                    <div class="ipa">/waɪt/</div>
+                    <div class="meaning">🇻🇳 trắng</div>
+                </div>
+                <div class="word-card" onclick="speakText('write')">
+                    <div class="word-text">write</div>
+                    <div class="ipa">/raɪt/</div>
+                    <div class="meaning">🇻🇳 viết</div>
+                </div>
+                <div class="word-card" onclick="speakText('glass')">
+                    <div class="word-text">glass</div>
+                    <div class="ipa">/glɑːs/</div>
+                    <div class="meaning">🇻🇳 cốc</div>
+                </div>
+                <div class="word-card" onclick="speakText('blue')">
+                    <div class="word-text">blue</div>
+                    <div class="ipa">/bluː/</div>
+                    <div class="meaning">🇻🇳 xanh</div>
+                </div>
+            </div>
+            
+            <h3 style="color: #c67856; margin: 20px 0 15px 0;">🔹 2 Âm Tiết</h3>
+            <div class="word-grid">
+                <div class="word-card" onclick="speakText('internet')">
+                    <div class="word-text">in<span class="highlight">-ter</span>-net</div>
+                    <div class="ipa">/ɪn.tɚ.nɛt/</div>
+                    <div class="meaning">🇻🇳 internet</div>
+                </div>
+                <div class="word-card" onclick="speakText('under')">
+                    <div class="word-text">un<span class="highlight">-der</span></div>
+                    <div class="ipa">/ʌn.dɚ/</div>
+                    <div class="meaning">🇻🇳 dưới</div>
+                </div>
+                <div class="word-card" onclick="speakText('sister')">
+                    <div class="word-text">sis<span class="highlight">-ter</span></div>
+                    <div class="ipa">/sɪs.tɚ/</div>
+                    <div class="meaning">🇻🇳 chị gái</div>
+                </div>
+                <div class="word-card" onclick="speakText('business')">
+                    <div class="word-text">busi<span class="highlight">-ness</span></div>
+                    <div class="ipa">/bɪz.nɪs/</div>
+                    <div class="meaning">🇻🇳 kinh doanh</div>
+                </div>
+                <div class="word-card" onclick="speakText('houses')">
+                    <div class="word-text">hous<span class="highlight">-es</span></div>
+                    <div class="ipa">/haʊz.ɪz/</div>
+                    <div class="meaning">🇻🇳 các nhà</div>
+                </div>
+                <div class="word-card" onclick="speakText('going')">
+                    <div class="word-text">go<span class="highlight">-ing</span></div>
+                    <div class="ipa">/goʊ.ɪŋ/</div>
+                    <div class="meaning">🇻🇳 đi</div>
+                </div>
+            </div>
+            
+            <h3 style="color: #c67856; margin: 20px 0 15px 0;">🔹 3+ Âm Tiết</h3>
+            <div class="word-grid">
+                <div class="word-card" onclick="speakText('alphabet')">
+                    <div class="word-text">al<span class="highlight">-pha-bet</span></div>
+                    <div class="ipa">/æl.fə.bɛt/</div>
+                    <div class="meaning">🇻🇳 bảng chữ cái</div>
+                </div>
+                <div class="word-card" onclick="speakText('consonant')">
+                    <div class="word-text">con<span class="highlight">-so-nant</span></div>
+                    <div class="ipa">/kɑn.sə.nənt/</div>
+                    <div class="meaning">🇻🇳 phụ âm</div>
+                </div>
+                <div class="word-card" onclick="speakText('television')">
+                    <div class="word-text">te<span class="highlight">-le-vi-sion</span></div>
+                    <div class="ipa">/tɛl.ə.vɪʒ.ən/</div>
+                    <div class="meaning">🇻🇳 tivi</div>
+                </div>
+                <div class="word-card" onclick="speakText('geographical')">
+                    <div class="word-text">ge<span class="highlight">-o-graph-i-cal</span></div>
+                    <div class="ipa">/dʒi.ə.græf.ɪ.kəl/</div>
+                    <div class="meaning">🇻🇳 địa lý</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHẦN 3: CÂU LUYỆN -->
+        <div class="section">
+            <h2 class="section-title">💬 Câu Luyện</h2>
+            
+            <ul class="sentence-list">
+                <li class="sentence-item" onclick="speakText('I have got blue eyes.')">
+                    <div class="sentence-text">I have got <span class="highlight">blue</span> eyes.</div>
+                    <div class="sentence-ipa">/aɪ hæv gɑt bluː aɪz/</div>
+                    <div class="sentence-meaning">🇻🇳 Tôi có đôi mắt xanh.</div>
+                </li>
+                <li class="sentence-item" onclick="speakText('I don\'t know why.')">
+                    <div class="sentence-text">I don't know <span class="highlight">why</span>.</div>
+                    <div class="sentence-ipa">/aɪ doʊnt noʊ waɪ/</div>
+                    <div class="sentence-meaning">🇻🇳 Tôi không biết tại sao.</div>
+                </li>
+                <li class="sentence-item" onclick="speakText('Black coffee or white coffee?')">
+                    <div class="sentence-text">Black coffee or <span class="highlight">white</span> coffee?</div>
+                    <div class="sentence-ipa">/blæk kɔfi ɔr waɪt kɔfi/</div>
+                    <div class="sentence-meaning">🇻🇳 Cà phê đen hay cà phê sữa?</div>
+                </li>
+                <li class="sentence-item" onclick="speakText('Will you write to me?')">
+                    <div class="sentence-text">Will you <span class="highlight">write</span> to me?</div>
+                    <div class="sentence-ipa">/wɪl juː raɪt tu mi/</div>
+                    <div class="sentence-meaning">🇻🇳 Bạn có viết thư cho tôi không?</div>
+                </li>
+                <li class="sentence-item" onclick="speakText('What are you writing?')">
+                    <div class="sentence-text">What are you <span class="highlight">writing</span>?</div>
+                    <div class="sentence-ipa">/wɑt ɑr juː raɪtɪŋ/</div>
+                    <div class="sentence-meaning">🇻🇳 Bạn đang viết gì?</div>
+                </li>
+                <li class="sentence-item" onclick="speakText('Is this your glass?')">
+                    <div class="sentence-text">Is this your <span class="highlight">glass</span>?</div>
+                    <div class="sentence-ipa">/ɪz ðɪs jɔr glɑs/</div>
+                    <div class="sentence-meaning">🇻🇳 Cái cốc này của bạn à?</div>
+                </li>
+                <li class="sentence-item" onclick="speakText('I don\'t know why you are doing this.')">
+                    <div class="sentence-text">I don't know <span class="highlight">why</span> you are doing this.</div>
+                    <div class="sentence-ipa">/aɪ doʊnt noʊ waɪ juː ɑr duːɪŋ ðɪs/</div>
+                    <div class="sentence-meaning">🇻🇳 Tôi không hiểu tại sao bạn làm việc này.</div>
+                </li>
+                <li class="sentence-item" onclick="speakText('Where is the survey office?')">
+                    <div class="sentence-text">Where is the <span class="highlight">survey</span> office?</div>
+                    <div class="sentence-ipa">/wɛr ɪz ðə sɜrvei ɔfɪs/</div>
+                    <div class="sentence-meaning">🇻🇳 Văn phòng khảo sát ở đâu?</div>
+                </li>
+            </ul>
+            
+            <div class="geo-box">
+                <strong>🏗️ Thuật ngữ kỹ thuật:</strong><br>
+                <strong>survey</strong> (2 âm tiết): khảo sát, đo đạc - các cuộc khảo sát địa chất phải canh chỉnh vị trí chính xác
+            </div>
+        </div>
+
+        <!-- PHẦN 4: BÀI TẬP -->
+        <div class="section">
+            <h2 class="section-title">🎓 Bài Tập</h2>
+            
+            <!-- BÀI TẬP 1: Đếm âm tiết -->
+            <div class="ex-wrap">
+                <div class="ex-instruction">
+                    <strong>Bài 28.1:</strong> Đếm số âm tiết trong các từ sau. Gõ số vào ô trống.
+                </div>
+                <div class="input-group">
+                    <span style="font-weight: bold;">eyes</span>
+                    <input type="number" id="ex1_1" min="1" max="5" placeholder="số">
+                </div>
+                <div class="input-group">
+                    <span style="font-weight: bold;">why</span>
+                    <input type="number" id="ex1_2" min="1" max="5" placeholder="số">
+                </div>
+                <div class="input-group">
+                    <span style="font-weight: bold;">write</span>
+                    <input type="number" id="ex1_3" min="1" max="5" placeholder="số">
+                </div>
+                <div class="input-group">
+                    <span style="font-weight: bold;">writing</span>
+                    <input type="number" id="ex1_4" min="1" max="5" placeholder="số">
+                </div>
+                <div class="input-group">
+                    <span style="font-weight: bold;">glass</span>
+                    <input type="number" id="ex1_5" min="1" max="5" placeholder="số">
+                </div>
+                <div class="input-group">
+                    <span style="font-weight: bold;">glasses</span>
+                    <input type="number" id="ex1_6" min="1" max="5" placeholder="số">
+                </div>
+                <div class="btn-group">
+                    <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+                    <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+                    <button class="btn-primary" onclick="revealEx1()">👁️ Xem đáp án</button>
+                </div>
+                <div id="score1" class="score-box"></div>
+            </div>
+            
+            <!-- BÀI TẬP 2: Phân loại âm tiết -->
+            <div class="ex-wrap">
+                <div class="ex-instruction">
+                    <strong>Bài 28.2:</strong> Kéo các từ vào cột đúng dựa trên số âm tiết.
+                </div>
+                <div style="margin: 15px 0;">
+                    <div style="margin-bottom: 15px;">
+                        <strong>Từ cần phân loại:</strong><br>
+                        <span class="classify-chip" data-word="internet">internet</span>
+                        <span class="classify-chip" data-word="under">under</span>
+                        <span class="classify-chip" data-word="sister">sister</span>
+                        <span class="classify-chip" data-word="house">house</span>
+                        <span class="classify-chip" data-word="business">business</span>
+                        <span class="classify-chip" data-word="going">going</span>
+                        <span class="classify-chip" data-word="alphabet">alphabet</span>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                    <div class="classify-column">
+                        <div class="classify-column-title">1 Âm Tiết</div>
+                        <div id="col1"></div>
+                    </div>
+                    <div class="classify-column">
+                        <div class="classify-column-title">2 Âm Tiết</div>
+                        <div id="col2"></div>
+                    </div>
+                    <div class="classify-column">
+                        <div class="classify-column-title">3+ Âm Tiết</div>
+                        <div id="col3"></div>
+                    </div>
+                </div>
+                <div class="btn-group" style="margin-top: 15px;">
+                    <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+                    <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+                </div>
+                <div id="score2" class="score-box"></div>
+            </div>
+            
+            <!-- BÀI TẬP 3: Điền chữ cái còn thiếu -->
+            <div class="ex-wrap">
+                <div class="ex-instruction">
+                    <strong>Bài 28.3:</strong> Nghe từ và gõ chữ cái còn thiếu. Chú ý số âm tiết!
+                </div>
+                <div class="fill-item">
+                    <span>1. _ _ _ _-net (4 chữ cái đầu)</span>
+                    <input type="text" id="ex3_1" placeholder="gõ đáp án" maxlength="4">
+                </div>
+                <div class="fill-item">
+                    <span>2. u _ _ _ _ (5 chữ cái sau)</span>
+                    <input type="text" id="ex3_2" placeholder="gõ đáp án" maxlength="5">
+                </div>
+                <div class="fill-item">
+                    <span>3. busi _ _ _ _ (4 chữ cái sau)</span>
+                    <input type="text" id="ex3_3" placeholder="gõ đáp án" maxlength="4">
+                </div>
+                <div class="btn-group">
+                    <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+                    <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+                    <button class="btn-primary" onclick="revealEx3()">👁️ Xem đáp án</button>
+                </div>
+                <div id="score3" class="score-box"></div>
+            </div>
+            
+            <!-- BÀI TẬP 4: Chọn từ đúng -->
+            <div class="ex-wrap">
+                <div class="ex-instruction">
+                    <strong>Bài 28.4:</strong> Nghe và chọn từ có số âm tiết được chỉ định.
+                </div>
+                <div style="margin: 15px 0;">
+                    <div style="background: #f0f8ff; padding: 12px; margin: 10px 0; border-radius: 5px;">
+                        <strong>1. Từ có 1 âm tiết:</strong><br>
+                        <label><input type="radio" name="q1" value="house" onchange="updateEx4Choice('q1', 'house')"> house</label>
+                        <label><input type="radio" name="q1" value="internet"> internet</label>
+                        <label><input type="radio" name="q1" value="business"> business</label>
+                    </div>
+                    <div style="background: #f0f8ff; padding: 12px; margin: 10px 0; border-radius: 5px;">
+                        <strong>2. Từ có 2 âm tiết:</strong><br>
+                        <label><input type="radio" name="q2" value="sister" onchange="updateEx4Choice('q2', 'sister')"> sister</label>
+                        <label><input type="radio" name="q2" value="white"> white</label>
+                        <label><input type="radio" name="q2" value="alphabet"> alphabet</label>
+                    </div>
+                    <div style="background: #f0f8ff; padding: 12px; margin: 10px 0; border-radius: 5px;">
+                        <strong>3. Từ có 3+ âm tiết:</strong><br>
+                        <label><input type="radio" name="q3" value="alphabet" onchange="updateEx4Choice('q3', 'alphabet')"> alphabet</label>
+                        <label><input type="radio" name="q3" value="under"> under</label>
+                        <label><input type="radio" name="q3" value="blue"> blue</label>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+                    <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+                </div>
+                <div id="score4" class="score-box"></div>
+            </div>
+            
+            <!-- BÀI TẬP 5: Minimal pairs - Đếm âm tiết -->
+            <div class="ex-wrap">
+                <div class="ex-instruction">
+                    <strong>Bài 28.5:</strong> Nghe và chọn từ bạn nghe được.
+                </div>
+                <div id="minimalContainer"></div>
+                <div class="btn-group">
+                    <button class="btn-success" onclick="checkMinimal()">✅ Chấm bài</button>
+                    <button class="btn-warning" onclick="resetMinimal()">🔄 Làm lại</button>
+                    <button class="btn-primary" onclick="newMinimal()">🔀 Câu mới</button>
+                </div>
+                <div id="scoreMinimal" class="score-box"></div>
+            </div>
+        </div>
+
+        <!-- PHẦN 5: MẺO -->
+        <div class="section">
+            <h2 class="section-title">💡 Bí Quyết Phát Âm</h2>
+            
+            <div class="tip-box">
+                <strong>🎯 Mẹo 1:</strong> Đếm số lần bạn bật hàm (jaw opens) khi nói một từ, đó chính là số âm tiết!<br>
+                Ví dụ: "hous-es" → bật 2 lần = 2 âm tiết
+            </div>
+            
+            <div class="tip-box">
+                <strong>🎯 Mẹo 2:</strong> Số âm tiết = số âm nguyên âm rõ ràng, không phải số chữ cái nguyên âm!<br>
+                "business" = b-i-z-i-n-e-s-s → chỉ nghe được "i" và "ness" = 2 âm tiết
+            </div>
+            
+            <div class="tip-box">
+                <strong>🎯 Mẹo 3:</strong> Khi phát âm từ có nhiều âm tiết, hãy nhấn mạnh (stress) âm tiết thứ nhất hoặc thứ hai!<br>
+                "IN-ter-net" (nhấn "IN") hoặc "i-NTer-net" (tùy accent)
+            </div>
+            
+            <div class="geo-box">
+                <strong>🏗️ Lưu ý kỹ thuật:</strong><br>
+                Trong địa chất, các từ như "survey", "sample", "layer" thường có 2-3 âm tiết. Hãy phát âm chậm để tránh sai lệch thông tin kỹ thuật!
+            </div>
+        </div>
+
+        <!-- PHẦN 6: BẢNG TÓM TẮT -->
+        <div class="section">
+            <h2 class="section-title">📊 Bảng Tóm Tắt</h2>
+            
+            <table class="spell-table">
+                <tr>
+                    <th>Số Âm Tiết</th>
+                    <th>Mô Tả</th>
+                    <th>Ví Dụ</th>
+                    <th>IPA</th>
+                </tr>
+                <tr>
+                    <td><strong>1</strong></td>
+                    <td>1 âm nguyên âm rõ ràng</td>
+                    <td>house, white, blue</td>
+                    <td>/haʊs/, /waɪt/, /bluː/</td>
+                </tr>
+                <tr>
+                    <td><strong>2</strong></td>
+                    <td>2 âm nguyên âm rõ ràng</td>
+                    <td>under, sister, business</td>
+                    <td>/ʌn.dɚ/, /sɪs.tɚ/, /bɪz.nɪs/</td>
+                </tr>
+                <tr>
+                    <td><strong>3+</strong></td>
+                    <td>3 hoặc hơn âm nguyên âm</td>
+                    <td>alphabet, internet, television</td>
+                    <td>/æl.fə.bɛt/, /ɪn.tɚ.nɛt/, /tɛl.ə.vɪʒ.ən/</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // TTS Function
+        const prefs = ["Google US English", "Google UK English Female", "Samantha", "Karen", "Moira", "Victoria"];
+        
+        function speakText(text, rate = 0.85) {
+            if ('speechSynthesis' in window) {
+                speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = "en-US";
+                utterance.rate = rate;
+                utterance.pitch = 1.05;
+                
+                const availableVoices = window.speechSynthesis.getVoices();
+                for (let pref of prefs) {
+                    const voice = availableVoices.find(v => v.name === pref);
+                    if (voice) {
+                        utterance.voice = voice;
+                        break;
+                    }
+                }
+                
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+        
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            toast.textContent = msg;
+            toast.classList.add("show");
+            clearTimeout(toast._t);
+            toast._t = setTimeout(() => toast.classList.remove("show"), 3000);
+        }
+        
+        function showScore(id, correct, total, extra = "") {
+            const pct = Math.round((correct / total) * 100);
+            let msg = "", emoji = "";
+            
+            if (pct >= 90) { msg = "🎉 Xuất sắc!"; emoji = "✅"; }
+            else if (pct >= 65) { msg = "👍 Khá tốt!"; emoji = "⭐"; }
+            else { msg = "😅 Cần luyện thêm!"; emoji = "💪"; }
+            
+            const html = `
+                <div style="text-align: center;">
+                    <div class="big-score" style="color: ${pct >= 90 ? '#4caf50' : pct >= 65 ? '#ff9800' : '#f44336'};">${pct}%</div>
+                    <div class="score-meter">
+                        <div class="score-bar" style="width: ${pct}%">${pct}%</div>
+                    </div>
+                    <div class="score-text">${emoji} ${msg}</div>
+                    <div style="margin-top: 10px; font-size: 0.95em; color: #666;">
+                        Đúng: <strong>${correct}/${total}</strong> ${extra}
+                    </div>
+                </div>
+            `;
+            document.getElementById(id).innerHTML = html;
+            document.getElementById(id).classList.add("show");
+        }
+        
+        // BÀI 1: Đếm âm tiết
+        const answers1 = { ex1_1: 1, ex1_2: 1, ex1_3: 1, ex1_4: 2, ex1_5: 1, ex1_6: 2 };
+        
+        function checkEx1() {
+            let correct = 0, total = 6;
+            for (let key in answers1) {
+                const val = parseInt(document.getElementById(key).value) || 0;
+                if (val === answers1[key]) correct++;
+            }
+            showScore("score1", correct, total);
+            showToast(correct === total ? "✅ Tuyệt vời!" : "⚠️ Kiểm tra lại câu trả lời!");
+        }
+        
+        function resetEx1() {
+            for (let key in answers1) document.getElementById(key).value = "";
+            document.getElementById("score1").classList.remove("show");
+            showToast("🔄 Làm lại bài!");
+        }
+        
+        function revealEx1() {
+            for (let key in answers1) document.getElementById(key).value = answers1[key];
+            showToast("👁️ Xem đáp án!");
+        }
+        
+        // BÀI 2: Phân loại
+        const correct2 = { "1": ["house"], "2": ["internet", "under", "sister", "business", "going"], "3": ["alphabet"] };
+        
+        function checkEx2() {
+            let correct = 0, total = 7;
+            const col1 = document.getElementById("col1").innerText.trim().split("\n").filter(x => x).length;
+            const col2 = document.getElementById("col2").innerText.trim().split("\n").filter(x => x).length;
+            const col3 = document.getElementById("col3").innerText.trim().split("\n").filter(x => x).length;
+            
+            if (col1 === 1) correct += col1;
+            if (col2 === 5) correct += col2;
+            if (col3 === 1) correct += col3;
+            
+            showScore("score2", Math.min(correct, 7), 7);
+        }
+        
+        function resetEx2() {
+            document.querySelectorAll(".classify-chip").forEach(chip => {
+                chip.classList.remove("selected");
+                chip.style.position = "relative";
+                chip.style.left = "0";
+            });
+            document.getElementById("col1").innerHTML = "";
+            document.getElementById("col2").innerHTML = "";
+            document.getElementById("col3").innerHTML = "";
+            document.getElementById("score2").classList.remove("show");
+            showToast("🔄 Làm lại bài!");
+        }
+        
+        // BÀI 3: Điền chữ
+        const answers3 = { ex3_1: "inte", ex3_2: "nder", ex3_3: "ness" };
+        
+        function checkEx3() {
+            let correct = 0, total = 3;
+            for (let key in answers3) {
+                const val = document.getElementById(key).value.toLowerCase().trim();
+                if (val === answers3[key]) correct++;
+            }
+            showScore("score3", correct, total);
+        }
+        
+        function resetEx3() {
+            for (let key in answers3) document.getElementById(key).value = "";
+            document.getElementById("score3").classList.remove("show");
+            showToast("🔄 Làm lại bài!");
+        }
+        
+        function revealEx3() {
+            for (let key in answers3) document.getElementById(key).value = answers3[key];
+            showToast("👁️ Xem đáp án!");
+        }
+        
+        // BÀI 4: Chọn từ
+        function updateEx4Choice(name, word) {
+            speakText(word);
+        }
+        
+        function checkEx4() {
+            let correct = 0;
+            if (document.querySelector("input[name='q1']:checked")?.value === "house") correct++;
+            if (document.querySelector("input[name='q2']:checked")?.value === "sister") correct++;
+            if (document.querySelector("input[name='q3']:checked")?.value === "alphabet") correct++;
+            showScore("score4", correct, 3);
+        }
+        
+        function resetEx4() {
+            document.querySelectorAll("input[type='radio']").forEach(r => r.checked = false);
+            document.getElementById("score4").classList.remove("show");
+            showToast("🔄 Làm lại bài!");
+        }
+        
+        // BÀI 5: Minimal pairs
+        const minimalPairs = [
+            { question: "Bạn nghe từ nào?", a: "write (1)", b: "writing (2)", correct: "writing" },
+            { question: "Bạn nghe từ nào?", a: "house (1)", b: "houses (2)", correct: "houses" },
+            { question: "Bạn nghe từ nào?", a: "glass (1)", b: "glasses (2)", correct: "glasses" }
+        ];
+        
+        let currentMinimal = 0;
+        
+        function showMinimal() {
+            const pair = minimalPairs[currentMinimal];
+            document.getElementById("minimalContainer").innerHTML = `
+                <div style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <div style="font-weight: bold; margin-bottom: 15px;">${pair.question}</div>
+                    <label style="display: block; margin: 10px 0;">
+                        <input type="radio" name="minimal" value="${pair.a}"> ${pair.a}
+                    </label>
+                    <label style="display: block; margin: 10px 0;">
+                        <input type="radio" name="minimal" value="${pair.b}"> ${pair.b}
+                    </label>
+                </div>
+            `;
+            const word = pair.correct.split(" ")[0];
+            setTimeout(() => speakText(word), 500);
+        }
+        
+        function checkMinimal() {
+            const selected = document.querySelector("input[name='minimal']:checked")?.value || "";
+            const correct = selected.includes(minimalPairs[currentMinimal].correct) ? 1 : 0;
+            showScore("scoreMinimal", correct, 1);
+            if (correct === 1) showToast("✅ Đúng rồi!");
+            else showToast("❌ Sai rồi, nghe lại!");
+        }
+        
+        function resetMinimal() {
+            document.querySelectorAll("input[name='minimal']").forEach(r => r.checked = false);
+            document.getElementById("scoreMinimal").classList.remove("show");
+            showMinimal();
+        }
+        
+        function newMinimal() {
+            currentMinimal = (currentMinimal + 1) % minimalPairs.length;
+            document.querySelectorAll("input[name='minimal']").forEach(r => r.checked = false);
+            document.getElementById("scoreMinimal").classList.remove("show");
+            showMinimal();
+        }
+        
+        // Init
+        window.addEventListener("load", () => {
+            window.speechSynthesis.getVoices();
+            showMinimal();
+        });
+        
+        // LocalStorage tracking
+        setTimeout(() => {
+            try {
+                let c = [];
+                try {
+                    const d = localStorage.getItem("epu_completed");
+                    if (d) c = JSON.parse(d);
+                } catch {}
+                if (!c.includes(28)) {
+                    c.push(28);
+                    localStorage.setItem("epu_completed", JSON.stringify(c));
+                }
+            } catch {}
+        }, 1000);
+    </script>
+</body>
+</html>

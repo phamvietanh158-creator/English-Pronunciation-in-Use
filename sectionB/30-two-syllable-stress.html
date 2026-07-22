@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 30 - Stress in Two-Syllable Words</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f0ff 0%, #ede0ff 100%);
+            padding: 20px; min-height: 100vh;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #6a0dad 0%, #4a0080 100%);
+            color: white; padding: 30px; border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(106,13,173,0.3);
+        }
+        .header-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; }
+        .lesson-num { font-size:2em; font-weight:bold; }
+        .home-link {
+            color:white; text-decoration:none;
+            background:rgba(255,255,255,0.2);
+            padding:8px 15px; border-radius:20px;
+            transition:all 0.3s; font-size:0.9em;
+        }
+        .home-link:hover { background:rgba(255,255,255,0.35); }
+        .header h1 { font-size:2.2em; margin-bottom:10px; }
+        .phoneme-badge {
+            display:inline-block; background:#ffd700; color:#333;
+            padding:8px 20px; border-radius:25px;
+            font-weight:bold; font-size:1.05em; margin-right:10px;
+        }
+        .subtitle { font-size:1.05em; opacity:0.95; margin-top:8px; }
+
+        /* SECTIONS */
+        .section {
+            background:white; border-radius:10px;
+            padding:30px; margin-bottom:25px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.06);
+        }
+        .section-title {
+            font-size:1.7em; color:#4a0080;
+            margin-bottom:20px;
+            border-bottom:3px solid #6a0dad;
+            padding-bottom:10px;
+        }
+
+        /* STRESS DISPLAY */
+        .stress-demo {
+            display:flex; gap:8px; align-items:flex-end;
+            flex-wrap:wrap; margin:12px 0;
+        }
+        .syl-big {
+            padding:12px 18px; border-radius:8px;
+            font-size:1.4em; font-weight:bold;
+            cursor:pointer; transition:all 0.3s;
+        }
+        .syl-big:hover { transform:scale(1.05); }
+        .syl-S {
+            background:#6a0dad; color:white;
+            font-size:1.6em !important;
+            box-shadow:0 4px 12px rgba(106,13,173,0.4);
+        }
+        .syl-w {
+            background:#ddd; color:#666;
+            font-size:1.0em !important;
+        }
+
+        .pattern-card {
+            background: linear-gradient(135deg, #f5f0ff, #ede0ff);
+            border: 2px solid #6a0dad;
+            border-radius: 10px; padding: 18px; margin: 12px 0;
+            cursor:pointer; transition:all 0.3s;
+        }
+        .pattern-card:hover {
+            transform:translateY(-3px);
+            box-shadow:0 5px 15px rgba(106,13,173,0.2);
+        }
+        .pattern-title { font-weight:bold; color:#4a0080; margin-bottom:10px; font-size:1.05em; }
+        .word-chips { display:flex; flex-wrap:wrap; gap:8px; }
+        .wchip {
+            background:white; border:2px solid #6a0dad;
+            color:#4a0080; padding:6px 12px;
+            border-radius:15px; font-size:0.95em;
+            cursor:pointer; transition:all 0.2s;
+        }
+        .wchip:hover { background:#6a0dad; color:white; }
+
+        /* OO pattern */
+        .oo-demo {
+            display:flex; gap:10px; flex-wrap:wrap; margin:12px 0;
+        }
+        .oo-block {
+            background:#f5f0ff; border:2px solid #6a0dad;
+            border-radius:8px; padding:14px 18px;
+            text-align:center; min-width:90px;
+            cursor:pointer; transition:all 0.3s;
+        }
+        .oo-block:hover { background:#6a0dad; color:white; }
+        .oo-pattern { font-size:1.4em; letter-spacing:4px; margin-bottom:5px; }
+        .oo-example { font-size:0.85em; color:#666; }
+        .O-letter { color:#6a0dad; font-weight:bold; font-size:1.6em; }
+        .o-letter { color:#999; font-size:1.1em; }
+
+        /* WORD GRID */
+        .word-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(175px,1fr));
+            gap:13px; margin:18px 0;
+        }
+        .word-card {
+            background:linear-gradient(135deg,#f5f0ff,#ede0ff);
+            padding:16px; border-radius:8px;
+            border:2px solid #6a0dad;
+            cursor:pointer; transition:all 0.3s; text-align:center;
+        }
+        .word-card:hover {
+            transform:translateY(-4px);
+            box-shadow:0 5px 15px rgba(106,13,173,0.25);
+        }
+        .word-text { font-size:1.2em; font-weight:bold; color:#1e1e3f; margin-bottom:6px; }
+        .S { color:#6a0dad; font-size:1.3em; }
+        .w { color:#aaa; font-size:0.95em; }
+        .ipa { font-size:0.85em; color:#555; font-style:italic; margin-bottom:4px; }
+        .meaning { font-size:0.82em; color:#6a0dad; font-weight:500; }
+
+        /* SENTENCES */
+        .sentence-list { list-style:none; }
+        .sentence-item {
+            background:#f5f0ff; padding:14px;
+            margin:10px 0; border-left:4px solid #6a0dad;
+            border-radius:5px; cursor:pointer; transition:all 0.3s;
+        }
+        .sentence-item:hover { background:#ede0ff; padding-left:20px; }
+        .sentence-text { font-size:1.05em; margin-bottom:4px; color:#1e1e3f; }
+        .sentence-ipa { font-size:0.84em; color:#666; font-style:italic; margin-bottom:3px; }
+        .sentence-meaning { font-size:0.88em; color:#6a0dad; font-weight:500; }
+
+        /* EXERCISES */
+        .ex-wrap {
+            background:#f9f9f9; padding:20px;
+            margin:20px 0; border-radius:8px; border:1px solid #ddd;
+        }
+        .ex-instruction {
+            background:#f5f0ff; padding:12px;
+            border-left:4px solid #6a0dad;
+            margin-bottom:15px; border-radius:5px;
+            color:#1e1e3f; line-height:1.65;
+        }
+        .fill-item {
+            background:white; padding:11px; margin:8px 0;
+            border-left:3px solid #6a0dad; border-radius:4px;
+            display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+        }
+        .fill-item input {
+            flex:1; min-width:120px; padding:8px;
+            border:1px solid #ddd; border-radius:4px;
+        }
+        .fill-label { min-width:160px; color:#333; font-weight:500; }
+
+        .radio-group { background:#f5f0ff; padding:12px; margin:8px 0; border-radius:6px; }
+        .radio-group label { display:inline-block; margin:5px 10px; cursor:pointer; font-size:0.95em; }
+
+        .classify-chip {
+            display:inline-block; background:white;
+            border:2px solid #6a0dad; color:#4a0080;
+            padding:9px 14px; margin:5px;
+            border-radius:20px; cursor:pointer;
+            transition:all 0.3s; font-weight:500;
+        }
+        .classify-chip:hover { background:#6a0dad; color:white; transform:scale(1.05); }
+        .classify-chip.sel-first { background:#6a0dad; color:white; border-color:#6a0dad; }
+        .classify-chip.sel-second { background:#c0392b; color:white; border-color:#c0392b; }
+
+        .col-pair { display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-top:15px; }
+        .col-box {
+            padding:15px; border-radius:8px; min-height:80px;
+            border:2px dashed #6a0dad;
+        }
+        .col-box-title { font-weight:bold; color:#4a0080; margin-bottom:8px; font-size:0.95em; }
+
+        .stress-input-row { display:flex; gap:8px; align-items:center; margin:8px 0; }
+        .stress-input-row input { width:130px; padding:8px; border:1px solid #ddd; border-radius:4px; }
+        .ipa-label { font-style:italic; color:#555; min-width:130px; }
+
+        .btn-group { display:flex; gap:10px; margin-top:15px; flex-wrap:wrap; }
+        button {
+            padding:11px 18px; border:none; border-radius:6px;
+            cursor:pointer; font-size:0.95em; font-weight:500; transition:all 0.3s;
+        }
+        .btn-success { background:#16a34a; color:white; }
+        .btn-success:hover { background:#15803d; transform:translateY(-2px); }
+        .btn-warning { background:#d97706; color:white; }
+        .btn-warning:hover { background:#b45309; transform:translateY(-2px); }
+        .btn-primary { background:#6a0dad; color:white; }
+        .btn-primary:hover { background:#4a0080; transform:translateY(-2px); }
+        .speak-btn {
+            background:#6a0dad; color:white; border:none;
+            padding:5px 11px; border-radius:12px;
+            cursor:pointer; font-size:0.82em; margin-left:6px;
+        }
+        .speak-btn:hover { background:#4a0080; }
+
+        .score-box {
+            background:white; border:2px solid #ddd;
+            padding:20px; border-radius:8px;
+            margin-top:15px; text-align:center; display:none;
+        }
+        .score-box.show { display:block; }
+        .big-score { font-size:3em; font-weight:bold; margin:10px 0; }
+        .score-meter { width:100%; height:26px; background:#ddd; border-radius:13px; overflow:hidden; margin:12px 0; }
+        .score-bar { height:100%; background:#16a34a; transition:width 0.5s; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; }
+
+        .tip-box { background:#fffacd; border-left:4px solid #ffd700; padding:15px; border-radius:5px; margin:15px 0; }
+        .geo-box { background:#e0f7fa; border-left:4px solid #00bcd4; padding:15px; border-radius:5px; margin:15px 0; }
+        .note-box { background:#f5f0ff; border-left:4px solid #6a0dad; padding:15px; border-radius:5px; margin:15px 0; }
+
+        .toast {
+            position:fixed; bottom:20px; right:20px;
+            background:#2d1458; color:white;
+            padding:13px 22px; border-radius:6px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.3);
+            display:none; z-index:1000;
+        }
+        .toast.show { display:block; }
+
+        table { width:100%; border-collapse:collapse; margin:15px 0; }
+        th,td { border:1px solid #ddd; padding:11px; text-align:left; }
+        th { background:#6a0dad; color:white; font-weight:bold; }
+        tr:nth-child(even) { background:#f5f0ff; }
+        tr:hover { background:#ede0ff; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-top">
+            <div class="lesson-num">📚 Bài 30</div>
+            <a href="../index.html" class="home-link">← Về trang chủ</a>
+        </div>
+        <h1>Single or Return?</h1>
+        <div>
+            <span class="phoneme-badge">Oo / oO Stress</span>
+        </div>
+        <p class="subtitle">Trọng âm trong từ 2 âm tiết — nhấn âm tiết đầu (Oo) hay âm tiết sau (oO)?</p>
+    </div>
+
+    <!-- PHẦN 1: LÝ THUYẾT -->
+    <div class="section">
+        <h2 class="section-title">🎯 Lý Thuyết: Trọng Âm 2 Âm Tiết</h2>
+
+        <div class="note-box">
+            <strong>Ký hiệu trọng âm:</strong><br>
+            <span style="font-size:1.5em; color:#6a0dad; font-weight:bold;">O</span> = âm tiết <strong>MẠNH</strong> (stressed) — phát âm to, rõ, dài hơn<br>
+            <span style="font-size:1.2em; color:#999;">o</span> = âm tiết <strong>yếu</strong> (unstressed) — phát âm nhỏ, nhanh, thường là /ə/<br>
+            <br>
+            Từ điển dùng dấu <strong>ˈ</strong> trước âm tiết được nhấn: <em>answer /ˈɑːnsə/</em>, <em>again /əˈɡen/</em>
+        </div>
+
+        <h3 style="color:#4a0080; margin:20px 0 12px;">🔹 Kiểu Oo — Nhấn âm tiết ĐẦU (phổ biến hơn)</h3>
+        <div class="pattern-card" onclick="speakText('answer brother butter father finger glasses listen mother number second sister water woman', 0.75)">
+            <div class="pattern-title">Đa số từ 2 âm tiết: nhấn âm tiết ĐẦU → Oo</div>
+            <div class="stress-demo">
+                <div class="syl-big syl-S">AN</div><div class="syl-big syl-w">swer</div>
+                <div style="margin:0 10px; color:#aaa">|</div>
+                <div class="syl-big syl-S">BROTH</div><div class="syl-big syl-w">er</div>
+                <div style="margin:0 10px; color:#aaa">|</div>
+                <div class="syl-big syl-S">MO</div><div class="syl-big syl-w">ther</div>
+            </div>
+            <small style="color:#888">👆 Click để nghe các từ</small>
+        </div>
+
+        <div class="note-box">
+            <strong>💡 Đặc biệt:</strong> Một số từ kiểu Oo có nguyên âm <strong>/ə/</strong> ở âm tiết yếu, thậm chí không có nguyên âm rõ:<br>
+            <em>apple /ˈæpəl/</em> · <em>people /ˈpiːpəl/</em> · <em>simple /ˈsɪmpəl/</em> · <em>table /ˈteɪbəl/</em> · <em>travel /ˈtrævəl/</em>
+        </div>
+
+        <h3 style="color:#4a0080; margin:20px 0 12px;">🔹 Kiểu oO — Nhấn âm tiết SAU</h3>
+        <div class="pattern-card" onclick="speakText('agree alone arrive asleep awake because begin behind complete decide exam explain express perhaps pronounce repeat return', 0.75)">
+            <div class="pattern-title">Một số từ nhấn âm tiết SAU → oO (thường bắt đầu bằng tiền tố không nhấn)</div>
+            <div class="stress-demo">
+                <div class="syl-big syl-w">a</div><div class="syl-big syl-S">GREE</div>
+                <div style="margin:0 10px; color:#aaa">|</div>
+                <div class="syl-big syl-w">be</div><div class="syl-big syl-S">CAUSE</div>
+                <div style="margin:0 10px; color:#aaa">|</div>
+                <div class="syl-big syl-w">re</div><div class="syl-big syl-S">TURN</div>
+            </div>
+            <small style="color:#888">👆 Click để nghe các từ</small>
+        </div>
+
+        <h3 style="color:#4a0080; margin:20px 0 12px;">🔹 4 Kiểu Nhịp (5 Âm Tiết)</h3>
+        <div class="oo-demo">
+            <div class="oo-block" onclick="speakText('teacher or student')">
+                <div class="oo-pattern"><span class="O-letter">O</span><span class="o-letter">o</span><span class="O-letter">O</span><span class="o-letter">o</span><span class="O-letter">O</span></div>
+                <div class="oo-example">OoOoO<br><small>teacher or student</small></div>
+            </div>
+            <div class="oo-block" onclick="speakText('single or return')">
+                <div class="oo-pattern"><span class="O-letter">O</span><span class="o-letter">o</span><span class="o-letter">o</span><span class="O-letter">O</span></div>
+                <div class="oo-example">OooO<br><small>single or return</small></div>
+            </div>
+            <div class="oo-block" onclick="speakText('asleep or awake')">
+                <div class="oo-pattern"><span class="o-letter">o</span><span class="O-letter">O</span><span class="o-letter">o</span><span class="O-letter">O</span></div>
+                <div class="oo-example">oOoO<br><small>asleep or awake</small></div>
+            </div>
+            <div class="oo-block" onclick="speakText('perhaps or maybe')">
+                <div class="oo-pattern"><span class="o-letter">o</span><span class="O-letter">O</span><span class="o-letter">o</span><span class="O-letter">O</span></div>
+                <div class="oo-example">oOoO<br><small>perhaps or maybe</small></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHẦN 2: TỪ VỰNG -->
+    <div class="section">
+        <h2 class="section-title">📝 Từ Vựng — Trọng Âm 2 Âm Tiết</h2>
+
+        <h3 style="color:#4a0080; margin-bottom:12px;">🔹 Kiểu Oo — Nhấn tiếng ĐẦU</h3>
+        <div class="word-grid">
+            <div class="word-card" onclick="speakText('answer')">
+                <div class="word-text"><span class="S">AN</span><span class="w">-swer</span></div>
+                <div class="ipa">/ˈɑːnsə/</div>
+                <div class="meaning">🇻🇳 câu trả lời</div>
+            </div>
+            <div class="word-card" onclick="speakText('brother')">
+                <div class="word-text"><span class="S">BROTH</span><span class="w">-er</span></div>
+                <div class="ipa">/ˈbrʌðə/</div>
+                <div class="meaning">🇻🇳 anh/em trai</div>
+            </div>
+            <div class="word-card" onclick="speakText('butter')">
+                <div class="word-text"><span class="S">BUT</span><span class="w">-ter</span></div>
+                <div class="ipa">/ˈbʌtə/</div>
+                <div class="meaning">🇻🇳 bơ</div>
+            </div>
+            <div class="word-card" onclick="speakText('finger')">
+                <div class="word-text"><span class="S">FIN</span><span class="w">-ger</span></div>
+                <div class="ipa">/ˈfɪŋɡə/</div>
+                <div class="meaning">🇻🇳 ngón tay</div>
+            </div>
+            <div class="word-card" onclick="speakText('glasses')">
+                <div class="word-text"><span class="S">GLASS</span><span class="w">-es</span></div>
+                <div class="ipa">/ˈɡlɑːsɪz/</div>
+                <div class="meaning">🇻🇳 kính mắt</div>
+            </div>
+            <div class="word-card" onclick="speakText('listen')">
+                <div class="word-text"><span class="S">LIS</span><span class="w">-ten</span></div>
+                <div class="ipa">/ˈlɪsən/</div>
+                <div class="meaning">🇻🇳 lắng nghe</div>
+            </div>
+            <div class="word-card" onclick="speakText('number')">
+                <div class="word-text"><span class="S">NUM</span><span class="w">-ber</span></div>
+                <div class="ipa">/ˈnʌmbə/</div>
+                <div class="meaning">🇻🇳 con số</div>
+            </div>
+            <div class="word-card" onclick="speakText('water')">
+                <div class="word-text"><span class="S">WA</span><span class="w">-ter</span></div>
+                <div class="ipa">/ˈwɔːtə/</div>
+                <div class="meaning">🇻🇳 nước</div>
+            </div>
+            <div class="word-card" onclick="speakText('pencil')">
+                <div class="word-text"><span class="S">PEN</span><span class="w">-cil</span></div>
+                <div class="ipa">/ˈpɛnsəl/</div>
+                <div class="meaning">🇻🇳 bút chì</div>
+            </div>
+            <div class="word-card" onclick="speakText('sample')">
+                <div class="word-text"><span class="S">SAM</span><span class="w">-ple</span></div>
+                <div class="ipa">/ˈsæmpəl/</div>
+                <div class="meaning">🇻🇳 mẫu đất</div>
+            </div>
+        </div>
+
+        <h3 style="color:#4a0080; margin:20px 0 12px;">🔹 Kiểu oO — Nhấn tiếng SAU</h3>
+        <div class="word-grid">
+            <div class="word-card" onclick="speakText('again')">
+                <div class="word-text"><span class="w">a-</span><span class="S">GAIN</span></div>
+                <div class="ipa">/əˈɡen/</div>
+                <div class="meaning">🇻🇳 một lần nữa</div>
+            </div>
+            <div class="word-card" onclick="speakText('because')">
+                <div class="word-text"><span class="w">be-</span><span class="S">CAUSE</span></div>
+                <div class="ipa">/bɪˈkɒz/</div>
+                <div class="meaning">🇻🇳 bởi vì</div>
+            </div>
+            <div class="word-card" onclick="speakText('decide')">
+                <div class="word-text"><span class="w">de-</span><span class="S">CIDE</span></div>
+                <div class="ipa">/dɪˈsaɪd/</div>
+                <div class="meaning">🇻🇳 quyết định</div>
+            </div>
+            <div class="word-card" onclick="speakText('explain')">
+                <div class="word-text"><span class="w">ex-</span><span class="S">PLAIN</span></div>
+                <div class="ipa">/ɪkˈspleɪn/</div>
+                <div class="meaning">🇻🇳 giải thích</div>
+            </div>
+            <div class="word-card" onclick="speakText('pronounce')">
+                <div class="word-text"><span class="w">pro-</span><span class="S">NOUNCE</span></div>
+                <div class="ipa">/prəˈnaʊns/</div>
+                <div class="meaning">🇻🇳 phát âm</div>
+            </div>
+            <div class="word-card" onclick="speakText('return')">
+                <div class="word-text"><span class="w">re-</span><span class="S">TURN</span></div>
+                <div class="ipa">/rɪˈtɜːn/</div>
+                <div class="meaning">🇻🇳 quay lại / vé khứ hồi</div>
+            </div>
+            <div class="word-card" onclick="speakText('arrive')">
+                <div class="word-text"><span class="w">ar-</span><span class="S">RIVE</span></div>
+                <div class="ipa">/əˈraɪv/</div>
+                <div class="meaning">🇻🇳 đến nơi</div>
+            </div>
+            <div class="word-card" onclick="speakText('complete')">
+                <div class="word-text"><span class="w">com-</span><span class="S">PLETE</span></div>
+                <div class="ipa">/kəmˈpliːt/</div>
+                <div class="meaning">🇻🇳 hoàn chỉnh</div>
+            </div>
+            <div class="word-card" onclick="speakText('behind')">
+                <div class="word-text"><span class="w">be-</span><span class="S">HIND</span></div>
+                <div class="ipa">/bɪˈhaɪnd/</div>
+                <div class="meaning">🇻🇳 phía sau</div>
+            </div>
+            <div class="word-card" onclick="speakText('repeat')">
+                <div class="word-text"><span class="w">re-</span><span class="S">PEAT</span></div>
+                <div class="ipa">/rɪˈpiːt/</div>
+                <div class="meaning">🇻🇳 lặp lại</div>
+            </div>
+        </div>
+
+        <div class="geo-box">
+            <strong>🏗️ Từ địa kỹ thuật — chú ý trọng âm:</strong><br>
+            <strong>SAM-ple</strong> /ˈsæmpəl/ (Oo) — mẫu đất · <strong>SUR-face</strong> /ˈsɜːfɪs/ (Oo) — bề mặt<br>
+            <strong>BORE-hole</strong> /ˈbɔːhəʊl/ (Oo) — lỗ khoan · <strong>SET-tle</strong> /ˈsɛtəl/ (Oo) — lún<br>
+            <strong>de-SIGN</strong> /dɪˈzaɪn/ (oO) — thiết kế · <strong>re-PORT</strong> /rɪˈpɔːt/ (oO) — báo cáo
+        </div>
+    </div>
+
+    <!-- PHẦN 3: CÂU LUYỆN -->
+    <div class="section">
+        <h2 class="section-title">💬 Câu Luyện</h2>
+        <ul class="sentence-list">
+            <li class="sentence-item" onclick="speakText('Can I have a single or a return ticket?')">
+                <div class="sentence-text">Can I have a <span class="S">sin</span>gle or a re<span class="S">turn</span> ticket?</div>
+                <div class="sentence-ipa">/kæn aɪ hæv ə ˈsɪŋɡəl ɔːr ə rɪˈtɜːn ˈtɪkɪt/</div>
+                <div class="sentence-meaning">🇻🇳 Cho tôi vé một chiều hay vé khứ hồi?</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('The teacher asked the student to answer the question.')">
+                <div class="sentence-text">The <span class="S">teach</span>er asked the <span class="S">stu</span>dent to <span class="S">an</span>swer the <span class="S">ques</span>tion.</div>
+                <div class="sentence-ipa">/ðə ˈtiːtʃə ɑːskt ðə ˈstjuːdənt tə ˈɑːnsə ðə ˈkwɛstʃən/</div>
+                <div class="sentence-meaning">🇻🇳 Giáo viên yêu cầu học sinh trả lời câu hỏi.</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('Please listen and repeat after me.')">
+                <div class="sentence-text">Please <span class="S">lis</span>ten and re<span class="S">peat</span> after me.</div>
+                <div class="sentence-ipa">/pliːz ˈlɪsən ænd rɪˈpiːt ˈɑːftə miː/</div>
+                <div class="sentence-meaning">🇻🇳 Hãy lắng nghe và lặp lại sau tôi.</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('Can you explain how to pronounce this word?')">
+                <div class="sentence-text">Can you ex<span class="S">plain</span> how to pro<span class="S">nounce</span> this word?</div>
+                <div class="sentence-ipa">/kæn juː ɪkˈspleɪn haʊ tə prəˈnaʊns ðɪs wɜːd/</div>
+                <div class="sentence-meaning">🇻🇳 Bạn có thể giải thích cách phát âm từ này không?</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('I will return tomorrow with the answer.')">
+                <div class="sentence-text">I will re<span class="S">turn</span> to<span class="S">mor</span>row with the <span class="S">an</span>swer.</div>
+                <div class="sentence-ipa">/aɪ wɪl rɪˈtɜːn təˈmɒrəʊ wɪð ðə ˈɑːnsə/</div>
+                <div class="sentence-meaning">🇻🇳 Tôi sẽ quay lại vào ngày mai với câu trả lời.</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('My brother decided to begin a new project.')">
+                <div class="sentence-text">My <span class="S">broth</span>er de<span class="S">cid</span>ed to be<span class="S">gin</span> a new <span class="S">pro</span>ject.</div>
+                <div class="sentence-ipa">/maɪ ˈbrʌðə dɪˈsaɪdɪd tə bɪˈɡɪn ə njuː ˈprɒdʒɛkt/</div>
+                <div class="sentence-meaning">🇻🇳 Anh trai tôi quyết định bắt đầu một dự án mới.</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('The report on the borehole sample is complete.')">
+                <div class="sentence-text">The re<span class="S">port</span> on the <span class="S">bore</span>hole <span class="S">sam</span>ple is com<span class="S">plete</span>.</div>
+                <div class="sentence-ipa">/ðə rɪˈpɔːt ɒn ðə ˈbɔːhəʊl ˈsæmpəl ɪz kəmˈpliːt/</div>
+                <div class="sentence-meaning">🇻🇳 Báo cáo về mẫu đất từ lỗ khoan đã hoàn thành.</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('The surface layer was different from what the survey expected.')">
+                <div class="sentence-text">The <span class="S">sur</span>face <span class="S">lay</span>er was <span class="S">diff</span>erent from what the <span class="S">sur</span>vey ex<span class="S">pect</span>ed.</div>
+                <div class="sentence-ipa">/ðə ˈsɜːfɪs ˈleɪə wəz ˈdɪfrənt frəm wɒt ðə ˈsɜːveɪ ɪkˈspɛktɪd/</div>
+                <div class="sentence-meaning">🇻🇳 Lớp bề mặt khác với những gì đội khảo sát dự đoán.</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('We need to decide on the design before we begin.')">
+                <div class="sentence-text">We need to de<span class="S">cide</span> on the de<span class="S">sign</span> be<span class="S">fore</span> we be<span class="S">gin</span>.</div>
+                <div class="sentence-ipa">/wiː niːd tə dɪˈsaɪd ɒn ðə dɪˈzaɪn bɪˈfɔː wiː bɪˈɡɪn/</div>
+                <div class="sentence-meaning">🇻🇳 Chúng ta cần quyết định thiết kế trước khi bắt đầu.</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('Perhaps the water table is behind the settlement problem.')">
+                <div class="sentence-text">Per<span class="S">haps</span> the <span class="S">wa</span>ter <span class="S">ta</span>ble is be<span class="S">hind</span> the <span class="S">set</span>tlement <span class="S">prob</span>lem.</div>
+                <div class="sentence-ipa">/pəˈhæps ðə ˈwɔːtə ˈteɪbəl ɪz bɪˈhaɪnd ðə ˈsɛtəlmənt ˈprɒbləm/</div>
+                <div class="sentence-meaning">🇻🇳 Có lẽ mực nước ngầm là nguyên nhân đằng sau vấn đề lún.</div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- PHẦN 4: BÀI TẬP -->
+    <div class="section">
+        <h2 class="section-title">🎓 Bài Tập</h2>
+
+        <!-- 30.1: Chọn từ có trọng âm khác biệt -->
+        <div class="ex-wrap">
+            <div class="ex-instruction">
+                <strong>Bài 30.1:</strong> Trong mỗi nhóm, chọn từ có <strong>trọng âm khác</strong> với các từ còn lại.<br>
+                <small>Ví dụ: oO / oO / oO / <u>Oo</u> → chọn từ cuối vì nó khác pattern</small>
+            </div>
+
+            <div class="radio-group">
+                <strong>1.</strong> actor / after / afraid / also
+                <div style="margin-top:8px;">
+                    <label><input type="radio" name="q1" value="actor"> actor</label>
+                    <label><input type="radio" name="q1" value="after"> after</label>
+                    <label><input type="radio" name="q1" value="afraid"> afraid</label>
+                    <label><input type="radio" name="q1" value="also"> also</label>
+                </div>
+            </div>
+            <div class="radio-group">
+                <strong>2.</strong> before / belong / better / between
+                <div style="margin-top:8px;">
+                    <label><input type="radio" name="q2" value="before"> before</label>
+                    <label><input type="radio" name="q2" value="belong"> belong</label>
+                    <label><input type="radio" name="q2" value="better"> better</label>
+                    <label><input type="radio" name="q2" value="between"> between</label>
+                </div>
+            </div>
+            <div class="radio-group">
+                <strong>3.</strong> paper / pencil / picture / police
+                <div style="margin-top:8px;">
+                    <label><input type="radio" name="q3" value="paper"> paper</label>
+                    <label><input type="radio" name="q3" value="pencil"> pencil</label>
+                    <label><input type="radio" name="q3" value="picture"> picture</label>
+                    <label><input type="radio" name="q3" value="police"> police</label>
+                </div>
+            </div>
+            <div class="radio-group">
+                <strong>4.</strong> coffee / colour / concert / correct
+                <div style="margin-top:8px;">
+                    <label><input type="radio" name="q4" value="coffee"> coffee</label>
+                    <label><input type="radio" name="q4" value="colour"> colour</label>
+                    <label><input type="radio" name="q4" value="concert"> concert</label>
+                    <label><input type="radio" name="q4" value="correct"> correct</label>
+                </div>
+            </div>
+            <div class="radio-group">
+                <strong>5.</strong> English / enjoy / evening / every
+                <div style="margin-top:8px;">
+                    <label><input type="radio" name="q5" value="English"> English</label>
+                    <label><input type="radio" name="q5" value="enjoy"> enjoy</label>
+                    <label><input type="radio" name="q5" value="evening"> evening</label>
+                    <label><input type="radio" name="q5" value="every"> every</label>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+                <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+                <button class="btn-primary" onclick="revealEx1()">👁️ Đáp án</button>
+            </div>
+            <div id="score1" class="score-box"></div>
+        </div>
+
+        <!-- 30.2: Phân loại chips Oo / oO -->
+        <div class="ex-wrap">
+            <div class="ex-instruction">
+                <strong>Bài 30.2:</strong> Click chip để phân loại từ vào cột đúng: nhấn âm tiết ĐẦU (Oo) hay âm tiết SAU (oO)?<br>
+                <small>Click lần 1 → Oo (tím) · Click lần 2 → oO (đỏ) · Click lần 3 → trả về</small>
+            </div>
+            <div id="chips32" style="margin:15px 0;"></div>
+            <div class="col-pair">
+                <div class="col-box" style="border-color:#6a0dad; background:#f5f0ff;">
+                    <div class="col-box-title" style="color:#6a0dad;">🔵 Oo — Nhấn âm tiết ĐẦU</div>
+                    <div id="col_oo"></div>
+                </div>
+                <div class="col-box" style="border-color:#c0392b; background:#fde8e8;">
+                    <div class="col-box-title" style="color:#c0392b;">🔴 oO — Nhấn âm tiết SAU</div>
+                    <div id="col_oo2"></div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+                <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+            </div>
+            <div id="score2" class="score-box"></div>
+        </div>
+
+        <!-- 30.3: Sắp xếp câu theo nhịp điệu -->
+        <div class="ex-wrap">
+            <div class="ex-instruction">
+                <strong>Bài 30.3:</strong> Xếp các câu hỏi/cụm từ vào đúng ô nhịp điệu (5 âm tiết).<br>
+                <small>O = nhấn, o = không nhấn. Click chip để đặt vào ô.</small>
+            </div>
+            <div style="margin-bottom:15px;">
+                <span class="classify-chip" onclick="selectPhrase(this, 'teacher or student')">teacher or student?</span>
+                <span class="classify-chip" onclick="selectPhrase(this, 'single or return')">single or return?</span>
+                <span class="classify-chip" onclick="selectPhrase(this, 'asleep or awake')">asleep or awake?</span>
+                <span class="classify-chip" onclick="selectPhrase(this, 'finish or begin')">finish or begin?</span>
+                <span class="classify-chip" onclick="selectPhrase(this, 'same or different')">the same or different?</span>
+                <span class="classify-chip" onclick="selectPhrase(this, 'behind or in front')">behind or in front?</span>
+                <span class="classify-chip" onclick="selectPhrase(this, 'perhaps or maybe')">perhaps or maybe?</span>
+                <span class="classify-chip" onclick="selectPhrase(this, 'reading or writing')">reading or writing?</span>
+            </div>
+            <div style="display:grid; gap:12px;">
+                <div class="col-box" style="background:#f0fff4; border-color:#16a34a;">
+                    <div class="col-box-title" style="color:#16a34a; font-size:1.1em;">OoOoO</div>
+                    <div id="pattern_OoOoO"></div>
+                </div>
+                <div class="col-box" style="background:#f5f0ff; border-color:#6a0dad;">
+                    <div class="col-box-title" style="color:#6a0dad; font-size:1.1em;">OoooO</div>
+                    <div id="pattern_OoooO"></div>
+                </div>
+                <div class="col-box" style="background:#fde8e8; border-color:#c0392b;">
+                    <div class="col-box-title" style="color:#c0392b; font-size:1.1em;">oOoO</div>
+                    <div id="pattern_oOoO"></div>
+                </div>
+                <div class="col-box" style="background:#fff9e6; border-color:#d97706;">
+                    <div class="col-box-title" style="color:#d97706; font-size:1.1em;">oOoO (khác)</div>
+                    <div id="pattern_oOoO2"></div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+                <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+                <button class="btn-primary" onclick="revealEx3()">👁️ Đáp án</button>
+            </div>
+            <div id="score3" class="score-box"></div>
+        </div>
+
+        <!-- 30.4: IPA → viết từ + đánh dấu stress -->
+        <div class="ex-wrap">
+            <div class="ex-instruction">
+                <strong>Bài 30.4:</strong> Đọc phiên âm IPA, gõ từ tiếng Anh tương ứng.<br>
+                <small>Ví dụ: /əˈraɪv/ → <em>arrive</em></small>
+            </div>
+            <div class="fill-item">
+                <span class="fill-label">1. /ˈsɪstə/</span>
+                <input type="text" id="e4_1" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('sister')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="fill-label">2. /rɪˈlæks/</span>
+                <input type="text" id="e4_2" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('relax')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="fill-label">3. /ˈpiːpəl/</span>
+                <input type="text" id="e4_3" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('people')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="fill-label">4. /ˈmaʊntən/</span>
+                <input type="text" id="e4_4" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('mountain')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="fill-label">5. /ˈfɪnɪʃ/</span>
+                <input type="text" id="e4_5" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('finish')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="fill-label">6. /kəmˈpliːt/</span>
+                <input type="text" id="e4_6" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('complete')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="fill-label">7. /ˈteɪbəl/</span>
+                <input type="text" id="e4_7" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('table')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="fill-label">8. /prəˈnaʊnz/</span>
+                <input type="text" id="e4_8" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('pronounce')">🔊</button>
+            </div>
+            <div class="btn-group">
+                <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+                <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+                <button class="btn-primary" onclick="revealEx4()">👁️ Đáp án</button>
+            </div>
+            <div id="score4" class="score-box"></div>
+        </div>
+
+        <!-- 30.5: Minimal pairs -->
+        <div class="ex-wrap">
+            <div class="ex-instruction">
+                <strong>Bài 30.5 — Minimal Pairs:</strong> Nghe từ và chọn đúng pattern trọng âm.
+            </div>
+            <div id="minimalContainer"></div>
+            <div class="btn-group">
+                <button class="btn-success" onclick="checkMinimal()">✅ Chấm bài</button>
+                <button class="btn-warning" onclick="resetMinimal()">🔄 Làm lại</button>
+                <button class="btn-primary" onclick="newMinimal()">🔀 Câu mới</button>
+            </div>
+            <div id="scoreMinimal" class="score-box"></div>
+        </div>
+    </div>
+
+    <!-- MẸO -->
+    <div class="section">
+        <h2 class="section-title">💡 Bí Quyết Phát Âm</h2>
+        <div class="tip-box">
+            <strong>🎯 Mẹo 1 — Nhận ra tiền tố oO:</strong><br>
+            Nếu từ bắt đầu bằng: <strong>a-, be-, de-, ex-, pro-, re-, com-, con-</strong> → thường nhấn âm tiết SAU<br>
+            <em>a-GREE, be-CAUSE, de-CIDE, ex-PLAIN, pro-NOUNCE, re-TURN, com-PLETE</em>
+        </div>
+        <div class="tip-box">
+            <strong>🎯 Mẹo 2 — So sánh 🇻🇳 vs 🇬🇧:</strong><br>
+            Tiếng Việt mỗi âm tiết có thanh điệu riêng, đều ngang nhau. Tiếng Anh thì khác: phải kéo dài và nhấn mạnh 1 âm tiết, các âm còn lại đọc nhỏ và nhanh hơn.
+        </div>
+        <div class="tip-box">
+            <strong>🎯 Mẹo 3 — Kiểm tra trong từ điển:</strong><br>
+            Dấu <strong>ˈ</strong> đặt TRƯỚC âm tiết được nhấn trong từ điển:<br>
+            ˈanswer → nhấn AN · əˈɡen (again) → nhấn GAIN
+        </div>
+        <div class="geo-box">
+            <strong>🏗️ Lưu ý kỹ thuật:</strong><br>
+            Khi thuyết trình địa kỹ thuật, đọc sai trọng âm có thể gây khó hiểu:<br>
+            ✅ <em>re-PORT</em> (oO) — báo cáo (danh từ: <em>RE-port</em> Oo cũng OK)<br>
+            ✅ <em>de-SIGN</em> (oO) — thiết kế · <em>sur-VEY</em> (oO) hoặc <em>SUR-vey</em> (Oo) — đều được
+        </div>
+    </div>
+
+    <!-- BẢNG TÓM TẮT -->
+    <div class="section">
+        <h2 class="section-title">📊 Bảng Tóm Tắt</h2>
+        <table>
+            <tr>
+                <th>Kiểu</th>
+                <th>Ký hiệu</th>
+                <th>Tiền tố thường gặp</th>
+                <th>Ví dụ</th>
+            </tr>
+            <tr>
+                <td><strong>Nhấn đầu</strong></td>
+                <td style="color:#6a0dad; font-weight:bold; font-size:1.2em;">Oo</td>
+                <td>Hầu hết các từ thông thường</td>
+                <td>ANswer, BROther, LISten</td>
+            </tr>
+            <tr>
+                <td><strong>Nhấn sau</strong></td>
+                <td style="color:#c0392b; font-weight:bold; font-size:1.2em;">oO</td>
+                <td>a-, be-, de-, ex-, pro-, re-, com-</td>
+                <td>aGAIN, beCAUSE, exPLAIN</td>
+            </tr>
+            <tr>
+                <td><strong>Yếu → /ə/</strong></td>
+                <td style="color:#999; font-style:italic;">ə</td>
+                <td>Âm tiết không nhấn</td>
+                <td>answER, brOTHer, agAIN</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+// TTS
+const prefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+function speakText(t,rate=0.85){
+    if(!('speechSynthesis' in window))return;
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(t);
+    u.lang="en-US";u.rate=rate;u.pitch=1.05;
+    const vv=window.speechSynthesis.getVoices();
+    for(let p of prefs){const v=vv.find(x=>x.name===p);if(v){u.voice=v;break;}}
+    window.speechSynthesis.speak(u);
+}
+function showToast(msg){
+    const t=document.getElementById("toast");
+    t.textContent=msg;t.classList.add("show");
+    clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);
+}
+function showScore(id,correct,total){
+    const pct=Math.round(correct/total*100);
+    const color=pct>=90?"#16a34a":pct>=65?"#d97706":"#dc2626";
+    const msg=pct>=90?"🎉 Xuất sắc!":pct>=65?"👍 Khá tốt!":"😅 Cần luyện thêm!";
+    document.getElementById(id).innerHTML=`
+        <div class="big-score" style="color:${color}">${pct}%</div>
+        <div class="score-meter"><div class="score-bar" style="width:${pct}%">${pct}%</div></div>
+        <div>${msg}</div>
+        <div style="margin-top:8px;color:#555">Đúng: <strong>${correct}/${total}</strong></div>`;
+    document.getElementById(id).classList.add("show");
+}
+
+// EX 1
+const ans1={q1:"afraid",q2:"better",q3:"police",q4:"correct",q5:"enjoy"};
+function checkEx1(){
+    let c=0,t=5;
+    for(let k in ans1){
+        const sel=document.querySelector(`input[name="${k}"]:checked`);
+        if(sel&&sel.value===ans1[k]) c++;
+    }
+    showScore("score1",c,t);
+    showToast(c===t?"✅ Hoàn hảo!":"⚠️ Xem lại!");
+}
+function resetEx1(){
+    document.querySelectorAll("input[type=radio]").forEach(r=>r.checked=false);
+    document.getElementById("score1").classList.remove("show");
+    showToast("🔄 Làm lại!");
+}
+function revealEx1(){
+    for(let k in ans1){
+        const el=document.querySelector(`input[name="${k}"][value="${ans1[k]}"]`);
+        if(el) el.checked=true;
+    }
+    showToast("👁️ Đáp án!");
+}
+
+// EX 2: chips classify
+const chips2=[
+    {word:"answer",correct:"oo"},
+    {word:"listen",correct:"oo"},
+    {word:"water",correct:"oo"},
+    {word:"pencil",correct:"oo"},
+    {word:"again",correct:"oo2"},
+    {word:"because",correct:"oo2"},
+    {word:"decide",correct:"oo2"},
+    {word:"explain",correct:"oo2"},
+    {word:"complete",correct:"oo2"},
+    {word:"return",correct:"oo2"},
+];
+let state2={};
+
+function buildChips2(){
+    state2={};
+    const area=document.getElementById("chips32");
+    area.innerHTML="";
+    document.getElementById("col_oo").innerHTML="";
+    document.getElementById("col_oo2").innerHTML="";
+    chips2.forEach(item=>{
+        state2[item.word]=null;
+        const c=document.createElement("span");
+        c.className="classify-chip";
+        c.textContent=item.word;
+        c.onclick=()=>cycleChip2(c,item.word);
+        area.appendChild(c);
+    });
+}
+function cycleChip2(chip,word){
+    speakText(word,0.85);
+    const cur=state2[word];
+    if(cur===null){
+        state2[word]="oo";
+        chip.classList.add("sel-first");
+        document.getElementById("col_oo").appendChild(chip);
+    } else if(cur==="oo"){
+        state2[word]="oo2";
+        chip.classList.remove("sel-first");
+        chip.classList.add("sel-second");
+        document.getElementById("col_oo2").appendChild(chip);
+    } else {
+        state2[word]=null;
+        chip.classList.remove("sel-second");
+        document.getElementById("chips32").appendChild(chip);
+    }
+}
+function checkEx2(){
+    let c=0,t=chips2.length;
+    chips2.forEach(item=>{ if(state2[item.word]===item.correct) c++; });
+    showScore("score2",c,t);
+    showToast(c===t?"🎉 Chuẩn xác!":"⚠️ Thử lại!");
+}
+function resetEx2(){ buildChips2(); document.getElementById("score2").classList.remove("show"); showToast("🔄 Làm lại!"); }
+
+// EX 3: phrase patterns
+const phrasePatterns={
+    "teacher or student":"OoOoO",
+    "same or different":"OoOoO",
+    "single or return":"OoooO",
+    "finish or begin":"OoooO",
+    "asleep or awake":"oOoO",
+    "behind or in front":"oOoO",
+    "perhaps or maybe":"oOoO",
+    "reading or writing":"oOoO2",
+};
+const patternIds={"OoOoO":"pattern_OoOoO","OoooO":"pattern_OoooO","oOoO":"pattern_oOoO","oOoO2":"pattern_oOoO2"};
+let selectedPhrase=null;
+
+function selectPhrase(el, key){
+    speakText(key, 0.75);
+    selectedPhrase={el,key};
+    el.style.background="#6a0dad";
+    el.style.color="white";
+    showToast("👉 Bây giờ click vào ô nhịp điệu để xếp!");
+}
+
+// Make pattern containers clickable
+document.addEventListener("DOMContentLoaded",()=>{
+    Object.values(patternIds).forEach(id=>{
+        const el=document.getElementById(id);
+        if(el) el.parentElement.onclick=()=>dropToPattern(id);
+    });
+});
+
+function dropToPattern(targetId){
+    if(!selectedPhrase) return;
+    const {el,key}=selectedPhrase;
+    const chip=document.createElement("span");
+    chip.className="classify-chip sel-first";
+    chip.style.margin="3px";
+    chip.textContent=el.textContent;
+    chip.onclick=()=>{chip.remove(); el.style.background=""; el.style.color=""; selectedPhrase=null;};
+    document.getElementById(targetId).appendChild(chip);
+    el.style.display="none";
+    selectedPhrase=null;
+}
+
+function checkEx3(){
+    let c=0,t=Object.keys(phrasePatterns).length;
+    Object.entries(phrasePatterns).forEach(([phrase,pattern])=>{
+        const targetId=patternIds[pattern];
+        const container=document.getElementById(targetId);
+        if(container){
+            const chips=[...container.querySelectorAll(".classify-chip")];
+            chips.forEach(chip=>{ if(chip.textContent.replace("?","").trim()===phrase) c++; });
+        }
+    });
+    showScore("score3",c,t);
+}
+function resetEx3(){
+    Object.values(patternIds).forEach(id=>document.getElementById(id).innerHTML="");
+    document.querySelectorAll(".classify-chip").forEach(c=>{c.style.display="";c.style.background="";c.style.color="";});
+    document.getElementById("score3").classList.remove("show");
+    showToast("🔄 Làm lại!");
+}
+function revealEx3(){
+    Object.entries(phrasePatterns).forEach(([phrase,pattern])=>{
+        const targetId=patternIds[pattern];
+        const chip=document.createElement("span");
+        chip.className="classify-chip sel-first";
+        chip.style.margin="3px";
+        chip.textContent=phrase+"?";
+        document.getElementById(targetId).appendChild(chip);
+    });
+    showToast("👁️ Đáp án!");
+}
+
+// EX 4
+const ans4={e4_1:"sister",e4_2:"relax",e4_3:"people",e4_4:"mountain",e4_5:"finish",e4_6:"complete",e4_7:"table",e4_8:"pronounce"};
+function checkEx4(){
+    let c=0,t=8;
+    for(let k in ans4){
+        const v=document.getElementById(k).value.toLowerCase().trim();
+        if(v===ans4[k]) c++;
+    }
+    showScore("score4",c,t);
+    showToast(c===t?"✅ Xuất sắc!":"⚠️ Xem lại IPA!");
+}
+function resetEx4(){
+    for(let k in ans4) document.getElementById(k).value="";
+    document.getElementById("score4").classList.remove("show");
+    showToast("🔄 Làm lại!");
+}
+function revealEx4(){
+    const full={e4_1:"sister",e4_2:"relax",e4_3:"people",e4_4:"mountain",e4_5:"finish",e4_6:"complete",e4_7:"table",e4_8:"pronounce"};
+    for(let k in full) document.getElementById(k).value=full[k];
+    showToast("👁️ Đáp án!");
+}
+
+// EX 5: Minimal pairs
+const minimalSets=[
+    {play:"return", options:["Oo (nhấn đầu)","oO (nhấn sau)"], correct:"oO (nhấn sau)", word:"return"},
+    {play:"listen", options:["Oo (nhấn đầu)","oO (nhấn sau)"], correct:"Oo (nhấn đầu)", word:"listen"},
+    {play:"decide", options:["Oo (nhấn đầu)","oO (nhấn sau)"], correct:"oO (nhấn sau)", word:"decide"},
+    {play:"butter", options:["Oo (nhấn đầu)","oO (nhấn sau)"], correct:"Oo (nhấn đầu)", word:"butter"},
+    {play:"explain", options:["Oo (nhấn đầu)","oO (nhấn sau)"], correct:"oO (nhấn sau)", word:"explain"},
+    {play:"finger", options:["Oo (nhấn đầu)","oO (nhấn sau)"], correct:"Oo (nhấn đầu)", word:"finger"},
+    {play:"complete", options:["Oo (nhấn đầu)","oO (nhấn sau)"], correct:"oO (nhấn sau)", word:"complete"},
+];
+let minIdx=0;
+
+function showMinimal(){
+    const s=minimalSets[minIdx];
+    const shuffled=[...s.options].sort(()=>Math.random()-0.5);
+    document.getElementById("minimalContainer").innerHTML=`
+        <div style="background:#f5f0ff;padding:15px;border-radius:8px;margin:15px 0;">
+            <div style="font-weight:bold;margin-bottom:10px;">
+                Từ <em>"${s.word}"</em> có pattern nào?
+                <button class="speak-btn" onclick="speakText('${s.word}',0.7)">🔊 Nghe lại</button>
+            </div>
+            ${shuffled.map(opt=>`<label style="display:block;margin:8px 0;cursor:pointer;">
+                <input type="radio" name="minimal" value="${opt}"> ${opt}</label>`).join("")}
+        </div>`;
+    setTimeout(()=>speakText(s.word,0.7),400);
+}
+function checkMinimal(){
+    const sel=document.querySelector("input[name='minimal']:checked")?.value||"";
+    const ok=sel===minimalSets[minIdx].correct?1:0;
+    showScore("scoreMinimal",ok,1);
+    showToast(ok?"✅ Đúng!":"❌ Sai! "+minimalSets[minIdx].word+" là "+minimalSets[minIdx].correct);
+}
+function resetMinimal(){
+    document.querySelectorAll("input[name='minimal']").forEach(r=>r.checked=false);
+    document.getElementById("scoreMinimal").classList.remove("show");
+    showMinimal();
+}
+function newMinimal(){
+    minIdx=(minIdx+1)%minimalSets.length;
+    document.getElementById("scoreMinimal").classList.remove("show");
+    showMinimal();
+}
+
+window.addEventListener("load",()=>{
+    window.speechSynthesis.getVoices();
+    buildChips2();
+    showMinimal();
+    // wire up pattern containers
+    Object.entries(patternIds).forEach(([pat,id])=>{
+        const box=document.getElementById(id)?.parentElement;
+        if(box) box.onclick=()=>dropToPattern(id);
+    });
+});
+
+// LocalStorage
+setTimeout(()=>{
+    try{
+        let c=[];
+        try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}
+        if(!c.includes(30)){c.push(30);localStorage.setItem("epu_completed",JSON.stringify(c));}
+    }catch{}
+},1000);
+</script>
+</body>
+</html>

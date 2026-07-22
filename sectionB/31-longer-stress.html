@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 31 - Stress in Longer Words</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#fff0f5 0%,#ffe0ec 100%);padding:20px;min-height:100vh;}
+.container{max-width:900px;margin:0 auto;}
+.header{background:linear-gradient(135deg,#a0195a 0%,#6b0f3a 100%);color:white;padding:30px;border-radius:12px;margin-bottom:30px;box-shadow:0 4px 15px rgba(160,25,90,.35);}
+.header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;}
+.lesson-num{font-size:2em;font-weight:bold;}
+.home-link{color:white;text-decoration:none;background:rgba(255,255,255,.2);padding:8px 15px;border-radius:20px;transition:all .3s;font-size:.9em;}
+.home-link:hover{background:rgba(255,255,255,.35);}
+.header h1{font-size:2.2em;margin-bottom:10px;}
+.phoneme-badge{display:inline-block;background:#ffd700;color:#333;padding:8px 20px;border-radius:25px;font-weight:bold;font-size:1.05em;margin-right:10px;}
+.subtitle{font-size:1.05em;opacity:.95;margin-top:8px;}
+.section{background:white;border-radius:10px;padding:30px;margin-bottom:25px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.section-title{font-size:1.7em;color:#6b0f3a;margin-bottom:20px;border-bottom:3px solid #a0195a;padding-bottom:10px;}
+.syl-S{background:#a0195a;color:white;padding:10px 15px;border-radius:7px;font-size:1.4em;font-weight:bold;display:inline-block;margin:3px;}
+.syl-w{background:#e0e0e0;color:#666;padding:8px 11px;border-radius:5px;font-size:.92em;display:inline-block;margin:3px;}
+.pattern-card{background:linear-gradient(135deg,#fff0f5,#ffe0ec);border:2px solid #a0195a;border-radius:10px;padding:16px;margin:9px 0;cursor:pointer;transition:all .3s;}
+.pattern-card:hover{transform:translateY(-3px);box-shadow:0 5px 15px rgba(160,25,90,.2);}
+.O-c{color:#a0195a;font-size:1.3em;font-weight:bold;}
+.o-c{color:#bbb;font-size:.95em;}
+.pat-code{font-size:1.4em;letter-spacing:5px;margin-bottom:5px;}
+.pat-example{font-size:1.02em;color:#333;font-weight:500;margin:3px 0;}
+.pat-sentence{font-size:.87em;color:#666;font-style:italic;}
+.word-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0;}
+.word-card{background:linear-gradient(135deg,#fff0f5,#ffe0ec);padding:15px;border-radius:8px;border:2px solid #a0195a;cursor:pointer;transition:all .3s;text-align:center;}
+.word-card:hover{transform:translateY(-4px);box-shadow:0 5px 15px rgba(160,25,90,.25);}
+.word-text{font-size:1.15em;font-weight:bold;color:#1e1e3f;margin-bottom:6px;}
+.S{color:#a0195a;font-size:1.25em;font-weight:bold;}
+.w{color:#aaa;}
+.ipa{font-size:.85em;color:#555;font-style:italic;margin-bottom:4px;}
+.meaning{font-size:.82em;color:#a0195a;font-weight:500;}
+.syl-badge{display:inline-block;background:#a0195a;color:white;padding:2px 7px;border-radius:10px;font-size:.7em;margin-left:4px;}
+.sentence-list{list-style:none;}
+.sentence-item{background:#fff0f5;padding:14px;margin:10px 0;border-left:4px solid #a0195a;border-radius:5px;cursor:pointer;transition:all .3s;}
+.sentence-item:hover{background:#ffe0ec;padding-left:20px;}
+.sentence-text{font-size:1.05em;margin-bottom:4px;color:#1e1e3f;}
+.sentence-ipa{font-size:.84em;color:#666;font-style:italic;margin-bottom:3px;}
+.sentence-meaning{font-size:.88em;color:#a0195a;font-weight:500;}
+.ex-wrap{background:#f9f9f9;padding:20px;margin:20px 0;border-radius:8px;border:1px solid #ddd;}
+.ex-instruction{background:#fff0f5;padding:12px;border-left:4px solid #a0195a;margin-bottom:15px;border-radius:5px;color:#1e1e3f;line-height:1.65;}
+.fill-item{background:white;padding:11px;margin:8px 0;border-left:3px solid #a0195a;border-radius:4px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.fill-item input{flex:1;min-width:130px;padding:8px;border:1px solid #ddd;border-radius:4px;}
+.fill-label{min-width:175px;color:#333;font-weight:500;font-style:italic;}
+.classify-chip{display:inline-block;background:white;border:2px solid #a0195a;color:#6b0f3a;padding:8px 13px;margin:5px;border-radius:20px;cursor:pointer;transition:all .3s;font-weight:500;}
+.classify-chip:hover{background:#a0195a;color:white;transform:scale(1.05);}
+.sel-ooo{background:#a0195a;color:white;border-color:#a0195a;}
+.sel-ooo2{background:#d97706;color:white;border-color:#d97706;}
+.sel-ooo3{background:#16a34a;color:white;border-color:#16a34a;}
+.col-triple{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
+.col-box{padding:14px;border-radius:8px;min-height:60px;border:2px dashed;}
+.col-box-title{font-weight:bold;margin-bottom:8px;font-size:.9em;}
+.sentence-fill{background:white;padding:14px;margin:10px 0;border-left:3px solid #a0195a;border-radius:5px;line-height:2.2;}
+.sentence-fill select{padding:4px 8px;border:1px solid #ddd;border-radius:4px;background:white;font-size:.93em;cursor:pointer;color:#333;}
+.btn-group{display:flex;gap:10px;margin-top:15px;flex-wrap:wrap;}
+button{padding:11px 18px;border:none;border-radius:6px;cursor:pointer;font-size:.95em;font-weight:500;transition:all .3s;}
+.btn-success{background:#16a34a;color:white;}
+.btn-success:hover{background:#15803d;transform:translateY(-2px);}
+.btn-warning{background:#d97706;color:white;}
+.btn-warning:hover{background:#b45309;transform:translateY(-2px);}
+.btn-primary{background:#a0195a;color:white;}
+.btn-primary:hover{background:#6b0f3a;transform:translateY(-2px);}
+.speak-btn{background:#a0195a;color:white;border:none;padding:5px 11px;border-radius:12px;cursor:pointer;font-size:.82em;margin-left:6px;}
+.speak-btn:hover{background:#6b0f3a;}
+.score-box{background:white;border:2px solid #ddd;padding:20px;border-radius:8px;margin-top:15px;text-align:center;display:none;}
+.score-box.show{display:block;}
+.big-score{font-size:3em;font-weight:bold;margin:10px 0;}
+.score-meter{width:100%;height:26px;background:#ddd;border-radius:13px;overflow:hidden;margin:12px 0;}
+.score-bar{height:100%;background:#16a34a;transition:width .5s;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;}
+.tip-box{background:#fffacd;border-left:4px solid #ffd700;padding:15px;border-radius:5px;margin:15px 0;}
+.geo-box{background:#e0f7fa;border-left:4px solid #00bcd4;padding:15px;border-radius:5px;margin:15px 0;}
+.note-box{background:#fff0f5;border-left:4px solid #a0195a;padding:15px;border-radius:5px;margin:15px 0;}
+.toast{position:fixed;bottom:20px;right:20px;background:#6b0f3a;color:white;padding:13px 22px;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.3);display:none;z-index:1000;}
+.toast.show{display:block;}
+table{width:100%;border-collapse:collapse;margin:15px 0;}
+th,td{border:1px solid #ddd;padding:11px;text-align:left;}
+th{background:#a0195a;color:white;font-weight:bold;}
+tr:nth-child(even){background:#fff0f5;}
+tr:hover{background:#ffe0ec;}
+.arrow{color:#a0195a;font-size:1.3em;font-weight:bold;text-align:center;}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+  <div class="header-top">
+    <div class="lesson-num">&#x1F4DA; B&#xE0;i 31</div>
+    <a href="../index.html" class="home-link">&#x2190; V&#x1EC1; trang ch&#x1EE7;</a>
+  </div>
+  <h1>Begin at the Beginning</h1>
+  <div><span class="phoneme-badge">Ooo / oOo / ooO</span></div>
+  <p class="subtitle">Tr&#x1ECD;ng &#xE2;m trong t&#x1EEB; nhi&#x1EC1;u &#xE2;m ti&#x1EBF;t &#x2014; nh&#x1EAD;n ra pattern v&#xE0; stress shift khi th&#xEA;m h&#x1EAD;u t&#x1ED1;</p>
+</div>
+
+<!-- THEORY -->
+<div class="section">
+<h2 class="section-title">&#x1F3AF; L&#xFD; Thuy&#x1EBF;t: Tr&#x1ECD;ng &#xC2;m T&#x1EEB; D&#xE0;i</h2>
+<div class="note-box">
+  <strong>Nh&#x1EAF;c l&#x1EA1;i k&#xFD; hi&#x1EC7;u:</strong>
+  <span style="color:#a0195a;font-size:1.3em;font-weight:bold;"> O</span> = &#xE2;m ti&#x1EBF;t M&#x1EA0;NH &nbsp;|&nbsp;
+  <span style="color:#bbb;">o</span> = &#xE2;m ti&#x1EBF;t y&#x1EBF;u &nbsp;|&nbsp;
+  T&#x1EEB; &#x111;i&#x1EC3;n d&#xF9;ng <strong>&#x2C8;</strong> tr&#x01B0;&#x1EDB;c &#xE2;m ti&#x1EBF;t nh&#x1EA5;n
+</div>
+<h3 style="color:#6b0f3a;margin:18px 0 12px;">&#x1F539; C&#xE1;c ki&#x1EC3;u nh&#x1ECB;p t&#x1EEB; 3-5 &#xE2;m ti&#x1EBF;t</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+  <div class="pattern-card" onclick="speakText('exercise syllable')">
+    <div class="pat-code"><span class="O-c">O</span><span class="o-c">oo</span></div>
+    <div class="pat-example">EX-er-cise &middot; SYL-la-ble</div>
+    <div class="pat-sentence">There are three syllables in the word exercise.</div>
+  </div>
+  <div class="pattern-card" onclick="speakText('computer example')">
+    <div class="pat-code"><span class="o-c">o</span><span class="O-c">O</span><span class="o-c">o</span></div>
+    <div class="pat-example">com-PU-ter &middot; ex-AM-ple</div>
+    <div class="pat-sentence">Computer is an example of a three-syllable word.</div>
+  </div>
+  <div class="pattern-card" onclick="speakText('understand Japanese')">
+    <div class="pat-code"><span class="o-c">oo</span><span class="O-c">O</span></div>
+    <div class="pat-example">un-der-STAND &middot; Jap-a-NESE</div>
+    <div class="pat-sentence">I can't understand Japanese.</div>
+  </div>
+  <div class="pattern-card" onclick="speakText('supermarket')">
+    <div class="pat-code"><span class="O-c">O</span><span class="o-c">ooo</span></div>
+    <div class="pat-example">SU-per-mar-ket</div>
+    <div class="pat-sentence">Do you like small shops or supermarkets?</div>
+  </div>
+  <div class="pattern-card" onclick="speakText('photography')">
+    <div class="pat-code"><span class="o-c">o</span><span class="O-c">O</span><span class="o-c">oo</span></div>
+    <div class="pat-example">pho-TOG-ra-phy</div>
+    <div class="pat-sentence">Are you interested in photography?</div>
+  </div>
+  <div class="pattern-card" onclick="speakText('information mathematics')">
+    <div class="pat-code"><span class="o-c">oo</span><span class="O-c">O</span><span class="o-c">o</span></div>
+    <div class="pat-example">in-for-MA-tion &middot; math-e-MAT-ics</div>
+    <div class="pat-sentence">I'd like some information about mathematics.</div>
+  </div>
+  <div class="pattern-card" onclick="speakText('vocabulary')">
+    <div class="pat-code"><span class="o-c">o</span><span class="O-c">O</span><span class="o-c">ooo</span></div>
+    <div class="pat-example">vo-CAB-u-lar-y</div>
+    <div class="pat-sentence">Will you help me with my vocabulary?</div>
+  </div>
+  <div class="pattern-card" onclick="speakText('communication')">
+    <div class="pat-code"><span class="o-c">ooo</span><span class="O-c">O</span><span class="o-c">o</span></div>
+    <div class="pat-example">com-mu-ni-CA-tion</div>
+    <div class="pat-sentence">Email is very helpful for communication.</div>
+  </div>
+</div>
+
+<h3 style="color:#6b0f3a;margin:22px 0 12px;">&#x1F539; Stress KH&#xD4;NG thay &#x111;&#x1ED5;i khi th&#xEA;m h&#x1EAD;u t&#x1ED1;</h3>
+<table>
+<tr><th>G&#x1ED1;c</th><th>Pattern</th><th style="text-align:center;">&#x2192;</th><th>Th&#xEA;m h&#x1EAD;u t&#x1ED1;</th><th>Pattern</th></tr>
+<tr><td onclick="speakText('begin')" style="cursor:pointer"><strong>be<u>GIN</u></strong></td><td>oO</td><td class="arrow">&#x2192;</td><td onclick="speakText('beginning')" style="cursor:pointer"><strong>be<u>GIN</u>ning</strong></td><td>oOo</td></tr>
+<tr><td onclick="speakText('decide')" style="cursor:pointer"><strong>de<u>CIDE</u></strong></td><td>oO</td><td class="arrow">&#x2192;</td><td onclick="speakText('decided')" style="cursor:pointer"><strong>de<u>CID</u>ed</strong></td><td>oOo</td></tr>
+<tr><td onclick="speakText('possible')" style="cursor:pointer"><strong><u>POS</u>sible</strong></td><td>Ooo</td><td class="arrow">&#x2192;</td><td onclick="speakText('impossible')" style="cursor:pointer"><strong>im<u>POS</u>sible</strong></td><td>oOoo</td></tr>
+<tr><td onclick="speakText('sentence')" style="cursor:pointer"><strong><u>SEN</u>tence</strong></td><td>Oo</td><td class="arrow">&#x2192;</td><td onclick="speakText('sentences')" style="cursor:pointer"><strong><u>SEN</u>tences</strong></td><td>Ooo</td></tr>
+<tr><td onclick="speakText('interest')" style="cursor:pointer"><strong><u>IN</u>terest</strong></td><td>Ooo</td><td class="arrow">&#x2192;</td><td onclick="speakText('interesting')" style="cursor:pointer"><strong><u>IN</u>teresting</strong></td><td>Oooo</td></tr>
+</table>
+
+<h3 style="color:#6b0f3a;margin:18px 0 12px;">&#x1F539; Stress D&#x1ECB;CH CHUY&#x1EC2;N khi th&#xEA;m -tion/-ity/-ic</h3>
+<table>
+<tr><th>G&#x1ED1;c</th><th>Nh&#x1EA5;n</th><th style="text-align:center;">&#x2192;</th><th>Th&#xEA;m h&#x1EAD;u t&#x1ED1;</th><th>Nh&#x1EA5;n m&#x1EDB;i</th></tr>
+<tr><td onclick="speakText('electric')" style="cursor:pointer"><strong>e<u>LEC</u>tric</strong></td><td>LEC</td><td class="arrow">&#x2192;</td><td onclick="speakText('electricity')" style="cursor:pointer"><strong>e-lec-<u>TRIC</u>-i-ty</strong></td><td>TRIC</td></tr>
+<tr><td onclick="speakText('pronounce')" style="cursor:pointer"><strong>pro<u>NOUNCE</u></strong></td><td>NOUNCE</td><td class="arrow">&#x2192;</td><td onclick="speakText('pronunciation')" style="cursor:pointer"><strong>pro-nun-ci-<u>A</u>-tion</strong></td><td>A</td></tr>
+<tr><td onclick="speakText('photograph')" style="cursor:pointer"><strong><u>PHO</u>-to-graph</strong></td><td>PHO</td><td class="arrow">&#x2192;</td><td onclick="speakText('photography')" style="cursor:pointer"><strong>pho-<u>TOG</u>-ra-phy</strong></td><td>TOG</td></tr>
+<tr><td onclick="speakText('explain')" style="cursor:pointer"><strong>ex<u>PLAIN</u></strong></td><td>PLAIN</td><td class="arrow">&#x2192;</td><td onclick="speakText('explanation')" style="cursor:pointer"><strong>ex-pla-<u>NA</u>-tion</strong></td><td>NA</td></tr>
+</table>
+<div class="note-box"><strong>&#x1F4A1; Quy t&#x1EAF;c h&#x1EAD;u t&#x1ED1; -tion/-ity/-ation/-ic:</strong><br>Nh&#x1EA5;n v&#xE0;o &#xE2;m ti&#x1EBF;t ng&#x1EAD;y TR&#x01AF;&#x1EDB;C h&#x1EAD;u t&#x1ED1;:<br><em>communic<strong>A</strong>tion &middot; electri<strong>CI</strong>ty &middot; photograph<strong>IC</strong> &middot; pronunci<strong>A</strong>tion</em></div>
+</div>
+
+<!-- VOCAB -->
+<div class="section">
+<h2 class="section-title">&#x1F4DD; T&#x1EEB; V&#x1EF1;ng &#x2014; Tr&#x1ECD;ng &#xC2;m T&#x1EEB; D&#xE0;i</h2>
+<h3 style="color:#6b0f3a;margin-bottom:12px;">&#x1F539; 3 &#xC2;m Ti&#x1EBF;t</h3>
+<div class="word-grid">
+  <div class="word-card" onclick="speakText('exercise')"><div class="word-text"><span class="S">EX</span><span class="w">-er-cise</span></div><div class="ipa">/&#x2C8;&#x25B;ks&#x259;sa&#x26A;z/</div><div class="meaning">&#x1F1FB;&#x1F1F3; b&#xE0;i t&#x1EAD;p<span class="syl-badge">Ooo</span></div></div>
+  <div class="word-card" onclick="speakText('syllable')"><div class="word-text"><span class="S">SYL</span><span class="w">-la-ble</span></div><div class="ipa">/&#x2C8;s&#x26A;l&#x259;b&#x259;l/</div><div class="meaning">&#x1F1FB;&#x1F1F3; &#xE2;m ti&#x1EBF;t<span class="syl-badge">Ooo</span></div></div>
+  <div class="word-card" onclick="speakText('adjective')"><div class="word-text"><span class="S">AD</span><span class="w">-jec-tive</span></div><div class="ipa">/&#x2C8;&#xE6;d&#x292;&#x26A;kt&#x26A;v/</div><div class="meaning">&#x1F1FB;&#x1F1F3; t&#xED;nh t&#x1EEB;<span class="syl-badge">Ooo</span></div></div>
+  <div class="word-card" onclick="speakText('cinema')"><div class="word-text"><span class="S">CIN</span><span class="w">-e-ma</span></div><div class="ipa">/&#x2C8;s&#x26A;n&#x259;m&#x259;/</div><div class="meaning">&#x1F1FB;&#x1F1F3; r&#x1EA1;p chi&#x1EBF;u phim<span class="syl-badge">Ooo</span></div></div>
+  <div class="word-card" onclick="speakText('furniture')"><div class="word-text"><span class="S">FUR</span><span class="w">-ni-ture</span></div><div class="ipa">/&#x2C8;f&#x25C;&#x2D0;n&#x26A;t&#x283;&#x259;/</div><div class="meaning">&#x1F1FB;&#x1F1F3; &#x111;&#x1ED3; n&#x1ED9;i th&#x1EA5;t<span class="syl-badge">Ooo</span></div></div>
+  <div class="word-card" onclick="speakText('grandmother')"><div class="word-text"><span class="S">GRAND</span><span class="w">-moth-er</span></div><div class="ipa">/&#x2C8;&#x261;r&#xE6;nm&#x28C;&#xF0;&#x259;/</div><div class="meaning">&#x1F1FB;&#x1F1F3; b&#xE0; n&#x1ED9;i/ngo&#x1EA1;i<span class="syl-badge">Ooo</span></div></div>
+  <div class="word-card" onclick="speakText('computer')"><div class="word-text"><span class="w">com-</span><span class="S">PU</span><span class="w">-ter</span></div><div class="ipa">/k&#x259;m&#x2C8;pju&#x2D0;t&#x259;/</div><div class="meaning">&#x1F1FB;&#x1F1F3; m&#xE1;y t&#xED;nh<span class="syl-badge">oOo</span></div></div>
+  <div class="word-card" onclick="speakText('remember')"><div class="word-text"><span class="w">re-</span><span class="S">MEM</span><span class="w">-ber</span></div><div class="ipa">/r&#x26A;&#x2C8;m&#x25B;mb&#x259;/</div><div class="meaning">&#x1F1FB;&#x1F1F3; nh&#x1EDB;<span class="syl-badge">oOo</span></div></div>
+  <div class="word-card" onclick="speakText('tomorrow')"><div class="word-text"><span class="w">to-</span><span class="S">MOR</span><span class="w">-row</span></div><div class="ipa">/t&#x259;&#x2C8;m&#x252;r&#x259;&#x28A;/</div><div class="meaning">&#x1F1FB;&#x1F1F3; ng&#xE0;y mai<span class="syl-badge">oOo</span></div></div>
+  <div class="word-card" onclick="speakText('important')"><div class="word-text"><span class="w">im-</span><span class="S">POR</span><span class="w">-tant</span></div><div class="ipa">/&#x26A;m&#x2C8;p&#x254;&#x2D0;t&#x259;nt/</div><div class="meaning">&#x1F1FB;&#x1F1F3; quan tr&#x1ECD;ng<span class="syl-badge">oOo</span></div></div>
+  <div class="word-card" onclick="speakText('understand')"><div class="word-text"><span class="w">un-der-</span><span class="S">STAND</span></div><div class="ipa">/&#x2CC;&#x28C;nd&#x259;&#x2C8;st&#xE6;nd/</div><div class="meaning">&#x1F1FB;&#x1F1F3; hi&#x1EC3;u<span class="syl-badge">ooO</span></div></div>
+  <div class="word-card" onclick="speakText('Japanese')"><div class="word-text"><span class="w">Jap-a-</span><span class="S">NESE</span></div><div class="ipa">/&#x2CC;d&#x292;&#xE6;p&#x259;&#x2C8;ni&#x2D0;z/</div><div class="meaning">&#x1F1FB;&#x1F1F3; ti&#x1EBF;ng Nh&#x1EAD;t<span class="syl-badge">ooO</span></div></div>
+</div>
+<h3 style="color:#6b0f3a;margin:18px 0 12px;">&#x1F539; 4-5 &#xC2;m Ti&#x1EBF;t</h3>
+<div class="word-grid">
+  <div class="word-card" onclick="speakText('supermarket')"><div class="word-text"><span class="S">SU</span><span class="w">-per-mar-ket</span></div><div class="ipa">/&#x2C8;su&#x2D0;p&#x259;m&#x251;&#x2D0;k&#x26A;t/</div><div class="meaning">&#x1F1FB;&#x1F1F3; si&#xEA;u th&#x1ECB;<span class="syl-badge">Oooo</span></div></div>
+  <div class="word-card" onclick="speakText('information')"><div class="word-text"><span class="w">in-for-</span><span class="S">MA</span><span class="w">-tion</span></div><div class="ipa">/&#x2CC;&#x26A;nf&#x259;&#x2C8;me&#x26A;&#x283;&#x259;n/</div><div class="meaning">&#x1F1FB;&#x1F1F3; th&#xF4;ng tin<span class="syl-badge">ooOo</span></div></div>
+  <div class="word-card" onclick="speakText('vocabulary')"><div class="word-text"><span class="w">vo-</span><span class="S">CAB</span><span class="w">-u-lar-y</span></div><div class="ipa">/v&#x259;&#x2C8;k&#xE6;bj&#x28A;l&#x259;ri/</div><div class="meaning">&#x1F1FB;&#x1F1F3; t&#x1EEB; v&#x1EF1;ng<span class="syl-badge">oOooo</span></div></div>
+  <div class="word-card" onclick="speakText('university')"><div class="word-text"><span class="w">u-ni-</span><span class="S">VER</span><span class="w">-si-ty</span></div><div class="ipa">/&#x2CC;ju&#x2D0;n&#x26A;&#x2C8;v&#x25C;&#x2D0;s&#x26A;ti/</div><div class="meaning">&#x1F1FB;&#x1F1F3; &#x111;&#x1EA1;i h&#x1ECD;c<span class="syl-badge">ooOoo</span></div></div>
+  <div class="word-card" onclick="speakText('communication')"><div class="word-text"><span class="w">com-mu-ni-</span><span class="S">CA</span><span class="w">-tion</span></div><div class="ipa">/k&#x259;&#x2CC;mju&#x2D0;n&#x26A;&#x2C8;ke&#x26A;&#x283;&#x259;n/</div><div class="meaning">&#x1F1FB;&#x1F1F3; giao ti&#x1EBF;p<span class="syl-badge">oooOo</span></div></div>
+  <div class="word-card" onclick="speakText('pronunciation')"><div class="word-text"><span class="w">pro-nun-ci-</span><span class="S">A</span><span class="w">-tion</span></div><div class="ipa">/pr&#x259;&#x2CC;n&#x28C;nsi&#x2C8;e&#x26A;&#x283;&#x259;n/</div><div class="meaning">&#x1F1FB;&#x1F1F3; ph&#xE1;t &#xE2;m<span class="syl-badge">oooOo</span></div></div>
+  <div class="word-card" onclick="speakText('photography')"><div class="word-text"><span class="w">pho-</span><span class="S">TOG</span><span class="w">-ra-phy</span></div><div class="ipa">/f&#x259;&#x2C8;t&#x252;&#x261;r&#x259;fi/</div><div class="meaning">&#x1F1FB;&#x1F1F3; nhi&#x1EBF;p &#x1EA3;nh<span class="syl-badge">oOoo</span></div></div>
+  <div class="word-card" onclick="speakText('interesting')"><div class="word-text"><span class="S">IN</span><span class="w">-ter-est-ing</span></div><div class="ipa">/&#x2C8;&#x26A;ntr&#x259;st&#x26A;&#x14B;/</div><div class="meaning">&#x1F1FB;&#x1F1F3; th&#xFA; v&#x1ECB;<span class="syl-badge">Oooo</span></div></div>
+</div>
+<div class="geo-box"><strong>&#x1F3D7;&#xFE0F; T&#x1EEB; &#x111;&#x1ECB;a k&#x1EF9; thu&#x1EAD;t &#x2014; ch&#xFA; &#xFD; pattern:</strong><br>
+<strong>SET-tle-ment</strong> /&#x2C8;s&#x25B;t&#x259;lm&#x259;nt/ (Ooo) &#x2014; &#x111;&#x1ED9; l&#xFA;n<br>
+<strong>in-ves-ti-GA-tion</strong> /&#x26A;n&#x2CC;v&#x25B;st&#x26A;&#x2C8;&#x261;e&#x26A;&#x283;&#x259;n/ (oooOo) &#x2014; &#x111;i&#x1EC1;u tra, kh&#x1EA3;o s&#xE1;t<br>
+<strong>e-VAL-u-ate</strong> /&#x26A;&#x2C8;v&#xE6;ljue&#x26A;t/ (oOoo) &#x2014; &#x111;&#xE1;nh gi&#xE1;<br>
+<strong>de-ter-mi-NA-tion</strong> /d&#x26A;&#x2CC;t&#x25C;&#x2D0;m&#x26A;&#x2C8;ne&#x26A;&#x283;&#x259;n/ (oooOo) &#x2014; x&#xE1;c &#x111;&#x1ECB;nh</div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+<h2 class="section-title">&#x1F4AC; C&#xE2;u Luy&#x1EC7;n</h2>
+<ul class="sentence-list">
+  <li class="sentence-item" onclick="speakText('There are three syllables in the word exercise.')">
+    <div class="sentence-text">There are three <span class="S">syl</span>-la-bles in the word <span class="S">ex</span>-er-cise.</div>
+    <div class="sentence-ipa">/&#xF0;&#x25B;r &#x251;&#x2D0; &#x3B8;ri&#x2D0; &#x2C8;s&#x26A;l&#x259;b&#x259;lz &#x26A;n &#xF0;&#x259; w&#x25C;&#x2D0;d &#x2C8;&#x25B;ks&#x259;sa&#x26A;z/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; T&#x1EEB; "exercise" c&#xF3; ba &#xE2;m ti&#x1EBF;t.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('Computer is an example of a three syllable word.')">
+    <div class="sentence-text">Com<span class="S">pu</span>-ter is an ex<span class="S">am</span>-ple of a three-<span class="S">syl</span>-lable word.</div>
+    <div class="sentence-ipa">/k&#x259;m&#x2C8;pju&#x2D0;t&#x259; &#x26A;z &#x259;n &#x26A;&#x261;&#x2C8;z&#x251;&#x2D0;mp&#x259;l &#x259;v &#x259; &#x3B8;ri&#x2D0; &#x2C8;s&#x26A;l&#x259;b&#x259;l w&#x25C;&#x2D0;d/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; "Computer" l&#xE0; v&#xED; d&#x1EE5; v&#x1EC1; t&#x1EEB; c&#xF3; ba &#xE2;m ti&#x1EBF;t.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('I cannot understand Japanese.')">
+    <div class="sentence-text">I can't un-der<span class="S">stand</span> Jap-a<span class="S">nese</span>.</div>
+    <div class="sentence-ipa">/a&#x26A; k&#x251;&#x2D0;nt &#x2CC;&#x28C;nd&#x259;&#x2C8;st&#xE6;nd &#x2CC;d&#x292;&#xE6;p&#x259;&#x2C8;ni&#x2D0;z/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; T&#xF4;i kh&#xF4;ng hi&#x1EC3;u ti&#x1EBF;ng Nh&#x1EAD;t.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('Do you like small shops or supermarkets?')">
+    <div class="sentence-text">Do you like small shops or <span class="S">su</span>-per-mar-kets?</div>
+    <div class="sentence-ipa">/du&#x2D0; ju&#x2D0; la&#x26A;k sm&#x254;&#x2D0;l &#x283;&#x252;ps &#x254;&#x2D0; &#x2C8;su&#x2D0;p&#x259;m&#x251;&#x2D0;k&#x26A;ts/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; B&#x1EA1;n th&#xED;ch c&#x1EED;a h&#xE0;ng nh&#x1EF9; hay si&#xEA;u th&#x1ECB;?</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('I would like some information about mathematics courses.')">
+    <div class="sentence-text">I'd like some in-for<span class="S">ma</span>-tion about math-e<span class="S">mat</span>-ics courses.</div>
+    <div class="sentence-ipa">/a&#x26A;d la&#x26A;k s&#x28C;m &#x2CC;&#x26A;nf&#x259;&#x2C8;me&#x26A;&#x283;&#x259;n &#x259;&#x2C8;ba&#x28A;t &#x2CC;m&#xE6;&#x3B8;&#x259;&#x2C8;m&#xE6;t&#x26A;ks k&#x254;&#x2D0;s&#x26A;z/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; T&#xF4;i mu&#x1ED1;n t&#xEC;m hi&#x1EC3;u v&#x1EC1; c&#xE1;c kh&#xF3;a h&#x1ECD;c To&#xE1;n.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('Will you help me with my vocabulary?')">
+    <div class="sentence-text">Will you help me with my vo<span class="S">cab</span>-u-lar-y?</div>
+    <div class="sentence-ipa">/w&#x26A;l ju&#x2D0; h&#x25B;lp mi&#x2D0; w&#x26A;&#xF0; ma&#x26A; v&#x259;&#x2C8;k&#xE6;bj&#x28A;l&#x259;ri/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; B&#x1EA1;n c&#xF3; th&#x1EC3; gi&#xFA;p t&#xF4;i v&#x1EDB;i t&#x1EEB; v&#x1EF1;ng kh&#xF4;ng?</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('Email is very helpful for communication.')">
+    <div class="sentence-text">Email is very <span class="S">help</span>-ful for com-mu-ni<span class="S">ca</span>-tion.</div>
+    <div class="sentence-ipa">/&#x2C8;i&#x2D0;me&#x26A;l &#x26A;z &#x2C8;v&#x25B;ri &#x2C8;h&#x25B;lpf&#x28A;l f&#x259; k&#x259;&#x2CC;mju&#x2D0;n&#x26A;&#x2C8;ke&#x26A;&#x283;&#x259;n/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; Email r&#x1EA5;t h&#x1EEF;u &#xED;ch cho giao ti&#x1EBF;p.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('Good pronunciation is important for communication.')">
+    <div class="sentence-text">Good pro-nun-ci<span class="S">a</span>-tion is im<span class="S">por</span>-tant for com-mu-ni<span class="S">ca</span>-tion.</div>
+    <div class="sentence-ipa">/&#x261;&#x28A;d pr&#x259;&#x2CC;n&#x28C;nsi&#x2C8;e&#x26A;&#x283;&#x259;n &#x26A;z &#x26A;m&#x2C8;p&#x254;&#x2D0;t&#x259;nt f&#x259; k&#x259;&#x2CC;mju&#x2D0;n&#x26A;&#x2C8;ke&#x26A;&#x283;&#x259;n/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; Ph&#xE1;t &#xE2;m t&#x1ED1;t r&#x1EA5;t quan tr&#x1ECD;ng cho giao ti&#x1EBF;p.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('The investigation report on settlement is very important.')">
+    <div class="sentence-text">The in-ves-ti<span class="S">ga</span>-tion re<span class="S">port</span> on <span class="S">set</span>-tle-ment is im<span class="S">por</span>-tant. &#x1F3D7;&#xFE0F;</div>
+    <div class="sentence-ipa">/&#xF0;&#x259; &#x26A;n&#x2CC;v&#x25B;st&#x26A;&#x2C8;&#x261;e&#x26A;&#x283;&#x259;n r&#x26A;&#x2C8;p&#x254;&#x2D0;t &#x252;n &#x2C8;s&#x25B;t&#x259;lm&#x259;nt &#x26A;z &#x26A;m&#x2C8;p&#x254;&#x2D0;t&#x259;nt/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; B&#xE1;o c&#xE1;o &#x111;i&#x1EC1;u tra v&#x1EC1; &#x111;&#x1ED9; l&#xFA;n r&#x1EA5;t quan tr&#x1ECD;ng.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('The university is doing research on soil investigation.')">
+    <div class="sentence-text">The u-ni<span class="S">ver</span>-si-ty is doing re<span class="S">search</span> on soil in-ves-ti<span class="S">ga</span>-tion. &#x1F3D7;&#xFE0F;</div>
+    <div class="sentence-ipa">/&#xF0;&#x259; &#x2CC;ju&#x2D0;n&#x26A;&#x2C8;v&#x25C;&#x2D0;s&#x26A;ti &#x26A;z &#x2C8;du&#x2D0;&#x26A;&#x14B; r&#x26A;&#x2C8;s&#x25C;&#x2D0;t&#x283; &#x252;n s&#x254;&#x26A;l &#x26A;n&#x2CC;v&#x25B;st&#x26A;&#x2C8;&#x261;e&#x26A;&#x283;&#x259;n/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; Tr&#x01B0;&#x1EDD;ng &#x111;&#x1EA1;i h&#x1ECD;c &#x111;ang nghi&#xEA;n c&#x1EE9;u v&#x1EC1; kh&#x1EA3;o s&#xE1;t &#x111;&#x1EA5;t.</div>
+  </li>
+</ul>
+</div>
+
+<!-- EXERCISES -->
+<div class="section">
+<h2 class="section-title">&#x1F393; B&#xE0;i T&#x1EAD;p</h2>
+
+<div class="ex-wrap">
+<div class="ex-instruction"><strong>B&#xE0;i 31.1:</strong> &#x110;&#x1ECD;c phi&#xEA;n &#xE2;m IPA v&#xE0; g&#xF5; t&#x1EEB; ti&#x1EBF;ng Anh.<br><small>V&#xED; d&#x1EE5;: /b&#x26A;&#x2C8;&#x261;&#x26A;n&#x26A;&#x14B;/ &#x2192; <em>beginning</em></small></div>
+<div class="fill-item"><span class="fill-label">1. /&#x2C8;&#x26A;nt&#x259;vju&#x2D0;/</span><input type="text" id="e1_1" placeholder="g&#xF5; t&#x1EEB;"><button class="speak-btn" onclick="speakText('interview')">&#x1F50A;</button></div>
+<div class="fill-item"><span class="fill-label">2. /mju&#x2D0;&#x2C8;z&#x26A;&#x259;m/</span><input type="text" id="e1_2" placeholder="g&#xF5; t&#x1EEB;"><button class="speak-btn" onclick="speakText('museum')">&#x1F50A;</button></div>
+<div class="fill-item"><span class="fill-label">3. /&#x2C8;m&#xE6;&#x261;&#x259;zi&#x2D0;n/</span><input type="text" id="e1_3" placeholder="g&#xF5; t&#x1EEB;"><button class="speak-btn" onclick="speakText('magazine')">&#x1F50A;</button></div>
+<div class="fill-item"><span class="fill-label">4. /&#x2C8;d&#x25B;f&#x26A;n&#x26A;tli/</span><input type="text" id="e1_4" placeholder="g&#xF5; t&#x1EEB;"><button class="speak-btn" onclick="speakText('definitely')">&#x1F50A;</button></div>
+<div class="fill-item"><span class="fill-label">5. /&#x259;&#x2C8;m&#x25B;r&#x26A;k&#x259;n/</span><input type="text" id="e1_5" placeholder="g&#xF5; t&#x1EEB;"><button class="speak-btn" onclick="speakText('American')">&#x1F50A;</button></div>
+<div class="fill-item"><span class="fill-label">6. /&#x2CC;p&#x252;l&#x26A;&#x2C8;t&#x26A;&#x283;&#x259;n/</span><input type="text" id="e1_6" placeholder="g&#xF5; t&#x1EEB;"><button class="speak-btn" onclick="speakText('politician')">&#x1F50A;</button></div>
+<div class="fill-item"><span class="fill-label">7. /&#x2CC;n&#xE6;&#x283;&#x259;&#x2C8;n&#xE6;l&#x26A;ti/</span><input type="text" id="e1_7" placeholder="g&#xF5; t&#x1EEB;"><button class="speak-btn" onclick="speakText('nationality')">&#x1F50A;</button></div>
+<div class="fill-item"><span class="fill-label">8. /f&#x259;&#x2C8;t&#x252;&#x261;r&#x259;fi/</span><input type="text" id="e1_8" placeholder="g&#xF5; t&#x1EEB;"><button class="speak-btn" onclick="speakText('photography')">&#x1F50A;</button></div>
+<div class="btn-group">
+<button class="btn-success" onclick="checkEx1()">&#x2705; Ch&#x1EA5;m b&#xE0;i</button>
+<button class="btn-warning" onclick="resetEx1()">&#x1F504; L&#xE0;m l&#x1EA1;i</button>
+<button class="btn-primary" onclick="revealEx1()">&#x1F441;&#xFE0F; &#x110;&#xE1;p &#xE1;n</button>
+</div>
+<div id="score1" class="score-box"></div>
+</div>
+
+<div class="ex-wrap">
+<div class="ex-instruction"><strong>B&#xE0;i 31.2:</strong> Ph&#xE2;n lo&#x1EA1;i t&#x1EEB; v&#xE0;o c&#x1ED9;t pattern &#x111;&#xFA;ng.<br><small>Click chip 1 l&#x1EA7;n &#x2192; Ooo (h&#x1ED3;ng) &middot; 2 l&#x1EA7;n &#x2192; oOo (cam) &middot; 3 l&#x1EA7;n &#x2192; ooO (xanh) &middot; 4 l&#x1EA7;n &#x2192; tr&#x1EA3; v&#x1EC1;</small></div>
+<div id="chips32" style="margin:15px 0;"></div>
+<div class="col-triple">
+  <div class="col-box" style="border-color:#a0195a;background:#fff0f5;"><div class="col-box-title" style="color:#a0195a;">&#x1F534; Ooo (&#x111;&#x1EA7;u)</div><div id="col_ooo"></div></div>
+  <div class="col-box" style="border-color:#d97706;background:#fff9e6;"><div class="col-box-title" style="color:#d97706;">&#x1F7E1; oOo (gi&#x1EEF;a)</div><div id="col_ooo2"></div></div>
+  <div class="col-box" style="border-color:#16a34a;background:#f0fff4;"><div class="col-box-title" style="color:#16a34a;">&#x1F7E2; ooO (cu&#x1ED1;i)</div><div id="col_ooo3"></div></div>
+</div>
+<div class="btn-group">
+<button class="btn-success" onclick="checkEx2()">&#x2705; Ch&#x1EA5;m b&#xE0;i</button>
+<button class="btn-warning" onclick="resetEx2()">&#x1F504; L&#xE0;m l&#x1EA1;i</button>
+</div>
+<div id="score2" class="score-box"></div>
+</div>
+
+<div class="ex-wrap">
+<div class="ex-instruction"><strong>B&#xE0;i 31.3:</strong> Ch&#x1ECD;n t&#x1EEB; &#x111;&#xFA;ng (ch&#xFA; &#xFD; pattern tr&#x1ECD;ng &#xE2;m) &#x111;&#x1EC3; &#x111;i&#x1EC1;n v&#xE0;o c&#xE2;u.</div>
+<div class="sentence-fill">1. We had a oOo <select id="s1"><option value="">-- ch&#x1ECD;n --</option><option value="delicious">delicious</option><option value="afternoon">afternoon</option><option value="expensive">expensive</option></select> meal on Ooo <select id="s1b"><option value="">-- ch&#x1ECD;n --</option><option value="Saturday">Saturday</option><option value="Sunday">Sunday</option><option value="yesterday">yesterday</option></select>.</div>
+<div class="sentence-fill">2. We Ooo <select id="s2"><option value="">-- ch&#x1ECD;n --</option><option value="normally">normally</option><option value="often">often</option><option value="morning">morning</option></select> go on Ooo <select id="s2b"><option value="">-- ch&#x1ECD;n --</option><option value="holiday">holiday</option><option value="bicycle">bicycle</option><option value="morning">morning</option></select> by car, but this time we're going by Ooo <select id="s2c"><option value="">-- ch&#x1ECD;n --</option><option value="bicycle">bicycle</option><option value="telephone">telephone</option><option value="yesterday">yesterday</option></select>.</div>
+<div class="sentence-fill">3. I did ten grammar Oooo <select id="s3"><option value="">-- ch&#x1ECD;n --</option><option value="exercises">exercises</option><option value="expensive">expensive</option><option value="discussion">discussion</option></select> Ooo <select id="s3b"><option value="">-- ch&#x1ECD;n --</option><option value="yesterday">yesterday</option><option value="Saturday">Saturday</option><option value="morning">morning</option></select>.</div>
+<div class="sentence-fill">4. Is Ooo <select id="s4"><option value="">-- ch&#x1ECD;n --</option><option value="Sweden">Sweden</option><option value="Sunday">Sunday</option><option value="seventy">seventy</option></select> an oOo <select id="s4b"><option value="">-- ch&#x1ECD;n --</option><option value="expensive">expensive</option><option value="important">important</option><option value="tomorrow">tomorrow</option></select> country?</div>
+<div class="sentence-fill">5. My son's ooO <select id="s5"><option value="">-- ch&#x1ECD;n --</option><option value="seventeen">seventeen</option><option value="afternoon">afternoon</option><option value="important">important</option></select> and my father's Ooo <select id="s5b"><option value="">-- ch&#x1ECD;n --</option><option value="seventy">seventy</option><option value="sixty">sixty</option><option value="morning">morning</option></select>.</div>
+<div class="btn-group">
+<button class="btn-success" onclick="checkEx3()">&#x2705; Ch&#x1EA5;m b&#xE0;i</button>
+<button class="btn-warning" onclick="resetEx3()">&#x1F504; L&#xE0;m l&#x1EA1;i</button>
+<button class="btn-primary" onclick="revealEx3()">&#x1F441;&#xFE0F; &#x110;&#xE1;p &#xE1;n</button>
+</div>
+<div id="score3" class="score-box"></div>
+</div>
+
+<div class="ex-wrap">
+<div class="ex-instruction"><strong>B&#xE0;i 31.4:</strong> S&#xE1;u th&#xE1;ng c&#xF3; 3-4 &#xE2;m ti&#x1EBF;t. Vi&#x1EBF;t t&#xEA;n th&#xE1;ng v&#xE0;o &#x111;&#xFA;ng c&#x1ED9;t pattern.<br><small>G&#x1EE3;i &#xFD;: January February September October November December</small></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:15px 0;">
+<div>
+  <div style="font-weight:bold;color:#a0195a;margin-bottom:8px;">Ooo (nh&#x1EA5;n &#x111;&#x1EA7;u)</div>
+  <input type="text" id="m1_1" placeholder="th&#xE1;ng th&#x1EE9; 1" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;margin:4px 0;"><br>
+  <input type="text" id="m1_2" placeholder="th&#xE1;ng th&#x1EE9; 2" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;margin:4px 0;">
+</div>
+<div>
+  <div style="font-weight:bold;color:#d97706;margin-bottom:8px;">oOo (nh&#x1EA5;n gi&#x1EEF;a)</div>
+  <input type="text" id="m2_1" placeholder="th&#xE1;ng th&#x1EE9; 1" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;margin:4px 0;"><br>
+  <input type="text" id="m2_2" placeholder="th&#xE1;ng th&#x1EE9; 2" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;margin:4px 0;"><br>
+  <input type="text" id="m2_3" placeholder="th&#xE1;ng th&#x1EE9; 3" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;margin:4px 0;">
+</div>
+</div>
+<div class="btn-group">
+<button class="btn-success" onclick="checkEx4()">&#x2705; Ch&#x1EA5;m b&#xE0;i</button>
+<button class="btn-warning" onclick="resetEx4()">&#x1F504; L&#xE0;m l&#x1EA1;i</button>
+<button class="btn-primary" onclick="revealEx4()">&#x1F441;&#xFE0F; &#x110;&#xE1;p &#xE1;n</button>
+</div>
+<div id="score4" class="score-box"></div>
+</div>
+
+<div class="ex-wrap">
+<div class="ex-instruction"><strong>B&#xE0;i 31.5 &#x2014; Minimal Pairs:</strong> Nghe t&#x1EEB; v&#xE0; ch&#x1ECD;n pattern tr&#x1ECD;ng &#xE2;m &#x111;&#xFA;ng.</div>
+<div id="minimalContainer"></div>
+<div class="btn-group">
+<button class="btn-success" onclick="checkMinimal()">&#x2705; Ch&#x1EA5;m b&#xE0;i</button>
+<button class="btn-warning" onclick="resetMinimal()">&#x1F504; L&#xE0;m l&#x1EA1;i</button>
+<button class="btn-primary" onclick="newMinimal()">&#x1F500; C&#xE2;u m&#x1EDB;i</button>
+</div>
+<div id="scoreMinimal" class="score-box"></div>
+</div>
+</div>
+
+<!-- TIPS -->
+<div class="section">
+<h2 class="section-title">&#x1F4A1; B&#xED; Quy&#x1EBF;t Ph&#xE1;t &#xC2;m</h2>
+<div class="tip-box"><strong>&#x1F3AF; M&#x1EB9;o 1 &#x2014; H&#x1EAD;u t&#x1ED1; -tion/-ity/-ation/-ic:</strong><br>Nh&#x1EA5;n v&#xE0;o &#xE2;m ti&#x1EBF;t NG&#xC0;Y TR&#x01AF;&#x1EDB;C h&#x1EAD;u t&#x1ED1;:<br>communic<strong>A</strong>tion &middot; electri<strong>CI</strong>ty &middot; photograph<strong>IC</strong> &middot; pronunci<strong>A</strong>tion</div>
+<div class="tip-box"><strong>&#x1F3AF; M&#x1EB9;o 2 &#x2014; Stress KH&#xD4;NG &#x111;&#x1ED5;i v&#x1EDB;i -ing/-ed/-er/-s:</strong><br>begin &#x2192; beg<strong>IN</strong>ning &middot; decide &#x2192; dec<strong>I</strong>ded &middot; interest &#x2192; <strong>IN</strong>teresting<br>C&#x1EE9; nh&#x1EA5;n &#x111;&#xFA;ng ch&#x1ED7; c&#x1EE7;a t&#x1EEB; g&#x1ED1;c, th&#xEA;m h&#x1EAD;u t&#x1ED1; kh&#xF4;ng l&#xE0;m thay &#x111;&#x1ED5;i!</div>
+<div class="tip-box"><strong>&#x1F3AF; M&#x1EB9;o 3 &#x2014; T&#x1EEB; d&#xE0;i: t&#xEC;m &#xE2;m ti&#x1EBF;t n&#x1EB7;ng nh&#x1EA5;t:</strong><br>&#xC2;m ti&#x1EBF;t c&#xF3; nguy&#xEA;n &#xE2;m d&#xE0;i (/i&#x2D0;/, /u&#x2D0;/, /&#x254;&#x2D0;/) ho&#x1EB7;c k&#x1EBF;t th&#xFA;c 2 ph&#x1EE5; &#xE2;m th&#x01B0;&#x1EDD;ng &#x111;&#x01B0;&#x1EE3;c nh&#x1EA5;n.<br><em>under<strong>STAND</strong> &middot; Japa<strong>NESE</strong> &middot; infor<strong>MA</strong>tion</em></div>
+<div class="geo-box"><strong>&#x1F3D7;&#xFE0F; &#x1EE8;ng d&#x1EE5;ng k&#x1EF9; thu&#x1EAD;t:</strong><br>Ph&#xE1;t &#xE2;m &#x111;&#xFA;ng t&#xEA;n chuy&#xEA;n ng&#xE0;nh khi thuy&#x1EBF;t tr&#xEC;nh:<br>in-ves-ti-<strong>GA</strong>-tion &middot; de-ter-mi-<strong>NA</strong>-tion &middot; e-<strong>VAL</strong>-u-ate &middot; <strong>SET</strong>-tle-ment</div>
+</div>
+
+</div>
+<div id="toast" class="toast"></div>
+<script>
+const prefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+function speakText(t,rate=0.85){
+    if(!("speechSynthesis" in window))return;
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(t);
+    u.lang="en-US";u.rate=rate;u.pitch=1.05;
+    const vv=window.speechSynthesis.getVoices();
+    for(let p of prefs){const v=vv.find(x=>x.name===p);if(v){u.voice=v;break;}}
+    window.speechSynthesis.speak(u);
+}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);}
+function showScore(id,correct,total){
+    const pct=Math.round(correct/total*100);
+    const color=pct>=90?"#16a34a":pct>=65?"#d97706":"#dc2626";
+    const msg=pct>=90?"&#x1F389; Xu&#x1EA5;t s&#x1EAF;c!":pct>=65?"&#x1F44D; Kh&#xE1; t&#x1ED1;t!":"&#x1F605; C&#x1EA7;n luy&#x1EC7;n th&#xEA;m!";
+    document.getElementById(id).innerHTML=`<div class="big-score" style="color:${color}">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%">${pct}%</div></div><div>${msg}</div><div style="margin-top:8px;color:#555">&#x110;&#xFA;ng: <strong>${correct}/${total}</strong></div>`;
+    document.getElementById(id).classList.add("show");
+}
+const ans1={e1_1:"interview",e1_2:"museum",e1_3:"magazine",e1_4:"definitely",e1_5:"american",e1_6:"politician",e1_7:"nationality",e1_8:"photography"};
+function checkEx1(){let c=0,t=8;for(let k in ans1){const v=document.getElementById(k).value.toLowerCase().trim();if(v===ans1[k])c++;}showScore("score1",c,t);showToast(c===t?"&#x2705; Ho&#xE0;n h&#x1EA3;o!":"&#x26A0;&#xFE0F; Xem l&#x1EA1;i IPA!");}
+function resetEx1(){for(let k in ans1)document.getElementById(k).value="";document.getElementById("score1").classList.remove("show");showToast("&#x1F504; L&#xE0;m l&#x1EA1;i!");}
+function revealEx1(){const full={e1_1:"interview",e1_2:"museum",e1_3:"magazine",e1_4:"definitely",e1_5:"American",e1_6:"politician",e1_7:"nationality",e1_8:"photography"};for(let k in full)document.getElementById(k).value=full[k];showToast("&#x1F441;&#xFE0F; &#x110;&#xE1;p &#xE1;n!");}
+
+const chips2=[
+    {word:"adjective",pat:"ooo"},{word:"cinema",pat:"ooo"},{word:"furniture",pat:"ooo"},{word:"grandmother",pat:"ooo"},{word:"alphabet",pat:"ooo"},
+    {word:"computer",pat:"ooo2"},{word:"remember",pat:"ooo2"},{word:"tomorrow",pat:"ooo2"},{word:"important",pat:"ooo2"},{word:"reception",pat:"ooo2"},
+    {word:"understand",pat:"ooo3"},{word:"Japanese",pat:"ooo3"},
+];
+let state2={};
+function buildChips2(){
+    state2={};
+    const area=document.getElementById("chips32");area.innerHTML="";
+    ["col_ooo","col_ooo2","col_ooo3"].forEach(id=>document.getElementById(id).innerHTML="");
+    chips2.forEach(item=>{
+        state2[item.word]=null;
+        const c=document.createElement("span");c.className="classify-chip";c.textContent=item.word;
+        c.onclick=()=>cycleChip2(c,item.word);area.appendChild(c);
+    });
+}
+function cycleChip2(chip,word){
+    speakText(word,.85);const cur=state2[word];
+    if(cur===null){state2[word]="ooo";chip.className="classify-chip sel-ooo";document.getElementById("col_ooo").appendChild(chip);}
+    else if(cur==="ooo"){state2[word]="ooo2";chip.className="classify-chip sel-ooo2";document.getElementById("col_ooo2").appendChild(chip);}
+    else if(cur==="ooo2"){state2[word]="ooo3";chip.className="classify-chip sel-ooo3";document.getElementById("col_ooo3").appendChild(chip);}
+    else{state2[word]=null;chip.className="classify-chip";document.getElementById("chips32").appendChild(chip);}
+}
+function checkEx2(){let c=0,t=chips2.length;chips2.forEach(item=>{if(state2[item.word]===item.pat)c++;});showScore("score2",c,t);showToast(c===t?"&#x1F389; Chu&#x1EA9;n!":"&#x26A0;&#xFE0F; Th&#x1EED; l&#x1EA1;i!");}
+function resetEx2(){buildChips2();document.getElementById("score2").classList.remove("show");showToast("&#x1F504; L&#xE0;m l&#x1EA1;i!");}
+
+const ans3={s1:"delicious",s1b:"Saturday",s2:"normally",s2b:"holiday",s2c:"bicycle",s3:"exercises",s3b:"yesterday",s4:"Sweden",s4b:"expensive",s5:"seventeen",s5b:"seventy"};
+function checkEx3(){let c=0,t=Object.keys(ans3).length;for(let k in ans3){const el=document.getElementById(k);if(el&&el.value===ans3[k])c++;}showScore("score3",c,t);showToast(c===t?"&#x2705; Xu&#x1EA5;t s&#x1EAF;c!":"&#x26A0;&#xFE0F; Xem l&#x1EA1;i!");}
+function resetEx3(){for(let k in ans3){const el=document.getElementById(k);if(el)el.value="";}document.getElementById("score3").classList.remove("show");showToast("&#x1F504; L&#xE0;m l&#x1EA1;i!");}
+function revealEx3(){for(let k in ans3){const el=document.getElementById(k);if(el)el.value=ans3[k];}showToast("&#x1F441;&#xFE0F; &#x110;&#xE1;p &#xE1;n!");}
+
+const months_ooo=["january","february"];
+const months_ooo2=["september","october","november","december"];
+function checkEx4(){
+    let c=0,t=6;
+    [document.getElementById("m1_1").value.toLowerCase().trim(),document.getElementById("m1_2").value.toLowerCase().trim()].forEach(v=>{if(months_ooo.includes(v))c++;});
+    [document.getElementById("m2_1").value.toLowerCase().trim(),document.getElementById("m2_2").value.toLowerCase().trim(),document.getElementById("m2_3").value.toLowerCase().trim()].forEach(v=>{if(months_ooo2.includes(v))c++;});
+    showScore("score4",c,t);
+}
+function resetEx4(){["m1_1","m1_2","m2_1","m2_2","m2_3"].forEach(id=>document.getElementById(id).value="");document.getElementById("score4").classList.remove("show");showToast("&#x1F504; L&#xE0;m l&#x1EA1;i!");}
+function revealEx4(){document.getElementById("m1_1").value="January";document.getElementById("m1_2").value="February";document.getElementById("m2_1").value="September";document.getElementById("m2_2").value="October";document.getElementById("m2_3").value="November / December";showToast("&#x1F441;&#xFE0F; &#x110;&#xE1;p &#xE1;n!");}
+
+const minimalSets=[
+    {word:"exercise",options:["Ooo","oOo","ooO"],correct:"Ooo"},
+    {word:"computer",options:["Ooo","oOo","ooO"],correct:"oOo"},
+    {word:"understand",options:["Ooo","oOo","ooO"],correct:"ooO"},
+    {word:"information",options:["Ooo","ooOo","oOoO","oooO"],correct:"ooOo"},
+    {word:"vocabulary",options:["Ooo","oOooo","oOoo","Oooo"],correct:"oOooo"},
+    {word:"photography",options:["Ooo","oOoo","ooO","oOo"],correct:"oOoo"},
+    {word:"communication",options:["oooOo","oOooo","Ooooo","ooOoo"],correct:"oooOo"},
+    {word:"supermarket",options:["Oooo","oOoo","ooO","oOoo"],correct:"Oooo"},
+];
+let minIdx=0;
+function showMinimal(){
+    const s=minimalSets[minIdx];
+    const shuffled=[...s.options].sort(()=>Math.random()-.5);
+    document.getElementById("minimalContainer").innerHTML=`<div style="background:#fff0f5;padding:15px;border-radius:8px;margin:15px 0;"><div style="font-weight:bold;margin-bottom:10px;">T&#x1EEB; <em>"${s.word}"</em> c&#xF3; pattern n&#xE0;o? <button class="speak-btn" onclick="speakText('${s.word}',0.7)">&#x1F50A; Nghe</button></div>${shuffled.map(opt=>`<label style="display:block;margin:8px 0;cursor:pointer;font-size:1.05em;letter-spacing:2px;"><input type="radio" name="minimal" value="${opt}"> ${opt}</label>`).join("")}</div>`;
+    setTimeout(()=>speakText(s.word,.7),400);
+}
+function checkMinimal(){const sel=document.querySelector("input[name='minimal']:checked")?.value||"";const ok=sel===minimalSets[minIdx].correct?1:0;showScore("scoreMinimal",ok,1);showToast(ok?"&#x2705; &#x110;&#xFA;ng!":"&#x274C; Sai! Pattern l&#xE0;: "+minimalSets[minIdx].correct);}
+function resetMinimal(){document.querySelectorAll("input[name='minimal']").forEach(r=>r.checked=false);document.getElementById("scoreMinimal").classList.remove("show");showMinimal();}
+function newMinimal(){minIdx=(minIdx+1)%minimalSets.length;document.getElementById("scoreMinimal").classList.remove("show");showMinimal();}
+
+window.addEventListener("load",()=>{window.speechSynthesis.getVoices();buildChips2();showMinimal();});
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(31)){c.push(31);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>

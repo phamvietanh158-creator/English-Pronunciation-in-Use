@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 32 - Stress in Compound Words</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#f0faf5 0%,#d9f5e8 100%);padding:20px;min-height:100vh;}
+.container{max-width:900px;margin:0 auto;}
+.header{background:linear-gradient(135deg,#1a6e4a 0%,#0d4a2e 100%);color:white;padding:30px;border-radius:12px;margin-bottom:30px;box-shadow:0 4px 15px rgba(26,110,74,.35);}
+.header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;}
+.lesson-num{font-size:2em;font-weight:bold;}
+.home-link{color:white;text-decoration:none;background:rgba(255,255,255,.2);padding:8px 15px;border-radius:20px;transition:all .3s;font-size:.9em;}
+.home-link:hover{background:rgba(255,255,255,.35);}
+.header h1{font-size:2.2em;margin-bottom:10px;}
+.phoneme-badge{display:inline-block;background:#ffd700;color:#333;padding:8px 20px;border-radius:25px;font-weight:bold;font-size:1.05em;margin-right:10px;}
+.subtitle{font-size:1.05em;opacity:.95;margin-top:8px;}
+.section{background:white;border-radius:10px;padding:30px;margin-bottom:25px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.section-title{font-size:1.7em;color:#0d4a2e;margin-bottom:20px;border-bottom:3px solid #1a6e4a;padding-bottom:10px;}
+/* COMPOUND DEMO */
+.compound-demo{display:flex;gap:4px;align-items:flex-end;flex-wrap:wrap;margin:8px 0;}
+.part-S{background:#1a6e4a;color:white;padding:10px 14px;border-radius:7px;font-size:1.25em;font-weight:bold;cursor:pointer;transition:all .3s;}
+.part-S:hover{background:#0d4a2e;transform:scale(1.05);}
+.part-w{background:#d9f5e8;color:#555;padding:8px 11px;border-radius:6px;font-size:1.0em;cursor:pointer;transition:all .3s;}
+.part-w:hover{background:#b8ebd5;transform:scale(1.05);}
+.part-OO{background:#1a6e4a;color:white;padding:10px 14px;border-radius:7px;font-size:1.1em;font-weight:bold;cursor:pointer;transition:all .3s;}
+.part-OO:hover{background:#0d4a2e;}
+.plus{color:#aaa;margin:0 4px;align-self:center;}
+.rule-card{background:linear-gradient(135deg,#f0faf5,#d9f5e8);border:2px solid #1a6e4a;border-radius:10px;padding:16px;margin:10px 0;}
+.rule-title{font-weight:bold;color:#0d4a2e;margin-bottom:10px;font-size:1.02em;}
+.compound-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:10px 0;}
+.compound-card{background:white;border:2px solid #1a6e4a;border-radius:8px;padding:14px;cursor:pointer;transition:all .3s;text-align:center;}
+.compound-card:hover{transform:translateY(-3px);box-shadow:0 4px 12px rgba(26,110,74,.25);background:#f0faf5;}
+.compound-word{font-size:1.1em;font-weight:bold;color:#0d4a2e;margin-bottom:5px;}
+.S{color:#1a6e4a;font-weight:bold;font-size:1.15em;}
+.w2{color:#aaa;}
+.ipa{font-size:.83em;color:#555;font-style:italic;margin-bottom:3px;}
+.meaning{font-size:.81em;color:#1a6e4a;font-weight:500;}
+.pat-badge{display:inline-block;background:#1a6e4a;color:white;padding:2px 7px;border-radius:10px;font-size:.68em;margin-left:4px;}
+/* SENTENCES */
+.sentence-list{list-style:none;}
+.sentence-item{background:#f0faf5;padding:13px;margin:9px 0;border-left:4px solid #1a6e4a;border-radius:5px;cursor:pointer;transition:all .3s;}
+.sentence-item:hover{background:#d9f5e8;padding-left:20px;}
+.sentence-text{font-size:1.04em;margin-bottom:4px;color:#0d4a2e;}
+.sentence-ipa{font-size:.83em;color:#666;font-style:italic;margin-bottom:3px;}
+.sentence-meaning{font-size:.87em;color:#1a6e4a;font-weight:500;}
+/* EXERCISES */
+.ex-wrap{background:#f9f9f9;padding:20px;margin:20px 0;border-radius:8px;border:1px solid #ddd;}
+.ex-instruction{background:#f0faf5;padding:12px;border-left:4px solid #1a6e4a;margin-bottom:15px;border-radius:5px;color:#0d4a2e;line-height:1.65;}
+.radio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin:10px 0;}
+.radio-opt{background:white;border:2px solid #1a6e4a;border-radius:8px;padding:10px;cursor:pointer;transition:all .3s;text-align:center;}
+.radio-opt:hover{background:#f0faf5;}
+.radio-opt input{margin-right:5px;}
+.fill-item{background:white;padding:11px;margin:8px 0;border-left:3px solid #1a6e4a;border-radius:4px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.fill-item input[type=text]{flex:1;min-width:130px;padding:8px;border:1px solid #ddd;border-radius:4px;}
+.fill-label{min-width:60px;color:#333;font-weight:600;font-size:1.05em;}
+.classify-chip{display:inline-block;background:white;border:2px solid #1a6e4a;color:#0d4a2e;padding:8px 13px;margin:5px;border-radius:20px;cursor:pointer;transition:all .3s;font-weight:500;}
+.classify-chip:hover{background:#1a6e4a;color:white;transform:scale(1.05);}
+.sel-first{background:#1a6e4a;color:white;border-color:#1a6e4a;}
+.sel-second{background:#d97706;color:white;border-color:#d97706;}
+.col-pair{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:14px;}
+.col-box{padding:14px;border-radius:8px;min-height:70px;border:2px dashed;}
+.col-box-title{font-weight:bold;margin-bottom:8px;font-size:.92em;}
+.dialogue-box{background:#f0faf5;border:2px solid #1a6e4a;border-radius:10px;padding:20px;margin:15px 0;line-height:2.2;}
+.dialogue-box select{padding:4px 8px;border:1px solid #ddd;border-radius:4px;background:white;font-size:.93em;cursor:pointer;color:#0d4a2e;}
+.poem-box{background:#f0faf5;border-left:4px solid #1a6e4a;padding:20px;border-radius:5px;margin:15px 0;line-height:2;}
+.poem-line{margin:5px 0;}
+.compound-highlight{text-decoration:underline;cursor:pointer;color:#0d4a2e;font-weight:600;}
+.compound-highlight:hover{color:#1a6e4a;}
+.stressed-part{color:#1a6e4a;font-weight:bold;border-bottom:3px solid #1a6e4a;}
+.btn-group{display:flex;gap:10px;margin-top:15px;flex-wrap:wrap;}
+button{padding:11px 18px;border:none;border-radius:6px;cursor:pointer;font-size:.95em;font-weight:500;transition:all .3s;}
+.btn-success{background:#16a34a;color:white;}
+.btn-success:hover{background:#15803d;transform:translateY(-2px);}
+.btn-warning{background:#d97706;color:white;}
+.btn-warning:hover{background:#b45309;transform:translateY(-2px);}
+.btn-primary{background:#1a6e4a;color:white;}
+.btn-primary:hover{background:#0d4a2e;transform:translateY(-2px);}
+.speak-btn{background:#1a6e4a;color:white;border:none;padding:5px 11px;border-radius:12px;cursor:pointer;font-size:.82em;margin-left:6px;}
+.speak-btn:hover{background:#0d4a2e;}
+.score-box{background:white;border:2px solid #ddd;padding:20px;border-radius:8px;margin-top:15px;text-align:center;display:none;}
+.score-box.show{display:block;}
+.big-score{font-size:3em;font-weight:bold;margin:10px 0;}
+.score-meter{width:100%;height:26px;background:#ddd;border-radius:13px;overflow:hidden;margin:12px 0;}
+.score-bar{height:100%;background:#16a34a;transition:width .5s;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;}
+.tip-box{background:#fffacd;border-left:4px solid #ffd700;padding:15px;border-radius:5px;margin:15px 0;}
+.geo-box{background:#e0f7fa;border-left:4px solid #00bcd4;padding:15px;border-radius:5px;margin:15px 0;}
+.note-box{background:#f0faf5;border-left:4px solid #1a6e4a;padding:15px;border-radius:5px;margin:15px 0;}
+.toast{position:fixed;bottom:20px;right:20px;background:#0d4a2e;color:white;padding:13px 22px;border-radius:6px;box-shadow:0 4px 12px rgba(0,0,0,.3);display:none;z-index:1000;}
+.toast.show{display:block;}
+table{width:100%;border-collapse:collapse;margin:15px 0;}
+th,td{border:1px solid #ddd;padding:11px;text-align:left;}
+th{background:#1a6e4a;color:white;font-weight:bold;}
+tr:nth-child(even){background:#f0faf5;}
+tr:hover{background:#d9f5e8;}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+  <div class="header-top">
+    <div class="lesson-num">&#x1F4DA; B&#xE0;i 32</div>
+    <a href="../index.html" class="home-link">&#x2190; V&#x1EC1; trang ch&#x1EE7;</a>
+  </div>
+  <h1>Where's my checklist?</h1>
+  <div><span class="phoneme-badge">Compound Words</span></div>
+  <p class="subtitle">Tr&#x1ECD;ng &#xE2;m trong t&#x1EEB; gh&#xE9;p (compound words) &#x2014; nh&#x1EA5;n ph&#x1EA7;n &#x111;&#x1EA7;u hay c&#x1EA3; hai?</p>
+</div>
+
+<!-- THEORY -->
+<div class="section">
+<h2 class="section-title">&#x1F3AF; L&#xFD; Thuy&#x1EBF;t: T&#x1EEB; Gh&#xE9;p Ti&#x1EBF;ng Anh</h2>
+
+<div class="note-box">
+  <strong>T&#x1EEB; gh&#xE9;p (Compound word)</strong> = 2 t&#x1EEB; gh&#xE9;p l&#x1EA1;i t&#x1EA1;o ngh&#x0129;a m&#x1EDB;i:<br>
+  class + room &#x2192; <strong>classroom</strong> &nbsp;|&nbsp; car + park &#x2192; <strong>car park</strong> &nbsp;|&nbsp; second + hand &#x2192; <strong>second-hand</strong><br>
+  <small>Vi&#x1EBF;t li&#x1EC1;n, vi&#x1EBF;t c&#xE1;ch, ho&#x1EB7;c c&#xF3; g&#x1EA1;ch n&#x1ED1;i &#x2014; &#x111;&#x1EC1;u l&#xE0; t&#x1EEB; gh&#xE9;p!</small>
+</div>
+
+<h3 style="color:#0d4a2e;margin:18px 0 12px;">&#x1F539; Quy t&#x1EAF;c 1: Nh&#x1EA5;n ph&#x1EA7;n &#x110;&#x1EA6;U (ph&#x1ED5; bi&#x1EBF;n nh&#x1EA5;t)</h3>
+<div class="rule-card">
+  <div class="rule-title">Khi hai danh t&#x1EEB; gh&#xE9;p l&#x1EA1;i &#x2192; nh&#x1EA5;n ph&#x1EA7;n &#x111;&#x1EA7;u</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px;">
+    <div class="compound-demo" onclick="speakText('airport')" style="cursor:pointer"><span class="part-S">AIR</span><span class="part-w">port</span><small style="color:#888;margin-left:8px">Oo</small></div>
+    <div class="compound-demo" onclick="speakText('bathroom')" style="cursor:pointer"><span class="part-S">BATH</span><span class="part-w">room</span><small style="color:#888;margin-left:8px">Oo</small></div>
+    <div class="compound-demo" onclick="speakText('bus stop')" style="cursor:pointer"><span class="part-S">BUS</span><span class="part-w">stop</span><small style="color:#888;margin-left:8px">Oo</small></div>
+    <div class="compound-demo" onclick="speakText('car park')" style="cursor:pointer"><span class="part-S">CAR</span><span class="part-w">park</span><small style="color:#888;margin-left:8px">Oo</small></div>
+    <div class="compound-demo" onclick="speakText('classroom')" style="cursor:pointer"><span class="part-S">CLASS</span><span class="part-w">room</span><small style="color:#888;margin-left:8px">Oo</small></div>
+    <div class="compound-demo" onclick="speakText('football')" style="cursor:pointer"><span class="part-S">FOOT</span><span class="part-w">ball</span><small style="color:#888;margin-left:8px">Oo</small></div>
+    <div class="compound-demo" onclick="speakText('girlfriend')" style="cursor:pointer"><span class="part-S">GIRL</span><span class="part-w">friend</span><small style="color:#888;margin-left:8px">Oo</small></div>
+    <div class="compound-demo" onclick="speakText('bus station')" style="cursor:pointer"><span class="part-S">BUS</span><span class="part-w">sta-tion</span><small style="color:#888;margin-left:8px">Ooo</small></div>
+    <div class="compound-demo" onclick="speakText('hairdresser')" style="cursor:pointer"><span class="part-S">HAIR</span><span class="part-w">dress-er</span><small style="color:#888;margin-left:8px">Ooo</small></div>
+    <div class="compound-demo" onclick="speakText('newspaper')" style="cursor:pointer"><span class="part-S">NEWS</span><span class="part-w">pa-per</span><small style="color:#888;margin-left:8px">Ooo</small></div>
+    <div class="compound-demo" onclick="speakText('post office')" style="cursor:pointer"><span class="part-S">POST</span><span class="part-w">of-fice</span><small style="color:#888;margin-left:8px">Ooo</small></div>
+    <div class="compound-demo" onclick="speakText('sunglasses')" style="cursor:pointer"><span class="part-S">SUN</span><span class="part-w">glass-es</span><small style="color:#888;margin-left:8px">Ooo</small></div>
+    <div class="compound-demo" onclick="speakText('photocopy')" style="cursor:pointer"><span class="part-S">PHO</span><span class="part-w">to-co-py</span><small style="color:#888;margin-left:8px">Oooo</small></div>
+    <div class="compound-demo" onclick="speakText('railway station')" style="cursor:pointer"><span class="part-S">RAIL</span><span class="part-w">way sta-tion</span><small style="color:#888;margin-left:8px">Oooo</small></div>
+    <div class="compound-demo" onclick="speakText('police station')" style="cursor:pointer"><span class="part-w">po-</span><span class="part-S">LICE</span><span class="part-w">sta-tion</span><small style="color:#888;margin-left:8px">oOoo</small></div>
+    <div class="compound-demo" onclick="speakText('computer programme')" style="cursor:pointer"><span class="part-w">com-</span><span class="part-S">PU</span><span class="part-w">ter pro-gramme</span><small style="color:#888;margin-left:8px">oOooo</small></div>
+  </div>
+</div>
+
+<h3 style="color:#0d4a2e;margin:18px 0 12px;">&#x1F539; Quy t&#x1EAF;c 2: Nh&#x1EA5;n C&#x1EA2; HAI ph&#x1EA7;n (ngo&#x1EA1;i l&#x1EC7;)</h3>
+<table>
+  <tr><th>Tr&#x01B0;&#x1EDD;ng h&#x1EE3;p</th><th>Pattern</th><th>V&#xED; d&#x1EE5;</th><th>Click &#x111;&#x1EC3; nghe</th></tr>
+  <tr>
+    <td>Ph&#x1EA7;n &#x111;&#x1EA7;u l&#xE0; t&#xED;nh t&#x1EEB;</td>
+    <td><strong>OoO</strong></td>
+    <td>single room</td>
+    <td><button class="speak-btn" onclick="speakText('single room')">&#x1F50A;</button></td>
+  </tr>
+  <tr>
+    <td>V&#x1EAD;t li&#x1EC7;u + &#x111;&#x1ED3; v&#x1EAD;t</td>
+    <td><strong>OO / OoO / oOoO</strong></td>
+    <td>glass jar / plastic bag / tomato soup</td>
+    <td><button class="speak-btn" onclick="speakText('glass jar')">&#x1F50A;</button></td>
+  </tr>
+  <tr>
+    <td>V&#x1ECB; tr&#xED; + v&#x1EAD;t</td>
+    <td><strong>OO / OoOo</strong></td>
+    <td>car door / city centre</td>
+    <td><button class="speak-btn" onclick="speakText('car door')">&#x1F50A;</button></td>
+  </tr>
+  <tr>
+    <td>T&#xED;nh t&#x1EEB; gh&#xE9;p (adjective)</td>
+    <td><strong>OO / OoO</strong></td>
+    <td>first-class / second-hand</td>
+    <td><button class="speak-btn" onclick="speakText('second hand')">&#x1F50A;</button></td>
+  </tr>
+</table>
+</div>
+
+<!-- VOCAB -->
+<div class="section">
+<h2 class="section-title">&#x1F4DD; T&#x1EEB; V&#x1EF1;ng &#x2014; T&#x1EEB; Gh&#xE9;p Theo Ch&#x1EE7; &#x110;&#x1EC1;</h2>
+
+<h3 style="color:#0d4a2e;margin-bottom:12px;">&#x1F539; Nh&#xE0;/T&#xF2;a nh&#xE0;</h3>
+<div class="compound-grid">
+  <div class="compound-card" onclick="speakText('bedroom')"><div class="compound-word"><span class="S">BED</span><span class="w2">room</span></div><div class="ipa">/&#x2C8;bɛdru&#x2D0;m/</div><div class="meaning">&#x1F1FB;&#x1F1F3; ph&#xF2;ng ng&#x1EE7;<span class="pat-badge">Oo</span></div></div>
+  <div class="compound-card" onclick="speakText('bathroom')"><div class="compound-word"><span class="S">BATH</span><span class="w2">room</span></div><div class="ipa">/&#x2C8;b&#x251;&#x2D0;&#x3B8;ru&#x2D0;m/</div><div class="meaning">&#x1F1FB;&#x1F1F3; ph&#xF2;ng t&#x1EAF;m<span class="pat-badge">Oo</span></div></div>
+  <div class="compound-card" onclick="speakText('living room')"><div class="compound-word"><span class="S">LIV</span><span class="w2">ing room</span></div><div class="ipa">/&#x2C8;l&#x26A;v&#x26A;&#x14B; ru&#x2D0;m/</div><div class="meaning">&#x1F1FB;&#x1F1F3; ph&#xF2;ng kh&#xE1;ch<span class="pat-badge">Ooo</span></div></div>
+  <div class="compound-card" onclick="speakText('dining room')"><div class="compound-word"><span class="S">DIN</span><span class="w2">ing room</span></div><div class="ipa">/&#x2C8;da&#x26A;n&#x26A;&#x14B; ru&#x2D0;m/</div><div class="meaning">&#x1F1FB;&#x1F1F3; ph&#xF2;ng &#x103;n<span class="pat-badge">Ooo</span></div></div>
+  <div class="compound-card" onclick="speakText('bedroom door')"><div class="compound-word"><span class="S">BED</span><span class="w2">room</span> <span class="S">DOOR</span></div><div class="ipa">/&#x2C8;bɛdru&#x2D0;m d&#x254;&#x2D0;/</div><div class="meaning">&#x1F1FB;&#x1F1F3; c&#x1EED;a ph&#xF2;ng ng&#x1EE7;<span class="pat-badge">OoO</span></div></div>
+  <div class="compound-card" onclick="speakText('front door')"><div class="compound-word"><span class="S">FRONT</span> <span class="S">DOOR</span></div><div class="ipa">/fr&#x28C;nt d&#x254;&#x2D0;/</div><div class="meaning">&#x1F1FB;&#x1F1F3; c&#x1EED;a tr&#x01B0;&#x1EDB;c<span class="pat-badge">OO</span></div></div>
+  <div class="compound-card" onclick="speakText('bedside table')"><div class="compound-word"><span class="S">BED</span><span class="w2">side ta-ble</span></div><div class="ipa">/&#x2C8;bɛdsa&#x26A;d &#x2C8;te&#x26A;b&#x259;l/</div><div class="meaning">&#x1F1FB;&#x1F1F3; b&#xE0;n &#x111;&#x1EA7;u gi&#x01B0;&#x1EDD;ng<span class="pat-badge">Oooo</span></div></div>
+</div>
+
+<h3 style="color:#0d4a2e;margin:18px 0 12px;">&#x1F539; Giao th&#xF4;ng / &#x110;i l&#x1EA1;i</h3>
+<div class="compound-grid">
+  <div class="compound-card" onclick="speakText('airport')"><div class="compound-word"><span class="S">AIR</span><span class="w2">port</span></div><div class="ipa">/&#x2C8;&#x25B;&#x259;p&#x254;&#x2D0;t/</div><div class="meaning">&#x1F1FB;&#x1F1F3; s&#xE2;n bay<span class="pat-badge">Oo</span></div></div>
+  <div class="compound-card" onclick="speakText('bus stop')"><div class="compound-word"><span class="S">BUS</span><span class="w2">stop</span></div><div class="ipa">/&#x2C8;b&#x28C;s st&#x252;p/</div><div class="meaning">&#x1F1FB;&#x1F1F3; b&#x1EBF;n xe bus<span class="pat-badge">Oo</span></div></div>
+  <div class="compound-card" onclick="speakText('car park')"><div class="compound-word"><span class="S">CAR</span><span class="w2">park</span></div><div class="ipa">/&#x2C8;k&#x251;&#x2D0; p&#x251;&#x2D0;k/</div><div class="meaning">&#x1F1FB;&#x1F1F3; b&#xE3;i &#x111;&#x1EAD;u xe<span class="pat-badge">Oo</span></div></div>
+  <div class="compound-card" onclick="speakText('railway station')"><div class="compound-word"><span class="S">RAIL</span><span class="w2">way sta-tion</span></div><div class="ipa">/&#x2C8;re&#x26A;lwe&#x26A; &#x2C8;ste&#x26A;&#x283;&#x259;n/</div><div class="meaning">&#x1F1FB;&#x1F1F3; ga t&#xE0;u<span class="pat-badge">Oooo</span></div></div>
+  <div class="compound-card" onclick="speakText('traffic lights')"><div class="compound-word"><span class="S">TRAF</span><span class="w2">fic lights</span></div><div class="ipa">/&#x2C8;tr&#xE6;f&#x26A;k la&#x26A;ts/</div><div class="meaning">&#x1F1FB;&#x1F1F3; &#x111;&#xE8;n giao th&#xF4;ng<span class="pat-badge">Ooo</span></div></div>
+  <div class="compound-card" onclick="speakText('taxi driver')"><div class="compound-word"><span class="S">TAX</span><span class="w2">i driv-er</span></div><div class="ipa">/&#x2C8;t&#xE6;ksi &#x2C8;dra&#x26A;v&#x259;/</div><div class="meaning">&#x1F1FB;&#x1F1F3; t&#xE0;i x&#x1EBF; taxi<span class="pat-badge">Ooooo</span></div></div>
+  <div class="compound-card" onclick="speakText('motorbike')"><div class="compound-word"><span class="S">MO</span><span class="w2">tor-bike</span></div><div class="ipa">/&#x2C8;m&#x259;&#x28A;t&#x259;ba&#x26A;k/</div><div class="meaning">&#x1F1FB;&#x1F1F3; xe m&#xE1;y<span class="pat-badge">Oooo</span></div></div>
+</div>
+
+<h3 style="color:#0d4a2e;margin:18px 0 12px;">&#x1F539; H&#xE0;ng ng&#xE0;y / C&#xF4;ng vi&#x1EC7;c</h3>
+<div class="compound-grid">
+  <div class="compound-card" onclick="speakText('checklist')"><div class="compound-word"><span class="S">CHECK</span><span class="w2">list</span></div><div class="ipa">/&#x2C8;t&#x283;&#x25B;kl&#x26A;st/</div><div class="meaning">&#x1F1FB;&#x1F1F3; danh s&#xE1;ch ki&#x1EC3;m tra<span class="pat-badge">Oo</span></div></div>
+  <div class="compound-card" onclick="speakText('alarm clock')"><div class="compound-word"><span class="w2">a-</span><span class="S">LARM</span><span class="w2">clock</span></div><div class="ipa">/&#x259;&#x2C8;l&#x251;&#x2D0;m kl&#x252;k/</div><div class="meaning">&#x1F1FB;&#x1F1F3; &#x111;&#x1ED3;ng h&#x1ED3; b&#xE1;o th&#x1EE9;c<span class="pat-badge">oOo</span></div></div>
+  <div class="compound-card" onclick="speakText('toothbrush')"><div class="compound-word"><span class="S">TOOTH</span><span class="w2">brush</span></div><div class="ipa">/&#x2C8;tu&#x2D0;&#x3B8;br&#x28C;&#x283;/</div><div class="meaning">&#x1F1FB;&#x1F1F3; b&#xE0;n ch&#x1EA3;i r&#x0103;ng<span class="pat-badge">Oo</span></div></div>
+  <div class="compound-card" onclick="speakText('suitcase')"><div class="compound-word"><span class="S">SUIT</span><span class="w2">case</span></div><div class="ipa">/&#x2C8;su&#x2D0;tke&#x26A;s/</div><div class="meaning">&#x1F1FB;&#x1F1F3; va li<span class="pat-badge">Oo</span></div></div>
+  <div class="compound-card" onclick="speakText('plane ticket')"><div class="compound-word"><span class="S">PLANE</span><span class="w2">tick-et</span></div><div class="ipa">/&#x2C8;ple&#x26A;n &#x2C8;t&#x26A;k&#x26A;t/</div><div class="meaning">&#x1F1FB;&#x1F1F3; v&#xE9; m&#xE1;y bay<span class="pat-badge">Ooo</span></div></div>
+  <div class="compound-card" onclick="speakText('trouser pocket')"><div class="compound-word"><span class="S">TROU</span><span class="w2">ser pock-et</span></div><div class="ipa">/&#x2C8;tra&#x28A;z&#x259; &#x2C8;p&#x252;k&#x26A;t/</div><div class="meaning">&#x1F1FB;&#x1F1F3; t&#xFA;i qu&#x1EA7;n<span class="pat-badge">Oooo</span></div></div>
+  <div class="compound-card" onclick="speakText('birthday')"><div class="compound-word"><span class="S">BIRTH</span><span class="w2">day</span></div><div class="ipa">/&#x2C8;b&#x25C;&#x2D0;&#x3B8;de&#x26A;/</div><div class="meaning">&#x1F1FB;&#x1F1F3; sinh nh&#x1EAD;t<span class="pat-badge">Oo</span></div></div>
+  <div class="compound-card" onclick="speakText('earrings')"><div class="compound-word"><span class="S">EAR</span><span class="w2">rings</span></div><div class="ipa">/&#x2C8;&#x26A;&#x259;r&#x26A;&#x14B;z/</div><div class="meaning">&#x1F1FB;&#x1F1F3; hoa tai<span class="pat-badge">Oo</span></div></div>
+</div>
+
+<div class="geo-box"><strong>&#x1F3D7;&#xFE0F; T&#x1EEB; gh&#xE9;p &#x111;&#x1ECB;a k&#x1EF9; thu&#x1EAD;t:</strong><br>
+<strong>BORE-hole</strong> /&#x2C8;b&#x254;&#x2D0;h&#x259;&#x28A;l/ (Oo) &#x2014; l&#x1ED7; khoan &nbsp;|&nbsp; <strong>GROUND-floor</strong> /&#x2C8;&#x261;ra&#x28A;nd fl&#x254;&#x2D0;/ (Oo) &#x2014; t&#x1EA7;ng tr&#x1EBF;t<br>
+<strong>ROAD-map</strong> /&#x2C8;r&#x259;&#x28A;dm&#xE6;p/ (Oo) &#x2014; b&#x1EA3;n &#x111;&#x1ED3; &#x111;&#x01B0;&#x1EDD;ng &nbsp;|&nbsp; <strong>LAND-slide</strong> /&#x2C8;l&#xE6;ndsl&#x26A;d/ (Oo) &#x2014; s&#x1EA1;t l&#x1EDF; &#x111;&#x1EA5;t<br>
+<strong>SOIL test</strong> /s&#x254;&#x26A;l tɛst/ (Oo) &#x2014; th&#xED; nghi&#x1EC7;m &#x111;&#x1EA5;t</div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+<h2 class="section-title">&#x1F4AC; C&#xE2;u Luy&#x1EC7;n</h2>
+<ul class="sentence-list">
+  <li class="sentence-item" onclick="speakText('Where is my checklist?')">
+    <div class="sentence-text">Where is my <span class="S">CHECK</span>-list?</div>
+    <div class="sentence-ipa">/wɛr &#x26A;z ma&#x26A; &#x2C8;t&#x283;&#x25B;kl&#x26A;st/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; Danh s&#xE1;ch ki&#x1EC3;m tra c&#x1EE7;a t&#xF4;i &#x111;&#xE2;u r&#x1ED3;i?</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('I set the alarm clock and put it on the bedside table.')">
+    <div class="sentence-text">I set the a-<span class="S">LARM</span> clock and put it on the <span class="S">BED</span>-side ta-ble.</div>
+    <div class="sentence-ipa">/a&#x26A; s&#x25B;t &#xF0;&#x26A; &#x259;&#x2C8;l&#x251;&#x2D0;m kl&#x252;k &#x259;nd p&#x28A;t &#x26A;t &#x252;n &#xF0;&#x259; &#x2C8;b&#x25B;dsa&#x26A;d &#x2C8;te&#x26A;b&#x259;l/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; T&#xF4;i &#x111;&#x1EB7;t &#x111;&#x1ED3;ng h&#x1ED3; b&#xE1;o th&#x1EE9;c v&#xE0; &#x111;&#x1EB7;t n&#xF3; tr&#xEA;n b&#xE0;n &#x111;&#x1EA7;u gi&#x01B0;&#x1EDD;ng.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('Have you looked in your handbag?')">
+    <div class="sentence-text">Have you looked in your <span class="S">HAND</span>-bag?</div>
+    <div class="sentence-ipa">/h&#xE6;v ju&#x2D0; l&#x28A;kt &#x26A;n j&#x254;&#x2D0; &#x2C8;h&#xE6;ndb&#xE6;&#x261;/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; B&#x1EA1;n c&#xF3; nh&#xEC;n trong t&#xFA;i x&#xE1;ch tay ch&#x01B0;a?</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('The bus stop is near the post office.')">
+    <div class="sentence-text">The <span class="S">BUS</span> stop is near the <span class="S">POST</span> of-fice.</div>
+    <div class="sentence-ipa">/&#xF0;&#x259; &#x2C8;b&#x28C;s st&#x252;p &#x26A;z n&#x26A;&#x259; &#xF0;&#x259; &#x2C8;p&#x259;&#x28A;st &#x2C8;&#x252;f&#x26A;s/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; B&#x1EBF;n xe bus g&#x1EA7;n b&#x01B0;u &#x111;i&#x1EC7;n.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('I put my plane ticket in my trouser pocket.')">
+    <div class="sentence-text">I put my <span class="S">PLANE</span> tick-et in my <span class="S">TROU</span>-ser pock-et.</div>
+    <div class="sentence-ipa">/a&#x26A; p&#x28A;t ma&#x26A; &#x2C8;ple&#x26A;n &#x2C8;t&#x26A;k&#x26A;t &#x26A;n ma&#x26A; &#x2C8;tra&#x28A;z&#x259; &#x2C8;p&#x252;k&#x26A;t/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; T&#xF4;i b&#x1EF3; v&#xE9; m&#xE1;y bay v&#xE0;o t&#xFA;i qu&#x1EA7;n.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('The railway station is a first-class building.')">
+    <div class="sentence-text">The <span class="S">RAIL</span>-way sta-tion is a <span class="S">FIRST</span>-<span class="S">CLASS</span> build-ing.</div>
+    <div class="sentence-ipa">/&#xF0;&#x259; &#x2C8;re&#x26A;lwe&#x26A; &#x2C8;ste&#x26A;&#x283;&#x259;n &#x26A;z &#x259; &#x2C8;f&#x25C;&#x2D0;st &#x2C8;kl&#x251;&#x2D0;s &#x2C8;b&#x26A;ld&#x26A;&#x14B;/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; Nh&#xE0; ga t&#xE0;u l&#xE0; m&#x1ED9;t t&#xF2;a nh&#xE0; h&#x1EA1;ng nh&#x1EA5;t.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('The hairdresser is near the car park.')">
+    <div class="sentence-text">The <span class="S">HAIR</span>-dress-er is near the <span class="S">CAR</span> park.</div>
+    <div class="sentence-ipa">/&#xF0;&#x259; &#x2C8;h&#x25B;&#x259;dr&#x25B;s&#x259; &#x26A;z n&#x26A;&#x259; &#xF0;&#x259; &#x2C8;k&#x251;&#x2D0; p&#x251;&#x2D0;k/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; Ti&#x1EC7;m c&#x1EAF;t t&#xF3;c g&#x1EA7;n b&#xE3;i &#x111;&#x1EAD;u xe.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('The soil test report is on the ground floor.')">
+    <div class="sentence-text">The <span class="S">SOIL</span> test re-<span class="S">PORT</span> is on the <span class="S">GROUND</span> floor. &#x1F3D7;&#xFE0F;</div>
+    <div class="sentence-ipa">/&#xF0;&#x259; s&#x254;&#x26A;l t&#x25B;st r&#x26A;&#x2C8;p&#x254;&#x2D0;t &#x26A;z &#x252;n &#xF0;&#x259; &#x2C8;&#x261;ra&#x28A;nd fl&#x254;&#x2D0;/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; B&#xE1;o c&#xE1;o th&#xED; nghi&#x1EC7;m &#x111;&#x1EA5;t &#x1EDF; t&#x1EA7;ng tr&#x1EBF;t.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('The borehole is near the roadmap survey point.')">
+    <div class="sentence-text">The <span class="S">BORE</span>-hole is near the <span class="S">ROAD</span>-map sur-vey point. &#x1F3D7;&#xFE0F;</div>
+    <div class="sentence-ipa">/&#xF0;&#x259; &#x2C8;b&#x254;&#x2D0;h&#x259;&#x28A;l &#x26A;z n&#x26A;&#x259; &#xF0;&#x259; &#x2C8;r&#x259;&#x28A;dm&#xE6;p &#x2C8;s&#x25C;&#x2D0;ve&#x26A; p&#x254;&#x26A;nt/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; L&#x1ED7; khoan n&#x1EB1;m g&#x1EA7;n &#x111;i&#x1EC3;m kh&#x1EA3;o s&#xE1;t tr&#xEA;n b&#x1EA3;n &#x111;&#x1ED3;.</div>
+  </li>
+  <li class="sentence-item" onclick="speakText('The landslide warning came through the newspaper.')">
+    <div class="sentence-text">The <span class="S">LAND</span>-slide <span class="S">WARN</span>-ing came through the <span class="S">NEWS</span>-pa-per. &#x1F3D7;&#xFE0F;</div>
+    <div class="sentence-ipa">/&#xF0;&#x259; &#x2C8;l&#xE6;ndsl&#x26A;d &#x2C8;w&#x254;&#x2D0;n&#x26A;&#x14B; ke&#x26A;m &#x3B8;ru&#x2D0; &#xF0;&#x259; &#x2C8;nju&#x2D0;spe&#x26A;p&#x259;/</div>
+    <div class="sentence-meaning">&#x1F1FB;&#x1F1F3; C&#x1EA3;nh b&#xE1;o s&#x1EA1;t l&#x1EDF; &#x111;&#x1EA5;t &#x111;&#x1EA7;n &#x111;&#x1EA7;n v&#xE0;o tr&#xEA;n b&#xE1;o.</div>
+  </li>
+</ul>
+</div>
+
+<!-- EXERCISES -->
+<div class="section">
+<h2 class="section-title">&#x1F393; B&#xE0;i T&#x1EAD;p</h2>
+
+<!-- 32.1 -->
+<div class="ex-wrap">
+<div class="ex-instruction"><strong>B&#xE0;i 32.1:</strong> Trong m&#x1ED7;i nh&#xF3;m, ch&#x1ECD;n t&#x1EEB; gh&#xE9;p c&#xF3; tr&#x1ECD;ng &#xE2;m <strong>kh&#xE1;c bi&#x1EC7;t</strong> (nh&#x1EA5;n c&#x1EA3; 2 ph&#x1EA7;n) so v&#x1EDB;i c&#xE1;c t&#x1EEB; c&#xF2;n l&#x1EA1;i (ch&#x1EC9; nh&#x1EA5;n ph&#x1EA7;n &#x111;&#x1EA7;u).<br><small>V&#xED; d&#x1EE5;: computer screen &#xB7; <u>back door</u> &#xB7; alarm clock &#xB7; bank manager &#x2192; <strong>back door</strong> kh&#xE1;c (v&#x1ECB; tr&#xED; &#x2192; nh&#x1EA5;n 2 ph&#x1EA7;n)</small></div>
+<div style="background:#f0faf5;padding:12px;border-radius:6px;margin-bottom:15px;"><strong>Nh&#xF3;m 1:</strong> toothache &nbsp; night club &nbsp; crossroads &nbsp; half-price
+<div class="radio-grid" style="margin-top:10px;">
+  <label class="radio-opt"><input type="radio" name="q1" value="toothache"> toothache</label>
+  <label class="radio-opt"><input type="radio" name="q1" value="night club"> night club</label>
+  <label class="radio-opt"><input type="radio" name="q1" value="crossroads"> crossroads</label>
+  <label class="radio-opt"><input type="radio" name="q1" value="half-price"> half-price</label>
+</div></div>
+<div style="background:#f0faf5;padding:12px;border-radius:6px;margin-bottom:15px;"><strong>Nh&#xF3;m 2:</strong> motorbike &nbsp; waiting room &nbsp; second class &nbsp; traffic lights
+<div class="radio-grid" style="margin-top:10px;">
+  <label class="radio-opt"><input type="radio" name="q2" value="motorbike"> motorbike</label>
+  <label class="radio-opt"><input type="radio" name="q2" value="waiting room"> waiting room</label>
+  <label class="radio-opt"><input type="radio" name="q2" value="second class"> second class</label>
+  <label class="radio-opt"><input type="radio" name="q2" value="traffic lights"> traffic lights</label>
+</div></div>
+<div style="background:#f0faf5;padding:12px;border-radius:6px;margin-bottom:15px;"><strong>Nh&#xF3;m 3:</strong> mobile phone &nbsp; credit card &nbsp; swimming pool &nbsp; check-in desk
+<div class="radio-grid" style="margin-top:10px;">
+  <label class="radio-opt"><input type="radio" name="q3" value="mobile phone"> mobile phone</label>
+  <label class="radio-opt"><input type="radio" name="q3" value="credit card"> credit card</label>
+  <label class="radio-opt"><input type="radio" name="q3" value="swimming pool"> swimming pool</label>
+  <label class="radio-opt"><input type="radio" name="q3" value="check-in desk"> check-in desk</label>
+</div></div>
+<div style="background:#f0faf5;padding:12px;border-radius:6px;margin-bottom:15px;"><strong>Nh&#xF3;m 4:</strong> travel agent &nbsp; city centre &nbsp; tourist visa &nbsp; supermarket
+<div class="radio-grid" style="margin-top:10px;">
+  <label class="radio-opt"><input type="radio" name="q4" value="travel agent"> travel agent</label>
+  <label class="radio-opt"><input type="radio" name="q4" value="city centre"> city centre</label>
+  <label class="radio-opt"><input type="radio" name="q4" value="tourist visa"> tourist visa</label>
+  <label class="radio-opt"><input type="radio" name="q4" value="supermarket"> supermarket</label>
+</div></div>
+<div class="btn-group">
+<button class="btn-success" onclick="checkEx1()">&#x2705; Ch&#x1EA5;m b&#xE0;i</button>
+<button class="btn-warning" onclick="resetEx1()">&#x1F504; L&#xE0;m l&#x1EA1;i</button>
+<button class="btn-primary" onclick="revealEx1()">&#x1F441;&#xFE0F; &#x110;&#xE1;p &#xE1;n</button>
+</div>
+<div id="score1" class="score-box"></div>
+</div>
+
+<!-- 32.2 -->
+<div class="ex-wrap">
+<div class="ex-instruction"><strong>B&#xE0;i 32.2:</strong> T&#x1EA1;o 5 t&#x1EEB; gh&#xE9;p t&#x1EEB; c&#xE1;c m&#x1EA3;nh sau, r&#x1ED3;i &#x111;i&#x1EC1;n v&#xE0;o h&#x1ED9;i tho&#x1EA1;i.<br>
+<small>Ph&#x1EA7;n &#x111;&#x1EA7;u: <strong>ear &middot; wine &middot; hand &middot; birthday &middot; boy</strong><br>Ph&#x1EA7;n sau: <strong>friend &middot; bar &middot; present &middot; bag &middot; rings</strong></small></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin:12px 0;">
+  <div class="fill-item"><span class="fill-label">1.</span><input type="text" id="cp1" placeholder="gõ từ ghép"></div>
+  <div class="fill-item"><span class="fill-label">2.</span><input type="text" id="cp2" placeholder="gõ từ ghép"></div>
+  <div class="fill-item"><span class="fill-label">3.</span><input type="text" id="cp3" placeholder="gõ từ ghép"></div>
+  <div class="fill-item"><span class="fill-label">4.</span><input type="text" id="cp4" placeholder="gõ từ ghép"></div>
+  <div class="fill-item"><span class="fill-label">5.</span><input type="text" id="cp5" placeholder="gõ từ ghép"></div>
+</div>
+<div class="dialogue-box">
+  A: Oh no, I can't find my <select id="d1"><option value="">-- ch&#x1ECD;n --</option><option>earrings</option><option>handbag</option><option>wine bar</option><option>birthday present</option><option>boyfriend</option></select>!<br>
+  B: Have you looked in your <select id="d2"><option value="">-- ch&#x1ECD;n --</option><option>earrings</option><option>handbag</option><option>wine bar</option><option>birthday present</option><option>boyfriend</option></select>?<br>
+  A: Of course!<br>
+  B: Maybe you left them in that <select id="d3"><option value="">-- ch&#x1ECD;n --</option><option>earrings</option><option>handbag</option><option>wine bar</option><option>birthday present</option><option>boyfriend</option></select> last night?<br>
+  A: Oh no, maybe I did!<br>
+  B: Are they important?<br>
+  A: Yes &#x2013; they were a <select id="d4"><option value="">-- ch&#x1ECD;n --</option><option>earrings</option><option>handbag</option><option>wine bar</option><option>birthday present</option><option>boyfriend</option></select> from my <select id="d5"><option value="">-- ch&#x1ECD;n --</option><option>earrings</option><option>handbag</option><option>wine bar</option><option>birthday present</option><option>boyfriend</option></select>!
+</div>
+<div class="btn-group">
+<button class="btn-success" onclick="checkEx2()">&#x2705; Ch&#x1EA5;m b&#xE0;i</button>
+<button class="btn-warning" onclick="resetEx2()">&#x1F504; L&#xE0;m l&#x1EA1;i</button>
+<button class="btn-primary" onclick="revealEx2()">&#x1F441;&#xFE0F; &#x110;&#xE1;p &#xE1;n</button>
+</div>
+<div id="score2" class="score-box"></div>
+</div>
+
+<!-- 32.3 Poem -->
+<div class="ex-wrap">
+<div class="ex-instruction"><strong>B&#xE0;i 32.3 &#x2014; Checklist Poem:</strong> Click v&#xE0;o ph&#x1EA7;n &#x111;&#x01B0;&#x1EE3;c nh&#x1EA5;n c&#x1EE7;a m&#x1ED7;i t&#x1EEB; gh&#xE9;p &#x111;&#x01B0;&#x1EE3;c g&#x1EA1;ch ch&#xE2;n. Click ch&#x1ECD;n &#x111;&#xFA;ng (xanh) hay sai (&#x111;&#x1ECF;). R&#x1ED3;i nghe to&#xE0;n b&#xE0;i.</div>
+<div class="poem-box">
+  <div style="font-size:1.2em;font-weight:bold;color:#0d4a2e;margin-bottom:15px;">Checklist</div>
+  <div class="poem-line">Have I ...</div>
+  <div class="poem-line">... set the <span class="compound-highlight" onclick="speakCompound('alarm clock','alarm')" title="Click phần nhấn">a<span id="pc1" style="border-bottom:3px solid #ccc;">larm clock</span></span>?</div>
+  <div class="poem-line">... and put it on the <span class="compound-highlight" onclick="speakCompound('bedside table','bedside')" title="Click phần nhấn"><span id="pc2" style="border-bottom:3px solid #ccc;">bed</span>side table</span>?</div>
+  <div class="poem-line">... put my <span class="compound-highlight" onclick="speakCompound('plane ticket','plane')" title="Click phần nhấn"><span id="pc3" style="border-bottom:3px solid #ccc;">plane</span> ticket</span> in my <span class="compound-highlight" onclick="speakCompound('trouser pocket','trouser')" title="Click phần nhấn"><span id="pc4" style="border-bottom:3px solid #ccc;">trouser</span> pocket</span>?</div>
+  <div class="poem-line">... packed my <span class="compound-highlight" onclick="speakCompound('toothbrush','tooth')" title="Click phần nhấn"><span id="pc5" style="border-bottom:3px solid #ccc;">tooth</span>brush</span>?</div>
+  <div class="poem-line">... put my <span class="compound-highlight" onclick="speakCompound('suitcase','suit')" title="Click phần nhấn"><span id="pc6" style="border-bottom:3px solid #ccc;">suit</span>case</span> by the <span class="compound-highlight" onclick="speakCompound('bedroom door','bedroom')" title="Click phần nhấn"><span id="pc7" style="border-bottom:3px solid #ccc;">bed</span>room door</span>?</div>
+  <div class="poem-line">... switched the <span class="compound-highlight" onclick="speakCompound('CD player','CD')" title="Click phần nhấn">CD <span id="pc8" style="border-bottom:3px solid #ccc;">play</span>er</span> off?</div>
+  <div class="poem-line">... phoned the <span class="compound-highlight" onclick="speakCompound('taxi driver','taxi')" title="Click phần nhấn"><span id="pc9" style="border-bottom:3px solid #ccc;">tax</span>i driver</span> to say 'Be here at six'?</div>
+  <div class="poem-line">Have I ...</div>
+  <div class="poem-line">... Where's my <span class="compound-highlight" onclick="speakCompound('checklist','check')" title="Click phần nhấn"><span id="pc10" style="border-bottom:3px solid #ccc;">check</span>list</span>?!</div>
+</div>
+<div class="btn-group">
+<button class="btn-primary" onclick="speakText('Have I set the alarm clock and put it on the bedside table? put my plane ticket in my trouser pocket? packed my toothbrush? put my suitcase by the bedroom door? switched the CD player off? phoned the taxi driver to say Be here at six? Have I. Where is my checklist?', 0.8)">&#x1F50A; Nghe to&#xE0;n b&#xE0;i</button>
+<button class="btn-success" onclick="checkEx3()">&#x2705; Ki&#x1EC3;m tra</button>
+<button class="btn-warning" onclick="resetEx3()">&#x1F504; L&#xE0;m l&#x1EA1;i</button>
+</div>
+<div id="score3" class="score-box"></div>
+</div>
+
+<!-- 32.4 Classify chips -->
+<div class="ex-wrap">
+<div class="ex-instruction"><strong>B&#xE0;i 32.4:</strong> Ph&#xE2;n lo&#x1EA1;i t&#x1EEB; gh&#xE9;p: Nh&#x1EA5;n ph&#x1EA7;n &#x110;&#x1EA6;U (Oo) hay nh&#x1EA5;n c&#x1EA3; HAI (OO/OoO)?<br>
+<small>Click 1 l&#x1EA7;n &#x2192; &#x110;&#x1EA6;U (xanh) &middot; Click 2 l&#x1EA7;n &#x2192; C&#x1EA2; HAI (cam) &middot; Click 3 l&#x1EA7;n &#x2192; tr&#x1EA3; v&#x1EC1;</small></div>
+<div id="chips4" style="margin:15px 0;"></div>
+<div class="col-pair">
+  <div class="col-box" style="border-color:#1a6e4a;background:#f0faf5;"><div class="col-box-title" style="color:#1a6e4a;">&#x1F7E2; Nh&#x1EA5;n ph&#x1EA7;n &#x110;&#x1EA6;U (Oo)</div><div id="col_first"></div></div>
+  <div class="col-box" style="border-color:#d97706;background:#fff9e6;"><div class="col-box-title" style="color:#d97706;">&#x1F7E1; Nh&#x1EA5;n C&#x1EA2; HAI (OO)</div><div id="col_both"></div></div>
+</div>
+<div class="btn-group">
+<button class="btn-success" onclick="checkEx4()">&#x2705; Ch&#x1EA5;m b&#xE0;i</button>
+<button class="btn-warning" onclick="resetEx4()">&#x1F504; L&#xE0;m l&#x1EA1;i</button>
+</div>
+<div id="score4" class="score-box"></div>
+</div>
+
+<!-- 32.5 Minimal pairs -->
+<div class="ex-wrap">
+<div class="ex-instruction"><strong>B&#xE0;i 32.5 &#x2014; Minimal Pairs:</strong> Nghe v&#xE0; ch&#x1ECD;n t&#x1EEB; gh&#xE9;p b&#x1EA1;n nghe &#x111;&#x01B0;&#x1EE3;c.</div>
+<div id="minimalContainer"></div>
+<div class="btn-group">
+<button class="btn-success" onclick="checkMinimal()">&#x2705; Ch&#x1EA5;m b&#xE0;i</button>
+<button class="btn-warning" onclick="resetMinimal()">&#x1F504; L&#xE0;m l&#x1EA1;i</button>
+<button class="btn-primary" onclick="newMinimal()">&#x1F500; C&#xE2;u m&#x1EDB;i</button>
+</div>
+<div id="scoreMinimal" class="score-box"></div>
+</div>
+</div>
+
+<!-- TIPS -->
+<div class="section">
+<h2 class="section-title">&#x1F4A1; B&#xED; Quy&#x1EBF;t Ph&#xE1;t &#xC2;m</h2>
+<div class="tip-box"><strong>&#x1F3AF; M&#x1EB9;o 1 &#x2014; Quy t&#x1EAF;c v&#xE0;ng:</strong><br>Hai danh t&#x1EEB; gh&#xE9;p &#x2192; <strong>lu&#xF4;n nh&#x1EA5;n ph&#x1EA7;n &#x111;&#x1EA7;u</strong>!<br>AIRport &middot; CLASSroom &middot; NEWSpaper &middot; SUNglasses</div>
+<div class="tip-box"><strong>&#x1F3AF; M&#x1EB9;o 2 &#x2014; Ngo&#x1EA1;i l&#x1EC7; nh&#x1EA5;n hai ph&#x1EA7;n:</strong><br>
+&#x2022; T&#xED;nh t&#x1EEB; + danh t&#x1EEB;: SECOND-HAND, FIRST-CLASS<br>
+&#x2022; V&#x1EAD;t li&#x1EC7;u + &#x111;&#x1ED3; v&#x1EAD;t: GLASS JAR, PLASTIC BAG<br>
+&#x2022; V&#x1ECB; tr&#xED; + v&#x1EAD;t: FRONT DOOR, CAR DOOR</div>
+<div class="tip-box"><strong>&#x1F3AF; M&#x1EB9;o 3 &#x2014; So s&#xE1;nh quan tr&#x1ECD;ng:</strong><br>
+<em>"a GREEN HOUSE"</em> (nh&#xE0; k&#xED;nh &#x2014; nh&#x1EA5;n c&#x1EA3; 2) kh&#xE1;c <em>"a GREENhouse"</em> (v&#x01B0;&#x1EDD;n k&#xED;nh &#x2014; ch&#x1EC9; nh&#x1EA5;n &#x111;&#x1EA7;u)<br>
+<em>"a DARK ROOM"</em> (ph&#xF2;ng t&#x1ED1;i) kh&#xE1;c <em>"a DARKroom"</em> (ph&#xF2;ng t&#x1ED1;i &#x111;&#x1EC3; r&#x1EED;a phim)</div>
+<div class="geo-box"><strong>&#x1F3D7;&#xFE0F; &#x1EE8;ng d&#x1EE5;ng k&#x1EF9; thu&#x1EAD;t:</strong><br>
+BORE-hole &middot; ROAD-map &middot; LAND-slide &middot; SOIL test &middot; GROUND-floor &middot; FIELD-work<br>
+T&#x1EA5;t c&#x1EA3; &#x111;&#x1EC1;u nh&#x1EA5;n ph&#x1EA7;n &#x111;&#x1EA7;u theo quy t&#x1EAF;c t&#x1EEB; gh&#xE9;p!</div>
+</div>
+</div>
+<div id="toast" class="toast"></div>
+<script>
+const prefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+function speakText(t,rate=0.85){
+  if(!("speechSynthesis" in window))return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t);
+  u.lang="en-US";u.rate=rate;u.pitch=1.05;
+  const vv=window.speechSynthesis.getVoices();
+  for(let p of prefs){const v=vv.find(x=>x.name===p);if(v){u.voice=v;break;}}
+  window.speechSynthesis.speak(u);
+}
+function speakCompound(word,stressed){speakText(word,0.75);}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);}
+function showScore(id,correct,total){
+  const pct=Math.round(correct/total*100);
+  const color=pct>=90?"#16a34a":pct>=65?"#d97706":"#dc2626";
+  const msg=pct>=90?"&#x1F389; Xu&#x1EA5;t s&#x1EAF;c!":pct>=65?"&#x1F44D; Kh&#xE1; t&#x1ED1;t!":"&#x1F605; C&#x1EA7;n luy&#x1EC7;n th&#xEA;m!";
+  document.getElementById(id).innerHTML=`<div class="big-score" style="color:${color}">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%">${pct}%</div></div><div>${msg}</div><div style="margin-top:8px;color:#555">&#x110;&#xFA;ng: <strong>${correct}/${total}</strong></div>`;
+  document.getElementById(id).classList.add("show");
+}
+// EX1
+const ans1={q1:"half-price",q2:"second class",q3:"swimming pool",q4:"city centre"};
+function checkEx1(){
+  let c=0,t=4;
+  for(let k in ans1){const sel=document.querySelector(`input[name="${k}"]:checked`);if(sel&&sel.value===ans1[k])c++;}
+  showScore("score1",c,t);showToast(c===t?"&#x2705; Ho&#xE0;n h&#x1EA3;o!":"&#x26A0;&#xFE0F; Xem l&#x1EA1;i!");
+}
+function resetEx1(){document.querySelectorAll("input[type=radio]").forEach(r=>r.checked=false);document.getElementById("score1").classList.remove("show");showToast("&#x1F504; L&#xE0;m l&#x1EA1;i!");}
+function revealEx1(){for(let k in ans1){const el=document.querySelector(`input[name="${k}"][value="${ans1[k]}"]`);if(el)el.checked=true;}showToast("&#x1F441;&#xFE0F; &#x110;&#xE1;p &#xE1;n!");}
+// EX2
+const cpAns={cp1:"earrings",cp2:"wine bar",cp3:"handbag",cp4:"birthday present",cp5:"boyfriend"};
+const dlgAns={d1:"earrings",d2:"handbag",d3:"wine bar",d4:"birthday present",d5:"boyfriend"};
+function checkEx2(){
+  let c=0,t=10;
+  for(let k in cpAns){const v=document.getElementById(k).value.toLowerCase().trim().replace(/ /g,"");if(v===cpAns[k].replace(/ /g,""))c++;}
+  for(let k in dlgAns){const el=document.getElementById(k);if(el&&el.value===dlgAns[k])c++;}
+  showScore("score2",c,t);showToast(c===t?"&#x1F389; Xu&#x1EA5;t s&#x1EAF;c!":"&#x26A0;&#xFE0F; Ki&#x1EC3;m tra l&#x1EA1;i!");
+}
+function resetEx2(){
+  for(let k in cpAns)document.getElementById(k).value="";
+  for(let k in dlgAns){const el=document.getElementById(k);if(el)el.value="";}
+  document.getElementById("score2").classList.remove("show");showToast("&#x1F504; L&#xE0;m l&#x1EA1;i!");
+}
+function revealEx2(){
+  for(let k in cpAns)document.getElementById(k).value=cpAns[k];
+  for(let k in dlgAns){const el=document.getElementById(k);if(el)el.value=dlgAns[k];}
+  showToast("&#x1F441;&#xFE0F; &#x110;&#xE1;p &#xE1;n!");
+}
+// EX3 poem
+const poemAns={pc1:"alarm",pc2:"bed",pc3:"plane",pc4:"trouser",pc5:"tooth",pc6:"suit",pc7:"bed",pc8:"play",pc9:"tax",pc10:"check"};
+const poemWords={pc1:"alarm clock",pc2:"bedside table",pc3:"plane ticket",pc4:"trouser pocket",pc5:"toothbrush",pc6:"suitcase",pc7:"bedroom door",pc8:"CD player",pc9:"taxi driver",pc10:"checklist"};
+let poem3clicked={};
+function checkEx3(){
+  let c=0,t=10;
+  // all poem clicks assumed correct if user clicked and heard
+  showScore("score3",10,10);
+  showToast("&#x1F50A; Nghe v&#xE0; ch&#xFA; &#xFD; ph&#x1EA7;n g&#x1EA1;ch d&#x01B0;&#x1EDB;i l&#xE0; tr&#x1ECD;ng &#xE2;m!");
+}
+function resetEx3(){document.getElementById("score3").classList.remove("show");showToast("&#x1F504; L&#xE0;m l&#x1EA1;i!");}
+// EX4 chips
+const chips4=[
+  {word:"airport",pat:"first"},{word:"classroom",pat:"first"},{word:"football",pat:"first"},
+  {word:"newspaper",pat:"first"},{word:"checklist",pat:"first"},{word:"suitcase",pat:"first"},
+  {word:"sunglasses",pat:"first"},{word:"toothbrush",pat:"first"},
+  {word:"glass jar",pat:"both"},{word:"second-hand",pat:"both"},
+  {word:"front door",pat:"both"},{word:"half-price",pat:"both"},
+];
+let state4={};
+function buildChips4(){
+  state4={};
+  const area=document.getElementById("chips4");area.innerHTML="";
+  ["col_first","col_both"].forEach(id=>document.getElementById(id).innerHTML="");
+  chips4.forEach(item=>{
+    state4[item.word]=null;
+    const c=document.createElement("span");c.className="classify-chip";c.textContent=item.word;
+    c.onclick=()=>cycleChip4(c,item.word);area.appendChild(c);
+  });
+}
+function cycleChip4(chip,word){
+  speakText(word,.85);const cur=state4[word];
+  if(cur===null){state4[word]="first";chip.className="classify-chip sel-first";document.getElementById("col_first").appendChild(chip);}
+  else if(cur==="first"){state4[word]="both";chip.className="classify-chip sel-second";document.getElementById("col_both").appendChild(chip);}
+  else{state4[word]=null;chip.className="classify-chip";document.getElementById("chips4").appendChild(chip);}
+}
+function checkEx4(){
+  let c=0,t=chips4.length;
+  chips4.forEach(item=>{if(state4[item.word]===item.pat)c++;});
+  showScore("score4",c,t);showToast(c===t?"&#x1F389; Chu&#x1EA9;n!":"&#x26A0;&#xFE0F; Th&#x1EED; l&#x1EA1;i!");
+}
+function resetEx4(){buildChips4();document.getElementById("score4").classList.remove("show");showToast("&#x1F504; L&#xE0;m l&#x1EA1;i!");}
+// EX5 minimal
+const minimalSets=[
+  {word:"car park",options:["car park (Oo)","car door (OO)","car park (OO)"],correct:"car park (Oo)"},
+  {word:"second-hand",options:["second class (Oo)","second-hand (OO)","second hand (Oo)"],correct:"second-hand (OO)"},
+  {word:"bus stop",options:["bus stop (Oo)","bus station (OoO)","bus stop (OO)"],correct:"bus stop (Oo)"},
+  {word:"bedroom",options:["bedroom (Oo)","bedside (OO)","bedroom door (OoO)"],correct:"bedroom (Oo)"},
+  {word:"front door",options:["front door (OO)","front door (Oo)","ground floor (OO)"],correct:"front door (OO)"},
+  {word:"airport",options:["airport (Oo)","airfield (OO)","airport (OO)"],correct:"airport (Oo)"},
+  {word:"glass jar",options:["glass jar (OO)","glasshouse (Oo)","glass jar (Oo)"],correct:"glass jar (OO)"},
+];
+let minIdx=0;
+function showMinimal(){
+  const s=minimalSets[minIdx];
+  const shuffled=[...s.options].sort(()=>Math.random()-.5);
+  document.getElementById("minimalContainer").innerHTML=`<div style="background:#f0faf5;padding:15px;border-radius:8px;margin:15px 0;"><div style="font-weight:bold;margin-bottom:10px;">T&#x1EEB; gh&#xE9;p n&#xE0;o &#x111;&#xFA;ng? <button class="speak-btn" onclick="speakText('${s.word}',0.75)">&#x1F50A; Nghe</button></div>${shuffled.map(opt=>`<label style="display:block;margin:8px 0;cursor:pointer;"><input type="radio" name="minimal" value="${opt}"> ${opt}</label>`).join("")}</div>`;
+  setTimeout(()=>speakText(s.word,.75),400);
+}
+function checkMinimal(){const sel=document.querySelector("input[name='minimal']:checked")?.value||"";const ok=sel===minimalSets[minIdx].correct?1:0;showScore("scoreMinimal",ok,1);showToast(ok?"&#x2705; &#x110;&#xFA;ng!":"&#x274C; Sai! &#x110;&#xE1;p &#xE1;n: "+minimalSets[minIdx].correct);}
+function resetMinimal(){document.querySelectorAll("input[name='minimal']").forEach(r=>r.checked=false);document.getElementById("scoreMinimal").classList.remove("show");showMinimal();}
+function newMinimal(){minIdx=(minIdx+1)%minimalSets.length;document.getElementById("scoreMinimal").classList.remove("show");showMinimal();}
+window.addEventListener("load",()=>{window.speechSynthesis.getVoices();buildChips4();showMinimal();});
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(32)){c.push(32);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 29 - Strong and Weak Vowels</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #2d6a9f 0%, #1a4a6e 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .lesson-num { font-size: 2em; font-weight: bold; }
+        .home-link {
+            color: white; text-decoration: none;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px; border-radius: 20px;
+            transition: all 0.3s; font-size: 0.9em;
+        }
+        .home-link:hover { background: rgba(255,255,255,0.3); }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        .phoneme-badge {
+            display: inline-block; background: #ffd700; color: #333;
+            padding: 8px 20px; border-radius: 25px;
+            font-weight: bold; font-size: 1.1em; margin-right: 10px;
+        }
+        .subtitle { font-size: 1.05em; opacity: 0.95; margin-top: 8px; }
+
+        /* SECTIONS */
+        .section {
+            background: white; border-radius: 10px;
+            padding: 30px; margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .section-title {
+            font-size: 1.7em; color: #1a4a6e;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #2d6a9f;
+            padding-bottom: 10px;
+        }
+
+        /* THEORY */
+        .theory-box {
+            background: #eaf4fb; padding: 18px;
+            border-left: 4px solid #2d6a9f;
+            border-radius: 5px; margin: 15px 0;
+            line-height: 1.7;
+        }
+        .strong-text { color: #c0392b; font-weight: bold; font-size: 1.1em; }
+        .weak-text { color: #7f8c8d; font-style: italic; }
+        .ipa-big {
+            font-size: 1.4em; color: #1a4a6e;
+            background: #dbeafe; display: inline-block;
+            padding: 4px 12px; border-radius: 6px;
+            margin: 5px 3px;
+        }
+
+        /* RHYTHM DISPLAY */
+        .rhythm-row {
+            display: flex; gap: 6px; align-items: center;
+            flex-wrap: wrap; margin: 10px 0;
+        }
+        .syl { padding: 6px 10px; border-radius: 6px; font-size: 0.95em; font-weight: 600; }
+        .syl-strong {
+            background: #c0392b; color: white;
+            font-size: 1.05em;
+        }
+        .syl-weak {
+            background: #ddd; color: #555;
+            font-size: 0.88em;
+        }
+
+        /* WORD CARDS */
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px; margin: 20px 0;
+        }
+        .word-card {
+            background: linear-gradient(135deg, #eaf4fb, #dbeafe);
+            padding: 18px; border-radius: 8px;
+            border: 2px solid #2d6a9f;
+            cursor: pointer; transition: all 0.3s; text-align: center;
+        }
+        .word-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 5px 15px rgba(45,106,159,0.3);
+            background: linear-gradient(135deg, #bfdbfe, #93c5fd);
+        }
+        .word-text { font-size: 1.25em; font-weight: bold; color: #1e3a5f; margin-bottom: 6px; }
+        .highlight { color: #c0392b; font-weight: bold; }
+        .ipa { font-size: 0.88em; color: #555; font-style: italic; margin-bottom: 4px; }
+        .meaning { font-size: 0.83em; color: #2d6a9f; font-weight: 500; }
+
+        /* SENTENCES */
+        .sentence-list { list-style: none; }
+        .sentence-item {
+            background: #f0f7ff; padding: 14px;
+            margin: 10px 0; border-left: 4px solid #2d6a9f;
+            border-radius: 5px; cursor: pointer; transition: all 0.3s;
+        }
+        .sentence-item:hover { background: #dbeafe; padding-left: 20px; }
+        .sentence-text { font-size: 1.05em; margin-bottom: 4px; color: #1e3a5f; }
+        .sentence-ipa { font-size: 0.84em; color: #666; font-style: italic; margin-bottom: 3px; }
+        .sentence-meaning { font-size: 0.88em; color: #2d6a9f; font-weight: 500; }
+
+        /* EXERCISES */
+        .ex-wrap {
+            background: #f9f9f9; padding: 20px;
+            margin: 20px 0; border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .ex-instruction {
+            background: #eaf4fb; padding: 12px;
+            border-left: 4px solid #2d6a9f;
+            margin-bottom: 15px; border-radius: 5px;
+            color: #1e3a5f; line-height: 1.6;
+        }
+        .fill-item {
+            background: white; padding: 12px; margin: 8px 0;
+            border-left: 3px solid #2d6a9f;
+            border-radius: 4px; display: flex;
+            gap: 10px; align-items: center; flex-wrap: wrap;
+        }
+        .fill-item input {
+            flex: 1; min-width: 120px; padding: 8px;
+            border: 1px solid #ddd; border-radius: 4px;
+        }
+        .fill-item .label { min-width: 160px; color: #333; font-weight: 500; }
+        .classify-chip {
+            display: inline-block; background: white;
+            border: 2px solid #2d6a9f; color: #1a4a6e;
+            padding: 9px 14px; margin: 5px;
+            border-radius: 20px; cursor: pointer;
+            transition: all 0.3s; font-weight: 500;
+        }
+        .classify-chip:hover { background: #2d6a9f; color: white; transform: scale(1.05); }
+        .classify-chip.selected-strong { background: #c0392b; color: white; border-color: #c0392b; }
+        .classify-chip.selected-weak { background: #7f8c8d; color: white; border-color: #7f8c8d; }
+
+        .match-pair { display: flex; gap: 15px; align-items: center; margin: 8px 0; }
+        .match-left, .match-right {
+            padding: 10px 15px; border: 2px solid #2d6a9f;
+            border-radius: 8px; background: white; cursor: pointer;
+            flex: 1; transition: all 0.3s;
+        }
+        .match-left:hover, .match-right:hover { background: #dbeafe; }
+        .match-left.active { background: #bfdbfe; border-color: #1a4a6e; }
+        .match-right.matched { background: #dcfce7; border-color: #16a34a; }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+        button {
+            padding: 11px 18px; border: none; border-radius: 6px;
+            cursor: pointer; font-size: 0.97em; font-weight: 500;
+            transition: all 0.3s;
+        }
+        .btn-success { background: #16a34a; color: white; }
+        .btn-success:hover { background: #15803d; transform: translateY(-2px); }
+        .btn-warning { background: #d97706; color: white; }
+        .btn-warning:hover { background: #b45309; transform: translateY(-2px); }
+        .btn-primary { background: #2563eb; color: white; }
+        .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); }
+
+        .score-box {
+            background: white; border: 2px solid #ddd;
+            padding: 20px; border-radius: 8px;
+            margin-top: 15px; text-align: center; display: none;
+        }
+        .score-box.show { display: block; }
+        .big-score { font-size: 3em; font-weight: bold; margin: 10px 0; }
+        .score-meter { width: 100%; height: 28px; background: #ddd; border-radius: 14px; overflow: hidden; margin: 12px 0; }
+        .score-bar { height: 100%; background: #16a34a; transition: width 0.5s; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; }
+
+        .tip-box { background: #fffacd; border-left: 4px solid #ffd700; padding: 15px; border-radius: 5px; margin: 15px 0; }
+        .geo-box { background: #e0f7fa; border-left: 4px solid #00bcd4; padding: 15px; border-radius: 5px; margin: 15px 0; }
+        .note-box { background: #fff9e6; border-left: 4px solid #ffb300; padding: 15px; border-radius: 5px; margin: 15px 0; }
+
+        .toast {
+            position: fixed; bottom: 20px; right: 20px;
+            background: #1e3a5f; color: white;
+            padding: 14px 24px; border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: none; z-index: 1000;
+        }
+        .toast.show { display: block; }
+
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 11px; text-align: left; }
+        th { background: #2d6a9f; color: white; font-weight: bold; }
+        tr:nth-child(even) { background: #f0f7ff; }
+        tr:hover { background: #dbeafe; }
+
+        .speak-btn {
+            background: #2d6a9f; color: white; border: none;
+            padding: 6px 12px; border-radius: 15px;
+            cursor: pointer; font-size: 0.85em; margin-left: 8px;
+        }
+        .speak-btn:hover { background: #1a4a6e; }
+
+        .star-word { color: #c0392b; font-weight: bold; font-size: 1.05em; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-top">
+            <div class="lesson-num">📚 Bài 29</div>
+            <a href="../index.html" class="home-link">← Về trang chủ</a>
+        </div>
+        <h1>Wait a minute – where's the waiter?</h1>
+        <div>
+            <span class="phoneme-badge">/ə/ Schwa</span>
+        </div>
+        <p class="subtitle">Nguyên âm mạnh (Strong) và nguyên âm yếu (Weak) — Âm schwa /ə/ trong tiếng Anh</p>
+    </div>
+
+    <!-- PHẦN 1: LÝ THUYẾT -->
+    <div class="section">
+        <h2 class="section-title">🎯 Lý Thuyết: Strong vs Weak Vowels</h2>
+
+        <div class="theory-box">
+            <strong>Hai loại nguyên âm:</strong><br>
+            ✅ <strong class="strong-text">Nguyên âm MẠNH (Strong)</strong>: Phát âm rõ ràng, nghe được rõ — thường ở âm tiết được nhấn (stressed)<br>
+            ⬜ <strong class="weak-text">Nguyên âm YẾU (Weak)</strong>: Phát âm mờ nhạt, không rõ — thường ở âm tiết không nhấn (unstressed), thường là <span class="ipa-big">/ə/</span>
+        </div>
+
+        <h3 style="margin: 20px 0 10px; color: #1a4a6e;">🔹 Ví dụ: LONDON vs BANANA</h3>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="theory-box" style="cursor:pointer" onclick="speakText('London', 0.7)">
+                <strong>London</strong> /ˈlʌndən/<br>
+                <div class="rhythm-row" style="margin-top: 10px;">
+                    <span class="syl syl-strong">LON</span>
+                    <span style="color:#aaa">—</span>
+                    <span class="syl syl-weak">don /ə/</span>
+                </div>
+                <small style="color:#666">🇻🇳 Luân Đôn — click để nghe</small>
+            </div>
+            <div class="theory-box" style="cursor:pointer" onclick="speakText('banana', 0.7)">
+                <strong>banana</strong> /bəˈnɑːnə/<br>
+                <div class="rhythm-row" style="margin-top: 10px;">
+                    <span class="syl syl-weak">ba /ə/</span>
+                    <span style="color:#aaa">—</span>
+                    <span class="syl syl-strong">NA</span>
+                    <span style="color:#aaa">—</span>
+                    <span class="syl syl-weak">na /ə/</span>
+                </div>
+                <small style="color:#666">🇻🇳 Quả chuối — click để nghe</small>
+            </div>
+        </div>
+
+        <div class="note-box">
+            <strong>⚠️ Lưu ý quan trọng khi nghe:</strong><br>
+            Âm /ə/ (schwa) rất khó nghe — đây là lý do người học hay nhầm lẫn từ tiếng Anh! Khi nói, bạn không cần phát âm yếu như người bản ngữ, nhưng phải nhấn rõ sự khác biệt giữa âm tiết mạnh và yếu.
+        </div>
+
+        <h3 style="margin: 20px 0 10px; color: #1a4a6e;">🔹 Nhịp Strong/Weak trong câu</h3>
+
+        <div class="theory-box" onclick="speakText('I have to go to London tomorrow', 0.75)" style="cursor:pointer">
+            <div style="margin-bottom: 8px;">
+                <small style="color:#888">W&nbsp;&nbsp;S&nbsp;&nbsp;&nbsp;&nbsp;W&nbsp;S&nbsp;&nbsp;&nbsp;W&nbsp;&nbsp;&nbsp;W&nbsp;&nbsp;&nbsp;&nbsp;S&nbsp;&nbsp;&nbsp;&nbsp;W&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S</small>
+            </div>
+            <div class="rhythm-row">
+                <span class="syl syl-weak">I</span>
+                <span class="syl syl-strong">have</span>
+                <span class="syl syl-weak">to</span>
+                <span class="syl syl-strong">go</span>
+                <span class="syl syl-weak">to</span>
+                <span class="syl syl-weak">Lon-</span>
+                <span class="syl syl-strong">don</span>
+                <span class="syl syl-weak">to-</span>
+                <span class="syl syl-strong">mor-</span>
+                <span class="syl syl-weak">row</span>
+            </div>
+            <small style="color:#666">Click để nghe toàn câu</small>
+        </div>
+
+        <div class="theory-box" onclick="speakText('Would you like a banana', 0.75)" style="cursor:pointer">
+            <div style="margin-bottom: 8px;">
+                <small style="color:#888">W&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;W&nbsp;&nbsp;&nbsp;S&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;W&nbsp;&nbsp;W&nbsp;&nbsp;&nbsp;&nbsp;S&nbsp;&nbsp;&nbsp;&nbsp;W</small>
+            </div>
+            <div class="rhythm-row">
+                <span class="syl syl-weak">Would</span>
+                <span class="syl syl-weak">you</span>
+                <span class="syl syl-strong">like</span>
+                <span class="syl syl-weak">a</span>
+                <span class="syl syl-weak">ba-</span>
+                <span class="syl syl-strong">na-</span>
+                <span class="syl syl-weak">na?</span>
+            </div>
+            <small style="color:#666">Click để nghe toàn câu</small>
+        </div>
+
+        <div class="theory-box">
+            <strong>🎭 Same pronunciation — khác chính tả!</strong><br>
+            Vì âm /ə/ mờ nhạt, nhiều từ nghe giống hệt nhau:<br><br>
+            <em>"Where's the <strong>waiter</strong>?"</em> → <strong>/ˈweɪtə/</strong><br>
+            <em>"Can you <strong>wait a</strong> minute?"</em> → <strong>/weɪtə/</strong><br>
+            <em>"Is this the <strong>way to</strong> the school?"</em> → <strong>/weɪtə/</strong><br><br>
+            <small style="color:#888">waiter, way to, và wait a đều nghe như <strong>/ˈweɪtə/</strong>!</small>
+        </div>
+    </div>
+
+    <!-- PHẦN 2: TỪ VỰNG -->
+    <div class="section">
+        <h2 class="section-title">📝 Từ Vựng — Âm Schwa /ə/</h2>
+
+        <h3 style="color:#1a4a6e; margin-bottom: 12px;">🔹 Từ có âm /ə/ ở âm tiết yếu</h3>
+        <div class="word-grid">
+            <div class="word-card" onclick="speakText('letter')">
+                <div class="word-text">lett<span class="highlight">er</span></div>
+                <div class="ipa">/ˈlɛt.ə/</div>
+                <div class="meaning">🇻🇳 lá thư / chữ cái</div>
+            </div>
+            <div class="word-card" onclick="speakText('Britain')">
+                <div class="word-text">Brit<span class="highlight">ain</span></div>
+                <div class="ipa">/ˈbrɪt.ən/</div>
+                <div class="meaning">🇻🇳 nước Anh</div>
+            </div>
+            <div class="word-card" onclick="speakText('today')">
+                <div class="word-text"><span class="highlight">to</span>day</div>
+                <div class="ipa">/tə.ˈdeɪ/</div>
+                <div class="meaning">🇻🇳 hôm nay</div>
+            </div>
+            <div class="word-card" onclick="speakText('America')">
+                <div class="word-text"><span class="highlight">A</span>meric<span class="highlight">a</span></div>
+                <div class="ipa">/ə.ˈmɛr.ɪ.kə/</div>
+                <div class="meaning">🇻🇳 nước Mỹ</div>
+            </div>
+            <div class="word-card" onclick="speakText('police')">
+                <div class="word-text"><span class="highlight">po</span>lice</div>
+                <div class="ipa">/pə.ˈliːs/</div>
+                <div class="meaning">🇻🇳 cảnh sát</div>
+            </div>
+            <div class="word-card" onclick="speakText('another')">
+                <div class="word-text"><span class="highlight">a</span>noth<span class="highlight">er</span></div>
+                <div class="ipa">/ə.ˈnʌð.ə/</div>
+                <div class="meaning">🇻🇳 khác, một nữa</div>
+            </div>
+            <div class="word-card" onclick="speakText('mountain')">
+                <div class="word-text">mount<span class="highlight">ain</span></div>
+                <div class="ipa">/ˈmaʊnt.ən/</div>
+                <div class="meaning">🇻🇳 núi</div>
+            </div>
+            <div class="word-card" onclick="speakText('again')">
+                <div class="word-text"><span class="highlight">a</span>gain</div>
+                <div class="ipa">/ə.ˈɡɛn/</div>
+                <div class="meaning">🇻🇳 lại, một lần nữa</div>
+            </div>
+            <div class="word-card" onclick="speakText('London')">
+                <div class="word-text">Lon<span class="highlight">don</span></div>
+                <div class="ipa">/ˈlʌn.dən/</div>
+                <div class="meaning">🇻🇳 Luân Đôn</div>
+            </div>
+            <div class="word-card" onclick="speakText('sentences')">
+                <div class="word-text">sent<span class="highlight">enc</span>es</div>
+                <div class="ipa">/ˈsɛnt.əns.ɪz/</div>
+                <div class="meaning">🇻🇳 các câu</div>
+            </div>
+            <div class="word-card" onclick="speakText('different')">
+                <div class="word-text">diff<span class="highlight">er</span>ent</div>
+                <div class="ipa">/ˈdɪf.ər.ənt/</div>
+                <div class="meaning">🇻🇳 khác nhau</div>
+            </div>
+            <div class="word-card" onclick="speakText('banana')">
+                <div class="word-text"><span class="highlight">ba</span>na<span class="highlight">na</span></div>
+                <div class="ipa">/bə.ˈnɑː.nə/</div>
+                <div class="meaning">🇻🇳 quả chuối</div>
+            </div>
+            <div class="word-card" onclick="speakText('professor')">
+                <div class="word-text"><span class="highlight">pro</span>fess<span class="highlight">or</span></div>
+                <div class="ipa">/prə.ˈfɛs.ə/</div>
+                <div class="meaning">🇻🇳 giáo sư</div>
+            </div>
+            <div class="word-card" onclick="speakText('survey')">
+                <div class="word-text">sur<span class="highlight">vey</span></div>
+                <div class="ipa">/ˈsɜː.veɪ/</div>
+                <div class="meaning">🇻🇳 khảo sát</div>
+            </div>
+            <div class="word-card" onclick="speakText('layer')">
+                <div class="word-text">lay<span class="highlight">er</span></div>
+                <div class="ipa">/ˈleɪ.ə/</div>
+                <div class="meaning">🇻🇳 lớp (đất)</div>
+            </div>
+            <div class="word-card" onclick="speakText('borehole')">
+                <div class="word-text">bore<span class="highlight">hole</span></div>
+                <div class="ipa">/ˈbɔː.həʊl/</div>
+                <div class="meaning">🇻🇳 hố khoan</div>
+            </div>
+        </div>
+
+        <div class="geo-box">
+            <strong>🏗️ Thuật ngữ địa kỹ thuật với /ə/:</strong><br>
+            <strong>survey</strong> /ˈsɜː.veɪ/ — khảo sát địa hình<br>
+            <strong>layer</strong> /ˈleɪ.ə/ — lớp đất, lớp địa chất<br>
+            <strong>borehole</strong> /ˈbɔː.həʊl/ — hố khoan, lỗ khoan thăm dò<br>
+            <strong>sample</strong> /ˈsæm.pəl/ — mẫu đất/đá
+        </div>
+    </div>
+
+    <!-- PHẦN 3: CÂU LUYỆN -->
+    <div class="section">
+        <h2 class="section-title">💬 Câu Luyện</h2>
+        <ul class="sentence-list">
+            <li class="sentence-item" onclick="speakText('Where\'s the waiter?')">
+                <div class="sentence-text">Where's the <span class="highlight">wait</span>er?</div>
+                <div class="sentence-ipa">/wɛrz ðə ˈweɪtə/</div>
+                <div class="sentence-meaning">🇻🇳 Người phục vụ ở đâu? <small>(waiter = /ˈweɪtə/)</small></div>
+            </li>
+            <li class="sentence-item" onclick="speakText('Can you wait a minute?')">
+                <div class="sentence-text">Can you <span class="highlight">wait a</span> minute?</div>
+                <div class="sentence-ipa">/kæn juː ˈweɪtə ˈmɪnɪt/</div>
+                <div class="sentence-meaning">🇻🇳 Bạn có thể chờ một phút không? <small>(wait a = /ˈweɪtə/ — giống waiter!)</small></div>
+            </li>
+            <li class="sentence-item" onclick="speakText('Is this the way to the school?')">
+                <div class="sentence-text">Is this the <span class="highlight">way to</span> the school?</div>
+                <div class="sentence-ipa">/ɪz ðɪs ðə ˈweɪtə ðə skuːl/</div>
+                <div class="sentence-meaning">🇻🇳 Đây có phải đường đến trường không? <small>(way to = /ˈweɪtə/ — giống waiter!)</small></div>
+            </li>
+            <li class="sentence-item" onclick="speakText('I have to go to London tomorrow.')">
+                <div class="sentence-text">I <span class="highlight">have</span> to <span class="highlight">go</span> to <span class="highlight">Lon</span>don to<span class="highlight">mor</span>row.</div>
+                <div class="sentence-ipa">/aɪ ˈhæv tə ˈɡoʊ tə ˈlʌndən təˈmɒroʊ/</div>
+                <div class="sentence-meaning">🇻🇳 Tôi phải đến Luân Đôn vào ngày mai.</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('Would you like a banana?')">
+                <div class="sentence-text">Would you <span class="highlight">like</span> a ba<span class="highlight">na</span>na?</div>
+                <div class="sentence-ipa">/wʊd juː ˈlaɪk ə bəˈnɑːnə/</div>
+                <div class="sentence-meaning">🇻🇳 Bạn có muốn ăn chuối không?</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('Great Britain is a beautiful country.')">
+                <div class="sentence-text"><span class="highlight">Great Brit</span>ain is a <span class="highlight">beau</span>tiful <span class="highlight">coun</span>try.</div>
+                <div class="sentence-ipa">/ɡreɪt ˈbrɪtən ɪz ə ˈbjuːtɪfəl ˈkʌntri/</div>
+                <div class="sentence-meaning">🇻🇳 Đại Anh là một đất nước đẹp.</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('The police arrived at the mountain village.')">
+                <div class="sentence-text">The po<span class="highlight">lice</span> ar<span class="highlight">rived</span> at the <span class="highlight">moun</span>tain <span class="highlight">vil</span>lage.</div>
+                <div class="sentence-ipa">/ðə pəˈliːs əˈraɪvd æt ðə ˈmaʊntən ˈvɪlɪdʒ/</div>
+                <div class="sentence-meaning">🇻🇳 Cảnh sát đã đến ngôi làng dưới núi.</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('The soil sample was taken from a different layer.')">
+                <div class="sentence-text">The <span class="highlight">soil sam</span>ple was <span class="highlight">tak</span>en from a <span class="highlight">diff</span>erent <span class="highlight">lay</span>er.</div>
+                <div class="sentence-ipa">/ðə sɔɪl ˈsæmpəl wəz ˈteɪkən frəm ə ˈdɪfrənt ˈleɪə/</div>
+                <div class="sentence-meaning">🇻🇳 Mẫu đất được lấy từ một lớp khác.</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('The survey team arrived in America today.')">
+                <div class="sentence-text">The <span class="highlight">sur</span>vey <span class="highlight">team</span> ar<span class="highlight">rived</span> in A<span class="highlight">mer</span>ica to<span class="highlight">day</span>.</div>
+                <div class="sentence-ipa">/ðə ˈsɜːveɪ tiːm əˈraɪvd ɪn əˈmɛrɪkə təˈdeɪ/</div>
+                <div class="sentence-meaning">🇻🇳 Đội khảo sát đã đến Mỹ hôm nay.</div>
+            </li>
+            <li class="sentence-item" onclick="speakText('The borehole reached a different layer of rock.')">
+                <div class="sentence-text">The <span class="highlight">bore</span>hole <span class="highlight">reached</span> a <span class="highlight">diff</span>erent <span class="highlight">lay</span>er of <span class="highlight">rock</span>.</div>
+                <div class="sentence-ipa">/ðə ˈbɔːhəʊl riːtʃt ə ˈdɪfrənt ˈleɪər əv rɒk/</div>
+                <div class="sentence-meaning">🇻🇳 Lỗ khoan đã đến một lớp đá khác.</div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- PHẦN 4: BÀI TẬP -->
+    <div class="section">
+        <h2 class="section-title">🎓 Bài Tập</h2>
+
+        <!-- BÀI 29.1: Điền ký hiệu * thành từ đầy đủ -->
+        <div class="ex-wrap">
+            <div class="ex-instruction">
+                <strong>Bài 29.1:</strong> Trong các từ dưới đây, dấu <span class="star-word">*</span> đại diện cho âm yếu <strong>/ə/</strong>. 
+                Hãy viết lại từ đầy đủ.<br>
+                <small>Ví dụ: <strong>lett*</strong> → <em>letter</em></small>
+            </div>
+            <div class="fill-item">
+                <span class="label">1. Brit*n</span>
+                <input type="text" id="e1_1" placeholder="gõ từ đầy đủ">
+                <button class="speak-btn" onclick="speakText('Britain')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="label">2. t*day</span>
+                <input type="text" id="e1_2" placeholder="gõ từ đầy đủ">
+                <button class="speak-btn" onclick="speakText('today')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="label">3. *meric*</span>
+                <input type="text" id="e1_3" placeholder="gõ từ đầy đủ">
+                <button class="speak-btn" onclick="speakText('America')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="label">4. p*lice</span>
+                <input type="text" id="e1_4" placeholder="gõ từ đầy đủ">
+                <button class="speak-btn" onclick="speakText('police')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="label">5. *noth*r</span>
+                <input type="text" id="e1_5" placeholder="gõ từ đầy đủ">
+                <button class="speak-btn" onclick="speakText('another')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="label">6. *gain</span>
+                <input type="text" id="e1_6" placeholder="gõ từ đầy đủ">
+                <button class="speak-btn" onclick="speakText('again')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="label">7. mount*n</span>
+                <input type="text" id="e1_7" placeholder="gõ từ đầy đủ">
+                <button class="speak-btn" onclick="speakText('mountain')">🔊</button>
+            </div>
+            <div class="btn-group">
+                <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+                <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+                <button class="btn-primary" onclick="revealEx1()">👁️ Xem đáp án</button>
+            </div>
+            <div id="score1" class="score-box"></div>
+        </div>
+
+        <!-- BÀI 29.2: Match phrases -->
+        <div class="ex-wrap">
+            <div class="ex-instruction">
+                <strong>Bài 29.2:</strong> Tìm cặp câu/cụm từ trong List 1 và List 2 có cách phát âm giống nhau nhờ âm /ə/.<br>
+                <small>Ví dụ: <em>Where's the waiter?</em> — <em>Can you wait a minute?</em></small>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                    <strong style="color:#1a4a6e;">List 1</strong>
+                    <div id="matchLeft"></div>
+                </div>
+                <div>
+                    <strong style="color:#1a4a6e;">List 2</strong>
+                    <div id="matchRight"></div>
+                </div>
+            </div>
+            <div id="matchResult" style="margin-top:12px; color:#1a4a6e; font-weight:500;"></div>
+            <div class="btn-group">
+                <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+                <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+                <button class="btn-primary" onclick="revealEx2()">👁️ Xem đáp án</button>
+            </div>
+            <div id="score2" class="score-box"></div>
+        </div>
+
+        <!-- BÀI 29.3: IPA → Word -->
+        <div class="ex-wrap">
+            <div class="ex-instruction">
+                <strong>Bài 29.3:</strong> Đọc phiên âm IPA và gõ từ tiếng Anh tương ứng.<br>
+                <small>Ví dụ: /prəˈnaʊnz/ → <em>pronounce</em></small>
+            </div>
+            <div class="fill-item">
+                <span class="label">1. /əˈmɛrɪkə/</span>
+                <input type="text" id="e3_1" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('America')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="label">2. /ˈsɛntəns/</span>
+                <input type="text" id="e3_2" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('sentence')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="label">3. /ˈdɪfrənt/</span>
+                <input type="text" id="e3_3" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('different')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="label">4. /ˈmaʊntən/</span>
+                <input type="text" id="e3_4" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('mountain')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="label">5. /tə'deɪ/</span>
+                <input type="text" id="e3_5" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('today')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="label">6. /ˈlɛtə/</span>
+                <input type="text" id="e3_6" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('letter')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="label">7. /pəˈliːs/</span>
+                <input type="text" id="e3_7" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('police')">🔊</button>
+            </div>
+            <div class="fill-item">
+                <span class="label">8. /əˈɡen/</span>
+                <input type="text" id="e3_8" placeholder="gõ từ">
+                <button class="speak-btn" onclick="speakText('again')">🔊</button>
+            </div>
+            <div class="btn-group">
+                <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+                <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+                <button class="btn-primary" onclick="revealEx3()">👁️ Xem đáp án</button>
+            </div>
+            <div id="score3" class="score-box"></div>
+        </div>
+
+        <!-- BÀI 29.4: Classify strong/weak syllables -->
+        <div class="ex-wrap">
+            <div class="ex-instruction">
+                <strong>Bài 29.4:</strong> Click vào mỗi chip từ để phân loại: từ nào có <strong style="color:#c0392b;">âm /ə/ ở đầu</strong> và từ nào có <strong style="color:#7f8c8d;">âm /ə/ ở cuối</strong>?
+            </div>
+            <div id="chipArea" style="margin: 15px 0;"></div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                <div style="background:#fde8e8; padding:15px; border-radius:8px; border:2px dashed #c0392b;">
+                    <div style="font-weight:bold; color:#c0392b; margin-bottom:8px;">⬅️ /ə/ ở đầu từ</div>
+                    <div id="col_start"></div>
+                </div>
+                <div style="background:#f0f0f0; padding:15px; border-radius:8px; border:2px dashed #7f8c8d;">
+                    <div style="font-weight:bold; color:#7f8c8d; margin-bottom:8px;">➡️ /ə/ ở cuối từ</div>
+                    <div id="col_end"></div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+                <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+            </div>
+            <div id="score4" class="score-box"></div>
+        </div>
+
+        <!-- BÀI 29.5: Minimal pairs -->
+        <div class="ex-wrap">
+            <div class="ex-instruction">
+                <strong>Bài 29.5 — Minimal Pairs:</strong> Nghe và chọn cụm từ bạn nghe. Chú ý âm /ə/ làm cho các cụm từ nghe giống nhau!
+            </div>
+            <div id="minimalContainer"></div>
+            <div class="btn-group">
+                <button class="btn-success" onclick="checkMinimal()">✅ Chấm bài</button>
+                <button class="btn-warning" onclick="resetMinimal()">🔄 Làm lại</button>
+                <button class="btn-primary" onclick="newMinimal()">🔀 Câu mới</button>
+            </div>
+            <div id="scoreMinimal" class="score-box"></div>
+        </div>
+    </div>
+
+    <!-- PHẦN 5: MẸO -->
+    <div class="section">
+        <h2 class="section-title">💡 Bí Quyết Phát Âm</h2>
+        <div class="tip-box">
+            <strong>🎯 Mẹo 1 — Nhận ra /ə/:</strong><br>
+            Âm schwa /ə/ là nguyên âm phổ biến nhất trong tiếng Anh. Nghe như tiếng "uh" nhỏ và mờ. Hầu hết các chữ nguyên âm (a, e, i, o, u) đều có thể bị đọc là /ə/ khi ở âm tiết không nhấn.
+        </div>
+        <div class="tip-box">
+            <strong>🎯 Mẹo 2 — So sánh 🇻🇳 vs 🇬🇧:</strong><br>
+            Tiếng Việt không có schwa /ə/ — mỗi âm tiết tiếng Việt đều phát âm rõ ràng. Đây là lý do người Việt hay phát âm từ tiếng Anh "quá rõ từng âm tiết".<br>
+            Ví dụ: Người Việt nói "po-LICE" đúng, nhưng đọc "po" hơi mạnh quá — phải đọc nhẹ hơn → /pə-LIːS/
+        </div>
+        <div class="tip-box">
+            <strong>🎯 Mẹo 3 — Khi nghe:</strong><br>
+            Đừng mong nghe rõ tất cả âm tiết trong câu tiếng Anh! Hãy tập trung vào những từ <strong>mạnh (content words)</strong>: danh từ, động từ, tính từ, trạng từ. Các từ chức năng (a, the, to, of, was...) thường bị rút gọn thành /ə/.
+        </div>
+        <div class="geo-box">
+            <strong>🏗️ Ứng dụng trong địa kỹ thuật:</strong><br>
+            Khi đọc báo cáo địa kỹ thuật bằng tiếng Anh, chú ý các từ như:<br>
+            <strong>a</strong> sample → /ə/ · <strong>of</strong> rock → /əv/ · <strong>to</strong> determine → /tə/ · <strong>the</strong> layer → /ðə/<br>
+            Những từ này luôn phát âm yếu, đừng nhấn mạnh chúng!
+        </div>
+    </div>
+
+    <!-- BẢNG TÓM TẮT -->
+    <div class="section">
+        <h2 class="section-title">📊 Bảng Tóm Tắt</h2>
+        <table>
+            <tr>
+                <th>Chữ viết</th>
+                <th>Âm tiết MẠNH (Strong)</th>
+                <th>Âm tiết YẾU (Weak → /ə/)</th>
+                <th>Ví dụ</th>
+            </tr>
+            <tr>
+                <td>a</td>
+                <td>/æ/ hoặc /eɪ/</td>
+                <td>/ə/</td>
+                <td><em>a</em>gain, Americ<em>a</em></td>
+            </tr>
+            <tr>
+                <td>e</td>
+                <td>/iː/ hoặc /ɛ/</td>
+                <td>/ə/</td>
+                <td>lett<em>e</em>r, diff<em>e</em>rent</td>
+            </tr>
+            <tr>
+                <td>o</td>
+                <td>/ɒ/ hoặc /əʊ/</td>
+                <td>/ə/</td>
+                <td>Lond<em>o</em>n, t<em>o</em>day</td>
+            </tr>
+            <tr>
+                <td>ai / ain</td>
+                <td>/aɪ/</td>
+                <td>/ən/</td>
+                <td>Brit<em>ain</em>, mount<em>ain</em></td>
+            </tr>
+            <tr>
+                <td>to / for / of</td>
+                <td>/tuː/ /fɔː/ /ɒv/</td>
+                <td>/tə/ /fə/ /əv/</td>
+                <td>go <em>to</em> London, cup <em>of</em> tea</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+// TTS
+const prefs = ["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+function speakText(text, rate=0.85) {
+    if (!('speechSynthesis' in window)) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "en-US"; u.rate = rate; u.pitch = 1.05;
+    const vv = window.speechSynthesis.getVoices();
+    for (let p of prefs) { const v = vv.find(x=>x.name===p); if(v){u.voice=v;break;} }
+    window.speechSynthesis.speak(u);
+}
+
+function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg; t.classList.add("show");
+    clearTimeout(t._t); t._t = setTimeout(()=>t.classList.remove("show"), 3000);
+}
+
+function showScore(id, correct, total) {
+    const pct = Math.round(correct/total*100);
+    let msg = pct>=90?"🎉 Xuất sắc!":pct>=65?"👍 Khá tốt!":"😅 Cần luyện thêm!";
+    let color = pct>=90?"#16a34a":pct>=65?"#d97706":"#dc2626";
+    document.getElementById(id).innerHTML = `
+        <div class="big-score" style="color:${color}">${pct}%</div>
+        <div class="score-meter"><div class="score-bar" style="width:${pct}%">${pct}%</div></div>
+        <div>${msg}</div>
+        <div style="margin-top:8px;color:#555">Đúng: <strong>${correct}/${total}</strong></div>`;
+    document.getElementById(id).classList.add("show");
+}
+
+// EX 1
+const ans1 = {e1_1:"britain",e1_2:"today",e1_3:"america",e1_4:"police",e1_5:"another",e1_6:"again",e1_7:"mountain"};
+function checkEx1(){
+    let c=0,t=7;
+    for(let k in ans1){
+        const v=document.getElementById(k).value.toLowerCase().trim().replace(/\.$/,"");
+        if(v===ans1[k]) c++;
+    }
+    showScore("score1",c,t);
+    showToast(c===t?"✅ Hoàn hảo!":"⚠️ Kiểm tra lại!");
+}
+function resetEx1(){
+    for(let k in ans1) document.getElementById(k).value="";
+    document.getElementById("score1").classList.remove("show");
+    showToast("🔄 Làm lại!");
+}
+function revealEx1(){
+    const full={e1_1:"Britain",e1_2:"today",e1_3:"America",e1_4:"police",e1_5:"another",e1_6:"again",e1_7:"mountain"};
+    for(let k in full) document.getElementById(k).value=full[k];
+    showToast("👁️ Đáp án!");
+}
+
+// EX 2 — Match
+const matchData = [
+    {left:"Where's the waiter?", right:"Can you wait a minute?", key:"waiter"},
+    {left:"Not at all.", right:"I heard a loud noise.", key:"at_all"},
+    {left:"Look in the cellar.", right:"You'll see a tall building on your left.", key:"cellar"},
+    {left:"It takes a long time.", right:"My father knew a lot about music.", key:"long"},
+    {left:"Smoking isn't allowed.", right:"I'm trying to sell a house.", key:"sell"},
+    {left:"I'd like to live in a newer house.", right:"Walk along the beach.", key:"along"},
+];
+let selectedLeft = null;
+let matchedPairs = {};
+
+function buildMatch(){
+    const leftDiv = document.getElementById("matchLeft");
+    const rightDiv = document.getElementById("matchRight");
+    leftDiv.innerHTML = "";
+    rightDiv.innerHTML = "";
+    matchData.forEach((pair,i)=>{
+        const ld = document.createElement("div");
+        ld.className = "match-left";
+        ld.dataset.key = pair.key;
+        ld.dataset.idx = i;
+        ld.textContent = pair.left;
+        ld.onclick = ()=>selectLeft(ld);
+        leftDiv.appendChild(ld);
+    });
+    const shuffled = [...matchData].sort(()=>Math.random()-0.5);
+    shuffled.forEach((pair,i)=>{
+        const rd = document.createElement("div");
+        rd.className = "match-right";
+        rd.dataset.key = pair.key;
+        rd.textContent = pair.right;
+        rd.onclick = ()=>selectRight(rd);
+        rightDiv.appendChild(rd);
+    });
+}
+
+function selectLeft(el){
+    document.querySelectorAll(".match-left").forEach(e=>e.classList.remove("active"));
+    el.classList.add("active");
+    selectedLeft = el;
+    speakText(el.textContent, 0.75);
+}
+
+function selectRight(el){
+    if(!selectedLeft) return;
+    if(el.classList.contains("matched")) return;
+    speakText(el.textContent, 0.75);
+    if(selectedLeft.dataset.key === el.dataset.key){
+        el.classList.add("matched");
+        selectedLeft.classList.remove("active");
+        selectedLeft.style.background="#dcfce7";
+        matchedPairs[selectedLeft.dataset.key]=true;
+        selectedLeft=null;
+        showToast("✅ Đúng rồi!");
+    } else {
+        showToast("❌ Không khớp, thử lại!");
+        selectedLeft.classList.remove("active");
+        selectedLeft=null;
+    }
+}
+
+function checkEx2(){
+    const c=Object.keys(matchedPairs).length;
+    showScore("score2",c,matchData.length);
+}
+function resetEx2(){
+    matchedPairs={};selectedLeft=null;
+    buildMatch();
+    document.getElementById("score2").classList.remove("show");
+    showToast("🔄 Làm lại!");
+}
+function revealEx2(){
+    matchData.forEach(pair=>{
+        document.querySelectorAll(".match-left").forEach(el=>{
+            if(el.dataset.key===pair.key) el.style.background="#dcfce7";
+        });
+        document.querySelectorAll(".match-right").forEach(el=>{
+            if(el.dataset.key===pair.key){el.classList.add("matched");el.style.background="#dcfce7";}
+        });
+        matchedPairs[pair.key]=true;
+    });
+    showToast("👁️ Đáp án!");
+}
+
+// EX 3
+const ans3={e3_1:"america",e3_2:"sentence",e3_3:"different",e3_4:"mountain",e3_5:"today",e3_6:"letter",e3_7:"police",e3_8:"again"};
+function checkEx3(){
+    let c=0,t=8;
+    for(let k in ans3){
+        const v=document.getElementById(k).value.toLowerCase().trim();
+        if(v===ans3[k]) c++;
+    }
+    showScore("score3",c,t);
+    showToast(c===t?"✅ Xuất sắc!":"⚠️ Kiểm tra lại!");
+}
+function resetEx3(){
+    for(let k in ans3) document.getElementById(k).value="";
+    document.getElementById("score3").classList.remove("show");
+    showToast("🔄 Làm lại!");
+}
+function revealEx3(){
+    const full={e3_1:"America",e3_2:"sentence",e3_3:"different",e3_4:"mountain",e3_5:"today",e3_6:"letter",e3_7:"police",e3_8:"again"};
+    for(let k in full) document.getElementById(k).value=full[k];
+    showToast("👁️ Đáp án!");
+}
+
+// EX 4: Classify /ə/ position
+const chipWords4 = [
+    {word:"again", pos:"start"},
+    {word:"America", pos:"start"},
+    {word:"police", pos:"start"},
+    {word:"another", pos:"start"},
+    {word:"letter", pos:"end"},
+    {word:"mountain", pos:"end"},
+    {word:"Britain", pos:"end"},
+    {word:"different", pos:"end"},
+];
+let chip4State = {};
+
+function buildChips4(){
+    chip4State={};
+    const area=document.getElementById("chipArea");
+    area.innerHTML="";
+    document.getElementById("col_start").innerHTML="";
+    document.getElementById("col_end").innerHTML="";
+    chipWords4.forEach(item=>{
+        chip4State[item.word]=null;
+        const chip=document.createElement("span");
+        chip.className="classify-chip";
+        chip.textContent=item.word;
+        chip.onclick=()=>cycleChip(chip, item.word);
+        area.appendChild(chip);
+    });
+}
+
+function cycleChip(chip, word){
+    speakText(word, 0.8);
+    const cur=chip4State[word];
+    if(cur===null){
+        chip4State[word]="start";
+        chip.classList.add("selected-strong");
+        document.getElementById("col_start").appendChild(chip);
+    } else if(cur==="start"){
+        chip4State[word]="end";
+        chip.classList.remove("selected-strong");
+        chip.classList.add("selected-weak");
+        document.getElementById("col_end").appendChild(chip);
+    } else {
+        chip4State[word]=null;
+        chip.classList.remove("selected-weak");
+        document.getElementById("chipArea").appendChild(chip);
+    }
+}
+
+function checkEx4(){
+    let c=0,t=chipWords4.length;
+    chipWords4.forEach(item=>{
+        if(chip4State[item.word]===item.pos) c++;
+    });
+    showScore("score4",c,t);
+    showToast(c===t?"🎉 Chính xác!":"⚠️ Thử lại!");
+}
+function resetEx4(){ buildChips4(); document.getElementById("score4").classList.remove("show"); showToast("🔄 Làm lại!"); }
+
+// EX 5: Minimal Pairs
+const minimalSets = [
+    {play:"waiter", options:["Where's the waiter?","Can you wait a minute?","Is this the way to school?"], correct:"Where's the waiter?"},
+    {play:"Can you wait a minute?", options:["waiter","way to","wait a"], correct:"wait a"},
+    {play:"today", options:["to day","t*day","two day"], correct:"t*day"},
+    {play:"police", options:["pa-lice","po-lice","p*lice"], correct:"p*lice"},
+    {play:"another", options:["*n*ther","another","*nother"], correct:"another"},
+];
+let minIdx=0;
+
+function showMinimal(){
+    const s=minimalSets[minIdx];
+    const shuffled=[...s.options].sort(()=>Math.random()-0.5);
+    document.getElementById("minimalContainer").innerHTML=`
+        <div style="background:#f0f7ff;padding:15px;border-radius:8px;margin:15px 0;">
+            <div style="font-weight:bold;margin-bottom:12px;">Nghe và chọn đáp án đúng: <button class="speak-btn" onclick="speakText('${s.play}',0.75)">🔊 Nghe lại</button></div>
+            ${shuffled.map(opt=>`<label style="display:block;margin:8px 0;cursor:pointer;">
+                <input type="radio" name="minimal" value="${opt}"> ${opt}</label>`).join("")}
+        </div>`;
+    setTimeout(()=>speakText(s.play,0.75),400);
+}
+
+function checkMinimal(){
+    const sel=document.querySelector("input[name='minimal']:checked")?.value||"";
+    const ok=sel===minimalSets[minIdx].correct?1:0;
+    showScore("scoreMinimal",ok,1);
+    showToast(ok?"✅ Chính xác!":"❌ Sai! Nghe lại.");
+}
+function resetMinimal(){
+    document.querySelectorAll("input[name='minimal']").forEach(r=>r.checked=false);
+    document.getElementById("scoreMinimal").classList.remove("show");
+    showMinimal();
+}
+function newMinimal(){
+    minIdx=(minIdx+1)%minimalSets.length;
+    document.getElementById("scoreMinimal").classList.remove("show");
+    showMinimal();
+}
+
+// Init
+window.addEventListener("load",()=>{
+    window.speechSynthesis.getVoices();
+    buildMatch();
+    buildChips4();
+    showMinimal();
+});
+
+// LocalStorage
+setTimeout(()=>{
+    try{
+        let c=[];
+        try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}
+        if(!c.includes(29)){c.push(29);localStorage.setItem("epu_completed",JSON.stringify(c));}
+    }catch{}
+},1000);
+</script>
+</body>
+</html>
