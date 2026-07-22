@@ -908,7 +908,8 @@ setTimeout(()=>{
     }catch{}
 },1000);
 </script>
-<button onclick="debugVoices()" style="position:fixed;bottom:10px;right:10px;background:#333;color:white;border:none;padding:4px 12px;border-radius:20px;font-size:10px;cursor:pointer;opacity:0.4;z-index:999;">🔍</button>
+
+<button onclick="debugVoices()" style="position:fixed;bottom:10px;right:10px;background:#333;color:white;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;z-index:999;opacity:0.6;">🔍</button>
 
 <script>
 function debugVoices() {
@@ -920,7 +921,7 @@ function debugVoices() {
         const mark = isGoogle ? '⭐ TỐT' : (isMS ? '📢' : '');
         console.log(`${i+1}. ${v.name} (${v.lang}) ${mark}`);
     });
-    alert(`Đã log ${vs.length} giọng vào Console. Mở F12 để xem!`);
+    alert(`Đã log ${vs.length} giọng vào Console. Mở F12 (nhấn F12) để xem!`);
 }
 
 // Tự động log khi load xong giọng
