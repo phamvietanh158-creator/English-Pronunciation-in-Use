@@ -550,7 +550,8 @@
 
 <script>
 let curUtt=null;
-function speakText(t,rate=0.85){
+/*
+    function speakText(t,rate=0.85){
     if(curUtt){speechSynthesis.cancel();curUtt=null;}
     if(!window.speechSynthesis) return;
     const u=new SpeechSynthesisUtterance(t.replace(/<[^>]*>/g,"").trim());
@@ -560,6 +561,51 @@ function speakText(t,rate=0.85){
     let v=null;for(const p of prefs){v=vs.find(x=>x.name.includes(p));if(v)break;}
     if(!v)v=vs.find(x=>x.lang.startsWith("en"));
     if(v)u.voice=v; curUtt=u; u.onend=()=>curUtt=null; speechSynthesis.speak(u);
+}
+*/
+    function speakText(text) {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-US';
+    utter.rate = 0.88;
+    utter.pitch = 1.0;
+    utter.volume = 1.0;
+
+    // 🔥 Lấy danh sách giọng và ưu tiên chọn giọng HAY NHẤT
+    const voices = window.speechSynthesis.getVoices();
+    
+    // Danh sách ưu tiên từ tốt nhất đến kém hơn
+    const priority = [
+        'Google US English',          // #1 - TỐT NHẤT
+        'Google UK English Female',   // #2
+        'Google UK English Male',     // #3
+        'Samantha',                   // #4 - Giọng Mac
+        'Karen',                      // #5 - Giọng Mac
+        'Moira',                      // #6 - Giọng Mac
+        'Microsoft Zira',             // #7 - Windows (dự phòng)
+        'Microsoft David',            // #8
+        'Microsoft Mark'              // #9
+    ];
+
+    let selectedVoice = null;
+    for (const name of priority) {
+        selectedVoice = voices.find(v => v.name === name);
+        if (selectedVoice) break;
+    }
+
+    // Nếu không có giọng nào trong danh sách, lấy giọng tiếng Anh bất kỳ
+    if (!selectedVoice) {
+        selectedVoice = voices.find(v => v.lang && v.lang.startsWith('en'));
+    }
+
+    if (selectedVoice) {
+        utter.voice = selectedVoice;
+        console.log('🔊 Đang dùng giọng:', selectedVoice.name);
+    }
+
+    window.speechSynthesis.speak(utter);
 }
 function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);}
 function showScore(id,correct,total,extra){
@@ -862,5 +908,27 @@ setTimeout(()=>{
     }catch{}
 },1000);
 </script>
+<button onclick="debugVoices()" style="position:fixed;bottom:10px;right:10px;background:#333;color:white;border:none;padding:4px 12px;border-radius:20px;font-size:10px;cursor:pointer;opacity:0.4;z-index:999;">🔍</button>
+
+<script>
+function debugVoices() {
+    const vs = window.speechSynthesis.getVoices();
+    console.log('=== DANH SÁCH GIỌNG TRÊN TRÌNH DUYỆT ===');
+    vs.forEach((v, i) => {
+        const isGoogle = v.name.includes('Google');
+        const isMS = v.name.includes('Microsoft');
+        const mark = isGoogle ? '⭐ TỐT' : (isMS ? '📢' : '');
+        console.log(`${i+1}. ${v.name} (${v.lang}) ${mark}`);
+    });
+    alert(`Đã log ${vs.length} giọng vào Console. Mở F12 để xem!`);
+}
+
+// Tự động log khi load xong giọng
+setTimeout(() => {
+    const vs = window.speechSynthesis.getVoices();
+    if (vs.length > 0) debugVoices();
+}, 500);
+</script>
+    
 </body>
 </html>
