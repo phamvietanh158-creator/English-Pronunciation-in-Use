@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 45 – Intonation in Storytelling</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#1a1a2e;line-height:1.6}
+
+.header{background:linear-gradient(135deg,#1a3a1a 0%,#2d6a2d 50%,#1a4a3a 100%);color:#fff;padding:32px 24px 28px;text-align:center}
+.header-label{font-size:13px;letter-spacing:3px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.header h1{font-size:clamp(18px,4vw,28px);font-weight:800;margin-bottom:4px}
+.header h2{font-size:clamp(13px,2.5vw,17px);font-weight:400;opacity:.85;margin-bottom:14px}
+.phoneme-badge{display:inline-block;background:#f5c518;color:#1a1a2e;font-weight:800;font-size:16px;padding:5px 18px;border-radius:20px;letter-spacing:1px;margin-bottom:10px}
+.header-sub{font-size:13px;opacity:.75}
+.home-link{display:inline-block;margin-top:14px;color:#f5c518;text-decoration:none;font-size:13px;border:1px solid rgba(245,197,24,.4);padding:5px 14px;border-radius:20px}
+.home-link:hover{background:rgba(245,197,24,.15)}
+
+.section{background:#fff;border-radius:14px;margin:20px auto;max-width:860px;padding:28px 24px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.section-title{font-size:17px;font-weight:800;color:#1a3a1a;border-left:4px solid #2d6a2d;padding-left:12px;margin-bottom:18px}
+
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:18px}
+.theory-card{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:10px;padding:16px;border-left:4px solid #16a34a}
+.theory-card h3{font-size:13px;font-weight:700;color:#14532d;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.theory-card p{font-size:13px;color:#333;line-height:1.5}
+
+.tip-box{background:#fffbeb;border-left:4px solid #f59e0b;border-radius:8px;padding:14px 16px;margin:14px 0;font-size:13px}
+.tip-box strong{color:#b45309}
+.geo-box{background:#f0fdfa;border-left:4px solid #14b8a6;border-radius:8px;padding:14px 16px;margin:14px 0;font-size:13px}
+.geo-box strong{color:#0f766e}
+.note-box{background:#f0fdf4;border:1px dashed #16a34a;border-radius:8px;padding:12px 14px;margin:10px 0;font-size:13px}
+
+/* Intonation arrows */
+.hl-bg{color:#dc2626;font-weight:700}   /* background clause – fall-rise */
+.hl-ev{color:#16a34a;font-weight:700}   /* main event – falling */
+.hl-add{color:#7c3aed}                   /* adverbial */
+
+/* Story sentences */
+.story-block{background:#f8fdf8;border-radius:10px;padding:18px;margin:12px 0;border-left:4px solid #16a34a}
+.story-block .sl-label{font-size:11px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.story-line{margin:6px 0;font-size:14px;line-height:1.7;cursor:pointer;padding:4px 8px;border-radius:6px;transition:.15s}
+.story-line:hover{background:#dcfce7}
+.story-line .arrow-fall{color:#dc2626;font-size:16px;vertical-align:middle}
+.story-line .arrow-rise{color:#16a34a;font-size:16px;vertical-align:middle}
+.story-line .arrow-fallrise{color:#f59e0b;font-size:16px;vertical-align:middle}
+
+/* Sentence list */
+.sentence-list{list-style:none;margin:10px 0}
+.sentence-list li{padding:12px 14px;border-radius:8px;margin:6px 0;cursor:pointer;border:1px solid #e5e7eb;transition:.2s}
+.sentence-list li:hover{background:#f0fdf4;border-color:#86efac}
+.sent-en{font-size:14px;font-weight:500;margin-bottom:3px}
+.sent-vi{font-size:12px;color:#666}
+.sent-note{font-size:11px;color:#16a34a;margin-top:2px;font-style:italic}
+
+/* Intonation pattern visual */
+.pattern-box{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;margin:12px 0}
+.pattern-title{font-size:12px;font-weight:700;color:#14532d;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.pattern-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:4px;margin:8px 0;padding:8px;background:#f9fafb;border-radius:8px}
+.pw{display:inline-flex;flex-direction:column;align-items:center;gap:2px;font-size:13px}
+.pw .arr{font-size:16px;line-height:1}
+.pw.bg-clause{color:#dc2626}
+.pw.event{color:#16a34a;font-weight:700}
+.pw.adv{color:#7c3aed}
+.pw.neutral{color:#9ca3af}
+
+/* Exercises */
+.ex-wrap{background:#f8fdf8;border-radius:12px;padding:20px;margin:14px 0;border:1px solid #d1fae5}
+.ex-title{font-size:14px;font-weight:800;color:#14532d;margin-bottom:6px}
+.ex-instruction{font-size:13px;color:#555;margin-bottom:14px;line-height:1.5}
+.dialogue-ex{background:#fff;border-radius:8px;padding:14px;margin:8px 0;border:1px solid #e5e7eb}
+.pair-label{font-size:11px;color:#16a34a;font-weight:700;margin-bottom:6px}
+
+.chip{display:inline-block;padding:5px 12px;border-radius:20px;font-size:13px;cursor:pointer;border:1.5px solid #86efac;background:#f0fdf4;transition:.2s;user-select:none;margin:4px}
+.chip:hover{background:#dcfce7}
+.chip.selected-bg{background:#fecaca;border-color:#f87171;color:#991b1b}
+.chip.selected-ev{background:#dcfce7;border-color:#16a34a;color:#14532d}
+.chip.selected-adv{background:#ede9fe;border-color:#7c3aed;color:#5b21b6}
+
+.fill-input{border:none;border-bottom:2px solid #16a34a;background:transparent;font-size:14px;padding:2px 6px;width:140px;outline:none;font-family:inherit}
+.fill-input.correct{border-color:#22c55e;background:#f0fdf4}
+.fill-input.wrong{border-color:#ef4444;background:#fef2f2}
+
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn-group button{padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;transition:.2s}
+.btn-success{background:#22c55e;color:#fff}.btn-success:hover{background:#16a34a}
+.btn-warning{background:#f59e0b;color:#fff}.btn-warning:hover{background:#d97706}
+.btn-danger{background:#ef4444;color:#fff}.btn-danger:hover{background:#dc2626}
+.btn-green{background:#16a34a;color:#fff}.btn-green:hover{background:#15803d}
+.btn-purple{background:#7c3aed;color:#fff}.btn-purple:hover{background:#6d28d9}
+
+.score-box{display:none;margin-top:12px;padding:14px;border-radius:10px;text-align:center}
+.score-box.show{display:block}
+.big-score{font-size:36px;font-weight:900;margin-bottom:4px}
+.score-label{font-size:14px;margin-bottom:8px}
+.score-meter{background:#e5e7eb;border-radius:10px;height:10px;margin:8px 0}
+.score-meter-fill{height:100%;border-radius:10px;transition:width .5s}
+.score-detail{font-size:13px;color:#555}
+
+/* Story card */
+.story-card{background:linear-gradient(135deg,#f0fdf4,#f8fdf8);border-radius:12px;padding:20px;margin:14px 0;border:1px solid #86efac;font-size:14px;line-height:2}
+.story-card .key{font-weight:700;text-decoration:underline wavy #16a34a}
+.story-card .event-word{color:#16a34a;font-weight:700}
+.story-card .bg-word{color:#dc2626}
+
+/* Radio */
+.radio-choice label{margin-right:12px;cursor:pointer;font-size:14px}
+.radio-choice input{margin-right:4px}
+
+/* Classify 3 col */
+.classify-area-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:12px 0}
+.classify-col{background:#fff;border-radius:10px;padding:12px;border:2px solid #e5e7eb;min-height:80px}
+.classify-col-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;text-align:center;padding:5px;border-radius:6px}
+.col-bg .classify-col-title{background:#fee2e2;color:#991b1b}
+.col-ev .classify-col-title{background:#dcfce7;color:#14532d}
+.col-adv .classify-col-title{background:#ede9fe;color:#5b21b6}
+.classify-drop{min-height:50px;display:flex;flex-wrap:wrap;gap:6px;padding:4px}
+
+/* Reorder */
+.reorder-area{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:#f9fafb;border-radius:8px;min-height:48px;margin:8px 0}
+.reorder-chip{padding:6px 14px;border-radius:20px;font-size:13px;cursor:grab;border:1.5px solid #86efac;background:#f0fdf4;user-select:none;transition:.2s}
+.reorder-chip:hover{background:#dcfce7;transform:scale(1.03)}
+.reorder-chip.dragging{opacity:.5}
+.reorder-slot{border-bottom:2px solid #16a34a;display:inline-block;min-width:100px;margin:0 4px;padding:2px 6px;text-align:center;font-size:14px;color:#14532d;font-weight:600}
+
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a3a1a;color:#fff;padding:10px 22px;border-radius:24px;font-size:13px;z-index:999;transition:transform .3s;opacity:0}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+.speak-btn{background:transparent;border:1px solid #86efac;color:#16a34a;border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer;margin-left:6px;vertical-align:middle}
+.speak-btn:hover{background:#dcfce7}
+
+.legend-row{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px}
+.legend-dot{width:12px;height:12px;border-radius:50%}
+
+@media(max-width:600px){
+  .classify-area-3{grid-template-columns:1fr}
+  .theory-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">📚 Bài 45</div>
+  <h1>And suddenly …</h1>
+  <h2>Intonation in Storytelling</h2>
+  <div class="phoneme-badge">↘ BG ↗ + EVENT ↘</div>
+  <div class="header-sub">Ngữ điệu trong kể chuyện – nền (fall-rise) & sự kiện chính (fall)</div>
+  <a href="../index.html" class="home-link">← Về trang chủ</a>
+</div>
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">📖 Lý thuyết: Ngữ điệu khi kể chuyện</div>
+
+  <div class="theory-grid">
+    <div class="theory-card">
+      <h3>🎬 Thông tin NỀN (Background)</h3>
+      <p>Dùng <strong>past continuous</strong> (was doing). Ngữ điệu <strong>lên-xuống ↗↘</strong> (fall-rise). Giọng chưa kết thúc, báo hiệu còn điều gì đó tiếp theo.</p>
+    </div>
+    <div class="theory-card">
+      <h3>⚡ Sự kiện CHÍNH (Main Event)</h3>
+      <p>Dùng <strong>past simple</strong> (saw, heard). Ngữ điệu <strong>xuống ↘</strong> (fall). Đây là điều bất ngờ/quan trọng trong câu chuyện.</p>
+    </div>
+    <div class="theory-card">
+      <h3>📍 Trạng ngữ thời gian</h3>
+      <p>Ví dụ: <em>on Tuesday, as usual, round about midnight, and suddenly</em>. Cũng dùng ngữ điệu <strong>fall-rise ↗↘</strong> như thông tin nền.</p>
+    </div>
+    <div class="theory-card">
+      <h3>🔑 Từ khóa: "And suddenly"</h3>
+      <p>Từ <strong>"suddenly"</strong> báo hiệu một sự kiện bất ngờ sắp xảy ra → nhấn mạnh, kéo dài, tạo kịch tính cho câu chuyện.</p>
+    </div>
+  </div>
+
+  <div class="legend-row">
+    <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div><span>Thông tin nền (BG) – fall-rise ↗↘</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#16a34a"></div><span>Sự kiện chính (EVENT) – fall ↘</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div><span>Trạng ngữ (ADV) – fall-rise ↗↘</span></div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Bí quyết:</strong> Hỏi: "<em>Đây là bối cảnh hay điều bất ngờ?</em>" — Bối cảnh (was doing) → giọng chưa dứt ↗↘. Sự kiện bất ngờ (saw/heard) → giọng xuống dứt khoát ↘. "And <strong>suddenly</strong>" luôn được kéo dài như hiệu ứng kịch tính!
+  </div>
+
+  <!-- Pattern visualization -->
+  <div class="pattern-box">
+    <div class="pattern-title">📊 Sơ đồ ngữ điệu – Câu kể chuyện điển hình</div>
+
+    <div style="font-size:13px;color:#555;margin-bottom:8px">Câu 1: <em>I was walking along the street one day, and I saw a wallet on the pavement.</em></div>
+    <div class="pattern-row">
+      <div class="pw bg-clause"><div class="arr">↗↘</div><div>I was walking</div></div>
+      <div class="pw bg-clause"><div class="arr">↗↘</div><div>along the street</div></div>
+      <div class="pw adv"><div class="arr">↗↘</div><div>one day</div></div>
+      <div class="pw neutral"><div class="arr">—</div><div>and</div></div>
+      <div class="pw event"><div class="arr">↘</div><div>I SAW</div></div>
+      <div class="pw event"><div class="arr">↘</div><div>a WALLET</div></div>
+      <div class="pw event"><div class="arr">↘</div><div>on the PAVEMENT</div></div>
+    </div>
+
+    <div style="font-size:13px;color:#555;margin-bottom:8px;margin-top:12px">Câu với trạng ngữ: <em>I was walking along the street one day, on Tuesday, I think, and I saw a wallet.</em></div>
+    <div class="pattern-row">
+      <div class="pw bg-clause"><div class="arr">↗↘</div><div>I was walking</div></div>
+      <div class="pw adv"><div class="arr">↗↘</div><div>one day</div></div>
+      <div class="pw adv"><div class="arr">↗↘</div><div>on Tuesday</div></div>
+      <div class="pw adv"><div class="arr">↗↘</div><div>I think</div></div>
+      <div class="pw neutral"><div class="arr">—</div><div>and</div></div>
+      <div class="pw event"><div class="arr">↘</div><div>I SAW</div></div>
+      <div class="pw event"><div class="arr">↘</div><div>a WALLET</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4 CÂU CỐT LÕI TỪ SÁCH -->
+<div class="section">
+  <div class="section-title">🎯 4 Câu mẫu từ sách (Click để nghe)</div>
+
+  <div class="story-block">
+    <div class="sl-label">Section A – Past Continuous + Past Simple</div>
+
+    <div class="story-line" onclick="speakText('I was walking along the street one day, and I saw a wallet on the pavement.',0.8)">
+      <span class="hl-bg">I was walking along the street</span> <span class="hl-add">one day</span>, and <span class="hl-ev">I saw a wallet on the pavement</span>.
+      <button class="speak-btn">🔊 0.8</button>
+      <button class="speak-btn" onclick="event.stopPropagation();speakText('I was walking along the street one day, and I saw a wallet on the pavement.',0.5)">🐢 0.5</button>
+    </div>
+
+    <div class="story-line" onclick="speakText('I was waiting for the bus yesterday, and I heard an explosion.',0.8)">
+      <span class="hl-bg">I was waiting for the bus</span> <span class="hl-add">yesterday</span>, and <span class="hl-ev">I heard an explosion</span>.
+      <button class="speak-btn">🔊 0.8</button>
+      <button class="speak-btn" onclick="event.stopPropagation();speakText('I was waiting for the bus yesterday, and I heard an explosion.',0.5)">🐢 0.5</button>
+    </div>
+
+    <div class="story-line" onclick="speakText('I was lying in bed last night, and I heard a knock at the door.',0.8)">
+      <span class="hl-bg">I was lying in bed</span> <span class="hl-add">last night</span>, and <span class="hl-ev">I heard a knock at the door</span>.
+      <button class="speak-btn">🔊 0.8</button>
+      <button class="speak-btn" onclick="event.stopPropagation();speakText('I was lying in bed last night, and I heard a knock at the door.',0.5)">🐢 0.5</button>
+    </div>
+
+    <div class="story-line" onclick="speakText('I was watching the news one night, and I saw myself in the shopping centre.',0.8)">
+      <span class="hl-bg">I was watching the news</span> <span class="hl-add">one night</span>, and <span class="hl-ev">I saw myself in the shopping centre</span>.
+      <button class="speak-btn">🔊 0.8</button>
+      <button class="speak-btn" onclick="event.stopPropagation();speakText('I was watching the news one night, and I saw myself in the shopping centre.',0.5)">🐢 0.5</button>
+    </div>
+  </div>
+
+  <div class="story-block">
+    <div class="sl-label">Section B – Với trạng ngữ bổ sung (on Tuesday / as usual / round about midnight / and suddenly)</div>
+
+    <div class="story-line" onclick="speakText('I was walking along the street one day, on Tuesday I think, and I saw a wallet on the pavement.',0.8)">
+      <span class="hl-bg">I was walking along the street</span> <span class="hl-add">one day</span>, <span class="hl-add">on Tuesday, I think</span>, and <span class="hl-ev">I saw a wallet on the pavement</span>.
+      <button class="speak-btn">🔊</button>
+    </div>
+
+    <div class="story-line" onclick="speakText('I was waiting for the bus yesterday, as usual, and suddenly I heard an explosion.',0.8)">
+      <span class="hl-bg">I was waiting for the bus</span> <span class="hl-add">yesterday</span>, <span class="hl-add">as usual</span>, and <span class="hl-ev">suddenly I heard an explosion</span>.
+      <button class="speak-btn">🔊</button>
+    </div>
+
+    <div class="story-line" onclick="speakText('I was lying in bed last night, round about midnight, and I heard a knock at the door.',0.8)">
+      <span class="hl-bg">I was lying in bed</span> <span class="hl-add">last night</span>, <span class="hl-add">round about midnight</span>, and <span class="hl-ev">I heard a knock at the door</span>.
+      <button class="speak-btn">🔊</button>
+    </div>
+
+    <div class="story-line" onclick="speakText('I was watching the news one night, and suddenly I saw myself in the shopping centre.',0.8)">
+      <span class="hl-bg">I was watching the news</span> <span class="hl-add">one night</span>, and <span class="hl-ev">suddenly I saw myself in the shopping centre</span>.
+      <button class="speak-btn">🔊</button>
+    </div>
+  </div>
+</div>
+
+<!-- THE VASE STORY -->
+<div class="section">
+  <div class="section-title">📖 Câu chuyện 45.1 – The Antique Vase (Click từng dòng để nghe)</div>
+
+  <div class="note-box">
+    🎭 Đây là câu chuyện kể dài từ bài 45.1–45.2 trong sách. Màu <span style="color:#dc2626;font-weight:700">đỏ</span> = thông tin nền / bối cảnh. Màu <span style="color:#16a34a;font-weight:700">xanh lá</span> = sự kiện chính, điểm nhấn.
+  </div>
+
+  <div class="story-card">
+    <div class="story-line" onclick="speakText('I was doing my shopping one day, as usual,',0.8)">
+      <span class="hl-bg">I was doing my <span class="key">shopping</span> one day,</span> <span class="hl-add">as usual,</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('and I was walking past the antique shop,',0.8)">
+      <span class="hl-bg">and I was walking past the <span class="key">antique</span> shop,</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('and I saw a beautiful old vase in the window,',0.8)">
+      and <span class="hl-ev">I <span class="event-word">saw</span> a beautiful old <span class="key">vase</span> in the window,</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('with red and blue and yellow flowers on it.',0.8)">
+      with red and blue and yellow <span class="key">flowers</span> on it. <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('And I stood there looking at this vase and thinking I'd really like to buy it,',0.8)">
+      And I stood there <span class="key">looking</span> at this vase and thinking I'd really like to <span class="key">buy</span> it, <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('and I went in and looked at it and asked about the price,',0.8)">
+      and I went in and <span class="hl-ev">looked</span> at it and asked about the <span class="key">price</span>, <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('but of course it was much too expensive.',0.8)">
+      but of course it was much too <span class="key">expensive</span>. <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('And I did the rest of my shopping and went back home.',0.8)">
+      And I did the rest of my <span class="hl-bg">shopping</span> and went back <span class="key">home</span>. <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('And a few days later I walked past the same shop',0.8)">
+      <span class="hl-add">And a few days <span class="key">later</span></span> I walked past the same <span class="key">shop</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('and noticed that the vase wasn't there,',0.8)">
+      and noticed that the vase wasn't <span class="key">there</span>, <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('and I thought that was the end of it.',0.8)">
+      and I thought that was the <span class="key">end</span> of it. <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('Anyway, a couple of weeks later it was my birthday',0.8)">
+      <span class="hl-add"><span class="key">Anyway</span>,</span> <span class="hl-add">a couple of weeks <span class="key">later</span></span> it was my <span class="key">birthday</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('and I had a little party for a few of my friends,',0.8)">
+      and <span class="hl-bg">I had a little <span class="key">party</span> for a few of my <span class="key">friends</span>,</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('and they arrived with a huge parcel and said, Happy Birthday!',0.8)">
+      and they <span class="hl-ev">arrived</span> with a huge <span class="key">parcel</span> and said, <span class="hl-ev">'Happy <span class="key">birthday</span>!'</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('We've got a really special present for you!',0.8)">
+      'We've got a really special <span class="key">present</span> for you!' <button class="speak-btn">🔊</button>
+    </div>
+    <div class="story-line" onclick="speakText('So I opened it and guess what, it was the vase from the antique shop!',0.8)">
+      So I <span class="hl-ev">opened</span> it and guess <span class="key">what</span>, it was the <span class="key">vase</span> from the <span class="key">antique</span> shop! <button class="speak-btn">🔊</button>
+    </div>
+  </div>
+</div>
+
+<!-- EXTRA SENTENCES -->
+<div class="section">
+  <div class="section-title">💬 Câu luyện thêm – Cuộc sống hàng ngày & Geotech</div>
+  <ul class="sentence-list">
+    <li onclick="speakText('I was cooking dinner last night, and suddenly the power went out.',0.8)">
+      <div class="sent-en"><span class="hl-bg">I was cooking dinner</span> <span class="hl-add">last night</span>, and <span class="hl-ev">suddenly the power went out</span>.</div>
+      <div class="sent-vi">Tôi đang nấu cơm tối qua, và đột nhiên điện tắt.</div>
+    </li>
+    <li onclick="speakText('I was riding my motorbike to work one morning, as usual, and suddenly a dog ran into the road.',0.8)">
+      <div class="sent-en"><span class="hl-bg">I was riding my motorbike to work</span> <span class="hl-add">one morning, as usual</span>, and <span class="hl-ev">suddenly a dog ran into the road</span>.</div>
+      <div class="sent-vi">Tôi đang đi xe máy đi làm một sáng như thường lệ, và bỗng dưng một con chó chạy ra đường.</div>
+    </li>
+    <li onclick="speakText('I was sitting in a cafe yesterday afternoon, and I saw my old teacher walk past.',0.8)">
+      <div class="sent-en"><span class="hl-bg">I was sitting in a cafe</span> <span class="hl-add">yesterday afternoon</span>, and <span class="hl-ev">I saw my old teacher walk past</span>.</div>
+      <div class="sent-vi">Tôi đang ngồi trong quán cà phê chiều qua, và tôi thấy thầy giáo cũ đi ngang.</div>
+    </li>
+    <li onclick="speakText('I was checking my phone one evening, and suddenly I got a message from an unknown number.',0.8)">
+      <div class="sent-en"><span class="hl-bg">I was checking my phone</span> <span class="hl-add">one evening</span>, and <span class="hl-ev">suddenly I got a message from an unknown number</span>.</div>
+      <div class="sent-vi">Tôi đang kiểm tra điện thoại một buổi tối, và đột nhiên nhận được tin nhắn từ số lạ.</div>
+    </li>
+    <li onclick="speakText('We were drilling the borehole last Tuesday, as usual, and suddenly we hit a hard rock layer.',0.8)">
+      <div class="sent-en"><span class="hl-bg">We were drilling the borehole</span> <span class="hl-add">last Tuesday, as usual</span>, and <span class="hl-ev">suddenly we hit a hard rock layer</span>.</div>
+      <div class="sent-vi">Chúng tôi đang khoan lỗ thứ Ba tuần trước như thường lệ, và bỗng gặp lớp đá cứng.</div>
+      <div class="sent-note">🏗️ Geotech: borehole, drill, rock layer</div>
+    </li>
+    <li onclick="speakText('The team was taking soil samples yesterday morning, and they discovered an unexpected gravel layer.',0.8)">
+      <div class="sent-en"><span class="hl-bg">The team was taking soil samples</span> <span class="hl-add">yesterday morning</span>, and <span class="hl-ev">they discovered an unexpected gravel layer</span>.</div>
+      <div class="sent-vi">Nhóm đang lấy mẫu đất sáng hôm qua, và họ phát hiện lớp sỏi không ngờ tới.</div>
+      <div class="sent-note">🏗️ Geotech: soil samples, gravel layer</div>
+    </li>
+    <li onclick="speakText('We were monitoring the settlement data one afternoon, round about three o'clock, and suddenly the readings spiked.',0.8)">
+      <div class="sent-en"><span class="hl-bg">We were monitoring the settlement data</span> <span class="hl-add">one afternoon, round about three o'clock</span>, and <span class="hl-ev">suddenly the readings spiked</span>.</div>
+      <div class="sent-vi">Chúng tôi đang theo dõi dữ liệu lún một chiều, khoảng 3 giờ, và đột nhiên số liệu tăng vọt.</div>
+      <div class="sent-note">🏗️ Geotech: settlement, monitoring, readings</div>
+    </li>
+  </ul>
+</div>
+
+<!-- EXERCISES -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- EX 45.1 – Phân loại BG vs EVENT -->
+  <div class="ex-wrap" id="ex451">
+    <div class="ex-title">Bài 45.1 – Phân loại: Nền (BG) hay Sự kiện (EVENT)?</div>
+    <div class="ex-instruction">Click vào mỗi cụm từ để phân loại: <span style="color:#dc2626;font-weight:700">Thông tin nền ↗↘</span> hay <span style="color:#16a34a;font-weight:700">Sự kiện chính ↘</span>?</div>
+
+    <div style="margin-bottom:10px;font-size:13px;color:#555">Từ câu: <em>"I was walking along the street one day, and I saw a wallet on the pavement."</em></div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+      <span class="chip" id="c451_walk" onclick="cycle451('walk')">I was walking along the street</span>
+      <span class="chip" id="c451_day" onclick="cycle451('day')">one day</span>
+      <span class="chip" id="c451_saw" onclick="cycle451('saw')">I saw a wallet</span>
+      <span class="chip" id="c451_pave" onclick="cycle451('pave')">on the pavement</span>
+    </div>
+
+    <div class="classify-area-3">
+      <div class="classify-col col-bg">
+        <div class="classify-col-title">🎬 Nền (BG) ↗↘</div>
+        <div class="classify-drop" id="drop451_bg"></div>
+      </div>
+      <div class="classify-col col-adv">
+        <div class="classify-col-title">📍 Trạng ngữ ↗↘</div>
+        <div class="classify-drop" id="drop451_adv"></div>
+      </div>
+      <div class="classify-col col-ev">
+        <div class="classify-col-title">⚡ Sự kiện (EVENT) ↘</div>
+        <div class="classify-drop" id="drop451_ev"></div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check451()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset451()">🔄 Làm lại</button>
+    </div>
+    <div id="score451" class="score-box"></div>
+  </div>
+
+  <!-- EX 45.2 – Điền trạng ngữ -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 45.2 – Điền trạng ngữ vào câu kể chuyện</div>
+    <div class="ex-instruction">Chọn trạng ngữ phù hợp từ hộp để điền vào chỗ trống. (Chú ý: trạng ngữ luôn dùng ngữ điệu ↗↘)</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;padding:10px;background:#f0fdf4;border-radius:8px">
+      <span style="font-size:13px;padding:4px 10px;background:#dcfce7;border-radius:12px">as usual</span>
+      <span style="font-size:13px;padding:4px 10px;background:#dcfce7;border-radius:12px">round about midnight</span>
+      <span style="font-size:13px;padding:4px 10px;background:#dcfce7;border-radius:12px">on Tuesday, I think</span>
+      <span style="font-size:13px;padding:4px 10px;background:#dcfce7;border-radius:12px">and suddenly</span>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1</div>
+      <div style="font-size:14px;line-height:2">I was walking along the street one day, <input class="fill-input" id="f452_1" placeholder="...">, and I saw a wallet on the pavement.</div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">2</div>
+      <div style="font-size:14px;line-height:2">I was waiting for the bus yesterday, <input class="fill-input" id="f452_2" placeholder="...">, and I heard an explosion.</div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">3</div>
+      <div style="font-size:14px;line-height:2">I was lying in bed last night, <input class="fill-input" id="f452_3" placeholder="...">, and I heard a knock at the door.</div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">4</div>
+      <div style="font-size:14px;line-height:2">I was watching the news one night, <input class="fill-input" id="f452_4" placeholder="...">, I saw myself in the shopping centre.</div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check452()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset452()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="reveal452()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score452" class="score-box"></div>
+  </div>
+
+  <!-- EX 45.3 – Choose BG or EVENT verb form -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 45.3 – Chọn dạng động từ đúng (BG hay EVENT?)</div>
+    <div class="ex-instruction">Chọn dạng động từ phù hợp. Nhớ: Thông tin nền → <strong>was/were + V-ing</strong>. Sự kiện chính → <strong>past simple</strong>.</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1. Bối cảnh:</div>
+      <div style="font-size:14px;margin:6px 0">
+        I <select id="s453_1" style="border:1px solid #86efac;border-radius:6px;padding:3px 6px;font-size:14px">
+          <option value="">--chọn--</option>
+          <option value="a">was reading</option>
+          <option value="b">read</option>
+        </select> a book when my phone rang.
+      </div>
+      <div class="sent-vi">Tôi ___ sách thì điện thoại reo.</div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">2. Sự kiện:</div>
+      <div style="font-size:14px;margin:6px 0">
+        I was walking home and suddenly I <select id="s453_2" style="border:1px solid #86efac;border-radius:6px;padding:3px 6px;font-size:14px">
+          <option value="">--chọn--</option>
+          <option value="a">was seeing</option>
+          <option value="b">saw</option>
+        </select> an accident.
+      </div>
+      <div class="sent-vi">Tôi đang đi bộ về nhà và đột nhiên tôi ___ tai nạn.</div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">3. Bối cảnh:</div>
+      <div style="font-size:14px;margin:6px 0">
+        We <select id="s453_3" style="border:1px solid #86efac;border-radius:6px;padding:3px 6px;font-size:14px">
+          <option value="">--chọn--</option>
+          <option value="a">were drilling</option>
+          <option value="b">drilled</option>
+        </select> the borehole, as usual, and suddenly we hit rock.
+      </div>
+      <div class="sent-vi">Chúng tôi ___ lỗ khoan, như thường lệ, và đột nhiên gặp đá. 🏗️</div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">4. Sự kiện:</div>
+      <div style="font-size:14px;margin:6px 0">
+        I was monitoring the settlement data and suddenly the readings <select id="s453_4" style="border:1px solid #86efac;border-radius:6px;padding:3px 6px;font-size:14px">
+          <option value="">--chọn--</option>
+          <option value="a">were spiking</option>
+          <option value="b">spiked</option>
+        </select>.
+      </div>
+      <div class="sent-vi">Tôi đang theo dõi dữ liệu lún và đột nhiên số liệu ___. 🏗️</div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check453()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset453()">🔄 Làm lại</button>
+    </div>
+    <div id="score453" class="score-box"></div>
+  </div>
+
+  <!-- EX 45.4 – Sắp xếp câu kể chuyện -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 45.4 – Sắp xếp thứ tự câu chuyện</div>
+    <div class="ex-instruction">Kéo hoặc click để sắp xếp các mảnh câu thành câu kể chuyện hoàn chỉnh theo đúng thứ tự: <em>BG → ADV → EVENT</em>.</div>
+
+    <div id="reorder454" style="display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;padding:12px;background:#f9fafb;border-radius:8px">
+      <span class="reorder-chip" id="rchip_1">I saw a wallet on the pavement</span>
+      <span class="reorder-chip" id="rchip_2">one day</span>
+      <span class="reorder-chip" id="rchip_3">I was walking along the street</span>
+      <span class="reorder-chip" id="rchip_4">and</span>
+    </div>
+
+    <div style="font-size:13px;color:#555;margin:8px 0">Câu đúng: <em>BG clause → ADV → and → EVENT</em></div>
+
+    <div id="ans454" style="display:none;font-size:14px;padding:10px;background:#f0fdf4;border-radius:8px;color:#14532d;font-weight:600;border:1px solid #86efac"></div>
+
+    <div class="btn-group">
+      <button class="btn-green" onclick="reveal454()">👁️ Xem thứ tự đúng</button>
+      <button class="btn-warning" onclick="reset454()">🔄 Làm lại</button>
+    </div>
+  </div>
+
+  <!-- EX 45.5 – Viết câu kể chuyện -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 45.5 – Tự viết câu kể chuyện</div>
+    <div class="ex-instruction">Viết câu kể chuyện theo cấu trúc: <strong>[I was ... + ADV], and [suddenly] [I saw/heard ...]</strong>. Viết ít nhất 2 câu (1 thường, 1 về geotech).</div>
+
+    <div style="margin:10px 0">
+      <div style="font-size:13px;color:#555;margin-bottom:6px">Câu 1 (cuộc sống):</div>
+      <textarea id="t455_1" rows="2" style="width:100%;border:1.5px solid #86efac;border-radius:8px;padding:10px;font-size:14px;font-family:inherit;resize:vertical;outline:none" placeholder="I was ... one day / last night / yesterday, and (suddenly) I ..."></textarea>
+    </div>
+    <div style="margin:10px 0">
+      <div style="font-size:13px;color:#555;margin-bottom:6px">Câu 2 (geotech 🏗️):</div>
+      <textarea id="t455_2" rows="2" style="width:100%;border:1.5px solid #14b8a6;border-radius:8px;padding:10px;font-size:14px;font-family:inherit;resize:vertical;outline:none" placeholder="We were drilling / monitoring / sampling ... and suddenly we ..."></textarea>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-green" onclick="speakUserStory()">🔊 Nghe câu của bạn</button>
+      <button class="btn-warning" onclick="resetStory()">🔄 Xoá</button>
+      <button class="btn-purple" onclick="showSampleStory()">💡 Xem mẫu</button>
+    </div>
+    <div id="score455" class="score-box"></div>
+  </div>
+</div>
+
+<!-- GEO BOX -->
+<div class="section">
+  <div class="section-title">🏗️ Geotech Corner</div>
+  <div class="geo-box">
+    <strong>Storytelling trong báo cáo địa kỹ thuật:</strong> Khi mô tả sự cố hoặc phát hiện bất ngờ trong quá trình khảo sát, kỹ sư thường dùng cấu trúc kể chuyện tương tự — bối cảnh (past continuous) → sự kiện bất ngờ (past simple). Ví dụ trong báo cáo sự cố lún: "We were monitoring settlement at borehole 3, as usual, and suddenly the readings exceeded the warning threshold."
+  </div>
+  <ul class="sentence-list">
+    <li onclick="speakText('We were conducting the boring survey last week, and suddenly we encountered groundwater at only three metres.',0.8)">
+      <div class="sent-en"><span class="hl-bg">We were conducting the boring survey</span> <span class="hl-add">last week</span>, and <span class="hl-ev">suddenly we encountered groundwater at only 3 metres</span>.</div>
+      <div class="sent-vi">Chúng tôi đang tiến hành khảo sát khoan tuần trước, và đột nhiên gặp nước ngầm ở chỉ 3 mét.</div>
+    </li>
+    <li onclick="speakText('The team was taking samples at the test pit, as usual, and they found an unexpected clay layer beneath the gravel.',0.8)">
+      <div class="sent-en"><span class="hl-bg">The team was taking samples at the test pit</span>, <span class="hl-add">as usual</span>, and <span class="hl-ev">they found an unexpected clay layer beneath the gravel</span>.</div>
+      <div class="sent-vi">Nhóm đang lấy mẫu tại hố thử nghiệm như thường lệ, và tìm thấy lớp sét không ngờ dưới sỏi.</div>
+    </li>
+    <li onclick="speakText('We were checking the pile load test data one afternoon, round about three, and suddenly the settlement rate doubled.',0.8)">
+      <div class="sent-en"><span class="hl-bg">We were checking the pile load test data</span> <span class="hl-add">one afternoon, round about three</span>, and <span class="hl-ev">suddenly the settlement rate doubled</span>.</div>
+      <div class="sent-vi">Chúng tôi đang kiểm tra dữ liệu thử tải cọc một chiều khoảng 3 giờ, và đột nhiên tốc độ lún tăng gấp đôi.</div>
+    </li>
+  </ul>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+function speakText(t,rate=0.85){
+  const u=new SpeechSynthesisUtterance(t);
+  u.lang="en-GB";u.rate=rate;u.pitch=1.05;
+  const vs=speechSynthesis.getVoices();
+  for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){u.voice=v;break;}}
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+window.speechSynthesis&&speechSynthesis.getVoices();
+
+function showToast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;t.classList.add("show");
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);
+}
+function showScore(id,correct,total,extra=""){
+  const el=document.getElementById(id);
+  const pct=Math.round(correct/total*100);
+  let cls,label;
+  if(pct>=90){cls="#22c55e";label="🎉 Xuất sắc!";}
+  else if(pct>=65){cls="#f59e0b";label="👍 Khá tốt!";}
+  else{cls="#ef4444";label="😅 Cần luyện thêm!";}
+  el.innerHTML=`<div class="big-score" style="color:${cls}">${pct}%</div>
+    <div class="score-label">${label} ${extra}</div>
+    <div class="score-meter"><div class="score-meter-fill" style="width:${pct}%;background:${cls}"></div></div>
+    <div class="score-detail">${correct}/${total} câu đúng</div>`;
+  el.classList.add("show");
+}
+
+// EX 45.1 – 3-way classify
+const state451={};
+const ans451={walk:'bg', day:'adv', saw:'ev', pave:'ev'};
+const labels451={walk:'I was walking along the street', day:'one day', saw:'I saw a wallet', pave:'on the pavement'};
+function cycle451(word){
+  const chip=document.getElementById('c451_'+word);
+  const cur=state451[word]||'pool';
+  let next;
+  if(cur==='pool') next='bg';
+  else if(cur==='bg') next='adv';
+  else if(cur==='adv') next='ev';
+  else next='pool';
+  state451[word]=next;
+  chip.className='chip';
+  const pool=document.querySelector('#ex451 > div:nth-of-type(3)');
+  if(next==='bg'){chip.classList.add('selected-bg');document.getElementById('drop451_bg').appendChild(chip);}
+  else if(next==='adv'){chip.classList.add('selected-adv');document.getElementById('drop451_adv').appendChild(chip);}
+  else if(next==='ev'){chip.classList.add('selected-ev');document.getElementById('drop451_ev').appendChild(chip);}
+  else{document.querySelector('#ex451 div[style*="flex-wrap"]').appendChild(chip);}
+}
+function check451(){
+  let correct=0,total=Object.keys(ans451).length;
+  Object.keys(ans451).forEach(w=>{if(state451[w]===ans451[w])correct++;});
+  showScore('score451',correct,total);
+  showToast(correct===total?'Hoàn hảo! 🎉':`${correct}/${total} đúng`);
+}
+function reset451(){
+  Object.keys(ans451).forEach(w=>{
+    state451[w]=null;
+    const chip=document.getElementById('c451_'+w);
+    chip.className='chip';
+    document.querySelector('#ex451 > div:nth-of-type(3)') && 
+    document.querySelector('#ex451 .classify-area-3').parentElement.children[2].appendChild(chip);
+  });
+  const pool=document.querySelector('#ex451 div[style*="flex-wrap"]');
+  ['walk','day','saw','pave'].forEach(w=>pool&&pool.appendChild(document.getElementById('c451_'+w)));
+  document.getElementById('score451').classList.remove('show');
+  showToast('Đã reset!');
+}
+
+// EX 45.2
+const ans452={1:'on Tuesday, I think',2:'as usual',3:'round about midnight',4:'and suddenly'};
+function check452(){
+  let correct=0;
+  [1,2,3,4].forEach(q=>{
+    const el=document.getElementById('f452_'+q);
+    const val=el.value.trim().toLowerCase();
+    const ans=ans452[q].toLowerCase();
+    if(val===ans||val.includes(ans.split(',')[0].toLowerCase())){
+      correct++;el.classList.add('correct');el.classList.remove('wrong');
+    }else{el.classList.add('wrong');el.classList.remove('correct');}
+  });
+  showScore('score452',correct,4);
+  showToast(correct===4?'Xuất sắc! 🎉':`${correct}/4 đúng`);
+}
+function reset452(){
+  [1,2,3,4].forEach(q=>{const el=document.getElementById('f452_'+q);el.value='';el.classList.remove('correct','wrong');});
+  document.getElementById('score452').classList.remove('show');showToast('Đã reset!');
+}
+function reveal452(){
+  [1,2,3,4].forEach(q=>{const el=document.getElementById('f452_'+q);el.value=ans452[q];el.classList.add('correct');el.classList.remove('wrong');});
+  showToast('Đáp án đã hiện!');
+}
+
+// EX 45.3
+const ans453={1:'a',2:'b',3:'a',4:'b'};
+function check453(){
+  let correct=0;
+  [1,2,3,4].forEach(q=>{
+    const el=document.getElementById('s453_'+q);
+    if(el.value===ans453[q])correct++;
+  });
+  showScore('score453',correct,4);
+  showToast(correct===4?'Xuất sắc! 🎉':`${correct}/4 đúng`);
+}
+function reset453(){
+  [1,2,3,4].forEach(q=>{document.getElementById('s453_'+q).value='';});
+  document.getElementById('score453').classList.remove('show');showToast('Đã reset!');
+}
+
+// EX 45.4
+function reveal454(){
+  document.getElementById('ans454').textContent='✅ Thứ tự đúng: "I was walking along the street" [BG] → "one day" [ADV] → "and" → "I saw a wallet on the pavement" [EVENT]';
+  document.getElementById('ans454').style.display='block';
+  showToast('Đây là thứ tự đúng!');
+}
+function reset454(){
+  document.getElementById('ans454').style.display='none';showToast('Đã reset!');
+}
+
+// EX 45.5
+function speakUserStory(){
+  const t1=document.getElementById('t455_1').value.trim();
+  const t2=document.getElementById('t455_2').value.trim();
+  const combined=(t1+(t2?' '+t2:'')).trim();
+  if(!combined){showToast('Hãy viết câu trước!');return;}
+  speakText(combined,0.8);
+}
+function resetStory(){
+  document.getElementById('t455_1').value='';
+  document.getElementById('t455_2').value='';
+  document.getElementById('score455').classList.remove('show');
+  showToast('Đã xoá!');
+}
+function showSampleStory(){
+  const el=document.getElementById('score455');
+  el.innerHTML=`<div style="font-size:13px;text-align:left;padding:4px">
+    <strong>Mẫu 1 (cuộc sống):</strong><br>
+    I was shopping at the market <em>one morning, as usual,</em> and <strong>suddenly I found a fifty-dollar bill on the ground.</strong><br><br>
+    <strong>Mẫu 2 (geotech 🏗️):</strong><br>
+    We were collecting soil samples at the site <em>last Tuesday, round about noon,</em> and <strong>suddenly we discovered an ancient pottery fragment in the gravel layer.</strong>
+  </div>`;
+  el.classList.add('show');
+  showToast('Câu mẫu đã hiện!');
+}
+
+// LOCALSTORAGE
+setTimeout(()=>{
+  try{
+    let c=[];
+    try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}
+    if(!c.includes(45)){c.push(45);localStorage.setItem("epu_completed",JSON.stringify(c));}
+  }catch{}
+},1000);
+</script>
+</body>
+</html>

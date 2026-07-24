@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 47 – Important Words in Conversation 1</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#1a1a2e;line-height:1.6}
+
+.header{background:linear-gradient(135deg,#0a2a4a 0%,#1a4a7a 50%,#0a3a5a 100%);color:#fff;padding:32px 24px 28px;text-align:center}
+.header-label{font-size:13px;letter-spacing:3px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.header h1{font-size:clamp(18px,4vw,26px);font-weight:800;margin-bottom:4px}
+.header h2{font-size:clamp(13px,2.5vw,17px);font-weight:400;opacity:.85;margin-bottom:14px}
+.phoneme-badge{display:inline-block;background:#f5c518;color:#1a1a2e;font-weight:800;font-size:15px;padding:5px 18px;border-radius:20px;letter-spacing:1px;margin-bottom:10px}
+.header-sub{font-size:13px;opacity:.75}
+.home-link{display:inline-block;margin-top:14px;color:#f5c518;text-decoration:none;font-size:13px;border:1px solid rgba(245,197,24,.4);padding:5px 14px;border-radius:20px}
+.home-link:hover{background:rgba(245,197,24,.15)}
+
+.section{background:#fff;border-radius:14px;margin:20px auto;max-width:860px;padding:28px 24px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.section-title{font-size:17px;font-weight:800;color:#0a2a4a;border-left:4px solid #1a4a7a;padding-left:12px;margin-bottom:18px}
+
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:18px}
+.theory-card{background:linear-gradient(135deg,#f0f4ff,#dbeafe);border-radius:10px;padding:16px;border-left:4px solid #2563eb}
+.theory-card h3{font-size:13px;font-weight:700;color:#1e3a8a;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.theory-card p{font-size:13px;color:#333;line-height:1.5}
+
+.tip-box{background:#fffbeb;border-left:4px solid #f59e0b;border-radius:8px;padding:14px 16px;margin:14px 0;font-size:13px}
+.tip-box strong{color:#b45309}
+.geo-box{background:#f0fdfa;border-left:4px solid #14b8a6;border-radius:8px;padding:14px 16px;margin:14px 0;font-size:13px}
+.geo-box strong{color:#0f766e}
+.note-box{background:#eff6ff;border:1px dashed #60a5fa;border-radius:8px;padding:12px 14px;margin:10px 0;font-size:13px}
+
+/* Highlighted stress */
+.hl-stress{font-weight:800;text-decoration:underline;color:#2563eb}
+.hl-correct{font-weight:800;color:#dc2626;text-decoration:underline}
+.hl-contrast{background:#dbeafe;border-radius:4px;padding:0 3px;font-weight:700;color:#1e3a8a}
+
+.dialogue-block{background:#f0f4ff;border-radius:10px;padding:18px;margin:12px 0;border-left:4px solid #2563eb}
+.dl-label{font-size:11px;font-weight:700;color:#2563eb;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.dl-line{margin:6px 0;font-size:14px;line-height:1.7}
+.dl-line .sp-a{font-weight:700;color:#1a1a2e}
+.dl-line .sp-b{font-weight:700;color:#2563eb}
+
+.speak-btn{background:transparent;border:1px solid #93c5fd;color:#2563eb;border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer;margin-left:6px;vertical-align:middle}
+.speak-btn:hover{background:#dbeafe}
+
+.sentence-list{list-style:none;margin:10px 0}
+.sentence-list li{padding:12px 14px;border-radius:8px;margin:6px 0;cursor:pointer;border:1px solid #e5e7eb;transition:.2s}
+.sentence-list li:hover{background:#f0f4ff;border-color:#93c5fd}
+.sent-en{font-size:14px;font-weight:500;margin-bottom:3px}
+.sent-vi{font-size:12px;color:#666}
+.sent-note{font-size:11px;color:#2563eb;margin-top:2px;font-style:italic}
+
+/* Exercises */
+.ex-wrap{background:#f0f4ff;border-radius:12px;padding:20px;margin:14px 0;border:1px solid #bfdbfe}
+.ex-title{font-size:14px;font-weight:800;color:#1e3a8a;margin-bottom:6px}
+.ex-instruction{font-size:13px;color:#555;margin-bottom:14px;line-height:1.5}
+.dialogue-ex{background:#fff;border-radius:8px;padding:14px;margin:8px 0;border:1px solid #e5e7eb}
+.pair-label{font-size:11px;color:#2563eb;font-weight:700;margin-bottom:6px}
+
+.fill-input{border:none;border-bottom:2px solid #2563eb;background:transparent;font-size:14px;padding:2px 6px;min-width:100px;outline:none;font-family:inherit}
+.fill-input.correct{border-color:#22c55e;background:#f0fdf4}
+.fill-input.wrong{border-color:#ef4444;background:#fef2f2}
+
+.chip{display:inline-block;padding:5px 12px;border-radius:20px;font-size:13px;cursor:pointer;border:1.5px solid #93c5fd;background:#f0f4ff;transition:.2s;user-select:none;margin:4px}
+.chip:hover{background:#dbeafe}
+.chip.selected{background:#2563eb;color:#fff;border-color:#1d4ed8}
+.chip.correct-chip{background:#dcfce7;border-color:#22c55e;color:#14532d}
+.chip.wrong-chip{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+
+/* Word stress highlight game */
+.word-stress-row{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;padding:10px;background:#f8faff;border-radius:8px;align-items:center}
+.stress-word{font-size:15px;padding:6px 12px;border-radius:8px;cursor:pointer;border:1.5px solid #bfdbfe;background:#fff;transition:.2s;user-select:none}
+.stress-word:hover{background:#dbeafe}
+.stress-word.stressed{background:#2563eb;color:#fff;border-color:#1d4ed8;font-weight:700;transform:scale(1.08)}
+
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn-group button{padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;transition:.2s}
+.btn-success{background:#22c55e;color:#fff}.btn-success:hover{background:#16a34a}
+.btn-warning{background:#f59e0b;color:#fff}.btn-warning:hover{background:#d97706}
+.btn-danger{background:#ef4444;color:#fff}.btn-danger:hover{background:#dc2626}
+.btn-blue{background:#2563eb;color:#fff}.btn-blue:hover{background:#1d4ed8}
+.btn-purple{background:#7c3aed;color:#fff}.btn-purple:hover{background:#6d28d9}
+
+.score-box{display:none;margin-top:12px;padding:14px;border-radius:10px;text-align:center}
+.score-box.show{display:block}
+.big-score{font-size:36px;font-weight:900;margin-bottom:4px}
+.score-label{font-size:14px;margin-bottom:8px}
+.score-meter{background:#e5e7eb;border-radius:10px;height:10px;margin:8px 0}
+.score-meter-fill{height:100%;border-radius:10px;transition:width .5s}
+.score-detail{font-size:13px;color:#555}
+
+/* Contrast pair visual */
+.contrast-box{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:8px 0}
+.contrast-side{flex:1;min-width:150px;background:#f8faff;border-radius:8px;padding:12px;text-align:center;border:1px solid #bfdbfe}
+.contrast-side .word-big{font-size:22px;font-weight:800;color:#2563eb}
+.contrast-side .word-big span{color:#dc2626;text-decoration:underline}
+.contrast-side .ex-small{font-size:12px;color:#555;margin-top:4px}
+.contrast-arrow{font-size:24px;color:#9ca3af}
+
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#0a2a4a;color:#fff;padding:10px 22px;border-radius:24px;font-size:13px;z-index:999;transition:transform .3s;opacity:0}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+.legend-row{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px}
+.legend-dot{width:12px;height:12px;border-radius:50%}
+
+/* Radio */
+.radio-choice label{margin-right:12px;cursor:pointer;font-size:14px}
+.radio-choice input{margin-right:4px}
+
+@media(max-width:600px){.theory-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">📚 Bài 47</div>
+  <h1>I know <u>when</u> it is, but not <u>where</u></h1>
+  <h2>Important Words in Conversation 1</h2>
+  <div class="phoneme-badge">STRESS → Từ quan trọng</div>
+  <div class="header-sub">Nhấn trọng âm để làm nổi bật thông tin quan trọng & sửa lỗi</div>
+  <a href="../index.html" class="home-link">← Về trang chủ</a>
+</div>
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">📖 Lý thuyết: Stress để nhấn từ quan trọng</div>
+
+  <div class="theory-grid">
+    <div class="theory-card">
+      <h3>🎯 Stress = Quan trọng</h3>
+      <p>Khi muốn nhấn mạnh một từ là <strong>đặc biệt quan trọng</strong> trong câu, ta cho nó nhiều trọng âm hơn: nói to hơn, rõ hơn, chậm hơn một chút.</p>
+    </div>
+    <div class="theory-card">
+      <h3>🔄 Sửa thông tin sai</h3>
+      <p>Khi ai đó nói sai, ta dùng stress để <strong>sửa</strong>: nhấn mạnh từ đúng và (thường) cũng nhấn lại từ sai của họ để tương phản.</p>
+    </div>
+    <div class="theory-card">
+      <h3>❌ Phủ định + sửa</h3>
+      <p><em>No, it's not X, it's <strong>Y</strong>.</em> → Cả "not X" và "Y" đều được nhấn. Thông tin mới (Y) thường nhấn mạnh nhất.</p>
+    </div>
+    <div class="theory-card">
+      <h3>📍 Chỉ biết một phần</h3>
+      <p><em>I know <strong>when</strong> it is, but not <strong>where</strong>.</em> → Nhấn cả hai từ đối lập để cho thấy "cái này biết, cái kia không".</p>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Bí quyết:</strong> Hỏi: "<em>Từ nào mang thông tin QUAN TRỌNG NHẤT với người nghe?</em>" → Đó là từ cần stress mạnh nhất. Trong câu sửa lỗi, luôn nhấn từ <strong>đúng</strong> và (tùy) nhấn từ <strong>sai</strong> bị phủ định.
+  </div>
+
+  <div class="legend-row">
+    <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div><span>Từ được stress mạnh (quan trọng)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div><span>Từ sửa lỗi (thông tin đúng)</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#9ca3af"></div><span>Từ không nhấn (thông tin đã biết)</span></div>
+  </div>
+
+  <!-- Section A examples -->
+  <div class="dialogue-block">
+    <div class="dl-label">🅐 Stress để nhấn thông tin quan trọng</div>
+    <div class="dl-line"><span class="sp-a">A:</span> How good's your English?
+      <button class="speak-btn" onclick="speakText('How good is your English?',0.85)">🔊</button>
+    </div>
+    <div class="dl-line"><span class="sp-b">B:</span> Well, I can <span class="hl-stress">speak</span> English quite well, but I can't <span class="hl-stress">write</span> it very well.
+      <button class="speak-btn" onclick="speakText('Well, I can SPEAK English quite well, but I cannot WRITE it very well.',0.8)">🔊</button>
+      <button class="speak-btn" onclick="speakText('Well, I can SPEAK English quite well, but I cannot WRITE it very well.',0.5)">🐢</button>
+    </div>
+    <div class="dl-line" style="margin-top:10px"><span class="sp-a">A:</span> Do you know any foreign languages?
+      <button class="speak-btn" onclick="speakText('Do you know any foreign languages?',0.85)">🔊</button>
+    </div>
+    <div class="dl-line"><span class="sp-b">B:</span> Well, I can speak <span class="hl-stress">English</span>, but that's the <span class="hl-stress">only</span> foreign language I know.
+      <button class="speak-btn" onclick="speakText('Well, I can speak ENGLISH but that's the ONLY foreign language I know.',0.8)">🔊</button>
+    </div>
+  </div>
+
+  <!-- Section B examples -->
+  <div class="dialogue-block">
+    <div class="dl-label">🅑 Stress để sửa thông tin sai</div>
+
+    <div class="dl-line"><span class="sp-a">A:</span> Is your house number thirty-two?
+      <button class="speak-btn" onclick="speakText('Is your house number thirty two?',0.85)">🔊</button>
+    </div>
+    <div class="dl-line"><span class="sp-b">B:</span> No, it's the next one, number <span class="hl-correct">thirty-four</span>.
+      <button class="speak-btn" onclick="speakText('No, it's the next one, number THIRTY FOUR.',0.8)">🔊</button>
+    </div>
+
+    <div class="dl-line" style="margin-top:10px"><span class="sp-a">A:</span> Is your house number thirty-two?
+      <button class="speak-btn" onclick="speakText('Is your house number thirty two?',0.85)">🔊</button>
+    </div>
+    <div class="dl-line"><span class="sp-b">B:</span> No, not <span class="hl-contrast">thirty-two</span>, it's number <span class="hl-correct">forty-two</span>.
+      <button class="speak-btn" onclick="speakText('No, not THIRTY TWO, it's number FORTY TWO.',0.8)">🔊</button>
+    </div>
+  </div>
+
+  <!-- Contrast visual -->
+  <div style="margin:16px 0">
+    <div style="font-size:13px;font-weight:700;color:#1e3a8a;margin-bottom:10px">📊 So sánh: Nhấn 1 từ vs Nhấn 2 từ đối lập</div>
+    <div class="contrast-box">
+      <div class="contrast-side">
+        <div class="word-big">thirty-<span>four</span></div>
+        <div class="ex-small">Chỉ nhấn từ đúng (thêm thông tin)</div>
+        <button class="speak-btn" onclick="speakText('No, it's number THIRTY FOUR.',0.8)" style="margin-top:6px">🔊</button>
+      </div>
+      <div class="contrast-arrow">vs</div>
+      <div class="contrast-side">
+        <div class="word-big"><span>thirty-two</span> → <span>forty-two</span></div>
+        <div class="ex-small">Nhấn cả sai lẫn đúng (sửa lỗi rõ ràng)</div>
+        <button class="speak-btn" onclick="speakText('No, not THIRTY TWO, it's FORTY TWO.',0.8)" style="margin-top:6px">🔊</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXTRA SENTENCES -->
+<div class="section">
+  <div class="section-title">💬 Câu luyện thêm – Click để nghe</div>
+  <ul class="sentence-list">
+    <li onclick="speakText('I know WHEN the meeting is, but I don't know WHERE.',0.8)">
+      <div class="sent-en">I know <span class="hl-stress">when</span> the meeting is, but I don't know <span class="hl-stress">where</span>.</div>
+      <div class="sent-vi">Tôi biết cuộc họp vào lúc nào, nhưng không biết ở đâu.</div>
+    </li>
+    <li onclick="speakText('I can READ French quite well, but I can't SPEAK it.',0.8)">
+      <div class="sent-en">I can <span class="hl-stress">read</span> French quite well, but I can't <span class="hl-stress">speak</span> it.</div>
+      <div class="sent-vi">Tôi đọc tiếng Pháp khá tốt, nhưng không nói được.</div>
+    </li>
+    <li onclick="speakText('No, not Monday, TUESDAY.',0.8)">
+      <div class="sent-en">No, not <span class="hl-contrast">Monday</span>, <span class="hl-correct">Tuesday</span>.</div>
+      <div class="sent-vi">Không, không phải thứ Hai, thứ Ba.</div>
+    </li>
+    <li onclick="speakText('I'd like to go to BRITAIN for a month, but not for a YEAR.',0.8)">
+      <div class="sent-en">I'd like to go to <span class="hl-stress">Britain</span> for a <span class="hl-stress">month</span>, but not for a <span class="hl-stress">year</span>.</div>
+      <div class="sent-vi">Tôi muốn đến Anh một tháng, nhưng không phải cả năm.</div>
+    </li>
+    <li onclick="speakText('I know the DEPTH of the borehole, but not the LOCATION.',0.8)">
+      <div class="sent-en">I know the <span class="hl-stress">depth</span> of the borehole, but not the <span class="hl-stress">location</span>.</div>
+      <div class="sent-vi">Tôi biết độ sâu của lỗ khoan, nhưng không biết vị trí.</div>
+      <div class="sent-note">🏗️ Geotech: borehole depth vs location</div>
+    </li>
+    <li onclick="speakText('No, not the SAND layer, the CLAY layer.',0.8)">
+      <div class="sent-en">No, not the <span class="hl-contrast">sand</span> layer, the <span class="hl-correct">clay</span> layer.</div>
+      <div class="sent-vi">Không, không phải lớp cát, lớp sét.</div>
+      <div class="sent-note">🏗️ Geotech: correcting soil layer</div>
+    </li>
+    <li onclick="speakText('We know the BEARING CAPACITY, but not the SETTLEMENT rate.',0.8)">
+      <div class="sent-en">We know the <span class="hl-stress">bearing capacity</span>, but not the <span class="hl-stress">settlement</span> rate.</div>
+      <div class="sent-vi">Chúng tôi biết sức chịu tải, nhưng không biết tốc độ lún.</div>
+      <div class="sent-note">🏗️ Geotech: bearing capacity, settlement</div>
+    </li>
+    <li onclick="speakText('No, not borehole THREE, borehole FIVE.',0.8)">
+      <div class="sent-en">No, not borehole <span class="hl-contrast">three</span>, borehole <span class="hl-correct">five</span>.</div>
+      <div class="sent-vi">Không, không phải lỗ khoan 3, lỗ khoan 5.</div>
+      <div class="sent-note">🏗️ Geotech: correcting borehole number</div>
+    </li>
+  </ul>
+</div>
+
+<!-- EXERCISES -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- EX 47.1 – Click từ được stress -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 47.1 – Click vào từ/cụm từ được nhấn mạnh nhất trong câu B</div>
+    <div class="ex-instruction">Đọc hội thoại, click vào <strong>2 từ chính được stress</strong> trong câu B. Từ đúng sẽ đổi màu xanh.</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">Ví dụ: A: Have you got the details of the next meeting?</div>
+      <div style="font-size:13px;color:#555;margin-bottom:8px">B: I know it's on __ but I don't know what __.</div>
+      <div class="word-stress-row" id="ws_ex">
+        <span class="stress-word" onclick="toggleStress(this,'ws_ex','Monday',['Monday','time'])">Monday</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws_ex','but',['Monday','time'])">but</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws_ex','know',['Monday','time'])">know</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws_ex','time',['Monday','time'])">time</span>
+      </div>
+      <div style="font-size:12px;color:#2563eb;margin-top:4px">✅ Đáp án: <strong>Monday</strong> và <strong>time</strong></div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1. A: How was the match?</div>
+      <div style="font-size:13px;margin-bottom:6px">B: The first half was quite good, but the second half was really <em>good</em>.</div>
+      <div class="word-stress-row" id="ws471_1">
+        <span class="stress-word" onclick="toggleStress(this,'ws471_1','first',['first','second'])">first</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_1','half',['first','second'])">half</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_1','second',['first','second'])">second</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_1','good',['first','second'])">good</span>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">2. A: How was the match?</div>
+      <div style="font-size:13px;margin-bottom:6px">B: The first half was quite good, but the second half was <em>terrible</em>.</div>
+      <div class="word-stress-row" id="ws471_2">
+        <span class="stress-word" onclick="toggleStress(this,'ws471_2','first',['second','terrible'])">first</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_2','second',['second','terrible'])">second</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_2','terrible',['second','terrible'])">terrible</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_2','good',['second','terrible'])">good</span>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">3. A: Can I come and discuss this tomorrow?</div>
+      <div style="font-size:13px;margin-bottom:6px">B: I won't be here tomorrow, but my <em>colleague</em> will be.</div>
+      <div class="word-stress-row" id="ws471_3">
+        <span class="stress-word" onclick="toggleStress(this,'ws471_3','here',['tomorrow','colleague'])">here</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_3','tomorrow',['tomorrow','colleague'])">tomorrow</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_3','colleague',['tomorrow','colleague'])">colleague</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_3','won't',['tomorrow','colleague'])">won't</span>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">4. A: Can I come and discuss this tomorrow?</div>
+      <div style="font-size:13px;margin-bottom:6px">B: I won't be here tomorrow, but I'll be back on <em>Thursday</em>.</div>
+      <div class="word-stress-row" id="ws471_4">
+        <span class="stress-word" onclick="toggleStress(this,'ws471_4','tomorrow',['tomorrow','Thursday'])">tomorrow</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_4','Thursday',['tomorrow','Thursday'])">Thursday</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_4','back',['tomorrow','Thursday'])">back</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_4','here',['tomorrow','Thursday'])">here</span>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">5. A: Have you seen that film?</div>
+      <div style="font-size:13px;margin-bottom:6px">B: I've seen it, but I can't remember much <em>about it</em>.</div>
+      <div class="word-stress-row" id="ws471_5">
+        <span class="stress-word" onclick="toggleStress(this,'ws471_5','seen',['seen','remember'])">seen</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_5','remember',['seen','remember'])">remember</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_5','much',['seen','remember'])">much</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_5','film',['seen','remember'])">film</span>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">6. A: Have you seen that film?</div>
+      <div style="font-size:13px;margin-bottom:6px">B: I haven't seen it, but I'd <em>like to</em>.</div>
+      <div class="word-stress-row" id="ws471_6">
+        <span class="stress-word" onclick="toggleStress(this,'ws471_6','seen',['seen','like'])">seen</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_6','like',['seen','like'])">like</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_6','haven't',['seen','like'])">haven't</span>
+        <span class="stress-word" onclick="toggleStress(this,'ws471_6','film',['seen','like'])">film</span>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check471()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset471()">🔄 Làm lại</button>
+    </div>
+    <div id="score471" class="score-box"></div>
+  </div>
+
+  <!-- EX 47.2 – Correction stress -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 47.2 – Sửa lỗi: Nhấn từ đúng</div>
+    <div class="ex-instruction">A nói sai. Click vào từ đúng mà B sẽ nhấn mạnh khi sửa lỗi cho A.</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">Ví dụ: A: You're June Smith, aren't you? &nbsp; B: No, I'm Jane Smith.</div>
+      <div style="font-size:12px;color:#2563eb">→ B nhấn: <strong>Jane</strong> (sửa "June" → "Jane")</div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1. A: What's the answer – three hundred and eighty-five?</div>
+      <div style="font-size:13px;margin-bottom:6px">B: No – three hundred and ___.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="chip" id="c472_1a" onclick="pick472(1,'a')">eighty-five</span>
+        <span class="chip" id="c472_1b" onclick="pick472(1,'b')">ninety-five ✓</span>
+        <span class="chip" id="c472_1c" onclick="pick472(1,'c')">hundred</span>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">2. A: After you. &nbsp; B: No – ___.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="chip" id="c472_2a" onclick="pick472(2,'a')">after you ✓</span>
+        <span class="chip" id="c472_2b" onclick="pick472(2,'b')">you go first</span>
+        <span class="chip" id="c472_2c" onclick="pick472(2,'c')">please</span>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">3. A: You went to the disco with Steve last night, didn't you?</div>
+      <div style="font-size:13px;margin-bottom:6px">B: I didn't go ___ him – I ___ him there.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="chip" id="c472_3a" onclick="pick472(3,'a')">with / met ✓</span>
+        <span class="chip" id="c472_3b" onclick="pick472(3,'b')">to / saw</span>
+        <span class="chip" id="c472_3c" onclick="pick472(3,'c')">because / knew</span>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">4. A: Do you live in London? &nbsp; B: Well, not really ___ London, just ___.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="chip" id="c472_4a" onclick="pick472(4,'a')">in / outside ✓</span>
+        <span class="chip" id="c472_4b" onclick="pick472(4,'b')">at / nearby</span>
+        <span class="chip" id="c472_4c" onclick="pick472(4,'c')">near / around</span>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">5. A: You said go over the bridge. &nbsp; B: No, I said go ___ the bridge.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="chip" id="c472_5a" onclick="pick472(5,'a')">through</span>
+        <span class="chip" id="c472_5b" onclick="pick472(5,'b')">under ✓</span>
+        <span class="chip" id="c472_5c" onclick="pick472(5,'c')">around</span>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check472()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset472()">🔄 Làm lại</button>
+    </div>
+    <div id="score472" class="score-box"></div>
+  </div>
+
+  <!-- EX 47.3 – Fill the corrected word -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 47.3 – Điền từ đúng (sửa lỗi)</div>
+    <div class="ex-instruction">Đọc câu A (sai), viết câu B sửa lỗi. Điền phần còn thiếu.</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1. A: How many times have you been to England? (người nghe chưa bao giờ đi Anh)</div>
+      <div style="font-size:14px;margin-top:6px">B: I've <input class="fill-input" id="f473_1" placeholder="never been" style="width:120px"> to England.</div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">2. A: What's 'Thank you' in Italian? (không biết tiếng Ý)</div>
+      <div style="font-size:14px;margin-top:6px">B: I can't speak <input class="fill-input" id="f473_2" placeholder="Italian" style="width:80px">.</div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">3. A: Was the course expensive? (trường trả tiền)</div>
+      <div style="font-size:14px;margin-top:6px">B: Well, my <input class="fill-input" id="f473_3" placeholder="school" style="width:70px"> paid for the course, but the travel cost quite a lot.</div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">4. A: The borehole was drilled to 15 metres. 🏗️ (thực tế là 20 mét)</div>
+      <div style="font-size:14px;margin-top:6px">B: No, not <input class="fill-input" id="f473_4a" placeholder="fifteen" style="width:80px"> metres, <input class="fill-input" id="f473_4b" placeholder="twenty" style="width:70px"> metres.</div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check473()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset473()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="reveal473()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score473" class="score-box"></div>
+  </div>
+
+  <!-- EX 47.4 – Know X but not Y -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 47.4 – "I know X but not Y" – Viết câu phản hồi</div>
+    <div class="ex-instruction">Viết câu B dùng cấu trúc <strong>"I know … but not …"</strong> hoặc <strong>"I … but I don't …"</strong>. Gạch chân 2 từ được stress.</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1. A: Do you know the details of the project? (biết ngày, không biết địa điểm)</div>
+      <div style="font-size:14px;margin-top:6px">B: I know the <input class="fill-input" id="f474_1a" placeholder="date" style="width:70px">, but not the <input class="fill-input" id="f474_1b" placeholder="location" style="width:80px">.</div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">2. A: Can you use AutoCAD? (xem được, không vẽ được)</div>
+      <div style="font-size:14px;margin-top:6px">B: I can <input class="fill-input" id="f474_2a" placeholder="read" style="width:70px"> drawings, but I can't <input class="fill-input" id="f474_2b" placeholder="draw" style="width:70px"> them.</div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">3. A: Do you know the borehole data? 🏗️ (biết độ sâu, không biết loại đất)</div>
+      <div style="font-size:14px;margin-top:6px">B: I know the <input class="fill-input" id="f474_3a" placeholder="depth" style="width:70px">, but not the <input class="fill-input" id="f474_3b" placeholder="soil type" style="width:90px">.</div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check474()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset474()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="reveal474()">👁️ Xem đáp án mẫu</button>
+    </div>
+    <div id="score474" class="score-box"></div>
+  </div>
+
+  <!-- EX 47.5 – Minimal pairs stress: correct the wrong number/word -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 47.5 – Nghe & sửa lỗi (Số & Thông tin)</div>
+    <div class="ex-instruction">Click 🔊 để nghe câu A (có thông tin sai). Chọn câu B đúng để sửa lỗi, rồi click 🔊 để nghe câu sửa.</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1</div>
+      <div class="dl-line">A: So you need fifty pounds?
+        <button class="speak-btn" onclick="speakText('So you need fifty pounds?',0.85)">🔊</button>
+      </div>
+      <div class="radio-choice" style="margin-top:8px">
+        <label><input type="radio" name="r475_1" value="a"> No, at least fifty. ✓</label>
+        <label><input type="radio" name="r475_1" value="b"> Yes, fifty pounds.</label>
+      </div>
+      <button class="speak-btn" style="margin-top:6px" onclick="speakText('You'll need at least FIFTY.',0.8)">🔊 Nghe câu sửa</button>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">2</div>
+      <div class="dl-line">A: Were there fifty people at your party?
+        <button class="speak-btn" onclick="speakText('Were there fifty people at your party?',0.85)">🔊</button>
+      </div>
+      <div class="radio-choice" style="margin-top:8px">
+        <label><input type="radio" name="r475_2" value="a"> Well, nearly fifty, I think. ✓</label>
+        <label><input type="radio" name="r475_2" value="b"> Yes, fifty people.</label>
+      </div>
+      <button class="speak-btn" style="margin-top:6px" onclick="speakText('Well, NEARLY fifty, I think.',0.8)">🔊 Nghe câu sửa</button>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">3. 🏗️</div>
+      <div class="dl-line">A: The borehole was ten metres deep?
+        <button class="speak-btn" onclick="speakText('The borehole was ten metres deep?',0.85)">🔊</button>
+      </div>
+      <div class="radio-choice" style="margin-top:8px">
+        <label><input type="radio" name="r475_3" value="a"> No, not ten – FIFTEEN. ✓</label>
+        <label><input type="radio" name="r475_3" value="b"> Yes, ten metres.</label>
+      </div>
+      <button class="speak-btn" style="margin-top:6px" onclick="speakText('No, not TEN, FIFTEEN metres.',0.8)">🔊 Nghe câu sửa</button>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check475()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset475()">🔄 Làm lại</button>
+    </div>
+    <div id="score475" class="score-box"></div>
+  </div>
+
+</div>
+
+<!-- GEO BOX -->
+<div class="section">
+  <div class="section-title">🏗️ Geotech Corner</div>
+  <div class="geo-box">
+    <strong>Stress trong báo cáo kỹ thuật:</strong> Khi trình bày số liệu hoặc sửa thông tin sai trong họp kỹ thuật, stress đúng chỗ tránh hiểu nhầm nghiêm trọng. "The pile depth is not FIFTEEN metres, it's FIFTY metres" — nhấn sai chỗ có thể dẫn đến tai nạn công trình!
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+function speakText(t,rate=0.85){
+  const u=new SpeechSynthesisUtterance(t);
+  u.lang="en-GB";u.rate=rate;u.pitch=1.05;
+  const vs=speechSynthesis.getVoices();
+  for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){u.voice=v;break;}}
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+window.speechSynthesis&&speechSynthesis.getVoices();
+
+function showToast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;t.classList.add("show");
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);
+}
+function showScore(id,correct,total,extra=""){
+  const el=document.getElementById(id);
+  const pct=Math.round(correct/total*100);
+  let cls,label;
+  if(pct>=90){cls="#22c55e";label="🎉 Xuất sắc!";}
+  else if(pct>=65){cls="#f59e0b";label="👍 Khá tốt!";}
+  else{cls="#ef4444";label="😅 Cần luyện thêm!";}
+  el.innerHTML=`<div class="big-score" style="color:${cls}">${pct}%</div>
+    <div class="score-label">${label} ${extra}</div>
+    <div class="score-meter"><div class="score-meter-fill" style="width:${pct}%;background:${cls}"></div></div>
+    <div class="score-detail">${correct}/${total} câu đúng</div>`;
+  el.classList.add("show");
+}
+
+// Word stress click game
+const stressState = {};
+function toggleStress(el, groupId, word, correct) {
+  if(!stressState[groupId]) stressState[groupId] = new Set();
+  const s = stressState[groupId];
+  if(s.has(word)) { s.delete(word); el.classList.remove('stressed'); }
+  else { s.add(word); el.classList.add('stressed'); }
+}
+
+// EX 47.1
+const ans471 = {
+  '471_1':['first','second'],
+  '471_2':['second','terrible'],
+  '471_3':['tomorrow','colleague'],
+  '471_4':['tomorrow','Thursday'],
+  '471_5':['seen','remember'],
+  '471_6':['seen','like']
+};
+function check471(){
+  let correct=0, total=6;
+  Object.keys(ans471).forEach(k=>{
+    const grp = stressState['ws'+k] || new Set();
+    const ans = ans471[k];
+    const ok = ans.every(a=>grp.has(a)) && grp.size===2;
+    if(ok) correct++;
+  });
+  showScore('score471',correct,total);
+  showToast(correct===total?'Xuất sắc! 🎉':`${correct}/${total} đúng`);
+}
+function reset471(){
+  ['471_1','471_2','471_3','471_4','471_5','471_6'].forEach(k=>{
+    stressState['ws'+k]=new Set();
+    document.querySelectorAll('#ws'+k+' .stress-word').forEach(el=>el.classList.remove('stressed'));
+  });
+  document.getElementById('score471').classList.remove('show');
+  showToast('Đã reset!');
+}
+
+// EX 47.2
+const ans472={1:'b',2:'a',3:'a',4:'a',5:'b'};
+const picked472={};
+function pick472(q,opt){
+  picked472[q]=opt;
+  ['a','b','c'].forEach(o=>{
+    const el=document.getElementById('c472_'+q+o);
+    if(el)el.classList.remove('selected','correct-chip','wrong-chip');
+  });
+  document.getElementById('c472_'+q+opt) && document.getElementById('c472_'+q+opt).classList.add('selected');
+}
+function check472(){
+  let correct=0;
+  [1,2,3,4,5].forEach(q=>{
+    const el=document.getElementById('c472_'+q+(picked472[q]||'x'));
+    if(picked472[q]===ans472[q]){
+      correct++;
+      if(el)el.classList.add('correct-chip');
+    } else {
+      if(el)el.classList.add('wrong-chip');
+      const ansEl=document.getElementById('c472_'+q+ans472[q]);
+      if(ansEl)ansEl.classList.add('correct-chip');
+    }
+  });
+  showScore('score472',correct,5);
+  showToast(correct===5?'Xuất sắc! 🎉':`${correct}/5 đúng`);
+}
+function reset472(){
+  for(let q=1;q<=5;q++){
+    delete picked472[q];
+    ['a','b','c'].forEach(o=>{
+      const el=document.getElementById('c472_'+q+o);
+      if(el)el.classList.remove('selected','correct-chip','wrong-chip');
+    });
+  }
+  document.getElementById('score472').classList.remove('show');showToast('Đã reset!');
+}
+
+// EX 47.3
+const ans473={1:'never been',2:'Italian',3:'school',4a:'fifteen',4b:'twenty'};
+const acc473={
+  1:['never been','never been to'],
+  2:['italian'],
+  3:['school','company'],
+  4a:['fifteen','15'],
+  4b:['twenty','20']
+};
+function check473(){
+  let correct=0,total=5;
+  const ids=['1','2','3','4a','4b'];
+  ids.forEach(k=>{
+    const el=document.getElementById('f473_'+k);
+    const val=el.value.trim().toLowerCase();
+    const ok=(acc473[k]||[]).some(a=>val.includes(a));
+    if(ok){correct++;el.classList.add('correct');el.classList.remove('wrong');}
+    else{el.classList.add('wrong');el.classList.remove('correct');}
+  });
+  showScore('score473',correct,total);
+  showToast(correct===total?'Xuất sắc!':`${correct}/${total} đúng`);
+}
+function reset473(){
+  ['1','2','3','4a','4b'].forEach(k=>{
+    const el=document.getElementById('f473_'+k);
+    el.value='';el.classList.remove('correct','wrong');
+  });
+  document.getElementById('score473').classList.remove('show');showToast('Đã reset!');
+}
+function reveal473(){
+  document.getElementById('f473_1').value='never been';
+  document.getElementById('f473_2').value='Italian';
+  document.getElementById('f473_3').value='school';
+  document.getElementById('f473_4a').value='fifteen';
+  document.getElementById('f473_4b').value='twenty';
+  ['1','2','3','4a','4b'].forEach(k=>{
+    const el=document.getElementById('f473_'+k);
+    el.classList.add('correct');el.classList.remove('wrong');
+  });
+  showToast('Đáp án đã hiện!');
+}
+
+// EX 47.4
+function check474(){
+  let correct=0,total=6;
+  ['1a','1b','2a','2b','3a','3b'].forEach(k=>{
+    const el=document.getElementById('f474_'+k);
+    if(el&&el.value.trim().length>0)correct++;
+  });
+  showScore('score474',correct,total,'(Bài tự do – mọi câu có nội dung đều được tính)');
+  showToast('Đã kiểm tra!');
+}
+function reset474(){
+  ['1a','1b','2a','2b','3a','3b'].forEach(k=>{
+    const el=document.getElementById('f474_'+k);
+    if(el){el.value='';el.classList.remove('correct','wrong');}
+  });
+  document.getElementById('score474').classList.remove('show');showToast('Đã reset!');
+}
+function reveal474(){
+  const kv={'1a':'date','1b':'location','2a':'read','2b':'draw','3a':'depth','3b':'soil type'};
+  Object.keys(kv).forEach(k=>{
+    const el=document.getElementById('f474_'+k);
+    if(el){el.value=kv[k];el.classList.add('correct');}
+  });
+  showToast('Đáp án mẫu đã hiện!');
+}
+
+// EX 47.5
+const ans475={1:'a',2:'a',3:'a'};
+function check475(){
+  let correct=0;
+  [1,2,3].forEach(q=>{
+    const sel=document.querySelector('input[name="r475_'+q+'"]:checked');
+    if(sel&&sel.value===ans475[q])correct++;
+  });
+  showScore('score475',correct,3);
+  showToast(correct===3?'Xuất sắc! 🎉':`${correct}/3 đúng`);
+}
+function reset475(){
+  [1,2,3].forEach(q=>{
+    const sel=document.querySelector('input[name="r475_'+q+'"]:checked');
+    if(sel)sel.checked=false;
+  });
+  document.getElementById('score475').classList.remove('show');showToast('Đã reset!');
+}
+
+// LOCALSTORAGE
+setTimeout(()=>{
+  try{
+    let c=[];
+    try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}
+    if(!c.includes(47)){c.push(47);localStorage.setItem("epu_completed",JSON.stringify(c));}
+  }catch{}
+},1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 48 – Important Words in Conversation 2</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#1a1a2e;line-height:1.6}
+
+.header{background:linear-gradient(135deg,#3d0764 0%,#6b1a9e 50%,#2d0550 100%);color:#fff;padding:32px 24px 28px;text-align:center}
+.header-label{font-size:13px;letter-spacing:3px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.header h1{font-size:clamp(18px,4vw,26px);font-weight:800;margin-bottom:4px}
+.header h2{font-size:clamp(13px,2.5vw,17px);font-weight:400;opacity:.85;margin-bottom:14px}
+.phoneme-badge{display:inline-block;background:#f5c518;color:#1a1a2e;font-weight:800;font-size:15px;padding:5px 18px;border-radius:20px;letter-spacing:1px;margin-bottom:10px}
+.header-sub{font-size:13px;opacity:.75}
+.home-link{display:inline-block;margin-top:14px;color:#f5c518;text-decoration:none;font-size:13px;border:1px solid rgba(245,197,24,.4);padding:5px 14px;border-radius:20px}
+.home-link:hover{background:rgba(245,197,24,.15)}
+
+.section{background:#fff;border-radius:14px;margin:20px auto;max-width:860px;padding:28px 24px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.section-title{font-size:17px;font-weight:800;color:#3d0764;border-left:4px solid #7c3aed;padding-left:12px;margin-bottom:18px}
+
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:18px}
+.theory-card{background:linear-gradient(135deg,#faf5ff,#ede9fe);border-radius:10px;padding:16px;border-left:4px solid #7c3aed}
+.theory-card h3{font-size:13px;font-weight:700;color:#3d0764;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.theory-card p{font-size:13px;color:#333;line-height:1.5}
+
+.tip-box{background:#fffbeb;border-left:4px solid #f59e0b;border-radius:8px;padding:14px 16px;margin:14px 0;font-size:13px}
+.tip-box strong{color:#b45309}
+.geo-box{background:#f0fdfa;border-left:4px solid #14b8a6;border-radius:8px;padding:14px 16px;margin:14px 0;font-size:13px}
+.geo-box strong{color:#0f766e}
+.note-box{background:#faf5ff;border:1px dashed #a78bfa;border-radius:8px;padding:12px 14px;margin:10px 0;font-size:13px}
+
+/* Highlighted */
+.hl-emph{font-weight:900;color:#7c3aed;font-size:1.1em;text-shadow:0 0 8px rgba(124,58,237,.3)}
+.hl-high{font-weight:800;color:#dc2626;font-size:1.1em}
+.hl-contra{font-weight:700;color:#2563eb;text-decoration:underline}
+.hl-norm{font-weight:600;color:#1a1a2e}
+
+.dialogue-block{background:#faf5ff;border-radius:10px;padding:18px;margin:12px 0;border-left:4px solid #7c3aed}
+.dl-label{font-size:11px;font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.dl-line{margin:6px 0;font-size:14px;line-height:1.8}
+.sp-a{font-weight:700;color:#1a1a2e}
+.sp-b{font-weight:700;color:#7c3aed}
+.sp-name{font-weight:700;color:#3d0764}
+
+.speak-btn{background:transparent;border:1px solid #c4b5fd;color:#7c3aed;border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer;margin-left:6px;vertical-align:middle}
+.speak-btn:hover{background:#ede9fe}
+
+.sentence-list{list-style:none;margin:10px 0}
+.sentence-list li{padding:12px 14px;border-radius:8px;margin:6px 0;cursor:pointer;border:1px solid #e5e7eb;transition:.2s}
+.sentence-list li:hover{background:#faf5ff;border-color:#c4b5fd}
+.sent-en{font-size:14px;font-weight:500;margin-bottom:3px}
+.sent-vi{font-size:12px;color:#666}
+.sent-note{font-size:11px;color:#7c3aed;margin-top:2px;font-style:italic}
+
+/* Stress emphasis scale */
+.emph-scale{display:flex;align-items:flex-end;gap:6px;margin:14px 0;padding:14px;background:#faf5ff;border-radius:10px}
+.emph-item{flex:1;text-align:center;cursor:pointer}
+.emph-word{font-weight:700;padding:6px 4px;border-radius:8px;transition:.2s;border:1.5px solid transparent}
+.emph-item:nth-child(1) .emph-word{font-size:13px;background:#f3e8ff;color:#6b21a8;border-color:#e9d5ff}
+.emph-item:nth-child(2) .emph-word{font-size:16px;background:#ede9fe;color:#5b21b6;border-color:#c4b5fd}
+.emph-item:nth-child(3) .emph-word{font-size:20px;background:#ddd6fe;color:#3d0764;border-color:#a78bfa;box-shadow:0 0 8px rgba(124,58,237,.25)}
+.emph-item:nth-child(4) .emph-word{font-size:26px;background:#7c3aed;color:#fff;border-color:#6d28d9;box-shadow:0 0 14px rgba(124,58,237,.4);transform:scale(1.05)}
+.emph-label{font-size:10px;color:#9ca3af;margin-top:4px}
+
+/* Exercises */
+.ex-wrap{background:#faf5ff;border-radius:12px;padding:20px;margin:14px 0;border:1px solid #ddd6fe}
+.ex-title{font-size:14px;font-weight:800;color:#3d0764;margin-bottom:6px}
+.ex-instruction{font-size:13px;color:#555;margin-bottom:14px;line-height:1.5}
+.dialogue-ex{background:#fff;border-radius:8px;padding:14px;margin:8px 0;border:1px solid #e5e7eb}
+.pair-label{font-size:11px;color:#7c3aed;font-weight:700;margin-bottom:6px}
+
+.fill-input{border:none;border-bottom:2px solid #7c3aed;background:transparent;font-size:14px;padding:2px 6px;min-width:80px;outline:none;font-family:inherit}
+.fill-input.correct{border-color:#22c55e;background:#f0fdf4}
+.fill-input.wrong{border-color:#ef4444;background:#fef2f2}
+
+/* Stress word click */
+.stress-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;background:#f9fafb;border-radius:8px}
+.sw{font-size:14px;padding:5px 11px;border-radius:8px;cursor:pointer;border:1.5px solid #ddd6fe;background:#fff;transition:.2s;user-select:none}
+.sw:hover{background:#ede9fe}
+.sw.picked{background:#7c3aed;color:#fff;border-color:#6d28d9;font-weight:700;font-size:16px}
+.sw.correct-sw{background:#dcfce7;border-color:#22c55e;color:#14532d}
+.sw.wrong-sw{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+
+.chip{display:inline-block;padding:5px 12px;border-radius:20px;font-size:13px;cursor:pointer;border:1.5px solid #c4b5fd;background:#faf5ff;transition:.2s;user-select:none;margin:4px}
+.chip:hover{background:#ede9fe}
+.chip.selected{background:#7c3aed;color:#fff;border-color:#6d28d9}
+.chip.correct-chip{background:#dcfce7;border-color:#22c55e;color:#14532d}
+.chip.wrong-chip{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn-group button{padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;transition:.2s}
+.btn-success{background:#22c55e;color:#fff}.btn-success:hover{background:#16a34a}
+.btn-warning{background:#f59e0b;color:#fff}.btn-warning:hover{background:#d97706}
+.btn-danger{background:#ef4444;color:#fff}.btn-danger:hover{background:#dc2626}
+.btn-purple{background:#7c3aed;color:#fff}.btn-purple:hover{background:#6d28d9}
+
+.score-box{display:none;margin-top:12px;padding:14px;border-radius:10px;text-align:center}
+.score-box.show{display:block}
+.big-score{font-size:36px;font-weight:900;margin-bottom:4px}
+.score-label{font-size:14px;margin-bottom:8px}
+.score-meter{background:#e5e7eb;border-radius:10px;height:10px;margin:8px 0}
+.score-meter-fill{height:100%;border-radius:10px;transition:width .5s}
+.score-detail{font-size:13px;color:#555}
+
+/* Phone call layout */
+.phone-block{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:12px 0;border-radius:12px;overflow:hidden;border:1px solid #ddd6fe}
+.phone-col{padding:14px;font-size:13px}
+.phone-col-a{background:#f3e8ff}
+.phone-col-b{background:#ede9fe}
+.phone-col-title{font-weight:800;color:#3d0764;font-size:12px;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.phone-line{margin:6px 0;padding:4px 8px;border-radius:6px;cursor:pointer;transition:.15s;line-height:1.6}
+.phone-line:hover{background:rgba(124,58,237,.1)}
+.phone-line .hl-emph{font-size:1em}
+
+/* Radio */
+.radio-choice label{margin-right:12px;cursor:pointer;font-size:14px;display:inline-block;margin-bottom:4px}
+.radio-choice input{margin-right:4px}
+
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#3d0764;color:#fff;padding:10px 22px;border-radius:24px;font-size:13px;z-index:999;transition:transform .3s;opacity:0}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+@media(max-width:600px){
+  .theory-grid{grid-template-columns:1fr 1fr}
+  .phone-block{grid-template-columns:1fr}
+  .emph-scale{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">📚 Bài 48</div>
+  <h1>Finished? I've just started!</h1>
+  <h2>Important Words in Conversation 2</h2>
+  <div class="phoneme-badge">EXTRA STRESS → Đặc biệt nhấn mạnh</div>
+  <div class="header-sub">Dùng trọng âm đặc biệt để bày tỏ ngạc nhiên, phản bác, cảm xúc mạnh</div>
+  <a href="../index.html" class="home-link">← Về trang chủ</a>
+</div>
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">📖 Lý thuyết: Extra Stress – Nhấn đặc biệt</div>
+
+  <div class="theory-grid">
+    <div class="theory-card">
+      <h3>😲 Ngạc nhiên / Cảm xúc mạnh</h3>
+      <p>Khi rất ngạc nhiên hoặc muốn nhấn đặc biệt, giọng lên <strong>cao bất thường</strong>, từ được nói <strong>to hơn và chậm hơn</strong> một chút.</p>
+    </div>
+    <div class="theory-card">
+      <h3>🔁 Lặp lại từ của người kia</h3>
+      <p>Thường dùng cách <strong>lặp lại từ người kia vừa nói</strong> nhưng nhấn đặc biệt để bày tỏ ngạc nhiên hoặc nghi ngờ: <em>"That? You must be joking!"</em></p>
+    </div>
+    <div class="theory-card">
+      <h3>🗣️ Tranh luận / Phản bác</h3>
+      <p>Khi tranh luận, nhấn mạnh từ quan trọng và thêm <strong>ngữ điệu cao, mạnh</strong>: <em>"We said <strong>HALF</strong> past two!"</em></p>
+    </div>
+    <div class="theory-card">
+      <h3>📢 Giọng lên cao = Cảm xúc</h3>
+      <p>Giọng càng cao → cảm xúc càng mạnh. Không chỉ stress mà cả <strong>pitch (cao độ)</strong> đều tăng đặc biệt so với câu bình thường.</p>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Bí quyết:</strong> Bình thường → stress bình thường ↘. Ngạc nhiên/cảm xúc → giọng vọt lên cao rồi xuống: ↑↘! Càng ngạc nhiên, giọng càng cao. Luyện cách nói "Really?!" với 3 mức độ: tò mò / ngạc nhiên / không tin nổi!
+  </div>
+
+  <!-- Emphasis scale visual -->
+  <div style="font-size:13px;font-weight:700;color:#3d0764;margin-bottom:8px">📊 Thang độ nhấn mạnh (click để nghe)</div>
+  <div class="emph-scale">
+    <div class="emph-item" onclick="speakText('started',0.9)">
+      <div class="emph-word">started</div><div class="emph-label">Bình thường</div>
+    </div>
+    <div class="emph-item" onclick="speakText('STARTED',0.85)">
+      <div class="emph-word">started</div><div class="emph-label">Nhấn</div>
+    </div>
+    <div class="emph-item" onclick="speakText('STARTED!!',0.8)">
+      <div class="emph-word">started</div><div class="emph-label">Nhấn mạnh</div>
+    </div>
+    <div class="emph-item" onclick="speakText('STARTED!!!',0.75)">
+      <div class="emph-word">started!!</div><div class="emph-label">Đặc biệt nhấn</div>
+    </div>
+  </div>
+
+  <!-- Section A: two dialogues -->
+  <div class="dialogue-block">
+    <div class="dl-label">🅐 So sánh: Stress bình thường vs Stress đặc biệt</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
+      <div style="background:#f9fafb;border-radius:8px;padding:12px;border:1px solid #e5e7eb">
+        <div style="font-size:11px;font-weight:700;color:#9ca3af;margin-bottom:8px">HỘI THOẠI 1 – Bình thường</div>
+        <div class="dl-line"><span class="sp-a">A:</span> When will that report be finished?</div>
+        <div class="dl-line"><span class="sp-b">B:</span> I've just <span class="hl-norm">started</span> it, so it'll be finished this afternoon.
+          <button class="speak-btn" onclick="speakText('I've just started it, so it'll be finished this afternoon.',0.85)">🔊</button>
+        </div>
+      </div>
+      <div style="background:#faf5ff;border-radius:8px;padding:12px;border:1px solid #c4b5fd">
+        <div style="font-size:11px;font-weight:700;color:#7c3aed;margin-bottom:8px">HỘI THOẠI 2 – Đặc biệt nhấn!</div>
+        <div class="dl-line"><span class="sp-a">A:</span> Have you finished that report?</div>
+        <div class="dl-line"><span class="sp-b">B:</span> <span class="hl-high">Finished?!</span> I've just <span class="hl-emph">started</span> it!!
+          <button class="speak-btn" onclick="speakText('FINISHED?! I've just STARTED it!!',0.7)">🔊</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box" style="margin-top:12px">
+      🎯 Từ <strong>started</strong> được nhấn đặc biệt ở cả hai hội thoại, nhưng hội thoại 2 giọng <strong>cao hơn nhiều</strong> vì B rất ngạc nhiên khi bị hỏi "finished?" trong khi mới bắt đầu!
+    </div>
+  </div>
+
+  <!-- Section B: argument dialogue -->
+  <div class="dialogue-block">
+    <div class="dl-label">🅑 Tranh luận – Extra stress trong phản bác</div>
+    <div class="dl-line"><span class="sp-a">A:</span> You're <span class="hl-emph">late</span>! We said <span class="hl-emph">two</span> o'clock!
+      <button class="speak-btn" onclick="speakText('You're LATE! We said TWO o'clock!',0.8)">🔊</button>
+    </div>
+    <div class="dl-line"><span class="sp-b">B:</span> We <span class="hl-emph">didn't</span> – we said <span class="hl-emph">half</span> past two!
+      <button class="speak-btn" onclick="speakText('We DIDN'T, we said HALF past two!',0.8)">🔊</button>
+    </div>
+    <div class="dl-line"><span class="sp-a">A:</span> We said <span class="hl-emph">two</span>! You're <span class="hl-emph">always</span> late!
+      <button class="speak-btn" onclick="speakText('We said TWO! You're ALWAYS late!',0.8)">🔊</button>
+    </div>
+    <div class="dl-line"><span class="sp-b">B:</span> Last time <span class="hl-emph">you</span> were late! Remember?
+      <button class="speak-btn" onclick="speakText('Last time YOU were late! Remember?',0.8)">🔊</button>
+    </div>
+    <div class="dl-line"><span class="sp-a">A:</span> Was <span class="hl-emph">I</span>?
+      <button class="speak-btn" onclick="speakText('Was I?',0.85)">🔊</button>
+    </div>
+  </div>
+</div>
+
+<!-- EXTRA SENTENCES -->
+<div class="section">
+  <div class="section-title">💬 Câu luyện thêm – Click để nghe</div>
+  <ul class="sentence-list">
+    <li onclick="speakText('That? You must be JOKING!',0.8)">
+      <div class="sent-en"><span class="hl-emph">That?</span> You must be <span class="hl-emph">joking!</span></div>
+      <div class="sent-vi">Cái đó ư? Bạn chắc đang đùa!</div>
+      <div class="sent-note">↑ giọng rất cao trên "That" và "joking"</div>
+    </li>
+    <li onclick="speakText('Me? I can't stand westerns!',0.8)">
+      <div class="sent-en"><span class="hl-emph">Me?</span> I can't stand westerns!</div>
+      <div class="sent-vi">Tôi ư? Tôi không chịu nổi phim cao bồi!</div>
+    </li>
+    <li onclick="speakText('Really? I don't believe it!',0.8)">
+      <div class="sent-en"><span class="hl-emph">Really?</span> I don't believe it!</div>
+      <div class="sent-vi">Thật không? Tôi không tin nổi!</div>
+    </li>
+    <li onclick="speakText('The FIRST – and probably the LAST!',0.8)">
+      <div class="sent-en">The <span class="hl-emph">first</span> – and probably the <span class="hl-emph">last</span>!</div>
+      <div class="sent-vi">Lần đầu – và có lẽ là lần cuối!</div>
+    </li>
+    <li onclick="speakText('Two fifty? That's RIDICULOUS!',0.8)">
+      <div class="sent-en">Two fifty? That's <span class="hl-emph">ridiculous!</span></div>
+      <div class="sent-vi">Hai pound rưỡi? Vô lý quá!</div>
+    </li>
+    <li onclick="speakText('Busy? They were almost EMPTY!',0.8)">
+      <div class="sent-en"><span class="hl-emph">Busy?</span> They were almost <span class="hl-emph">empty!</span></div>
+      <div class="sent-vi">Bận? Hầu như trống không đấy!</div>
+    </li>
+    <li onclick="speakText('Settlement? We haven't even started the SURVEY yet!',0.8)">
+      <div class="sent-en"><span class="hl-emph">Settlement?</span> We haven't even started the <span class="hl-emph">survey</span> yet!</div>
+      <div class="sent-vi">Lún ư? Chúng tôi chưa bắt đầu khảo sát thậm chí!</div>
+      <div class="sent-note">🏗️ Geotech: settlement, survey</div>
+    </li>
+    <li onclick="speakText('Finished? We've only drilled THREE boreholes!',0.8)">
+      <div class="sent-en"><span class="hl-emph">Finished?</span> We've only drilled <span class="hl-emph">three</span> boreholes!</div>
+      <div class="sent-vi">Xong rồi ư? Chúng tôi chỉ mới khoan được 3 lỗ thôi!</div>
+      <div class="sent-note">🏗️ Geotech: borehole, drilling</div>
+    </li>
+    <li onclick="speakText('Report? I just got the SAMPLES this morning!',0.8)">
+      <div class="sent-en"><span class="hl-emph">Report?</span> I just got the <span class="hl-emph">samples</span> this morning!</div>
+      <div class="sent-vi">Báo cáo ư? Tôi vừa mới nhận mẫu sáng nay thôi!</div>
+      <div class="sent-note">🏗️ Geotech: report, soil samples</div>
+    </li>
+  </ul>
+</div>
+
+<!-- PHONE DIALOGUE: WATT & KNOTT -->
+<div class="section">
+  <div class="section-title">📞 Hội thoại hài – Watt & Knott (Bài 48.2)</div>
+  <div class="note-box">
+    🎭 <strong>John Watt</strong> (phát âm như "what") gọi điện cho <strong>Will Knott</strong> (phát âm như "not"). <em>Will</em> = tên, phát âm như động từ "will". Click từng dòng để nghe!
+  </div>
+
+  <div class="phone-block">
+    <div class="phone-col phone-col-a">
+      <div class="phone-col-title">📱 John Watt</div>
+      <div class="phone-line" onclick="speakText('Hello. Are you there?',0.85)">Hello. Are you there?</div>
+      <div class="phone-line" onclick="speakText('Watt.',0.85)"><strong><span class="hl-emph">Watt.</span></strong></div>
+      <div class="phone-line" onclick="speakText('Watt's my name.',0.85)"><strong>Watt's</strong> my name.</div>
+      <div class="phone-line" onclick="speakText('Yes, that's right. Are you Jones?',0.85)">Yes, that's right. Are you <strong>Jones</strong>?</div>
+      <div class="phone-line" onclick="speakText('Well, tell me your name then.',0.85)">Well, tell me your name, then.</div>
+      <div class="phone-line" onclick="speakText('Why not?',0.8)"><span class="hl-emph">Why</span> not?</div>
+      <div class="phone-line" onclick="speakText('Not WHAT?',0.8)">Not <span class="hl-emph">what?</span></div>
+      <div class="phone-line" onclick="speakText('WHAT?!',0.75)"><span class="hl-high">What?!</span></div>
+    </div>
+    <div class="phone-col phone-col-b">
+      <div class="phone-col-title">📱 Will Knott</div>
+      <div class="phone-line" onclick="speakText('Yes. Who's that?',0.85)">Yes. Who's <strong>that?</strong></div>
+      <div class="phone-line" onclick="speakText('What's your name?',0.85)">What's your <strong>name?</strong></div>
+      <div class="phone-line" onclick="speakText('WHAT?',0.8)"><span class="hl-emph">What?</span></div>
+      <div class="phone-line" onclick="speakText('John WHAT?',0.8)">John <span class="hl-emph">what?</span></div>
+      <div class="phone-line" onclick="speakText('No, I'm Knott.',0.85)">No, I'm <strong>Knott.</strong></div>
+      <div class="phone-line" onclick="speakText('Will Knott.',0.85)">Will <strong>Knott.</strong></div>
+      <div class="phone-line" onclick="speakText('My name's Knott.',0.85)">My name's <span class="hl-emph">Knott.</span></div>
+      <div class="phone-line" onclick="speakText('Not Watt. Knott.',0.8)">Not <span class="hl-contra">Watt</span>, <span class="hl-emph">Knott.</span></div>
+    </div>
+  </div>
+
+  <button class="btn-purple" style="margin-top:12px;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600" onclick="playFullDialog()">🔊 Nghe toàn bộ hội thoại</button>
+</div>
+
+<!-- EXERCISES -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- EX 48.1 – Click stressed words -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 48.1 – Click vào từ được nhấn đặc biệt trong câu B</div>
+    <div class="ex-instruction">Đọc/nghe hội thoại. Click vào TỪ (hoặc 2 từ) được <strong>nhấn đặc biệt</strong> (extra stress) trong câu B. Ví dụ: <em>"That? You must be <strong>joking</strong>!"</em> → click "That" và "joking".</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">Ví dụ: A: Is that your car? &nbsp; B: That? You must be joking!</div>
+      <div class="stress-row" id="sr_ex">
+        <span class="sw picked" onclick="">That</span>
+        <span class="sw">You</span>
+        <span class="sw">must</span>
+        <span class="sw">be</span>
+        <span class="sw picked" onclick="">joking</span>
+      </div>
+      <div style="font-size:12px;color:#7c3aed">✅ Đáp án: <strong>That</strong> và <strong>joking</strong></div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1. A: Do you like westerns? &nbsp; B: Me? I can't stand westerns!</div>
+      <div class="stress-row" id="sr481_1">
+        <span class="sw" id="sw481_1_Me" onclick="toggleSW(this,'sr481_1')">Me</span>
+        <span class="sw" id="sw481_1_cant" onclick="toggleSW(this,'sr481_1')">can't</span>
+        <span class="sw" id="sw481_1_stand" onclick="toggleSW(this,'sr481_1')">stand</span>
+        <span class="sw" id="sw481_1_westerns" onclick="toggleSW(this,'sr481_1')">westerns</span>
+      </div>
+      <div id="fb481_1" style="font-size:12px;margin-top:4px"></div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">2. A: It's stopped raining. &nbsp; B: Really? I don't believe it!</div>
+      <div class="stress-row" id="sr481_2">
+        <span class="sw" id="sw481_2_Really" onclick="toggleSW(this,'sr481_2')">Really</span>
+        <span class="sw" id="sw481_2_dont" onclick="toggleSW(this,'sr481_2')">don't</span>
+        <span class="sw" id="sw481_2_believe" onclick="toggleSW(this,'sr481_2')">believe</span>
+        <span class="sw" id="sw481_2_it" onclick="toggleSW(this,'sr481_2')">it</span>
+      </div>
+      <div id="fb481_2" style="font-size:12px;margin-top:4px"></div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">3. A: Is it the first time you've been here? &nbsp; B: The first – and probably the last!</div>
+      <div class="stress-row" id="sr481_3">
+        <span class="sw" id="sw481_3_first" onclick="toggleSW(this,'sr481_3')">first</span>
+        <span class="sw" id="sw481_3_probably" onclick="toggleSW(this,'sr481_3')">probably</span>
+        <span class="sw" id="sw481_3_last" onclick="toggleSW(this,'sr481_3')">last</span>
+        <span class="sw" id="sw481_3_The" onclick="toggleSW(this,'sr481_3')">The</span>
+      </div>
+      <div id="fb481_3" style="font-size:12px;margin-top:4px"></div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">4. A: You know the city pretty well, don't you? &nbsp; B: Me? I've never been here before!</div>
+      <div class="stress-row" id="sr481_4">
+        <span class="sw" id="sw481_4_Me" onclick="toggleSW(this,'sr481_4')">Me</span>
+        <span class="sw" id="sw481_4_never" onclick="toggleSW(this,'sr481_4')">never</span>
+        <span class="sw" id="sw481_4_been" onclick="toggleSW(this,'sr481_4')">been</span>
+        <span class="sw" id="sw481_4_before" onclick="toggleSW(this,'sr481_4')">before</span>
+      </div>
+      <div id="fb481_4" style="font-size:12px;margin-top:4px"></div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">5. A: It's two pounds fifty for a cup of coffee. &nbsp; B: Two fifty? That's ridiculous!</div>
+      <div class="stress-row" id="sr481_5">
+        <span class="sw" id="sw481_5_Two" onclick="toggleSW(this,'sr481_5')">Two fifty</span>
+        <span class="sw" id="sw481_5_Thats" onclick="toggleSW(this,'sr481_5')">That's</span>
+        <span class="sw" id="sw481_5_ridiculous" onclick="toggleSW(this,'sr481_5')">ridiculous</span>
+        <span class="sw" id="sw481_5_cup" onclick="toggleSW(this,'sr481_5')">cup</span>
+      </div>
+      <div id="fb481_5" style="font-size:12px;margin-top:4px"></div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">6. A: Were the shops busy today? &nbsp; B: Busy? They were almost empty!</div>
+      <div class="stress-row" id="sr481_6">
+        <span class="sw" id="sw481_6_Busy" onclick="toggleSW(this,'sr481_6')">Busy</span>
+        <span class="sw" id="sw481_6_almost" onclick="toggleSW(this,'sr481_6')">almost</span>
+        <span class="sw" id="sw481_6_empty" onclick="toggleSW(this,'sr481_6')">empty</span>
+        <span class="sw" id="sw481_6_were" onclick="toggleSW(this,'sr481_6')">were</span>
+      </div>
+      <div id="fb481_6" style="font-size:12px;margin-top:4px"></div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">7. A: Do you like rap music? &nbsp; B: Like it? I think it's awful!</div>
+      <div class="stress-row" id="sr481_7">
+        <span class="sw" id="sw481_7_Like" onclick="toggleSW(this,'sr481_7')">Like it</span>
+        <span class="sw" id="sw481_7_think" onclick="toggleSW(this,'sr481_7')">think</span>
+        <span class="sw" id="sw481_7_awful" onclick="toggleSW(this,'sr481_7')">awful</span>
+        <span class="sw" id="sw481_7_its" onclick="toggleSW(this,'sr481_7')">it's</span>
+      </div>
+      <div id="fb481_7" style="font-size:12px;margin-top:4px"></div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check481()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset481()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="reveal481()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score481" class="score-box"></div>
+  </div>
+
+  <!-- EX 48.2 – Echo responses -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 48.2 – Viết phản hồi "echo" + extra stress</div>
+    <div class="ex-instruction">Nghe/đọc câu A, viết câu B phản hồi bằng cách <strong>lặp lại từ quan trọng</strong> rồi thêm phản ứng (You must be joking! / That's ridiculous! / I don't believe it! v.v.)</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">Mẫu: A: This shirt costs £500. → B: Five hundred pounds?! That's ridiculous!</div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1. A: I've been waiting for three hours.</div>
+      <div style="font-size:14px;margin-top:6px">B: <input class="fill-input" id="f482_1" placeholder="Three hours?! ..." style="width:100%"></div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">2. A: She runs 50 kilometres every morning!</div>
+      <div style="font-size:14px;margin-top:6px">B: <input class="fill-input" id="f482_2" placeholder="Fifty km?! ..." style="width:100%"></div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">3. A: The borehole collapsed during drilling. 🏗️</div>
+      <div style="font-size:14px;margin-top:6px">B: <input class="fill-input" id="f482_3" placeholder="Collapsed?! ..." style="width:100%"></div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-purple" onclick="reveal482()">💡 Xem gợi ý</button>
+      <button class="btn-warning" onclick="reset482()">🔄 Làm lại</button>
+    </div>
+    <div id="score482" class="score-box"></div>
+  </div>
+
+  <!-- EX 48.3 – Argument stress -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 48.3 – Tranh luận: Chọn từ được nhấn mạnh nhất</div>
+    <div class="ex-instruction">Trong các câu tranh luận bên dưới, click vào từ được nhấn mạnh nhất.</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1. "We <em>didn't</em> – we said <em>half</em> past two!"</div>
+      <div class="stress-row" id="sr483_1">
+        <span class="sw" id="sw483_1_We" onclick="toggleSW(this,'sr483_1')">We</span>
+        <span class="sw" id="sw483_1_didnt" onclick="toggleSW(this,'sr483_1')">didn't</span>
+        <span class="sw" id="sw483_1_said" onclick="toggleSW(this,'sr483_1')">said</span>
+        <span class="sw" id="sw483_1_half" onclick="toggleSW(this,'sr483_1')">half</span>
+        <span class="sw" id="sw483_1_two" onclick="toggleSW(this,'sr483_1')">two</span>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">2. "Last time <em>you</em> were late!"</div>
+      <div class="stress-row" id="sr483_2">
+        <span class="sw" id="sw483_2_Last" onclick="toggleSW(this,'sr483_2')">Last</span>
+        <span class="sw" id="sw483_2_time" onclick="toggleSW(this,'sr483_2')">time</span>
+        <span class="sw" id="sw483_2_you" onclick="toggleSW(this,'sr483_2')">you</span>
+        <span class="sw" id="sw483_2_were" onclick="toggleSW(this,'sr483_2')">were</span>
+        <span class="sw" id="sw483_2_late" onclick="toggleSW(this,'sr483_2')">late</span>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">3. "You're <em>always</em> late!" (từ nào nhấn mạnh nhất?)</div>
+      <div class="stress-row" id="sr483_3">
+        <span class="sw" id="sw483_3_Youre" onclick="toggleSW(this,'sr483_3')">You're</span>
+        <span class="sw" id="sw483_3_always" onclick="toggleSW(this,'sr483_3')">always</span>
+        <span class="sw" id="sw483_3_late" onclick="toggleSW(this,'sr483_3')">late</span>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check483()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset483()">🔄 Làm lại</button>
+    </div>
+    <div id="score483" class="score-box"></div>
+  </div>
+
+  <!-- EX 48.4 – Watt/Knott fill -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 48.4 – Điền vào hội thoại Watt & Knott</div>
+    <div class="ex-instruction">Điền tên <strong>Watt</strong> hoặc <strong>Knott</strong> vào chỗ trống. Chú ý: Watt = "what", Knott = "not".</div>
+
+    <div class="dialogue-ex">
+      <div class="dl-line">John Watt: Hello. Are you there?</div>
+      <div class="dl-line">Will Knott: Yes. Who's that?</div>
+      <div class="dl-line">John Watt: <input class="fill-input" id="f484_1" placeholder="Watt / Knott?" style="width:80px">.</div>
+      <div class="dl-line">Will Knott: What's your name?</div>
+      <div class="dl-line">John Watt: <input class="fill-input" id="f484_2" placeholder="Watt / Knott?" style="width:100px">'s my name.</div>
+      <div class="dl-line">Will Knott: <strong>What?</strong></div>
+      <div class="dl-line">John Watt: My name's John <input class="fill-input" id="f484_3" placeholder="Watt / Knott?" style="width:80px">.</div>
+      <div class="dl-line">Will Knott: No, I'm <input class="fill-input" id="f484_4" placeholder="Watt / Knott?" style="width:80px">.</div>
+      <div class="dl-line">John Watt: Well, tell me your name, then.</div>
+      <div class="dl-line">Will Knott: Will <input class="fill-input" id="f484_5" placeholder="Watt / Knott?" style="width:80px">.</div>
+      <div class="dl-line">John Watt: <strong>Why not?</strong></div>
+      <div class="dl-line">Will Knott: My name's <input class="fill-input" id="f484_6" placeholder="Watt / Knott?" style="width:80px">.</div>
+      <div class="dl-line">John Watt: Not what?</div>
+      <div class="dl-line">Will Knott: Not <input class="fill-input" id="f484_7" placeholder="Watt / Knott?" style="width:60px">, <input class="fill-input" id="f484_8" placeholder="Watt / Knott?" style="width:70px">.</div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check484()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset484()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="reveal484()">👁️ Đáp án</button>
+    </div>
+    <div id="score484" class="score-box"></div>
+  </div>
+
+  <!-- EX 48.5 – Minimal pairs: Watt/What/Not/Knott -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 48.5 – Nghe & phản hồi với extra stress</div>
+    <div class="ex-instruction">Click 🔊 nghe từng câu A, rồi click câu B phản hồi đúng (dùng extra stress).</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1</div>
+      <div class="dl-line">A: This coffee costs five pounds.
+        <button class="speak-btn" onclick="speakText('This coffee costs five pounds.',0.85)">🔊</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+        <span class="chip" id="c485_1a" onclick="pick485(1,'a')">Five pounds? That's reasonable.</span>
+        <span class="chip" id="c485_1b" onclick="pick485(1,'b')">Five pounds?! That's outrageous! ✓</span>
+        <span class="chip" id="c485_1c" onclick="pick485(1,'c')">Oh, okay.</span>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">2</div>
+      <div class="dl-line">A: I've been awake for 48 hours!
+        <button class="speak-btn" onclick="speakText('I've been awake for 48 hours!',0.85)">🔊</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+        <span class="chip" id="c485_2a" onclick="pick485(2,'a')">Oh nice.</span>
+        <span class="chip" id="c485_2b" onclick="pick485(2,'b')">That's fine.</span>
+        <span class="chip" id="c485_2c" onclick="pick485(2,'c')">48 hours?! I don't believe it! ✓</span>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">3. 🏗️</div>
+      <div class="dl-line">A: We've finished all 20 boreholes already!
+        <button class="speak-btn" onclick="speakText('We've finished all twenty boreholes already!',0.85)">🔊</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+        <span class="chip" id="c485_3a" onclick="pick485(3,'a')">All twenty?! That's amazing! ✓</span>
+        <span class="chip" id="c485_3b" onclick="pick485(3,'b')">Oh, okay then.</span>
+        <span class="chip" id="c485_3c" onclick="pick485(3,'c')">Yes, sounds about right.</span>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check485()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset485()">🔄 Làm lại</button>
+    </div>
+    <div id="score485" class="score-box"></div>
+  </div>
+
+</div>
+
+<!-- GEO BOX -->
+<div class="section">
+  <div class="section-title">🏗️ Geotech Corner</div>
+  <div class="geo-box">
+    <strong>Extra stress trong kỹ thuật địa chất:</strong> Khi nhận kết quả khoan bất ngờ hoặc số liệu không hợp lý, kỹ sư thường phản hồi với extra stress: <em>"Settlement? But we only installed the piles LAST WEEK!"</em> / <em>"Forty metres?! The design said FIFTEEN!"</em> Việc nhấn đúng từ giúp đồng nghiệp hiểu ngay bạn đang ngạc nhiên hay phản bác điều gì.
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+function speakText(t,rate=0.85){
+  const u=new SpeechSynthesisUtterance(t);
+  u.lang="en-GB";u.rate=rate;u.pitch=1.15;
+  const vs=speechSynthesis.getVoices();
+  for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){u.voice=v;break;}}
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+window.speechSynthesis&&speechSynthesis.getVoices();
+
+function showToast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;t.classList.add("show");
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);
+}
+function showScore(id,correct,total,extra=""){
+  const el=document.getElementById(id);
+  const pct=Math.round(correct/total*100);
+  let cls,label;
+  if(pct>=90){cls="#22c55e";label="🎉 Xuất sắc!";}
+  else if(pct>=65){cls="#f59e0b";label="👍 Khá tốt!";}
+  else{cls="#ef4444";label="😅 Cần luyện thêm!";}
+  el.innerHTML=`<div class="big-score" style="color:${cls}">${pct}%</div>
+    <div class="score-label">${label} ${extra}</div>
+    <div class="score-meter"><div class="score-meter-fill" style="width:${pct}%;background:${cls}"></div></div>
+    <div class="score-detail">${correct}/${total} câu đúng</div>`;
+  el.classList.add("show");
+}
+
+// Full Watt/Knott dialogue
+function playFullDialog(){
+  const lines=[
+    'Hello. Are you there?',
+    'Yes. Who's that?',
+    'Watt.',
+    'What's your name?',
+    'Watt's my name.',
+    'WHAT?',
+    'My name's John Watt.',
+    'John WHAT?',
+    'Yes that's right. Are you Jones?',
+    'No, I'm Knott.',
+    'Well, tell me your name then.',
+    'Will Knott.',
+    'WHY not?',
+    'My name's Knott.',
+    'Not WHAT?',
+    'Not Watt, KNOTT.',
+    'WHAT?!'
+  ];
+  let i=0;
+  function next(){
+    if(i>=lines.length)return;
+    const u=new SpeechSynthesisUtterance(lines[i]);
+    u.lang="en-GB";u.rate=0.82;u.pitch=i%2===0?1.0:1.1;
+    const vs=speechSynthesis.getVoices();
+    for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){u.voice=v;break;}}
+    u.onend=()=>{i++;setTimeout(next,400);};
+    speechSynthesis.speak(u);
+  }
+  speechSynthesis.cancel();
+  next();
+}
+
+// SW toggle (single select per group for EX 48.1)
+const swState={};
+function toggleSW(el,groupId){
+  if(!swState[groupId])swState[groupId]=new Set();
+  const word=el.textContent;
+  if(swState[groupId].has(word)){
+    swState[groupId].delete(word);el.classList.remove('picked');
+  } else {
+    // allow up to 2 picks
+    if(swState[groupId].size<2){swState[groupId].add(word);el.classList.add('picked');}
+    else{
+      // replace first
+      const first=[...swState[groupId]][0];
+      swState[groupId].delete(first);
+      document.querySelectorAll('#'+groupId+' .sw').forEach(e=>{if(e.textContent===first)e.classList.remove('picked');});
+      swState[groupId].add(word);el.classList.add('picked');
+    }
+  }
+}
+
+// EX 48.1
+const ans481={
+  '1':['Me','westerns'],
+  '2':['Really','believe'],
+  '3':['first','last'],
+  '4':['Me','never'],
+  '5':['Two fifty','ridiculous'],
+  '6':['Busy','empty'],
+  '7':['Like it','awful']
+};
+function check481(){
+  let correct=0,total=7;
+  [1,2,3,4,5,6,7].forEach(q=>{
+    const grp=swState['sr481_'+q]||new Set();
+    const ans=ans481[String(q)];
+    const fb=document.getElementById('fb481_'+q);
+    // flexible check - any 2 of the right ones
+    const ok=ans.every(a=>grp.has(a))&&grp.size===2;
+    if(ok){
+      correct++;
+      if(fb)fb.innerHTML=`<span style="color:#16a34a">✅ Đúng! Nhấn đặc biệt: <strong>${ans.join(' + ')}</strong></span>`;
+    } else {
+      if(fb)fb.innerHTML=`<span style="color:#dc2626">❌ Đáp án: <strong>${ans.join(' + ')}</strong></span>`;
+    }
+  });
+  showScore('score481',correct,total);
+  showToast(correct===total?'Xuất sắc! 🎉':`${correct}/${total} đúng`);
+}
+function reset481(){
+  for(let q=1;q<=7;q++){
+    swState['sr481_'+q]=new Set();
+    document.querySelectorAll('#sr481_'+q+' .sw').forEach(e=>e.classList.remove('picked','correct-sw','wrong-sw'));
+    const fb=document.getElementById('fb481_'+q);
+    if(fb)fb.innerHTML='';
+  }
+  document.getElementById('score481').classList.remove('show');showToast('Đã reset!');
+}
+function reveal481(){
+  Object.keys(ans481).forEach(q=>{
+    const ans=ans481[q];
+    swState['sr481_'+q]=new Set(ans);
+    document.querySelectorAll('#sr481_'+q+' .sw').forEach(e=>{
+      e.classList.remove('picked');
+      if(ans.includes(e.textContent))e.classList.add('picked');
+    });
+    const fb=document.getElementById('fb481_'+q);
+    if(fb)fb.innerHTML=`<span style="color:#7c3aed">📋 Đáp án: <strong>${ans.join(' + ')}</strong></span>`;
+  });
+  showToast('Đáp án đã hiện!');
+}
+
+// EX 48.2
+function reveal482(){
+  document.getElementById('score482').innerHTML=`<div style="font-size:13px;text-align:left;padding:4px">
+    <strong>Gợi ý:</strong><br>
+    1. "Three HOURS?! You must be joking!" / "That's unbelievable!"<br>
+    2. "Fifty KILOMETRES?! I don't believe it!" / "That's incredible!"<br>
+    3. "COLLAPSED?! That's terrible! What happened?"
+  </div>`;
+  document.getElementById('score482').classList.add('show');
+  showToast('Gợi ý đã hiện!');
+}
+function reset482(){
+  ['1','2','3'].forEach(k=>{const el=document.getElementById('f482_'+k);if(el)el.value='';});
+  document.getElementById('score482').classList.remove('show');showToast('Đã reset!');
+}
+
+// EX 48.3
+const ans483={1:['didnt','half'],2:['you'],3:['always']};
+const swState483={};
+function check483(){
+  let correct=0,total=3;
+  [1,2,3].forEach(q=>{
+    const grp=swState['sr483_'+q]||new Set();
+    const ans=ans483[q];
+    const ok=ans.every(a=>grp.has(a));
+    if(ok)correct++;
+  });
+  showScore('score483',correct,total);
+  showToast(correct===total?'Xuất sắc! 🎉':`${correct}/${total} đúng`);
+}
+function reset483(){
+  [1,2,3].forEach(q=>{
+    swState['sr483_'+q]=new Set();
+    document.querySelectorAll('#sr483_'+q+' .sw').forEach(e=>e.classList.remove('picked'));
+  });
+  document.getElementById('score483').classList.remove('show');showToast('Đã reset!');
+}
+
+// EX 48.4
+const ans484={1:'Watt',2:'Watt',3:'Watt',4:'Knott',5:'Knott',6:'Knott',7:'Watt',8:'Knott'};
+function check484(){
+  let correct=0,total=8;
+  [1,2,3,4,5,6,7,8].forEach(q=>{
+    const el=document.getElementById('f484_'+q);
+    const val=el.value.trim().toLowerCase();
+    const ans=ans484[q].toLowerCase();
+    if(val===ans){correct++;el.classList.add('correct');el.classList.remove('wrong');}
+    else{el.classList.add('wrong');el.classList.remove('correct');}
+  });
+  showScore('score484',correct,total);
+  showToast(correct===total?'Xuất sắc! 🎉':`${correct}/${total} đúng`);
+}
+function reset484(){
+  [1,2,3,4,5,6,7,8].forEach(q=>{const el=document.getElementById('f484_'+q);el.value='';el.classList.remove('correct','wrong');});
+  document.getElementById('score484').classList.remove('show');showToast('Đã reset!');
+}
+function reveal484(){
+  Object.keys(ans484).forEach(q=>{
+    const el=document.getElementById('f484_'+q);
+    el.value=ans484[q];el.classList.add('correct');el.classList.remove('wrong');
+  });
+  showToast('Đáp án đã hiện!');
+}
+
+// EX 48.5
+const ans485={1:'b',2:'c',3:'a'};
+const picked485={};
+function pick485(q,opt){
+  picked485[q]=opt;
+  ['a','b','c'].forEach(o=>{
+    const el=document.getElementById('c485_'+q+o);
+    if(el)el.classList.remove('selected','correct-chip','wrong-chip');
+  });
+  const el=document.getElementById('c485_'+q+opt);
+  if(el)el.classList.add('selected');
+}
+function check485(){
+  let correct=0;
+  [1,2,3].forEach(q=>{
+    const el=document.getElementById('c485_'+q+(picked485[q]||'x'));
+    if(picked485[q]===ans485[q]){
+      correct++;if(el)el.classList.add('correct-chip');
+    } else {
+      if(el)el.classList.add('wrong-chip');
+      const ansEl=document.getElementById('c485_'+q+ans485[q]);
+      if(ansEl)ansEl.classList.add('correct-chip');
+    }
+  });
+  showScore('score485',correct,3);
+  showToast(correct===3?'Xuất sắc! 🎉':`${correct}/3 đúng`);
+}
+function reset485(){
+  [1,2,3].forEach(q=>{
+    delete picked485[q];
+    ['a','b','c'].forEach(o=>{
+      const el=document.getElementById('c485_'+q+o);
+      if(el)el.classList.remove('selected','correct-chip','wrong-chip');
+    });
+  });
+  document.getElementById('score485').classList.remove('show');showToast('Đã reset!');
+}
+
+// LOCALSTORAGE
+setTimeout(()=>{
+  try{
+    let c=[];
+    try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}
+    if(!c.includes(48)){c.push(48);localStorage.setItem("epu_completed",JSON.stringify(c));}
+  }catch{}
+},1000);
+</script>
+</body>
+</html>

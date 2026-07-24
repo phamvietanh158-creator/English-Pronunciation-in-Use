@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 49 – Intonation in Phrases and Sentences 1</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#1a1a2e;line-height:1.6}
+
+.header{background:linear-gradient(135deg,#0f3d0f 0%,#1a6b2a 50%,#0a4a1a 100%);color:#fff;padding:32px 24px 28px;text-align:center}
+.header-label{font-size:13px;letter-spacing:3px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.header h1{font-size:clamp(18px,4vw,26px);font-weight:800;margin-bottom:4px}
+.header h2{font-size:clamp(13px,2.5vw,17px);font-weight:400;opacity:.85;margin-bottom:14px}
+.phoneme-badge{display:inline-block;background:#f5c518;color:#1a1a2e;font-weight:800;font-size:15px;padding:5px 18px;border-radius:20px;letter-spacing:1px;margin-bottom:10px}
+.header-sub{font-size:13px;opacity:.75}
+.home-link{display:inline-block;margin-top:14px;color:#f5c518;text-decoration:none;font-size:13px;border:1px solid rgba(245,197,24,.4);padding:5px 14px;border-radius:20px}
+.home-link:hover{background:rgba(245,197,24,.15)}
+
+.section{background:#fff;border-radius:14px;margin:20px auto;max-width:860px;padding:28px 24px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.section-title{font-size:17px;font-weight:800;color:#0f3d0f;border-left:4px solid #16a34a;padding-left:12px;margin-bottom:18px}
+
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:18px}
+.theory-card{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-radius:10px;padding:16px;border-left:4px solid #16a34a}
+.theory-card h3{font-size:13px;font-weight:700;color:#14532d;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.theory-card p{font-size:13px;color:#333;line-height:1.5}
+
+.tip-box{background:#fffbeb;border-left:4px solid #f59e0b;border-radius:8px;padding:14px 16px;margin:14px 0;font-size:13px}
+.tip-box strong{color:#b45309}
+.geo-box{background:#f0fdfa;border-left:4px solid #14b8a6;border-radius:8px;padding:14px 16px;margin:14px 0;font-size:13px}
+.geo-box strong{color:#0f766e}
+.note-box{background:#f0fdf4;border:1px dashed #86efac;border-radius:8px;padding:12px 14px;margin:10px 0;font-size:13px}
+
+/* Intonation arrow indicators */
+.arr-fall::after{content:" ↘";color:#dc2626;font-weight:700}
+.arr-rise::after{content:" ↗";color:#16a34a;font-weight:700}
+.arr-fallrise::after{content:" ↗↘";color:#f59e0b;font-weight:700}
+.hl-fall{color:#dc2626;font-weight:700}
+.hl-rise{color:#16a34a;font-weight:700}
+.hl-fr{color:#f59e0b;font-weight:700}
+.hl-stress{font-weight:800;text-decoration:underline}
+
+/* Intonation arrow badges */
+.badge-fall{display:inline-block;background:#fee2e2;color:#dc2626;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:700;margin:0 2px}
+.badge-rise{display:inline-block;background:#dcfce7;color:#16a34a;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:700;margin:0 2px}
+.badge-fr{display:inline-block;background:#fff7ed;color:#ea580c;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:700;margin:0 2px}
+
+/* Dialogue */
+.dialogue-block{background:#f0fdf4;border-radius:10px;padding:18px;margin:12px 0;border-left:4px solid #16a34a}
+.dl-label{font-size:11px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.dl-line{margin:5px 0;font-size:14px;line-height:1.8;cursor:pointer;padding:3px 6px;border-radius:6px;transition:.15s}
+.dl-line:hover{background:#dcfce7}
+.sp-a{font-weight:700;color:#1a1a2e}
+.sp-b{font-weight:700;color:#16a34a}
+
+.speak-btn{background:transparent;border:1px solid #86efac;color:#16a34a;border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer;margin-left:6px;vertical-align:middle}
+.speak-btn:hover{background:#dcfce7}
+
+/* Compact dialogue for 49.1 */
+.compact-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.compact-col{background:#f8fdf8;border-radius:8px;padding:12px;border:1px solid #bbf7d0;font-size:13px}
+.compact-col-title{font-size:10px;font-weight:700;color:#16a34a;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.c-line{margin:4px 0;line-height:1.6}
+.c-sp-a{font-weight:700;color:#374151}
+.c-sp-b{font-weight:700;color:#16a34a}
+
+/* Intonation marking quiz */
+.inton-quiz-line{font-size:14px;margin:10px 0;padding:10px 12px;background:#f9fafb;border-radius:8px;border:1px solid #e5e7eb;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.inton-quiz-line .phrase{font-weight:600;flex:1;min-width:160px}
+.inton-btn-group{display:flex;gap:6px}
+.inton-btn{padding:4px 10px;border-radius:6px;border:1.5px solid #e5e7eb;background:#fff;cursor:pointer;font-size:13px;font-weight:600;transition:.2s}
+.inton-btn:hover{transform:scale(1.08)}
+.inton-btn.fall{border-color:#fca5a5;color:#dc2626}.inton-btn.fall:hover,.inton-btn.fall.picked{background:#fee2e2}
+.inton-btn.rise{border-color:#86efac;color:#16a34a}.inton-btn.rise:hover,.inton-btn.rise.picked{background:#dcfce7}
+.inton-btn.fallrise{border-color:#fed7aa;color:#ea580c}.inton-btn.fallrise:hover,.inton-btn.fallrise.picked{background:#fff7ed}
+.inton-btn.picked{font-weight:800;transform:scale(1.05)}
+.inton-fb{font-size:12px;min-width:60px}
+
+/* Sentence list */
+.sentence-list{list-style:none;margin:10px 0}
+.sentence-list li{padding:12px 14px;border-radius:8px;margin:6px 0;cursor:pointer;border:1px solid #e5e7eb;transition:.2s}
+.sentence-list li:hover{background:#f0fdf4;border-color:#86efac}
+.sent-en{font-size:14px;font-weight:500;margin-bottom:3px}
+.sent-vi{font-size:12px;color:#666}
+.sent-note{font-size:11px;color:#16a34a;margin-top:2px;font-style:italic}
+
+/* Exercises */
+.ex-wrap{background:#f0fdf4;border-radius:12px;padding:20px;margin:14px 0;border:1px solid #bbf7d0}
+.ex-title{font-size:14px;font-weight:800;color:#14532d;margin-bottom:6px}
+.ex-instruction{font-size:13px;color:#555;margin-bottom:14px;line-height:1.5}
+.dialogue-ex{background:#fff;border-radius:8px;padding:14px;margin:8px 0;border:1px solid #e5e7eb}
+.pair-label{font-size:11px;color:#16a34a;font-weight:700;margin-bottom:6px}
+
+.fill-input{border:none;border-bottom:2px solid #16a34a;background:transparent;font-size:14px;padding:2px 6px;min-width:80px;outline:none;font-family:inherit}
+.fill-input.correct{border-color:#22c55e;background:#f0fdf4}
+.fill-input.wrong{border-color:#ef4444;background:#fef2f2}
+
+.chip{display:inline-block;padding:5px 12px;border-radius:20px;font-size:13px;cursor:pointer;border:1.5px solid #86efac;background:#f0fdf4;transition:.2s;user-select:none;margin:4px}
+.chip:hover{background:#dcfce7}
+.chip.selected{background:#16a34a;color:#fff;border-color:#15803d}
+.chip.correct-chip{background:#dcfce7;border-color:#22c55e;color:#14532d;font-weight:700}
+.chip.wrong-chip{background:#fee2e2;border-color:#ef4444;color:#991b1b}
+
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn-group button{padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;transition:.2s}
+.btn-success{background:#22c55e;color:#fff}.btn-success:hover{background:#16a34a}
+.btn-warning{background:#f59e0b;color:#fff}.btn-warning:hover{background:#d97706}
+.btn-danger{background:#ef4444;color:#fff}.btn-danger:hover{background:#dc2626}
+.btn-green{background:#16a34a;color:#fff}.btn-green:hover{background:#15803d}
+
+.score-box{display:none;margin-top:12px;padding:14px;border-radius:10px;text-align:center}
+.score-box.show{display:block}
+.big-score{font-size:36px;font-weight:900;margin-bottom:4px}
+.score-label{font-size:14px;margin-bottom:8px}
+.score-meter{background:#e5e7eb;border-radius:10px;height:10px;margin:8px 0}
+.score-meter-fill{height:100%;border-radius:10px;transition:width .5s}
+.score-detail{font-size:13px;color:#555}
+
+/* Pattern summary table */
+.pattern-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+.pattern-table th{background:#dcfce7;color:#14532d;padding:8px 12px;text-align:left;font-weight:700}
+.pattern-table td{padding:8px 12px;border-bottom:1px solid #f0fdf4;vertical-align:top}
+.pattern-table tr:hover td{background:#f0fdf4}
+
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#0f3d0f;color:#fff;padding:10px 22px;border-radius:24px;font-size:13px;z-index:999;transition:transform .3s;opacity:0}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+@media(max-width:600px){
+  .theory-grid{grid-template-columns:1fr 1fr}
+  .compact-pair{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">📚 Bài 49</div>
+  <h1>No, thanks, I'm just looking</h1>
+  <h2>Intonation in Phrases and Sentences 1</h2>
+  <div class="phoneme-badge">↘ Fall &nbsp; ↗ Rise &nbsp; ↗↘ Fall-Rise</div>
+  <div class="header-sub">Ngữ điệu trong cụm từ và câu hội thoại thực tế</div>
+  <a href="../index.html" class="home-link">← Về trang chủ</a>
+</div>
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">📖 Lý thuyết: 3 kiểu ngữ điệu trong hội thoại</div>
+
+  <div class="theory-grid">
+    <div class="theory-card">
+      <h3>↘ Fall (Xuống)</h3>
+      <p>Dùng cho: <strong>câu trả lời dứt khoát, thông tin mới, kết thúc ý</strong>. Ví dụ: <em>No. ↘ / Thanks. ↘ / Right. ↘</em><br>Giọng xuống = câu kết thúc rõ ràng.</p>
+    </div>
+    <div class="theory-card">
+      <h3>↗ Rise (Lên)</h3>
+      <p>Dùng cho: <strong>câu hỏi Yes/No, yêu cầu lặp lại, chưa kết thúc</strong>. Ví dụ: <em>Ready? ↗ / Yes? ↗</em><br>Giọng lên = chờ phản hồi.</p>
+    </div>
+    <div class="theory-card">
+      <h3>↗↘ Fall-Rise</h3>
+      <p>Dùng cho: <strong>thông tin chưa đầy đủ, bối cảnh, ý chưa xong</strong>. Ví dụ: <em>Nearly. ↗↘ / Slightly. ↗↘</em><br>Giọng lên-xuống = còn thêm thông tin.</p>
+    </div>
+    <div class="theory-card">
+      <h3>🎯 Thực hành hội thoại</h3>
+      <p>Ngữ điệu <strong>không cố định</strong> hoàn toàn nhưng có xu hướng chung. Luyện qua hội thoại thực tế giúp phát triển "tai nghe" tự nhiên hơn quy tắc.</p>
+    </div>
+  </div>
+
+  <table class="pattern-table">
+    <tr><th>Loại câu / ngữ cảnh</th><th>Ngữ điệu</th><th>Ví dụ</th></tr>
+    <tr><td>Câu trả lời dứt khoát, kết thúc</td><td><span class="badge-fall">↘ Fall</span></td><td><em>No. / Thanks. / Right. / Bye.</em></td></tr>
+    <tr><td>Câu hỏi Yes/No, yêu cầu xác nhận</td><td><span class="badge-rise">↗ Rise</span></td><td><em>Ready? / Cold? / Is it far?</em></td></tr>
+    <tr><td>Câu trả lời chưa đầy đủ, thêm điều kiện</td><td><span class="badge-fr">↗↘ Fall-Rise</span></td><td><em>Nearly. / Slightly. / No, not really.</em></td></tr>
+    <tr><td>Cảm ơn lịch sự, kết thúc giao dịch</td><td><span class="badge-fall">↘ Fall</span></td><td><em>Thank you. / You're welcome. / Here you are.</em></td></tr>
+    <tr><td>Câu hỏi mở (Wh-)</td><td><span class="badge-fall">↘ Fall</span></td><td><em>What's your name? ↘</em></td></tr>
+    <tr><td>Phản hồi ngạc nhiên / hỏi lại</td><td><span class="badge-rise">↗ Rise hoặc ↑</span></td><td><em>What?! / Yes?</em></td></tr>
+  </table>
+
+  <div class="tip-box">
+    <strong>💡 Bí quyết:</strong> Khi câu kết thúc một ý hoàn chỉnh → <strong>↘ xuống</strong>. Khi câu muốn người kia tiếp tục / chưa xong / hỏi → <strong>↗ lên</strong>. Câu "gần đúng" hay "nhưng..." → <strong>↗↘ fall-rise</strong>.
+  </div>
+</div>
+
+<!-- DIALOGUE 49.1 SHORT & LONG -->
+<div class="section">
+  <div class="section-title">💬 Hội thoại 49.1 – Ngắn & Dài (Click từng dòng để nghe)</div>
+
+  <div class="note-box">🎯 Hai hội thoại có cùng ngữ điệu, chỉ khác độ dài. Hội thoại ngắn = "telegram style". Hội thoại dài = câu hoàn chỉnh hơn.</div>
+
+  <div class="compact-pair">
+    <div class="compact-col">
+      <div class="compact-col-title">⚡ Phiên bản ngắn (Short)</div>
+      <div class="c-line" onclick="speakText('Ready?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> Ready? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('Nearly. Warm?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> Nearly. <span class="badge-fr">↗↘</span> Warm? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('No.',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> No. <span class="badge-fall">↘</span></div>
+      <div class="c-line" onclick="speakText('Cold?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> Cold? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('No.',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> No. <span class="badge-fall">↘</span></div>
+      <div class="c-line" onclick="speakText('Raining?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> Raining? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('Slightly. Umbrella?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> Slightly. <span class="badge-fr">↗↘</span> Umbrella? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('Thanks. Hat?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> Thanks. <span class="badge-fall">↘</span> Hat? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('Here.',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> Here. <span class="badge-fall">↘</span></div>
+      <div class="c-line" onclick="speakText('Thanks.',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> Thanks. <span class="badge-fall">↘</span></div>
+      <div class="c-line" onclick="speakText('Ready?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> Ready? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('Yes. You?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> Yes. <span class="badge-fall">↘</span> You? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('Yes.',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> Yes. <span class="badge-fall">↘</span></div>
+      <div class="c-line" onclick="speakText('Right.',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> Right. <span class="badge-fall">↘</span></div>
+    </div>
+
+    <div class="compact-col">
+      <div class="compact-col-title">📝 Phiên bản dài (Long)</div>
+      <div class="c-line" onclick="speakText('Are you ready?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> Are you ready? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('I'm nearly ready. Is it warm?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> I'm nearly ready. <span class="badge-fr">↗↘</span> Is it warm? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('No, not really.',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> No, not really. <span class="badge-fr">↗↘</span></div>
+      <div class="c-line" onclick="speakText('Is it cold?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> Is it cold? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('No, not really.',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> No, not really. <span class="badge-fr">↗↘</span></div>
+      <div class="c-line" onclick="speakText('Is it raining?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> Is it raining? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('Slightly. Do you want your umbrella?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> Slightly. <span class="badge-fr">↗↘</span> Do you want your umbrella? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('Yes, thanks. Where's my hat?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> Yes, thanks. <span class="badge-fall">↘</span> Where's my hat? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('Here it is.',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> Here it is. <span class="badge-fall">↘</span></div>
+      <div class="c-line" onclick="speakText('Thanks.',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> Thanks. <span class="badge-fall">↘</span></div>
+      <div class="c-line" onclick="speakText('Are you ready?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> Are you ready? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('Yes. Are you ready?',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> Yes. <span class="badge-fall">↘</span> Are you ready? <span class="badge-rise">↗</span></div>
+      <div class="c-line" onclick="speakText('Yes.',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-a">A:</span> Yes. <span class="badge-fall">↘</span></div>
+      <div class="c-line" onclick="speakText('Right.',0.85)" style="cursor:pointer;padding:3px;border-radius:4px" onmouseover="this.style.background='#dcfce7'" onmouseout="this.style.background=''">
+        <span class="c-sp-b">B:</span> Right. <span class="badge-fall">↘</span></div>
+    </div>
+  </div>
+  <button class="btn-green" style="border:none;padding:10px 20px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;margin-top:8px" onclick="playShort()">🔊 Nghe toàn bộ phiên bản ngắn</button>
+</div>
+
+<!-- DIALOGUE 49.2 – Shop -->
+<div class="section">
+  <div class="section-title">🏪 Hội thoại 49.2 – Trong cửa hàng</div>
+
+  <div class="dialogue-block">
+    <div class="dl-label">Shopping – "No, thanks, I'm just looking"</div>
+    <div class="dl-line" onclick="speakText('Can I help you?',0.85)">
+      <span class="sp-a">A:</span> Can I help you? <span class="badge-rise">↗</span>
+      <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('No thanks, I'm just looking.',0.85)">
+      <span class="sp-b">B:</span> No, thanks, I'm just <span class="hl-stress">looking</span>. <span class="badge-fall">↘</span>
+      <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('I'll take this, please.',0.85)">
+      <span class="sp-b">B:</span> I'll take <span class="hl-stress">this</span>, please. <span class="badge-fall">↘</span>
+      <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('Sure. Anything else?',0.85)">
+      <span class="sp-a">A:</span> Sure. <span class="badge-fall">↘</span> Anything else? <span class="badge-rise">↗</span>
+      <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('No thanks, that's all.',0.85)">
+      <span class="sp-b">B:</span> No, thanks, that's <span class="hl-stress">all</span>. <span class="badge-fall">↘</span>
+      <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('That's fifteen forty altogether.',0.85)">
+      <span class="sp-a">A:</span> That's fifteen <span class="hl-stress">forty</span> altogether. <span class="badge-fall">↘</span>
+      <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('Here you are.',0.85)">
+      <span class="sp-b">B:</span> Here you are. <span class="badge-fall">↘</span>
+      <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('Here's your change.',0.85)">
+      <span class="sp-a">A:</span> Here's your <span class="hl-stress">change</span>. <span class="badge-fall">↘</span>
+      <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('Thank you.',0.85)">
+      <span class="sp-b">B:</span> Thank you. <span class="badge-fall">↘</span>
+      <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('See you.',0.85)">
+      <span class="sp-a">A:</span> See you. <span class="badge-fall">↘</span>
+      <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('Bye.',0.85)">
+      <span class="sp-b">B:</span> Bye. <span class="badge-fall">↘</span>
+      <button class="speak-btn">🔊</button>
+    </div>
+  </div>
+</div>
+
+<!-- DIALOGUE 49.3 – Directions -->
+<div class="section">
+  <div class="section-title">🗺️ Hội thoại 49.3 – Hỏi đường</div>
+
+  <div class="dialogue-block">
+    <div class="dl-label">Asking for directions to the station</div>
+    <div class="dl-line" onclick="speakText('Excuse me.',0.85)">
+      <span class="sp-a">A:</span> Excuse me. <span class="badge-fr">↗↘</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('Yes?',0.85)">
+      <span class="sp-b">B:</span> Yes? <span class="badge-rise">↗</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('Can you tell me the way to the station, please?',0.85)">
+      <span class="sp-a">A:</span> Can you tell me the way to the <span class="hl-stress">station</span>, please? <span class="badge-fall">↘</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('Yes, you just go along this road, cross the bridge over the river and there's a big park on your left, you know? Well, you go through the park and the station's just on the other side.',0.8)">
+      <span class="sp-b">B:</span> Yes, you just go along this <span class="hl-stress">road</span>, cross the <span class="hl-stress">bridge</span> over the river and there's a big <span class="hl-stress">park</span> on your left, you know? Well, you go through the park and the <span class="hl-stress">station's</span> just on the other side. <span class="badge-fall">↘</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('Is it far?',0.85)">
+      <span class="sp-a">A:</span> Is it far? <span class="badge-rise">↗</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('No, not very far.',0.85)">
+      <span class="sp-b">B:</span> No, not very <span class="hl-stress">far</span>. <span class="badge-fr">↗↘</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('OK, so I go along this road, cross the bridge and through the park, right?',0.85)">
+      <span class="sp-a">A:</span> OK, so I go along this road, cross the bridge and through the park – <span class="hl-stress">right</span>? <span class="badge-rise">↗</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('That's right.',0.85)">
+      <span class="sp-b">B:</span> That's <span class="hl-stress">right</span>. <span class="badge-fall">↘</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('Thanks very much.',0.85)">
+      <span class="sp-a">A:</span> Thanks very much. <span class="badge-fall">↘</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('You're welcome. Bye.',0.85)">
+      <span class="sp-b">B:</span> You're welcome. Bye. <span class="badge-fall">↘</span> <button class="speak-btn">🔊</button>
+    </div>
+    <div class="dl-line" onclick="speakText('Bye.',0.85)">
+      <span class="sp-a">A:</span> Bye. <span class="badge-fall">↘</span> <button class="speak-btn">🔊</button>
+    </div>
+  </div>
+</div>
+
+<!-- DIALOGUE 49.4 – Quiz show -->
+<div class="section">
+  <div class="section-title">🎯 Hội thoại 49.4 – Quiz Show (Thi đố)</div>
+
+  <div class="dialogue-block">
+    <div class="dl-label">Before and during a quiz</div>
+    <div class="dl-line" onclick="speakText('All right?',0.85)"><span class="sp-a">A:</span> All right? <span class="badge-rise">↗</span> <button class="speak-btn">🔊</button></div>
+    <div class="dl-line" onclick="speakText('Yes.',0.85)"><span class="sp-b">B:</span> Yes. <span class="badge-fall">↘</span> <button class="speak-btn">🔊</button></div>
+    <div class="dl-line" onclick="speakText('Not nervous?',0.85)"><span class="sp-a">A:</span> Not nervous? <span class="badge-rise">↗</span> <button class="speak-btn">🔊</button></div>
+    <div class="dl-line" onclick="speakText('A bit.',0.85)"><span class="sp-b">B:</span> A bit. <span class="badge-fr">↗↘</span> <button class="speak-btn">🔊</button></div>
+    <div class="dl-line" onclick="speakText('Don't worry. It'll be fine.',0.85)"><span class="sp-a">A:</span> Don't worry. It'll be fine. <span class="badge-fall">↘</span> <button class="speak-btn">🔊</button></div>
+    <div class="dl-line" onclick="speakText('I hope so.',0.85)"><span class="sp-b">B:</span> I hope so. <span class="badge-fr">↗↘</span> <button class="speak-btn">🔊</button></div>
+    <div class="dl-line" onclick="speakText('Right. Let's start. Are you ready?',0.85)"><span class="sp-a">A:</span> Right. Let's start. Are you ready? <span class="badge-rise">↗</span> <button class="speak-btn">🔊</button></div>
+    <div class="dl-line" onclick="speakText('I think so.',0.85)"><span class="sp-b">B:</span> I think so. <span class="badge-fr">↗↘</span> <button class="speak-btn">🔊</button></div>
+    <div class="dl-line" onclick="speakText('OK. The first question is. What's your name?',0.85)"><span class="sp-a">A:</span> OK. The <span class="hl-stress">first</span> question is … What's your name? <span class="badge-fall">↘</span> <button class="speak-btn">🔊</button></div>
+    <div class="dl-line" onclick="speakText('My name? It's Jack Johnson.',0.85)"><span class="sp-b">B:</span> My name? … It's <span class="hl-stress">Jack Johnson</span>. <span class="badge-fall">↘</span> <button class="speak-btn">🔊</button></div>
+    <div class="dl-line" onclick="speakText('That's right! Well done! Difficult?',0.85)"><span class="sp-a">A:</span> That's right! Well done! <span class="badge-fall">↘</span> Difficult? <span class="badge-rise">↗</span> <button class="speak-btn">🔊</button></div>
+    <div class="dl-line" onclick="speakText('Well, not too bad.',0.85)"><span class="sp-b">B:</span> Well, not too bad. <span class="badge-fr">↗↘</span> <button class="speak-btn">🔊</button></div>
+    <div class="dl-line" onclick="speakText('Right. The second question is. What's thirty seven thousand five hundred and forty eight times seven thousand seven hundred and twenty six?',0.85)"><span class="sp-a">A:</span> Right. The <span class="hl-stress">second</span> question is … What's 37,548 × 7,726? <span class="badge-fall">↘</span> <button class="speak-btn">🔊</button></div>
+    <div class="dl-line" onclick="speakText('What?!',0.7)"><span class="sp-b">B:</span> <span style="font-size:1.1em;font-weight:800;color:#dc2626">What?!</span> <span class="badge-rise" style="background:#fee2e2;color:#dc2626">↑↑!</span> <button class="speak-btn">🔊</button></div>
+  </div>
+</div>
+
+<!-- EXTRA SENTENCES -->
+<div class="section">
+  <div class="section-title">💬 Câu luyện thêm – Cuộc sống & Geotech</div>
+  <ul class="sentence-list">
+    <li onclick="speakText('Can I help you? No thanks, I'm just looking.',0.85)">
+      <div class="sent-en">A: Can I help you? <span class="badge-rise">↗</span> &nbsp; B: No, thanks, I'm just <span class="hl-stress">looking</span>. <span class="badge-fall">↘</span></div>
+      <div class="sent-vi">A: Tôi có thể giúp gì không? &nbsp; B: Không cảm ơn, tôi chỉ xem thôi.</div>
+    </li>
+    <li onclick="speakText('Is it far? No, not very far.',0.85)">
+      <div class="sent-en">A: Is it far? <span class="badge-rise">↗</span> &nbsp; B: No, not very <span class="hl-stress">far</span>. <span class="badge-fr">↗↘</span></div>
+      <div class="sent-vi">A: Có xa không? &nbsp; B: Không, không xa lắm. (nhưng vẫn có thể xa)</div>
+    </li>
+    <li onclick="speakText('Thank you. You're welcome.',0.85)">
+      <div class="sent-en">A: Thank you. <span class="badge-fall">↘</span> &nbsp; B: You're welcome. <span class="badge-fall">↘</span></div>
+      <div class="sent-vi">A: Cảm ơn bạn. &nbsp; B: Không có gì.</div>
+    </li>
+    <li onclick="speakText('Ready? Nearly. Cold? No not really.',0.85)">
+      <div class="sent-en">A: Ready? <span class="badge-rise">↗</span> &nbsp; B: Nearly. <span class="badge-fr">↗↘</span> &nbsp; A: Cold? <span class="badge-rise">↗</span> &nbsp; B: No, not really. <span class="badge-fr">↗↘</span></div>
+      <div class="sent-vi">A: Sẵn sàng chưa? B: Gần rồi. A: Lạnh không? B: Không hẳn.</div>
+    </li>
+    <li onclick="speakText('Is the borehole data ready? Nearly. Is it accurate?',0.85)">
+      <div class="sent-en">A: Is the borehole data ready? <span class="badge-rise">↗</span> &nbsp; B: Nearly. <span class="badge-fr">↗↘</span> &nbsp; A: Is it <span class="hl-stress">accurate</span>? <span class="badge-rise">↗</span></div>
+      <div class="sent-vi">A: Dữ liệu lỗ khoan sẵn sàng chưa? B: Gần xong rồi. A: Chính xác không?</div>
+      <div class="sent-note">🏗️ Geotech: borehole data</div>
+    </li>
+    <li onclick="speakText('Can you tell me the way to the site office? Yes, you go along this road and it's on the left.',0.85)">
+      <div class="sent-en">A: Can you tell me the way to the <span class="hl-stress">site office</span>? <span class="badge-fall">↘</span> &nbsp; B: Yes, go along this road and it's on the left. <span class="badge-fall">↘</span></div>
+      <div class="sent-vi">A: Bạn có thể chỉ đường đến văn phòng công trình không? B: Vâng, đi dọc con đường này, bên trái.</div>
+      <div class="sent-note">🏗️ Geotech: site office</div>
+    </li>
+    <li onclick="speakText('Settlement complete? No, not really. Still ongoing.',0.85)">
+      <div class="sent-en">A: Settlement <span class="hl-stress">complete</span>? <span class="badge-rise">↗</span> &nbsp; B: No, not really. <span class="badge-fr">↗↘</span> Still ongoing. <span class="badge-fall">↘</span></div>
+      <div class="sent-vi">A: Lún hoàn thành chưa? B: Chưa hẳn. Vẫn đang tiếp diễn.</div>
+      <div class="sent-note">🏗️ Geotech: settlement</div>
+    </li>
+  </ul>
+</div>
+
+<!-- EXERCISES -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- EX 49.1 – Mark intonation -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 49.1 – Đánh dấu ngữ điệu</div>
+    <div class="ex-instruction">Click nút <span class="badge-fall">↘</span> <span class="badge-rise">↗</span> <span class="badge-fr">↗↘</span> để đánh dấu ngữ điệu cho từ/cụm từ được gạch chân trong mỗi dòng.</div>
+
+    <div id="inton_quiz"></div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkInton()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetInton()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealInton()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score491" class="score-box"></div>
+  </div>
+
+  <!-- EX 49.2 – Shop fill -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 49.2 – Điền câu phản hồi trong cửa hàng</div>
+    <div class="ex-instruction">Chọn câu trả lời B phù hợp từ hộp. Chú ý ngữ điệu đi kèm!</div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;padding:10px;background:#f0fdf4;border-radius:8px;font-size:13px">
+      <span style="padding:4px 10px;background:#dcfce7;border-radius:12px;color:#14532d;font-weight:600">No, thanks, I'm just looking.</span>
+      <span style="padding:4px 10px;background:#dcfce7;border-radius:12px;color:#14532d;font-weight:600">I'll take this, please.</span>
+      <span style="padding:4px 10px;background:#dcfce7;border-radius:12px;color:#14532d;font-weight:600">No, thanks, that's all.</span>
+      <span style="padding:4px 10px;background:#dcfce7;border-radius:12px;color:#14532d;font-weight:600">Here you are.</span>
+      <span style="padding:4px 10px;background:#dcfce7;border-radius:12px;color:#14532d;font-weight:600">Thank you.</span>
+      <span style="padding:4px 10px;background:#dcfce7;border-radius:12px;color:#14532d;font-weight:600">Bye.</span>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1. A: Can I help you?</div>
+      <div style="font-size:14px;margin-top:6px">B: <input class="fill-input" id="f492_1" placeholder="..." style="width:100%"></div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">2. A: Anything else?</div>
+      <div style="font-size:14px;margin-top:6px">B: <input class="fill-input" id="f492_2" placeholder="..." style="width:100%"></div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">3. A: Here's your change.</div>
+      <div style="font-size:14px;margin-top:6px">B: <input class="fill-input" id="f492_3" placeholder="..." style="width:100%"></div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">4. A: That's fifteen forty altogether.</div>
+      <div style="font-size:14px;margin-top:6px">B: <input class="fill-input" id="f492_4" placeholder="..." style="width:100%"></div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">5. A: See you.</div>
+      <div style="font-size:14px;margin-top:6px">B: <input class="fill-input" id="f492_5" placeholder="..." style="width:100%"></div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check492()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset492()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="reveal492()">👁️ Đáp án</button>
+    </div>
+    <div id="score492" class="score-box"></div>
+  </div>
+
+  <!-- EX 49.3 – Directions match -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 49.3 – Hỏi đường: Chọn phản hồi đúng</div>
+    <div class="ex-instruction">Click chip phản hồi phù hợp nhất cho từng câu.</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1. A: Excuse me.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+        <span class="chip" id="c493_1a" onclick="pick493(1,'a')">Yes? ↗</span>
+        <span class="chip" id="c493_1b" onclick="pick493(1,'b')">Bye. ↘</span>
+        <span class="chip" id="c493_1c" onclick="pick493(1,'c')">Thanks. ↘</span>
+      </div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">2. A: Is it far?</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+        <span class="chip" id="c493_2a" onclick="pick493(2,'a')">That's right. ↘</span>
+        <span class="chip" id="c493_2b" onclick="pick493(2,'b')">No, not very far. ↗↘</span>
+        <span class="chip" id="c493_2c" onclick="pick493(2,'c')">Yes? ↗</span>
+      </div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">3. A: So I cross the bridge – right?</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+        <span class="chip" id="c493_3a" onclick="pick493(3,'a')">No, not really. ↗↘</span>
+        <span class="chip" id="c493_3b" onclick="pick493(3,'b')">Bye. ↘</span>
+        <span class="chip" id="c493_3c" onclick="pick493(3,'c')">That's right. ↘</span>
+      </div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">4. A: Thanks very much.</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
+        <span class="chip" id="c493_4a" onclick="pick493(4,'a')">You're welcome. ↘</span>
+        <span class="chip" id="c493_4b" onclick="pick493(4,'b')">Yes? ↗</span>
+        <span class="chip" id="c493_4c" onclick="pick493(4,'c')">A bit. ↗↘</span>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check493()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset493()">🔄 Làm lại</button>
+    </div>
+    <div id="score493" class="score-box"></div>
+  </div>
+
+  <!-- EX 49.4 – Quiz show fill -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 49.4 – Quiz Show: Điền phản hồi đúng</div>
+    <div class="ex-instruction">Điền câu trả lời B vào chỗ trống. Chọn từ: <em>Yes / A bit / I hope so / I think so / Well, not too bad / What?!</em></div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1. A: All right?</div>
+      <div style="font-size:14px;margin-top:6px">B: <input class="fill-input" id="f494_1" placeholder="..." style="width:80px"> <span class="badge-fall">↘</span></div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">2. A: Not nervous?</div>
+      <div style="font-size:14px;margin-top:6px">B: <input class="fill-input" id="f494_2" placeholder="..." style="width:80px"> <span class="badge-fr">↗↘</span></div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">3. A: Are you ready?</div>
+      <div style="font-size:14px;margin-top:6px">B: <input class="fill-input" id="f494_3" placeholder="..." style="width:120px"> <span class="badge-fr">↗↘</span></div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">4. A: Difficult?</div>
+      <div style="font-size:14px;margin-top:6px">B: <input class="fill-input" id="f494_4" placeholder="..." style="width:160px"> <span class="badge-fr">↗↘</span></div>
+    </div>
+    <div class="dialogue-ex">
+      <div class="pair-label">5. A: What's 37,548 × 7,726?</div>
+      <div style="font-size:14px;margin-top:6px">B: <input class="fill-input" id="f494_5" placeholder="..." style="width:80px"> <span class="badge-rise" style="background:#fee2e2;color:#dc2626">↑↑!</span></div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check494()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset494()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="reveal494()">👁️ Đáp án</button>
+    </div>
+    <div id="score494" class="score-box"></div>
+  </div>
+
+  <!-- EX 49.5 – Classify fall/rise/fall-rise -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 49.5 – Phân loại ngữ điệu</div>
+    <div class="ex-instruction">Click chip để phân loại: <span class="badge-fall">↘ Fall</span>, <span class="badge-rise">↗ Rise</span>, hay <span class="badge-fr">↗↘ Fall-Rise</span>?</div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px" id="chips495pool">
+      <span class="chip" id="ch495_bye" onclick="cycle495('bye','Bye.')">Bye. ↘?</span>
+      <span class="chip" id="ch495_ready" onclick="cycle495('ready','Ready?')">Ready? ↗?</span>
+      <span class="chip" id="ch495_nearly" onclick="cycle495('nearly','Nearly.')">Nearly. ↗↘?</span>
+      <span class="chip" id="ch495_thankyou" onclick="cycle495('thankyou','Thank you.')">Thank you. ↘?</span>
+      <span class="chip" id="ch495_isitfar" onclick="cycle495('isitfar','Is it far?')">Is it far? ↗?</span>
+      <span class="chip" id="ch495_notnear" onclick="cycle495('notnear','No, not very far.')">No, not very far. ↗↘?</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:10px 0">
+      <div style="background:#fff;border-radius:10px;padding:12px;border:2px solid #fca5a5;min-height:70px">
+        <div style="font-size:11px;font-weight:700;color:#dc2626;margin-bottom:8px">↘ FALL</div>
+        <div id="drop495_fall" style="display:flex;flex-wrap:wrap;gap:6px;min-height:30px"></div>
+      </div>
+      <div style="background:#fff;border-radius:10px;padding:12px;border:2px solid #86efac;min-height:70px">
+        <div style="font-size:11px;font-weight:700;color:#16a34a;margin-bottom:8px">↗ RISE</div>
+        <div id="drop495_rise" style="display:flex;flex-wrap:wrap;gap:6px;min-height:30px"></div>
+      </div>
+      <div style="background:#fff;border-radius:10px;padding:12px;border:2px solid #fed7aa;min-height:70px">
+        <div style="font-size:11px;font-weight:700;color:#ea580c;margin-bottom:8px">↗↘ FALL-RISE</div>
+        <div id="drop495_fr" style="display:flex;flex-wrap:wrap;gap:6px;min-height:30px"></div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check495()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset495()">🔄 Làm lại</button>
+    </div>
+    <div id="score495" class="score-box"></div>
+  </div>
+
+</div>
+
+<!-- GEO BOX -->
+<div class="section">
+  <div class="section-title">🏗️ Geotech Corner</div>
+  <div class="geo-box">
+    <strong>Ngữ điệu trong giao tiếp công trường:</strong> Khi trao đổi thông tin kỹ thuật ngắn gọn trên công trường, các kỹ sư thường dùng phong cách "telegram" tương tự bài 49.1: <em>"Ready? ↗ / Nearly. ↗↘ / Data accurate? ↗ / Slightly off. ↗↘ / Fix it. ↘ / Right. ↘"</em> — hiệu quả, rõ ràng, tiết kiệm thời gian.
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+function speakText(t,rate=0.85){
+  const u=new SpeechSynthesisUtterance(t);
+  u.lang="en-GB";u.rate=rate;u.pitch=1.05;
+  const vs=speechSynthesis.getVoices();
+  for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){u.voice=v;break;}}
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+window.speechSynthesis&&speechSynthesis.getVoices();
+
+function showToast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg;t.classList.add("show");
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);
+}
+function showScore(id,correct,total,extra=""){
+  const el=document.getElementById(id);
+  const pct=Math.round(correct/total*100);
+  let cls,label;
+  if(pct>=90){cls="#22c55e";label="🎉 Xuất sắc!";}
+  else if(pct>=65){cls="#f59e0b";label="👍 Khá tốt!";}
+  else{cls="#ef4444";label="😅 Cần luyện thêm!";}
+  el.innerHTML=`<div class="big-score" style="color:${cls}">${pct}%</div>
+    <div class="score-label">${label} ${extra}</div>
+    <div class="score-meter"><div class="score-meter-fill" style="width:${pct}%;background:${cls}"></div></div>
+    <div class="score-detail">${correct}/${total} câu đúng</div>`;
+  el.classList.add("show");
+}
+
+// Play short version
+function playShort(){
+  const lines=['Ready?','Nearly. Warm?','No.','Cold?','No.','Raining?','Slightly. Umbrella?','Yes, thanks. Hat?','Here.','Thanks.','Ready?','Yes. You?','Yes.','Right.'];
+  let i=0;
+  function next(){if(i>=lines.length)return;const u=new SpeechSynthesisUtterance(lines[i]);u.lang="en-GB";u.rate=0.85;u.pitch=i%2===0?1.0:1.05;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){u.voice=v;break;}}u.onend=()=>{i++;setTimeout(next,350);};speechSynthesis.speak(u);}
+  speechSynthesis.cancel();next();
+}
+
+// EX 49.1 – Intonation marking quiz
+const intonItems=[
+  {phrase:"Ready?",ans:"rise"},
+  {phrase:"Nearly.",ans:"fr"},
+  {phrase:"Warm?",ans:"rise"},
+  {phrase:"No.",ans:"fall"},
+  {phrase:"Slightly.",ans:"fr"},
+  {phrase:"Thanks.",ans:"fall"},
+  {phrase:"Right.",ans:"fall"},
+  {phrase:"Yes?",ans:"rise"},
+  {phrase:"Is it far?",ans:"rise"},
+  {phrase:"No, not very far.",ans:"fr"},
+  {phrase:"That's right.",ans:"fall"},
+  {phrase:"I hope so.",ans:"fr"},
+  {phrase:"A bit.",ans:"fr"},
+  {phrase:"Bye.",ans:"fall"}
+];
+const intonPicked={};
+
+function buildIntonQuiz(){
+  const container=document.getElementById('inton_quiz');
+  container.innerHTML='';
+  intonItems.forEach((item,i)=>{
+    const div=document.createElement('div');
+    div.className='inton-quiz-line';
+    div.innerHTML=`<span class="phrase">${i+1}. <strong>${item.phrase}</strong></span>
+      <div class="inton-btn-group">
+        <button class="inton-btn fall" id="ib_${i}_fall" onclick="pickInton(${i},'fall')">↘ Fall</button>
+        <button class="inton-btn rise" id="ib_${i}_rise" onclick="pickInton(${i},'rise')">↗ Rise</button>
+        <button class="inton-btn fallrise" id="ib_${i}_fr" onclick="pickInton(${i},'fr')">↗↘ F-R</button>
+      </div>
+      <span class="inton-fb" id="ifb_${i}"></span>`;
+    container.appendChild(div);
+  });
+}
+buildIntonQuiz();
+
+function pickInton(i,type){
+  ['fall','rise','fr'].forEach(t=>{
+    document.getElementById('ib_'+i+'_'+t).classList.remove('picked');
+  });
+  document.getElementById('ib_'+i+'_'+type).classList.add('picked');
+  intonPicked[i]=type;
+}
+function checkInton(){
+  let correct=0,total=intonItems.length;
+  intonItems.forEach((item,i)=>{
+    const fb=document.getElementById('ifb_'+i);
+    if(intonPicked[i]===item.ans){
+      correct++;
+      fb.innerHTML='<span style="color:#16a34a">✅</span>';
+    } else {
+      const labels={fall:'↘',rise:'↗',fr:'↗↘'};
+      fb.innerHTML=`<span style="color:#dc2626">❌${labels[item.ans]}</span>`;
+    }
+  });
+  showScore('score491',correct,total);
+  showToast(correct===total?'Xuất sắc! 🎉':`${correct}/${total} đúng`);
+}
+function resetInton(){
+  Object.keys(intonPicked).forEach(k=>delete intonPicked[k]);
+  buildIntonQuiz();
+  document.getElementById('score491').classList.remove('show');showToast('Đã reset!');
+}
+function revealInton(){
+  intonItems.forEach((item,i)=>{pickInton(i,item.ans);});
+  checkInton();showToast('Đáp án đã hiện!');
+}
+
+// EX 49.2
+const ans492={
+  1:'no thanks',2:'that's all',3:'thank you',4:'here you are',5:'bye'
+};
+const acc492={
+  1:["no thanks, i'm just looking","no thanks","just looking"],
+  2:["no, thanks, that's all","that's all","no thanks that's all"],
+  3:['thank you'],
+  4:['here you are'],
+  5:['bye']
+};
+function check492(){
+  let correct=0,total=5;
+  [1,2,3,4,5].forEach(q=>{
+    const el=document.getElementById('f492_'+q);
+    const val=el.value.trim().toLowerCase();
+    const ok=(acc492[q]||[]).some(a=>val.includes(a));
+    if(ok){correct++;el.classList.add('correct');el.classList.remove('wrong');}
+    else{el.classList.add('wrong');el.classList.remove('correct');}
+  });
+  showScore('score492',correct,total);
+  showToast(correct===total?'Xuất sắc! 🎉':`${correct}/${total} đúng`);
+}
+function reset492(){
+  [1,2,3,4,5].forEach(q=>{const el=document.getElementById('f492_'+q);el.value='';el.classList.remove('correct','wrong');});
+  document.getElementById('score492').classList.remove('show');showToast('Đã reset!');
+}
+function reveal492(){
+  const kv={1:"No, thanks, I'm just looking.",2:"No, thanks, that's all.",3:"Thank you.",4:"Here you are.",5:"Bye."};
+  Object.keys(kv).forEach(q=>{const el=document.getElementById('f492_'+q);el.value=kv[q];el.classList.add('correct');el.classList.remove('wrong');});
+  showToast('Đáp án đã hiện!');
+}
+
+// EX 49.3
+const ans493={1:'a',2:'b',3:'c',4:'a'};
+const picked493={};
+function pick493(q,opt){
+  picked493[q]=opt;
+  ['a','b','c'].forEach(o=>{const el=document.getElementById('c493_'+q+o);if(el)el.classList.remove('selected','correct-chip','wrong-chip');});
+  const el=document.getElementById('c493_'+q+opt);if(el)el.classList.add('selected');
+}
+function check493(){
+  let correct=0;
+  [1,2,3,4].forEach(q=>{
+    if(picked493[q]===ans493[q]){
+      correct++;
+      document.getElementById('c493_'+q+ans493[q]).classList.add('correct-chip');
+    } else {
+      if(picked493[q])document.getElementById('c493_'+q+picked493[q]).classList.add('wrong-chip');
+      document.getElementById('c493_'+q+ans493[q]).classList.add('correct-chip');
+    }
+  });
+  showScore('score493',correct,4);
+  showToast(correct===4?'Xuất sắc! 🎉':`${correct}/4 đúng`);
+}
+function reset493(){
+  [1,2,3,4].forEach(q=>{delete picked493[q];['a','b','c'].forEach(o=>{const el=document.getElementById('c493_'+q+o);if(el)el.classList.remove('selected','correct-chip','wrong-chip');});});
+  document.getElementById('score493').classList.remove('show');showToast('Đã reset!');
+}
+
+// EX 49.4
+const ans494={1:'Yes',2:'A bit',3:'I think so',4:'Well, not too bad',5:'What?!'};
+const acc494={
+  1:['yes'],
+  2:['a bit','bit'],
+  3:['i think so','think so'],
+  4:['not too bad','well not too bad'],
+  5:['what']
+};
+function check494(){
+  let correct=0,total=5;
+  [1,2,3,4,5].forEach(q=>{
+    const el=document.getElementById('f494_'+q);
+    const val=el.value.trim().toLowerCase().replace(/[!?]/g,'');
+    const ok=(acc494[q]||[]).some(a=>val.includes(a));
+    if(ok){correct++;el.classList.add('correct');el.classList.remove('wrong');}
+    else{el.classList.add('wrong');el.classList.remove('correct');}
+  });
+  showScore('score494',correct,total);
+  showToast(correct===total?'Xuất sắc! 🎉':`${correct}/${total} đúng`);
+}
+function reset494(){
+  [1,2,3,4,5].forEach(q=>{const el=document.getElementById('f494_'+q);el.value='';el.classList.remove('correct','wrong');});
+  document.getElementById('score494').classList.remove('show');showToast('Đã reset!');
+}
+function reveal494(){
+  Object.keys(ans494).forEach(q=>{const el=document.getElementById('f494_'+q);el.value=ans494[q];el.classList.add('correct');el.classList.remove('wrong');});
+  showToast('Đáp án đã hiện!');
+}
+
+// EX 49.5 – 3-way classify
+const ans495={bye:'fall',ready:'rise',nearly:'fr',thankyou:'fall',isitfar:'rise',notnear:'fr'};
+const state495={};
+function cycle495(word,text){
+  const chip=document.getElementById('ch495_'+word);
+  const cur=state495[word]||'pool';
+  let next;
+  if(cur==='pool')next='fall';
+  else if(cur==='fall')next='rise';
+  else if(cur==='rise')next='fr';
+  else next='pool';
+  state495[word]=next;
+  chip.className='chip';
+  const pool=document.getElementById('chips495pool');
+  if(next==='fall'){chip.style.background='#fee2e2';chip.style.color='#dc2626';chip.style.borderColor='#fca5a5';document.getElementById('drop495_fall').appendChild(chip);}
+  else if(next==='rise'){chip.style.background='#dcfce7';chip.style.color='#16a34a';chip.style.borderColor='#86efac';document.getElementById('drop495_rise').appendChild(chip);}
+  else if(next==='fr'){chip.style.background='#fff7ed';chip.style.color='#ea580c';chip.style.borderColor='#fed7aa';document.getElementById('drop495_fr').appendChild(chip);}
+  else{chip.style.background='';chip.style.color='';chip.style.borderColor='';pool.appendChild(chip);}
+}
+function check495(){
+  let correct=0,total=Object.keys(ans495).length;
+  Object.keys(ans495).forEach(w=>{if(state495[w]===ans495[w])correct++;});
+  showScore('score495',correct,total);
+  showToast(correct===total?'Xuất sắc! 🎉':`${correct}/${total} đúng`);
+}
+function reset495(){
+  const pool=document.getElementById('chips495pool');
+  Object.keys(ans495).forEach(w=>{
+    state495[w]=null;
+    const chip=document.getElementById('ch495_'+w);
+    chip.style.background='';chip.style.color='';chip.style.borderColor='';
+    pool.appendChild(chip);
+  });
+  document.getElementById('score495').classList.remove('show');showToast('Đã reset!');
+}
+
+// LOCALSTORAGE
+setTimeout(()=>{
+  try{
+    let c=[];
+    try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}
+    if(!c.includes(49)){c.push(49);localStorage.setItem("epu_completed",JSON.stringify(c));}
+  }catch{}
+},1000);
+</script>
+</body>
+</html>
