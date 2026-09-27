@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 6 - /e/ và /æ/ | Bread and jam</title>
+<link rel="stylesheet" href="../assets/epu-core.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../assets/epu-core.js"></script>
+<script src="../assets/epu-lesson.js"></script>
+<script>
+/* ===================== BÀI 6 — /e/ và /æ/ (EPU V2) =====================
+   Chỉ có DỮ LIỆU. Giao diện + bài tập do ../assets/epu-lesson.js dựng.
+   Markup: [chữ|âm] tô theo âm · [a|ae@us] chỉ tô ở giọng US · [ea] chữ cần đoán
+   IPA: "x" dùng chung, hoặc {uk:"…", us:"…"} khi 2 giọng khác nhau.            */
+const LESSON = {
+  id: 6,
+  section: "Section A · Vowels",
+  title: "Bread and jam",
+  emoji: "🍞",
+  sub: "Nguyên âm ngắn /e/ (bread) và /æ/ (jam)",
+  theme: ["#6b0f3a", "#a8184d"],
+  footer: "<p>🍞 <b>“Bread and jam”</b>: BREAD /e/ · JAM /æ/. Hai âm ngắn, hai độ mở hàm.</p>",
+
+  sounds: {
+    e:  { ipa: "/e/", name: "e ngắn", color: "#a8184d", bg: "#fce4ec", ex: ["bread", "check", "friend", "said", "any"] },
+    ae: { ipa: "/æ/", name: "a bẹt, hàm hạ thấp", color: "#1a5276", bg: "#d6eaf8", ex: ["jam", "back", "map", "black", "happy"] }
+  },
+
+  soundCards: [
+    { key: "e",
+      how: ["Hàm hạ <b>vừa phải</b>, mở miệng khoảng 1 ngón tay.",
+            "Lưỡi ở <b>phía trước</b>, cao vừa, đầu lưỡi chạm nhẹ răng dưới.",
+            "Môi <b>hơi kéo ngang</b>, không tròn.",
+            "Âm <b>NGẮN</b>, dứt khoát, đóng ngay bằng phụ âm cuối."],
+      vn: "Nằm <b>giữa “ê” và “e”</b> tiếng Việt: miệng mở hơn “ê” một chút. <i>bread</i> không phải “brết”.",
+      ukus: "Hai giọng gần như giống nhau. Từ điển Mỹ đôi khi ghi là /ɛ/, vẫn là cùng một âm.",
+      mistake: "Đọc <b>ea</b> thành /iː/ (bread thành “breed”). Đọc <b>said, again</b> thành “sây”, “ờ-gây-n”; đúng là /sed/, /əˈɡen/." },
+    { key: "ae",
+      how: ["Hàm hạ <b>thấp hơn /e/ rõ rệt</b>, mở miệng khoảng 2 ngón tay.",
+            "Lưỡi <b>thấp nhưng vẫn ở phía trước</b> (không lùi về như “a” Việt).",
+            "Môi kéo ngang.",
+            "Âm ngắn; trước b, d, g, m, n nghe dài hơn một chút (bag, bad, man)."],
+      vn: "Không có trong tiếng Việt. Mẹo: nói “e” rồi <b>hạ hàm xuống</b> mà vẫn giữ lưỡi ở phía trước. Âm nằm giữa “e” và “a”.",
+      ukus: "🇬🇧 /æ/ hiện đại mở rộng, gần “a”. 🇺🇸 /æ/ căng hơn, trước m/n nghe như có “ơ” lướt (man ≈ “me-ən”). " +
+            "Nhóm <b>BATH</b> (class, fast, ask, dance, sample): 🇬🇧 đọc /ɑː/, 🇺🇸 đọc /æ/.",
+      mistake: "Đọc /æ/ thành “a” Việt (bad thành “bát”) hoặc thành /e/ (bad thành bed). <b>Mất phụ âm cuối</b>: bag, back, bad phải nghe rõ g, k, d." }
+  ],
+
+  pairs: [["men","men","man","mæn"], ["bed","bed","bad","bæd"], ["pen","pen","pan","pæn"], ["send","send","sand","sænd"],
+          ["head","hed","had","hæd"], ["said","sed","sad","sæd"], ["lend","lend","land","lænd"], ["pet","pet","pat","pæt"]],
+
+  rules: [
+    { code: "E1", key: "e",  spell: "e + phụ âm (âm tiết nhấn)", ex: "bed, left, help, tennis", note: "Phổ biến nhất" },
+    { code: "E2", key: "e",  spell: "ea + d / th / v / lth / sure", ex: "bread, head, weather, heavy, health, measure", note: "Nhóm nhỏ. <b>ea</b> thường gặp nhất vẫn là /iː/ (bẫy B5)" },
+    { code: "E3", key: "e",  spell: "Ngoại lệ phải nhớ: a · ai · ay · ie", ex: "any, many, said, says, again, friend", note: "Ít từ nhưng dùng hằng ngày" },
+    { code: "A1", key: "ae", spell: "a + phụ âm cuối (từ 1 âm tiết)", ex: "bag, map, black, cash", note: "Không có e câm phía sau" },
+    { code: "A2", key: "ae", spell: "a + phụ âm trong âm tiết NHẤN", ex: "happy, travel, family, manager", note: "Các âm tiết không nhấn thường là /ə/" }
+  ],
+  traps: [
+    { code: "B1", sound: "/eɪ/", spell: "a + phụ âm + e câm", ex: "made, late, came, plane", note: "“Magic e” biến a thành /eɪ/" },
+    { code: "B2", sound: "/ɒ/ · 🇺🇸 /ɑː/", spell: "w / qu + a", ex: "was, want, what, watch, quality", note: "" },
+    { code: "B3", sound: "/ɑː/", spell: "a + ss / st / sk / th / ft / nt", ex: "class, fast, ask, bath, after, plant", accent: "uk", note: "Nhóm BATH. 🇺🇸 vẫn đọc /æ/" },
+    { code: "B4", sound: "/ɑː/", spell: "a + r", ex: "car, card, park, start", note: "🇺🇸 /ɑːr/" },
+    { code: "B5", sound: "/iː/ hoặc /eɪ/", spell: "ea (đa số)", ex: "eat, please, team, break, great", note: "Chỉ nhóm E2 mới là /e/" },
+    { code: "B6", sound: "/ə/", spell: "a, e ở âm tiết KHÔNG nhấn · từ chức năng đọc yếu", ex: "about, seven, camera, can, and, at", note: "<b>can, and, at</b> trong câu nói nhanh thường là /ə/" }
+  ],
+
+  words: {
+    e: [
+      { w: "br[ea|e]d", ipa: "bred", vi: "bánh mì" },
+      { w: "h[ea|e]d", ipa: "hed", vi: "cái đầu" },
+      { w: "w[ea|e]ther", ipa: { uk: "ˈweð.ə", us: "ˈweð.ɚ" }, vi: "thời tiết" },
+      { w: "fr[ie|e]nd", ipa: "frend", vi: "bạn bè" },
+      { w: "s[ai|e]d", ipa: "sed", vi: "đã nói" },
+      { w: "ag[ai|e]n", ipa: "əˈɡen", vi: "lại, lần nữa" },
+      { w: "[a|e]ny", ipa: "ˈen.i", vi: "bất kỳ" },
+      { w: "ch[e|e]ck", ipa: "tʃek", vi: "kiểm tra" },
+      { w: "s[e|e]ven", ipa: "ˈsev.ən", vi: "số 7" },
+      { w: "tw[e|e]lve", ipa: "twelv", vi: "số 12" }
+    ],
+    ae: [
+      { w: "j[a|ae]m", ipa: "dʒæm", vi: "mứt · tắc đường" },
+      { w: "b[a|ae]ck", ipa: "bæk", vi: "phía sau, lưng" },
+      { w: "m[a|ae]p", ipa: "mæp", vi: "bản đồ" },
+      { w: "bl[a|ae]ck", ipa: "blæk", vi: "màu đen" },
+      { w: "c[a|ae]sh", ipa: "kæʃ", vi: "tiền mặt" },
+      { w: "b[a|ae]nk", ipa: "bæŋk", vi: "ngân hàng" },
+      { w: "h[a|ae]ppy", ipa: "ˈhæp.i", vi: "vui vẻ" },
+      { w: "tr[a|ae]vel", ipa: "ˈtræv.əl", vi: "đi lại, du lịch" },
+      { w: "f[a|ae]mily", ipa: "ˈfæm.əl.i", vi: "gia đình" },
+      { w: "m[a|ae]nager", ipa: { uk: "ˈmæn.ɪ.dʒə", us: "ˈmæn.ɪ.dʒɚ" }, vi: "người quản lý" }
+    ]
+  },
+
+  sentences: {
+    e: [
+      { t: "T[e|e]ll me ag[ai|e]n.", ipa: "tel mi əˈɡen", vi: "Nói lại cho tôi nghe." },
+      { t: "S[e|e]nd me a t[e|e]xt.", ipa: "send mi ə tekst", vi: "Nhắn tin cho tôi nhé." },
+      { t: "H[e|e]lp yours[e|e]lf to br[ea|e]d.", ipa: { uk: "help jɔːˈself tə bred", us: "help jʊrˈself tə bred" }, vi: "Cứ tự nhiên lấy bánh mì nhé." },
+      { t: "My fr[ie|e]nd s[ai|e]d y[e|e]s.", ipa: "maɪ frend sed jes", vi: "Bạn tôi đã đồng ý." },
+      { t: "[A|e]ny pl[a|ae]ns for the week[e|e]nd?", ipa: { uk: "ˈen.i plænz fə ðə ˌwiːkˈend", us: "ˈen.i plænz fɚ ðə ˈwiːk.end" }, vi: "Cuối tuần có kế hoạch gì không?" },
+      { t: "Ch[e|e]ck the s[e|e]ttlement [e|e]very week.", ipa: "tʃek ðə ˈset.əl.mənt ˈev.ri wiːk", vi: "Kiểm tra độ lún hằng tuần.", geo: true }
+    ],
+    ae: [
+      { t: "Th[a|ae]nks for the c[a|ae]sh.", ipa: { uk: "θæŋks fə ðə kæʃ", us: "θæŋks fɚ ðə kæʃ" }, vi: "Cảm ơn vì tiền mặt." },
+      { t: "Where's my bl[a|ae]ck j[a|ae]cket?", ipa: { uk: "weəz maɪ blæk ˈdʒæk.ɪt", us: "werz maɪ blæk ˈdʒæk.ɪt" }, vi: "Áo khoác đen của tôi đâu rồi?" },
+      { t: "Could you h[a|ae]nd me th[a|ae]t m[a|ae]p?", ipa: "kʊd ju hænd mi ðæt mæp", vi: "Bạn đưa tôi tấm bản đồ đó được không?" },
+      { t: "The tr[a|ae]ffic was b[a|ae]d.", ipa: "ðə ˈtræf.ɪk wəz bæd", vi: "Giao thông tệ quá (tắc đường)." },
+      { t: "I'm h[a|ae]ppy with my fl[a|ae]t.", ipa: "aɪm ˈhæp.i wɪð maɪ flæt", vi: "Tôi hài lòng với căn hộ của mình." },
+      { t: "The s[a|ae]nd s[a|ae@us]mples are b[a|ae]ck from the l[a|ae]b.", ipa: { uk: "ðə sænd ˈsɑːm.pəlz ə bæk frəm ðə læb", us: "ðə sænd ˈsæm.pəlz ɚ bæk frəm ðə læb" }, vi: "Mẫu cát đã có kết quả từ phòng thí nghiệm.", geo: true }
+    ]
+  },
+
+  tips: [
+    "<b>Thước đo ngón tay:</b> đặt ngón tay dưới cằm, nói <i>bed</i> rồi <i>bad</i>. Với /æ/ hàm phải hạ xuống rõ hơn.",
+    "<b>Đừng nhìn chữ, hãy nhìn quy tắc:</b> chữ <b>a</b> có thể là /æ/ (bag), /eɪ/ (made), /ɒ/ (was), /ɑː/ (car), /ə/ (about), thậm chí /e/ (any). " +
+      "Gặp từ mới, hãy hỏi: <i>sau nó là chữ gì? âm tiết này có được nhấn không?</i>",
+    "<b>Giữ phụ âm cuối:</b> <i>bad/bat</i>, <i>bag/back</i> khác nhau ở phụ âm cuối. Trước d, g (hữu thanh) nguyên âm dài hơn một chút: <i>bad</i> dài hơn <i>bat</i>.",
+    "🏗️ <b>Từ chuyên ngành:</b> s<b>e</b>ttlement /e/ · str<b>e</b>ss /e/ · s<b>a</b>nd /æ/ · gr<b>a</b>vel /æ/ · s<b>a</b>mple (🇬🇧 /ɑː/ · 🇺🇸 /æ/). Đừng nói <i>send</i> khi muốn nói <i>sand</i>!"
+  ],
+
+  // ---------- X.1 Nghe câu, chọn nghĩa ----------
+  x1: {
+    n: 6,
+    after: "/æ/ mở hàm rộng hơn /e/. Nếu nghe nhầm, hãy quay lại mục <b>So sánh cặp tối thiểu</b>.",
+    bank: [
+      { a: { t: "Can you pass me the [pen|e]?", m: "🖊️ cái bút" }, b: { t: "Can you pass me the [pan|ae]?", m: "🍳 cái chảo" } },
+      { a: { t: "I saw the [men|e] outside.", m: "👥 nhiều người đàn ông" }, b: { t: "I saw the [man|ae] outside.", m: "🧍 một người đàn ông" } },
+      { a: { t: "Listen to the [kettle|e].", m: "🫖 cái ấm nước" }, b: { t: "Listen to the [cattle|ae].", m: "🐄 đàn gia súc" } },
+      { a: { t: "Did you [send|e] it?", m: "📨 gửi đi" }, b: { t: "Did you [sand|ae] it?", m: "🪵 chà nhám" } },
+      { a: { t: "Push the [pedal|e].", m: "🚲 bàn đạp" }, b: { t: "Push the [paddle|ae].", m: "🛶 mái chèo" } },
+      { a: { t: "The [celery|e] is terrible.", m: "🥬 cần tây" }, b: { t: "The [salary|ae] is terrible.", m: "💰 tiền lương" } },
+      { a: { t: "Watch out for the [bend|e]!", m: "↪️ khúc cua" }, b: { t: "Watch out for the [band|ae]!", m: "🎸 ban nhạc" } },
+      { a: { t: "It was a long [trek|e].", m: "🥾 chuyến đi bộ đường dài" }, b: { t: "It was a long [track|ae].", m: "🛤️ đường ray, lối mòn" } }
+    ]
+  },
+
+  // ---------- X.2 Từ lạ: đoán trước, nghe sau (100% từ mới) ----------
+  x2: {
+    items: [
+      { w: "m[ea]dow", s: "e", ipa: { uk: "ˈmed.əʊ", us: "ˈmed.oʊ" }, rule: "E2" },
+      { w: "thr[ea]d", s: "e", ipa: "θred", rule: "E2" },
+      { w: "l[ea]ther", s: "e", ipa: { uk: "ˈleð.ə", us: "ˈleð.ɚ" }, rule: "E2" },
+      { w: "k[e]tchup", s: "e", ipa: { uk: "ˈketʃ.ʌp", us: "ˈketʃ.əp" }, rule: "E1" },
+      { w: "br[ea]kfast", s: "e", ipa: "ˈbrek.fəst", rule: "E3", note: "⚠️ Ngoại lệ: <i>break</i> là /eɪ/ nhưng <i>breakfast</i> lại là /e/." },
+      { w: "h[a]mmer", s: "ae", ipa: { uk: "ˈhæm.ə", us: "ˈhæm.ɚ" }, rule: "A2" },
+      { w: "c[a]ctus", s: "ae", ipa: "ˈkæk.təs", rule: "A2" },
+      { w: "sc[a]ndal", s: "ae", ipa: "ˈskæn.dəl", rule: "A2" },
+      { w: "sn[a]ck", s: "ae", ipa: "snæk", rule: "A1" },
+      { w: "st[ea]k", s: "other", real: "eɪ", ipa: "steɪk", rule: "B5" },
+      { w: "w[a]sh", s: "other", real: { uk: "ɒ", us: "ɑː" }, ipa: { uk: "wɒʃ", us: "wɑːʃ" }, rule: "B2" },
+      { w: "bl[a]ze", s: "other", real: "eɪ", ipa: "bleɪz", rule: "B1" },
+      { w: "d[a]nce", s: { uk: "other", us: "ae" }, real: { uk: "ɑː" }, ipa: { uk: "dɑːns", us: "dæns" }, rule: { uk: "B3", us: "A1" },
+        note: "🇬🇧 và 🇺🇸 khác nhau ở từ này. Thử chuyển giọng ở thanh trên cùng rồi nghe lại." }
+    ]
+  },
+
+  // ---------- X.3 Nói & so sánh ----------
+  x3: {
+    items: [
+      { t: "a bl[a|ae]ck j[a|ae]cket", tip: "Hạ hàm cho /æ/, nghe rõ âm k cuối." },
+      { t: "t[e|e]n fr[e|e]sh [e|e]ggs", tip: "/e/ ngắn, gọn; eggs kết thúc bằng /ɡz/." },
+      { t: "Th[a|ae]nks, th[a|ae]t's perfect.", tip: "th: đặt đầu lưỡi giữa hai răng." },
+      { t: "[A|e]ny pl[a|ae]ns for the week[e|e]nd?", tip: "any = /ˈen.i/, không phải “a-ni”." },
+      { t: "The tr[a|ae]ffic was b[a|ae]d.", tip: "was đọc yếu /wəz/; bad dài hơn một chút và có d cuối." }
+    ],
+    checklist: [
+      "Với /æ/, hàm hạ thấp hơn /e/ (ngón tay dưới cằm bị đẩy xuống).",
+      "Không đọc /æ/ thành “a” Việt; lưỡi vẫn ở phía trước.",
+      "Phụ âm cuối nghe rõ: black (k), eggs (gz), bad (d).",
+      "/e/ ngắn, không kéo thành “ây”."
+    ],
+    asr: [["pen", "pan"], ["bed", "bad"], ["men", "man"]]
+  },
+
+  // ---------- X.4 Tình huống ----------
+  x4: {
+    title: "Ở quán cà phê",
+    place: "☕ Quán cà phê gần văn phòng, giờ nghỉ trưa",
+    roles: { A: "Khách", B: "Nhân viên" },
+    userRole: "A",
+    lines: [
+      ["A", "Hi! [Can|!Đầu câu hỏi nói nhanh, can đọc yếu /kən/, không phải /æ/ (B6).] I [have|ae] a [black|ae] coffee, [please|!ea ở đây đọc /iː/ (bẫy B5).]?", "Chào bạn! Cho tôi một ly cà phê đen."],
+      ["B", "Sure. [Anything|e] [else|e]?", "Vâng. Bạn cần gì nữa không?"],
+      ["A", "[Yes|e], a [ham|ae] [sandwich|ae] [and|!and đọc yếu /ən/ trong câu nói tự nhiên (B6).] some [fresh|e] [bread|e].", "Có, một bánh mì kẹp thịt nguội và ít bánh mì tươi."],
+      ["B", "Sorry, [we've|!e ở đây đọc /iː/ (we /wiː/).] only got [flatbread|ae,e] [left|e].", "Xin lỗi, chúng tôi chỉ còn bánh mì dẹt thôi."],
+      ["A", "[That's|ae] fine. How much is [that|ae]?", "Cũng được. Bao nhiêu tiền vậy?"],
+      ["B", "[That's|ae] [seven|e] pounds. [Cash|ae] or [card|!a + r đọc /ɑː/ (bẫy B4).]?", "Bảy bảng. Tiền mặt hay thẻ?"],
+      ["A", "[Card|!a + r đọc /ɑː/ (bẫy B4).], [please|!ea ở đây đọc /iː/ (bẫy B5).]. [Thanks|ae]!", "Thẻ nhé. Cảm ơn!"]
+    ]
+  },
+
+  // ---------- X.5 Ôn xen kẽ ----------
+  x5: {
+    rounds: 8,
+    goal: "Trộn /æ/, /e/ với /ʌ/ (bài 4), /ɒ/ (bài 5) và /ɪ/ (bài 2). Không ai báo trước đang luyện âm nào. Nghe và chọn từ đúng.",
+    groups: [
+      [{ w: "bag", ipa: "bæɡ" }, { w: "bug", ipa: "bʌɡ" }, { w: "beg", ipa: "beɡ" }, { w: "big", ipa: "bɪɡ" }],
+      [{ w: "bat", ipa: "bæt" }, { w: "but", ipa: "bʌt" }, { w: "bet", ipa: "bet" }, { w: "bit", ipa: "bɪt" }],
+      [{ w: "track", ipa: "træk" }, { w: "truck", ipa: "trʌk" }, { w: "trek", ipa: "trek" }, { w: "trick", ipa: "trɪk" }],
+      [{ w: "lack", ipa: "læk" }, { w: "luck", ipa: "lʌk" }, { w: "lock", ipa: { uk: "lɒk", us: "lɑːk" } }, { w: "lick", ipa: "lɪk" }],
+      [{ w: "cat", ipa: "kæt" }, { w: "cut", ipa: "kʌt" }, { w: "cot", ipa: { uk: "kɒt", us: "kɑːt" } }],
+      [{ w: "pan", ipa: "pæn" }, { w: "pun", ipa: "pʌn" }, { w: "pen", ipa: "pen" }, { w: "pin", ipa: "pɪn" }],
+      [{ w: "ham", ipa: "hæm" }, { w: "hum", ipa: "hʌm" }, { w: "him", ipa: "hɪm" }]
+    ]
+  },
+
+  summary: [
+    "<b>/e/</b>: hàm mở vừa, lưỡi ở trước, ngắn: bread, friend, said, any",
+    "<b>/æ/</b>: hàm hạ thấp hơn, lưỡi vẫn ở trước: jam, black, happy",
+    "<b>Đọc từ mới:</b> a + phụ âm cuối → /æ/ · a + phụ âm + e câm → /eɪ/ · w + a → /ɒ/ · a + r → /ɑː/",
+    "<b>ea</b> đa số là /iː/, chỉ nhóm bread, head, weather mới là /e/",
+    "<b>🇬🇧 vs 🇺🇸:</b> class, fast, dance, sample: 🇬🇧 /ɑː/ · 🇺🇸 /æ/",
+    "Từ chức năng <b>can, and, at</b> thường đọc yếu /ə/, không phải /æ/"
+  ]
+};
+EPU.renderLesson(LESSON);
+</script>
+</body>
+</html>

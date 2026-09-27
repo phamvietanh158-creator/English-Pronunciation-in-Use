@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 40 – Strong/Weak 4: Auxiliary Verbs</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#4a1a6e 0%,#2d0a45 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 16px;font-size:1.05rem;font-weight:800;letter-spacing:1px}
+.header h1{font-size:1.35rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#4a1a6e;border-bottom:2px solid #e8d5f5;padding-bottom:8px;margin-bottom:14px}
+.diagram-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.diag-card{background:#f8f4ff;border-radius:10px;padding:14px;border:1.5px solid #d5b8f0}
+.diag-card h4{font-size:0.9rem;font-weight:700;color:#4a1a6e;margin-bottom:6px}
+.diag-card p{font-size:0.82rem;color:#555;line-height:1.5}
+.ipa{font-style:italic;color:#c0392b;font-weight:700}
+.weak{color:#e67e22;font-weight:700}
+.strong{color:#2980b9;font-weight:700}
+.theory-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:12px 0}
+.theory-table th{background:#4a1a6e;color:#fff;padding:9px 12px;text-align:left}
+.theory-table td{padding:9px 12px;border-bottom:1px solid #eee;vertical-align:top}
+.theory-table tr:nth-child(even) td{background:#f8f4ff}
+.spell-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.spell-table th{background:#6a2fa0;color:#fff;padding:9px}
+.spell-table td{padding:9px 10px;border-bottom:1px solid #e5e5e5}
+.spell-table tr:nth-child(even) td{background:#f8f4ff}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{background:#f4eeff;border:1.5px solid #c9a0f5;border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:130px;text-align:center}
+.word-card:hover{background:#4a1a6e;color:#fff;transform:translateY(-2px)}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .hl{color:#c0392b;background:#ffe8e8;padding:0 2px;border-radius:3px}
+.word-card:hover .hl{color:#ffcdd2;background:rgba(255,255,255,0.15)}
+.word-card .ipa{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card .vn{font-size:0.78rem;color:#4a1a6e;margin-top:2px}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{background:#f8f4ff;border-radius:9px;padding:10px 14px;cursor:pointer;border-left:4px solid #4a1a6e;transition:background 0.2s}
+.sentence-list li:hover{background:#edd5ff}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;color:#4a1a6e;margin-top:2px}
+.w-mark{color:#e67e22;font-weight:700;text-decoration:underline dotted}
+.s-mark{color:#2980b9;font-weight:700;border-bottom:2px solid #2980b9}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+.note-box{background:#fff8e1;border:1px dashed #f5c518;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.85rem}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-purple{background:#4a1a6e;color:#fff}.btn-purple:hover{background:#2d0a45}
+.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.ex-wrap{border:1.5px solid #c9a0f5;border-radius:12px;padding:18px;margin-bottom:16px;background:#fdfaff}
+.ex-label{display:inline-block;background:#4a1a6e;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.8}
+.fill-item input{border:none;border-bottom:2px solid #c9a0f5;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:100px;text-align:center;color:#4a1a6e;font-weight:600}
+.fill-item input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-item input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.classify-chip{display:inline-block;background:#e8d5f5;border:1.5px solid #9b59b6;border-radius:20px;padding:5px 13px;cursor:pointer;font-size:0.87rem;font-weight:600;transition:all 0.18s;user-select:none;margin:3px}
+.classify-chip:hover{background:#4a1a6e;color:#fff}
+.chip-w{background:#fde8c8;border-color:#e67e22;color:#7d4800}
+.chip-s{background:#d6eaf8;border-color:#2980b9;color:#1a5276}
+.chip-w.active{background:#e67e22;color:#fff}
+.chip-s.active{background:#2980b9;color:#fff}
+.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
+.mp-item span{font-weight:700;min-width:200px}
+.mp-item label{cursor:pointer}
+.dialogue-line{margin:5px 0;font-size:0.9rem;line-height:1.7}
+.dialogue-line .sp{font-weight:700;color:#4a1a6e}
+.ul-word{text-decoration:underline;font-weight:600;cursor:pointer}
+.ws-btn{display:inline-block;width:28px;height:22px;line-height:22px;text-align:center;border-radius:5px;font-size:0.78rem;font-weight:700;cursor:pointer;margin-left:4px;border:1.5px solid #ccc;background:#f5f5f5}
+.ws-btn.sel-w{background:#e67e22;color:#fff;border-color:#e67e22}
+.ws-btn.sel-s{background:#2980b9;color:#fff;border-color:#2980b9}
+.passage-box{background:#f8f4ff;border-radius:10px;padding:16px;font-size:0.9rem;line-height:1.9;margin:10px 0;border:1.5px solid #d5b8f0}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 40</span>
+    <span class="phoneme-badge">am·is·are·was·were·have·has·do·does·can·could</span>
+  </div>
+  <h1>Who was that? – Strong and Weak Forms 4</h1>
+  <div class="sub">Dạng mạnh & yếu: Trợ động từ (Auxiliary Verbs)</div>
+</div>
+<div id="toast" class="toast"></div>
+<div class="container">
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết phát âm</div>
+  <div class="diagram-grid">
+    <div class="diag-card">
+      <h4>📌 Quy tắc chung</h4>
+      <p>Trợ động từ (<em>am, is, are, was, were, have, has, do, does, can, could</em>) <b>thường dùng dạng yếu</b> trong câu bình thường — chúng không được nhấn mạnh.</p>
+    </div>
+    <div class="diag-card">
+      <h4>⚡ Khi dùng dạng mạnh</h4>
+      <p>1. Cuối câu (tag, echo)<br>
+         2. Khi nhấn mạnh / tương phản<br>
+         3. Trả lời ngắn<br>
+         4. Phủ định (thường kết hợp <em>n't</em>)</p>
+    </div>
+  </div>
+
+  <table class="theory-table">
+    <tr><th>Trợ động từ</th><th>Dạng yếu</th><th>Dạng mạnh</th><th>Ví dụ dạng mạnh</th></tr>
+    <tr><td><b>am</b></td><td><span class="ipa weak">/əm/</span></td><td><span class="ipa strong">/æm/</span></td><td>"Yes, I <u>am</u>!"</td></tr>
+    <tr><td><b>is</b></td><td><span class="ipa weak">/ɪz/ → /z/ /s/</span></td><td><span class="ipa strong">/ɪz/</span></td><td>"Yes, it <u>is</u>!"</td></tr>
+    <tr><td><b>are</b></td><td><span class="ipa weak">/ə/</span></td><td><span class="ipa strong">/ɑː/</span></td><td>"Of course you <u>are</u>!"</td></tr>
+    <tr><td><b>was</b></td><td><span class="ipa weak">/wəz/</span></td><td><span class="ipa strong">/wɒz/</span></td><td>"He <u>was</u>, but retired."</td></tr>
+    <tr><td><b>were</b></td><td><span class="ipa weak">/wə/</span></td><td><span class="ipa strong">/wɜː/</span></td><td>"There <u>were</u> ten!"</td></tr>
+    <tr><td><b>have</b></td><td><span class="ipa weak">/həv/ /əv/</span></td><td><span class="ipa strong">/hæv/</span></td><td>"I don't think we <u>have</u>."</td></tr>
+    <tr><td><b>has</b></td><td><span class="ipa weak">/həz/ /əz/</span></td><td><span class="ipa strong">/hæz/</span></td><td>"Yes, it <u>has</u>!"</td></tr>
+    <tr><td><b>do</b></td><td><span class="ipa weak">/də/</span></td><td><span class="ipa strong">/duː/</span></td><td>"Oh, I <u>do</u>."</td></tr>
+    <tr><td><b>does</b></td><td><span class="ipa weak">/dəz/</span></td><td><span class="ipa strong">/dʌz/</span></td><td>"I think it <u>does</u>."</td></tr>
+    <tr><td><b>can</b></td><td><span class="ipa weak">/kən/</span></td><td><span class="ipa strong">/kæn/</span></td><td>"Maybe I <u>can</u>."</td></tr>
+    <tr><td><b>could</b></td><td><span class="ipa weak">/kəd/</span></td><td><span class="ipa strong">/kʊd/</span></td><td>"I <u>could</u> when younger."</td></tr>
+  </table>
+
+  <div class="tip-box">
+    <b>💡 Mẹo nhớ:</b> Trợ động từ ở <b>cuối câu</b> hoặc khi <b>trả lời ngắn</b> → luôn dùng dạng mạnh.<br>
+    Ví dụ: "Are you ready?" → "Yes, I <strong>am</strong> /æm/." ✅ (không phải /əm/)
+  </div>
+  <div class="note-box">
+    ⚠️ <b>Lưu ý:</b> Dạng phủ định <em>isn't, aren't, wasn't, weren't, haven't, can't, couldn't</em> luôn là dạng <b>mạnh</b> (có âm đầy đủ) vì chúng mang trọng âm câu.
+  </div>
+  <div class="btn-group">
+    <button class="btn-purple" onclick="speakText(`I'm ready. It's raining again. Are you coming? You're coming, aren't you? Who was that? The shops were all closed.`)">🔊 Nghe phần A (dạng yếu)</button>
+    <button class="btn-blue" onclick="speakText(`Are you ready? Yes, I am. It isn't raining, is it? Yes, it is. I'm not very good at English. Of course you are! Has it started? Yes, come on, it has!`)">🔊 Nghe phần B (dạng mạnh)</button>
+    <button class="btn-teal" onclick="speakText(`I'm ready. It's raining again. Are you coming? You're coming, aren't you? Who was that? The shops were all closed.`, 0.5)">🐢 Chậm</button>
+  </div>
+</div>
+
+<!-- BẢNG CHÍNH TẢ -->
+<div class="section">
+  <div class="section-title">📋 Bảng so sánh – Dạng yếu trong câu</div>
+  <table class="spell-table">
+    <tr><th>Câu (dạng yếu)</th><th>IPA dạng yếu</th><th>Câu (dạng mạnh)</th></tr>
+    <tr><td><em>I'm ready.</em></td><td>/aɪm ˈredi/</td><td>"Yes, I <strong>am</strong>!" /æm/</td></tr>
+    <tr><td><em>Are you coming?</em></td><td>/ə jə ˈkʌmɪŋ/</td><td>"Of course you <strong>are</strong>!" /ɑː/</td></tr>
+    <tr><td><em>Who was that?</em></td><td>/huː wəz ðæt/</td><td>"He <strong>was</strong>, but retired." /wɒz/</td></tr>
+    <tr><td><em>What have you got?</em></td><td>/wɒt həv jə ɡɒt/</td><td>"I don't think we <strong>have</strong>." /hæv/</td></tr>
+    <tr><td><em>What do you want?</em></td><td>/wɒt də jə wɒnt/</td><td>"Oh, I <strong>do</strong>." /duː/</td></tr>
+    <tr><td><em>You can stay here.</em></td><td>/jə kən ˈsteɪ hɪə/</td><td>"Maybe I <strong>can</strong>." /kæn/</td></tr>
+  </table>
+</div>
+
+<!-- TỪ VỰNG -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng – Nhận diện dạng yếu trong cụm từ</div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-purple" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- CÂU LUYỆN -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> Trợ động từ rất phổ biến trong văn bản kỹ thuật:
+    "The borehole <em>was</em> drilled to 20m." / "Samples <em>were</em> taken at 2m intervals." / "The report <em>has</em> been submitted."
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 40.1: Đoạn văn – click từ dạng yếu -->
+  <div class="ex-wrap">
+    <span class="ex-label">40.1</span>
+    <div class="ex-instruction">Đọc đoạn văn sau. Click vào các trợ động từ được gạch chân để đánh dấu <b class="weak">W</b> (dạng yếu). Tất cả đều là dạng yếu trong đoạn này.</div>
+    <div class="passage-box" id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx1()">🔊 Nghe đoạn văn</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 40.2: Hội thoại – W hay S? -->
+  <div class="ex-wrap">
+    <span class="ex-label">40.2</span>
+    <div class="ex-instruction">Nghe hội thoại. Click <b class="weak">W</b> hoặc <b class="strong">S</b> cho mỗi từ gạch chân.</div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx2()">🔊 Nghe hội thoại</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 40.3: Câu – dự đoán W/S -->
+  <div class="ex-wrap">
+    <span class="ex-label">40.3</span>
+    <div class="ex-instruction">Đọc các câu. Dự đoán từ gạch chân sẽ là <b class="weak">W</b> (yếu) hay <b class="strong">S</b> (mạnh)? Click để chọn.</div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 40.4: Phân loại chips -->
+  <div class="ex-wrap">
+    <span class="ex-label">40.4</span>
+    <div class="ex-instruction">Phân loại các trợ động từ sau vào cột <b class="weak">Dạng YẾU /ə/</b> hay <b class="strong">Dạng MẠNH (đầy đủ)</b>. Click từng chip để chuyển cột.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0">
+      <div style="background:#fff8f0;border:2px solid #e67e22;border-radius:10px;padding:12px">
+        <div style="font-weight:700;color:#e67e22;margin-bottom:8px">⬇️ Dạng YẾU (trong câu)</div>
+        <div id="col_weak" style="display:flex;flex-wrap:wrap;gap:6px;min-height:50px"></div>
+      </div>
+      <div style="background:#f0f6ff;border:2px solid #2980b9;border-radius:10px;padding:12px">
+        <div style="font-weight:700;color:#2980b9;margin-bottom:8px">⬆️ Dạng MẠNH (cuối câu/nhấn)</div>
+        <div id="col_strong" style="display:flex;flex-wrap:wrap;gap:6px;min-height:50px"></div>
+      </div>
+    </div>
+    <div id="chip_pool" style="display:flex;flex-wrap:wrap;gap:7px;padding:10px;background:#f5f5f5;border-radius:8px;margin-bottom:8px"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- 40.5: Minimal pairs -->
+  <div class="ex-wrap">
+    <span class="ex-label">40.5</span>
+    <div class="ex-instruction">Nghe câu và chọn: trợ động từ trong câu này là dạng <b class="weak">Yếu (W)</b> hay <b class="strong">Mạnh (S)</b>?</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+// WORDS
+const words=[
+  {w:"I'm ready",hl:"'m",ipa:"/aɪm ˈredi/",vn:"Tôi sẵn sàng"},
+  {w:"It's raining",hl:"'s",ipa:"/ɪts ˈreɪnɪŋ/",vn:"Trời đang mưa"},
+  {w:"Are you coming?",hl:"Are",ipa:"/ə jə ˈkʌmɪŋ/",vn:"Bạn có đến không?"},
+  {w:"Who was that?",hl:"was",ipa:"/huː wəz ðæt/",vn:"Đó là ai vậy?"},
+  {w:"were closed",hl:"were",ipa:"/wə ˈkləʊzd/",vn:"đã đóng cửa"},
+  {w:"What have you got?",hl:"have",ipa:"/wɒt həv jə ɡɒt/",vn:"Bạn có gì vậy?"},
+  {w:"Has it started?",hl:"Has",ipa:"/həz ɪt ˈstɑːtɪd/",vn:"Nó bắt đầu chưa?"},
+  {w:"What do you want?",hl:"do",ipa:"/wɒt də jə wɒnt/",vn:"Bạn muốn gì?"},
+  {w:"Where does she live?",hl:"does",ipa:"/weə dəz ʃi lɪv/",vn:"Cô ấy sống ở đâu?"},
+  {w:"You can stay",hl:"can",ipa:"/jə kən ˈsteɪ/",vn:"Bạn có thể ở lại"},
+  {w:"Could you spell?",hl:"Could",ipa:"/kəd jə spel/",vn:"Bạn có thể đánh vần?"},
+  {w:"Yes, I am!",hl:"am",ipa:"/aɪ æm/",vn:"Có, tôi có! (dạng mạnh)"},
+  {w:"Of course you are!",hl:"are",ipa:"/jə ɑː/",vn:"Tất nhiên bạn đúng rồi!"},
+  {w:"Yes, it has!",hl:"has",ipa:"/ɪt hæz/",vn:"Có, nó đã (rồi)! (mạnh)"},
+  {w:"I could when young",hl:"could",ipa:"/aɪ kʊd/",vn:"Tôi có thể khi còn trẻ"},
+  {w:"can be surveyed",hl:"can",ipa:"/kən bi ˈsɜːveɪd/",vn:"có thể được khảo sát"},
+];
+function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card" onclick="speakText('${w.w.replace(/'/g,"\\'")}')"><div class="word">${w.w.replace(w.hl,`<span class="hl">${w.hl}</span>`)}</div><div class="ipa">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div></div>`).join('');}
+function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+
+// SENTENCES
+const sents=[
+  {en:"I'm ready.",ipa:"/aɪm ˈredi/",vn:"Tôi sẵn sàng rồi."},
+  {en:"It's raining again.",ipa:"/ɪts ˈreɪnɪŋ əˈɡen/",vn:"Trời lại mưa rồi."},
+  {en:"Are you coming, aren't you?",ipa:"/ə jə ˈkʌmɪŋ ɑːnt jə/",vn:"Bạn sẽ đến chứ?"},
+  {en:"Who was that?",ipa:"/huː wəz ðæt/",vn:"Đó là ai vậy?"},
+  {en:"What have you got in your hand?",ipa:"/wɒt həv jə ɡɒt ɪn jə hænd/",vn:"Bạn đang cầm gì trong tay?"},
+  {en:"What do you want for Christmas?",ipa:"/wɒt də jə wɒnt fə ˈkrɪsməs/",vn:"Bạn muốn gì cho Giáng sinh?"},
+  {en:"Could you spell your name for me, please?",ipa:"/kəd jə spel jə neɪm fə mi pliːz/",vn:"Bạn có thể đánh vần tên bạn cho tôi không?"},
+  {en:"Are you ready? Yes, I am.",ipa:"/ə jə ˈredi jes aɪ æm/",vn:"Bạn sẵn sàng chưa? Rồi."},
+  {en:"Has it started? Yes, come on, it has!",ipa:"/həz ɪt ˈstɑːtɪd jes kʌm ɒn ɪt hæz/",vn:"Nó bắt đầu chưa? Rồi, bắt đầu rồi!"},
+  {en:"I don't like this music. Oh, I do.",ipa:"/aɪ dəʊnt laɪk ðɪs ˈmjuːzɪk əʊ aɪ duː/",vn:"Tôi không thích nhạc này. Ồ, tôi thích đó."},
+  {en:"Can you play tennis? I could when I was younger.",ipa:"/kən jə pleɪ ˈtenɪs aɪ kʊd wen aɪ wəz ˈjʌŋɡə/",vn:"Bạn có biết đánh tennis không? Tôi biết khi còn trẻ."},
+  {en:"The borehole was drilled to 20 metres.",ipa:"/ðə ˈbɔːhəʊl wəz drɪld tə ˈtwenti ˈmiːtəz/",vn:"Lỗ khoan được khoan sâu 20 mét."},
+  {en:"Samples were taken at 2-metre intervals.",ipa:"/ˈsɑːmpəlz wə ˈteɪkən ət ˈtuː ˈmiːtə ˈɪntəvəlz/",vn:"Mẫu được lấy theo khoảng cách 2 mét."},
+  {en:"The report has been submitted to the client.",ipa:"/ðə rɪˈpɔːt həz bɪn səbˈmɪtɪd tə ðə ˈklaɪənt/",vn:"Báo cáo đã được gửi cho khách hàng."},
+  {en:"Do you know where the bearing capacity data is?",ipa:"/də jə nəʊ weə ðə ˈbeərɪŋ kəˈpæsɪti ˈdeɪtə ɪz/",vn:"Bạn có biết dữ liệu sức chịu tải ở đâu không?"},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// EX 1: passage click
+const passage=[
+  {tok:"It",isAux:false},{tok:" "},
+  {tok:"was",isAux:true},{tok:" winter. It "},
+  {tok:"was",isAux:true},{tok:" late. It "},
+  {tok:"was",isAux:true},{tok:" dark. It "},
+  {tok:"was",isAux:true},{tok:" snowing. I "},
+  {tok:"was",isAux:true},{tok:" walking along a street. There "},
+  {tok:"was",isAux:true},{tok:" nobody else in the town. I "},
+  {tok:"could",isAux:true},{tok:" see a light in a window. I "},
+  {tok:"could",isAux:true},{tok:" hear someone shouting, 'You're too late! We "},
+  {tok:"were",isAux:true},{tok:" here, all the time. We "},
+  {tok:"were",isAux:true},{tok:" waiting for you, but now it's too late!' Then I woke up. It "},
+  {tok:"was",isAux:true},{tok:" a dream!"},
+];
+let ex1sel={};
+function renderEx1(){
+  let html='';
+  passage.forEach((p,i)=>{
+    if(p.isAux){html+=`<span id="p${i}" onclick="toggleP(${i})" style="cursor:pointer;padding:1px 3px;border-radius:4px;font-weight:700;text-decoration:underline dotted #9b59b6">${p.tok}</span>`;}
+    else{html+=`<span>${p.tok}</span>`;}
+  });
+  document.getElementById('ex1Content').innerHTML=html;
+}
+function toggleP(i){
+  ex1sel[i]=!ex1sel[i];
+  const el=document.getElementById('p'+i);
+  el.style.background=ex1sel[i]?'#e67e22':'';
+  el.style.color=ex1sel[i]?'#fff':'';
+}
+function speakEx1(){speakText("It was winter. It was late. It was dark. It was snowing. I was walking along a street. There was nobody else in the town. I could see a light in a window. I could hear someone shouting, You're too late! We were here, all the time. We were waiting for you, but now it's too late! Then I woke up. It was a dream!");}
+function checkEx1(){
+  let c=0,tot=0;
+  passage.forEach((p,i)=>{if(p.isAux){tot++;if(ex1sel[i])c++;}});
+  showScore('score1',c,tot);
+}
+function resetEx1(){ex1sel={};passage.forEach((p,i)=>{if(p.isAux){const el=document.getElementById('p'+i);if(el){el.style.background='';el.style.color='';}}}); document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx1(){passage.forEach((p,i)=>{if(p.isAux){ex1sel[i]=true;const el=document.getElementById('p'+i);if(el){el.style.background='#e67e22';el.style.color='#fff';}}});showToast('👁️ Tất cả đều là dạng yếu!');}
+
+// EX 2: dialogue W/S
+const ex2=[
+  {sp:"A",pre:"",ul:"I'm",post:" better than you!",ans:"W"},
+  {sp:"B",pre:"No, you aren't!",ul:"",post:"",ans:null},
+  {sp:"A",pre:"",ul:"I am",post:". I've got more toys than you!",ans:"S"},
+  {sp:"B",pre:"No, you haven't!",ul:"",post:"",ans:null},
+  {sp:"A",pre:"Yes, I ",ul:"have",post:"! And I ",ul2:"can",ans2:"W",post2:" speak twenty languages!",ans:"S"},
+  {sp:"B",pre:"You can't! Nobody ",ul:"can",post:" speak twenty languages!",ans:"W"},
+  {sp:"A",pre:"I ",ul:"can",post:". And I could walk when I ",ul2:"was",ans2:"W",post2:" three weeks old!",ans:"S"},
+  {sp:"B",pre:"You couldn't! That's impossible!",ul:"",post:"",ans:null},
+  {sp:"A",pre:"I ",ul:"could",post:"! You don't know – you weren't there!",ans:"S"},
+  {sp:"A",pre:"I ",ul:"was",post:"! I'm older than you!",ans:"S"},
+  {sp:"B",pre:"No, you aren't! Yes, I ",ul:"am",post:"! I'm eight. How old ",ul2:"are",ans2:"W",post2:" you?",ans:"S"},
+  {sp:"B",pre:"I'm eight hundred.",ul:"",post:"",ans:null},
+  {sp:"A",pre:"What do you mean? Nobody ",ul:"can",post:" be eight hundred years old!",ans:"W"},
+  {sp:"A",pre:"Don't argue!",ul:"",post:"",ans:null},
+  {sp:"B",pre:"",ul:"I'm",post:" not arguing!",ans:"W"},
+  {sp:"A",pre:"Yes, you ",ul:"are",post:"!",ans:"S"},
+];
+let ex2sel={};
+function renderEx2(){
+  let html='';
+  ex2.forEach((line,i)=>{
+    if(!line.ul&&!line.ul2){html+=`<div class="dialogue-line"><span class="sp">${line.sp}:</span> ${line.pre}${line.post}</div>`;return;}
+    let row=`<div class="dialogue-line"><span class="sp">${line.sp}:</span> ${line.pre}`;
+    if(line.ul){
+      row+=`<span class="ul-word">${line.ul}</span>
+        <span class="ws-btn" id="e2_${i}_0" onclick="cycleWS('e2_${i}_0',${i},0)">?</span>`;
+    }
+    if(line.ul2){
+      row+=` ${line.post||''}${line.post?'':''}<span class="ul-word">${line.ul2}</span>
+        <span class="ws-btn" id="e2_${i}_1" onclick="cycleWS('e2_${i}_1',${i},1)">?</span>${line.post2||''}`;
+    } else {
+      row+=line.post||'';
+    }
+    row+='</div>';
+    html+=row;
+  });
+  document.getElementById('ex2Content').innerHTML=html;
+}
+function cycleWS(elId,i,slot){
+  const key=`${i}_${slot}`;
+  const cur=ex2sel[key];
+  const next=cur===undefined?'W':cur==='W'?'S':undefined;
+  ex2sel[key]=next;
+  const el=document.getElementById(elId);
+  el.className='ws-btn';
+  if(next==='W'){el.classList.add('sel-w');el.textContent='W';}
+  else if(next==='S'){el.classList.add('sel-s');el.textContent='S';}
+  else{el.textContent='?';}
+}
+function speakEx2(){speakText("I'm better than you! No, you aren't! I am. I've got more toys than you! No, you haven't! Yes, I have! And I can speak twenty languages! You can't! Nobody can speak twenty languages! I can. And I could walk when I was three weeks old! You couldn't! That's impossible! I could! You don't know. I was! I'm older than you! No, you aren't! Yes, I am! I'm eight. How old are you? I'm eight hundred. What do you mean? Nobody can be eight hundred years old! Don't argue! I'm not arguing! Yes, you are!");}
+function checkEx2(){
+  const pairs=[
+    [0,'W'],[2,'S'],[4,'S'],[4,'W',1],[5,'W'],[6,'S'],[6,'W',1],
+    [8,'S'],[9,'S'],[10,'S'],[10,'W',1],[12,'W'],[14,'W'],[15,'S']
+  ];
+  let c=0,tot=0;
+  pairs.forEach(p=>{
+    tot++;
+    const slot=p[2]||0;
+    const key=`${p[0]}_${slot}`;
+    if(ex2sel[key]===p[1])c++;
+  });
+  showScore('score2',c,tot);
+}
+function resetEx2(){ex2sel={};document.querySelectorAll('.ws-btn').forEach(el=>{el.className='ws-btn';el.textContent='?';});document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){
+  const pairs=[[0,'W'],[2,'S'],[4,'S'],[4,'W',1],[5,'W'],[6,'S'],[6,'W',1],[8,'S'],[9,'S'],[10,'S'],[10,'W',1],[12,'W'],[14,'W'],[15,'S']];
+  pairs.forEach(p=>{const slot=p[2]||0;const elId=`e2_${p[0]}_${slot}`;const el=document.getElementById(elId);if(!el)return;ex2sel[`${p[0]}_${slot}`]=p[1];el.className='ws-btn '+(p[1]==='W'?'sel-w':'sel-s');el.textContent=p[1];});
+  showToast('👁️ Đây là đáp án!');
+}
+
+// EX 3: predict W/S
+const ex3=[
+  {sent:"I <u>could</u> speak English when I <u>was</u> twelve.",parts:[{w:"could",ans:"W"},{w:"was",ans:"W"}]},
+  {sent:"I wasn't very well yesterday, but I <u>am</u> today.",parts:[{w:"am",ans:"S"}]},
+  {sent:"A: Are these your gloves? B: Yes, they <u>are</u>. Thanks!",parts:[{w:"are",ans:"S"}]},
+  {sent:"A: I don't think you <u>were</u> at the lesson. B: I <u>was</u>!",parts:[{w:"were",ans:"W"},{w:"was",ans:"S"}]},
+  {sent:"A: I didn't think the singers <u>were</u> very good. B: I thought they <u>were</u>!",parts:[{w:"were",ans:"W"},{w:"were",ans:"S"}]},
+  {sent:"A: Have you got a pen? B: Just a minute, I think I <u>have</u>.",parts:[{w:"have",ans:"S"}]},
+  {sent:"A: <u>Has</u> the lesson started? B: Yes, it <u>has</u>, you can go in.",parts:[{w:"Has",ans:"W"},{w:"has",ans:"S"}]},
+  {sent:"A: Where <u>does</u> he live? B: I <u>do</u> know where – near the old town hall.",parts:[{w:"does",ans:"W"},{w:"do",ans:"S"}]},
+];
+let ex3sel={};
+function renderEx3(){
+  let html='',gi=0;
+  ex3.forEach((item,si)=>{
+    html+=`<div style="margin:8px 0;font-size:0.9rem">${item.sent.replace(/<u>(.*?)<\/u>/g,(m,word)=>{
+      const idx=gi;gi++;
+      return `<span style="font-weight:700;text-decoration:underline">${word}</span> <span class="ws-btn" id="e3_${idx}" onclick="cycleWS3(${idx},'${item.parts[item.parts.findIndex((p,ii)=>item.parts.slice(0,ii+1).length===ex3sel[idx]||true)]?.ans||''}')">?</span>`;
+    })}</div>`;
+  });
+  // simpler render
+  let gi2=0;
+  let html2='';
+  ex3.forEach((item,si)=>{
+    let sent=item.sent;
+    let partIdx=0;
+    sent=sent.replace(/<u>(.*?)<\/u>/g,(m,word)=>{
+      const idx=gi2++;
+      const ans=item.parts[partIdx++]?.ans||'W';
+      return `<span style="font-weight:700;text-decoration:underline">${word}</span><span class="ws-btn" id="e3_${idx}" data-ans="${ans}" onclick="cycleWS3(${idx})">?</span>`;
+    });
+    html2+=`<div style="margin:9px 0;font-size:0.9rem;line-height:1.8">${sent}</div>`;
+  });
+  document.getElementById('ex3Content').innerHTML=html2;
+}
+function cycleWS3(idx){
+  const el=document.getElementById('e3_'+idx);
+  const cur=ex3sel[idx];
+  const next=cur===undefined?'W':cur==='W'?'S':undefined;
+  ex3sel[idx]=next;
+  el.className='ws-btn';
+  if(next==='W'){el.classList.add('sel-w');el.textContent='W';}
+  else if(next==='S'){el.classList.add('sel-s');el.textContent='S';}
+  else el.textContent='?';
+}
+function checkEx3(){
+  const els=document.querySelectorAll('[id^="e3_"]');
+  let c=0;
+  els.forEach(el=>{const i=parseInt(el.id.split('_')[1]);if(ex3sel[i]===el.dataset.ans)c++;});
+  showScore('score3',c,els.length);
+}
+function resetEx3(){ex3sel={};document.querySelectorAll('[id^="e3_"]').forEach(el=>{el.className='ws-btn';el.textContent='?';});document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){document.querySelectorAll('[id^="e3_"]').forEach(el=>{const i=parseInt(el.id.split('_')[1]);const ans=el.dataset.ans;ex3sel[i]=ans;el.className='ws-btn '+(ans==='W'?'sel-w':'sel-s');el.textContent=ans;});showToast('👁️ Đây là đáp án!');}
+
+// EX 4: chip classify
+const ex4chips=[
+  {label:"was /wəz/",cat:"W"},{label:"am /æm/",cat:"S"},{label:"were /wə/",cat:"W"},
+  {label:"are /ɑː/",cat:"S"},{label:"can /kən/",cat:"W"},{label:"has /hæz/",cat:"S"},
+  {label:"do /də/",cat:"W"},{label:"could /kʊd/",cat:"S"},{label:"have /əv/",cat:"W"},
+  {label:"does /dʌz/",cat:"S"},{label:"is /ɪz/ (mid)",cat:"W"},{label:"have /hæv/",cat:"S"},
+];
+let ex4state={};
+function renderEx4(){
+  ex4state={};
+  document.getElementById('chip_pool').innerHTML=ex4chips.map((c,i)=>`<span class="classify-chip" id="ch4_${i}" onclick="clickChip4(${i})">${c.label}</span>`).join('');
+  document.getElementById('col_weak').innerHTML='';
+  document.getElementById('col_strong').innerHTML='';
+}
+function clickChip4(i){
+  const cur=ex4state[i];
+  const next=cur===undefined?'W':cur==='W'?'S':undefined;
+  ex4state[i]=next;
+  const el=document.getElementById('ch4_'+i);
+  document.getElementById('chip_pool').appendChild(el);
+  el.className='classify-chip';
+  if(next==='W'){el.classList.add('chip-w','active');document.getElementById('col_weak').appendChild(el);}
+  else if(next==='S'){el.classList.add('chip-s','active');document.getElementById('col_strong').appendChild(el);}
+  else{document.getElementById('chip_pool').appendChild(el);}
+}
+function checkEx4(){let c=0;ex4chips.forEach((ch,i)=>{if(ex4state[i]===ch.cat)c++;});showScore('score4',c,ex4chips.length);}
+function resetEx4(){renderEx4();document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx4(){ex4chips.forEach((ch,i)=>{ex4state[i]=ch.cat;const el=document.getElementById('ch4_'+i);el.className='classify-chip '+(ch.cat==='W'?'chip-w active':'chip-s active');if(ch.cat==='W')document.getElementById('col_weak').appendChild(el);else document.getElementById('col_strong').appendChild(el);});showToast('👁️ Đây là đáp án!');}
+
+// EX 5: minimal pairs
+const ex5=[
+  {sent:"Are you coming? [trợ động từ trong câu]",speak:"Are you coming?",ans:"W"},
+  {sent:"It isn't raining, is it? Yes, it ___!",speak:"It isn't raining, is it? Yes, it is!",ans:"S"},
+  {sent:"Have you met before? [câu hỏi bình thường]",speak:"Have you met before?",ans:"W"},
+  {sent:"I don't think we ___. [cuối câu]",speak:"I don't think we have.",ans:"S"},
+  {sent:"Can you spell your name? [câu hỏi]",speak:"Can you spell your name?",ans:"W"},
+  {sent:"Maybe I ___. [cuối câu]",speak:"Maybe I can.",ans:"S"},
+  {sent:"Was she there? [câu hỏi]",speak:"Was she there?",ans:"W"},
+  {sent:"He ___, but he's retired. [cuối mệnh đề]",speak:"He was, but he's retired.",ans:"S"},
+];
+function renderEx5(){
+  document.getElementById('ex5Content').innerHTML=ex5.map((d,i)=>`
+    <div class="mp-item">
+      <span style="min-width:280px;font-style:italic">"${d.sent}"</span>
+      <button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>
+      <label><input type="radio" name="mp${i}" value="W"> <span class="weak">W (yếu)</span></label>
+      <label><input type="radio" name="mp${i}" value="S"> <span class="strong">S (mạnh)</span></label>
+    </div>`).join('');
+}
+function checkEx5(){let c=0;ex5.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp${i}"]:checked`);if(sel&&sel.value===d.ans)c++;});showScore('score5',c,ex5.length);}
+function resetEx5(){ex5.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){ex5.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+
+// INIT
+renderWords();renderSentences();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();
+
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(40)){c.push(40);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>

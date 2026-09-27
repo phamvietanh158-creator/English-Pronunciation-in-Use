@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 8 - /ɪə/ và /eə/ | Here and there</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;background:#f0f4f8;padding:20px 15px;min-height:100vh;}
+        .container{max-width:1000px;margin:0 auto;}
+        .header{background:linear-gradient(135deg,#1a3a6e,#2a5caa);color:white;padding:24px 28px;border-radius:20px;margin-bottom:25px;box-shadow:0 8px 30px rgba(26,58,110,.35);}
+        .header .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+        .lesson-number{background:rgba(255,255,255,.15);padding:4px 18px;border-radius:30px;font-size:14px;border:1px solid rgba(255,255,255,.2);}
+        .header h1{font-size:26px;font-weight:800;margin-top:8px;}
+        .header h1 span{color:#f1c40f;}
+        .phoneme-badge{display:inline-block;background:#f1c40f;color:#1a3a6e;font-size:20px;font-weight:900;padding:4px 18px;border-radius:12px;margin-top:8px;font-family:"Courier New",monospace;}
+        .header .sub{font-size:14px;opacity:.85;margin-top:6px;}
+        .nav-link{display:inline-block;margin-top:12px;color:#f1c40f;text-decoration:none;font-weight:600;font-size:14px;}
+        .section{background:white;border-radius:16px;padding:22px 26px;margin-bottom:20px;border:1px solid #e2e8f0;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+        .section-title{font-size:18px;font-weight:700;color:#1a3a6e;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+        .badge{background:#eef2f7;font-size:13px;font-weight:600;padding:2px 14px;border-radius:30px;color:#2c3e50;}
+        .badge.audio{background:#d5f5e3;color:#1a6e4a;}
+        .section p{font-size:15px;line-height:1.9;color:#2c3e50;margin-bottom:10px;}
+        .ipa-ia{font-family:"Courier New",monospace;color:#1a3a6e;background:#dbeafe;padding:2px 10px;border-radius:6px;font-size:15px;}
+        .ipa-ea{font-family:"Courier New",monospace;color:#7c3aed;background:#ede9fe;padding:2px 10px;border-radius:6px;font-size:15px;}
+        .note-box{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:14px;color:#856404;line-height:1.7;}
+        /* DIPHTHONG DIAGRAM */
+        .diph-box{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0;}
+        .diph-card{flex:1;min-width:200px;border-radius:14px;padding:16px 18px;}
+        .dc-ia{background:linear-gradient(135deg,#dbeafe,#93c5fd);border:2px solid #2a5caa;}
+        .dc-ea{background:linear-gradient(135deg,#ede9fe,#c4b5fd);border:2px solid #7c3aed;}
+        .phoneme-large{font-size:42px;font-weight:900;font-family:"Courier New",monospace;text-align:center;line-height:1.1;}
+        .dc-ia .phoneme-large{color:#1a3a6e;}
+        .dc-ea .phoneme-large{color:#7c3aed;}
+        .arrow-row{display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0;font-size:14px;}
+        .ph-start{font-family:"Courier New",monospace;font-size:18px;font-weight:700;}
+        .ph-end{font-family:"Courier New",monospace;font-size:16px;color:#777;}
+        .desc{font-size:13px;color:#1a2a4a;line-height:1.7;margin-top:6px;}
+        .desc li{margin-left:14px;margin-bottom:3px;}
+        /* SPELL TABLE */
+        .spell-table{width:100%;border-collapse:collapse;margin:12px 0;}
+        .spell-table th{background:#1a3a6e;color:white;padding:9px 14px;text-align:left;font-size:14px;}
+        .spell-table.ea th{background:#7c3aed;}
+        .spell-table td{padding:9px 14px;border-bottom:1px solid #e2e8f0;font-size:14px;}
+        .spell-table tr:nth-child(even){background:#f5f8ff;}
+        .spell-table.ea tr:nth-child(even){background:#f5f3ff;}
+        .spl{font-family:"Courier New",monospace;font-weight:700;font-size:16px;}
+        .spl-ia{color:#1a3a6e;}
+        .spl-ea{color:#7c3aed;}
+        /* WORD GRID */
+        .word-grid{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .word-card{background:white;border-radius:12px;padding:10px 14px;min-width:120px;cursor:pointer;transition:.2s;border:2px solid #e2e8f0;}
+        .word-card.wia:hover{border-color:#2a5caa;box-shadow:0 4px 14px rgba(42,92,170,.15);}
+        .word-card.wea:hover{border-color:#7c3aed;box-shadow:0 4px 14px rgba(124,58,237,.15);}
+        .word-card .word{font-size:16px;font-weight:700;color:#1a2a3a;}
+        .word-card .ipa{font-family:"Courier New",monospace;font-size:12px;margin-top:2px;}
+        .wia .ipa{color:#1a3a6e;}
+        .wea .ipa{color:#7c3aed;}
+        .word-card .vi{font-size:12px;color:#27ae60;margin-top:2px;}
+        .hlia{background:#2a5caa;color:white;border-radius:3px;padding:0 2px;}
+        .hlea{background:#7c3aed;color:white;border-radius:3px;padding:0 2px;}
+        /* SENTENCE LIST */
+        .sentence-list{list-style:none;padding:0;margin:10px 0;}
+        .sentence-list li{padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:15px;line-height:1.8;background:#f8fafc;cursor:pointer;transition:.2s;}
+        .sl-ia{border-left:4px solid #2a5caa;}
+        .sl-ia:hover{background:#dbeafe;}
+        .sl-ea{border-left:4px solid #7c3aed;}
+        .sl-ea:hover{background:#ede9fe;}
+        .sl-mix{border-left:4px solid #0d9488;}
+        .sl-mix:hover{background:#d0fdf4;}
+        .sentence-list li .ipa-s{font-family:"Courier New",monospace;font-size:12px;display:block;margin-top:3px;}
+        .sl-ia .ipa-s{color:#1a3a6e;}
+        .sl-ea .ipa-s{color:#7c3aed;}
+        .sl-mix .ipa-s{color:#0d9488;}
+        .sentence-list li .vi-s{font-size:13px;color:#27ae60;display:block;margin-top:2px;}
+        /* POEM */
+        .poem-box{border-radius:14px;padding:18px 22px;margin:12px 0;font-size:16px;line-height:2.8;}
+        .poem-ia{background:#dbeafe;border-left:5px solid #2a5caa;}
+        .poem-ea{background:#ede9fe;border-left:5px solid #7c3aed;}
+        .poem-stress{font-weight:700;color:#1a3a6e;}
+        .poem-stress-ea{font-weight:700;color:#7c3aed;}
+        /* BUTTONS */
+        .btn{background:#3498db;color:white;border:none;padding:8px 20px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px;}
+        .btn:hover{transform:scale(1.03);opacity:.9;}
+        .btn-ia{background:#2a5caa;}
+        .btn-ea{background:#7c3aed;}
+        .btn-mix{background:#0d9488;}
+        .btn-success{background:#27ae60;}
+        .btn-warning{background:#f39c12;}
+        .btn-purple{background:#8e44ad;}
+        .btn-danger{background:#e74c3c;}
+        .btn-teal{background:#1abc9c;}
+        .btn-group{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .tip-box{background:#fef9e7;border:2px solid #f7dc6f;border-radius:12px;padding:14px 18px;margin:12px 0;}
+        .tip-title{font-weight:700;color:#7d6608;font-size:15px;margin-bottom:6px;}
+        .tip-content{font-size:14px;color:#5a4a1a;line-height:1.9;}
+        .tip-content p{margin-bottom:8px;}
+        /* EXERCISES */
+        .ex-wrap{background:#fafcff;border:2px solid #e2e8f0;border-radius:14px;padding:20px 22px;margin:14px 0;}
+        .ex-instruction{background:#dbeafe;border:1px solid #2a5caa;border-radius:10px;padding:11px 15px;font-size:14px;color:#1a3a6e;margin-bottom:14px;line-height:1.7;}
+        .ex-instruction strong{color:#e74c3c;}
+        /* classify chips */
+        .classify-words{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;padding:12px;background:#f0f4f8;border-radius:10px;}
+        .classify-chip{background:white;border:2px solid #e2e8f0;border-radius:20px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;user-select:none;}
+        .classify-chip:hover{border-color:#2a5caa;background:#dbeafe;}
+        .marked-ia{background:#2a5caa!important;color:white!important;border-color:#2a5caa!important;}
+        .marked-ea{background:#7c3aed!important;color:white!important;border-color:#7c3aed!important;}
+        .correct-chip{background:#27ae60!important;color:white!important;border-color:#27ae60!important;}
+        .wrong-chip{background:#e74c3c!important;color:white!important;border-color:#e74c3c!important;}
+        /* fill blank */
+        .fill-items{display:flex;flex-direction:column;gap:8px;margin:10px 0;}
+        .fill-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:11px 16px;font-size:15px;line-height:2;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+        .fill-item .num{font-weight:700;color:#1a3a6e;min-width:22px;}
+        .fill-item input{border:2px solid #2a5caa;border-radius:8px;padding:4px 10px;font-size:14px;outline:none;min-width:70px;max-width:130px;font-family:"Segoe UI",sans-serif;transition:.2s;}
+        .fill-item input.correct{border-color:#27ae60;background:#d5f5e3;color:#1a6e4a;}
+        .fill-item input.wrong{border-color:#e74c3c;background:#fadbd8;color:#922b21;}
+        /* r-linking mark */
+        .mark-sent{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin-bottom:8px;font-size:15px;line-height:2;}
+        .mark-sent .num{font-weight:700;color:#1a3a6e;margin-right:6px;}
+        .r-target{font-weight:700;text-decoration:underline;text-underline-offset:3px;}
+        .choice-row{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;}
+        .rbtn{padding:4px 16px;border-radius:20px;border:2px solid #e2e8f0;cursor:pointer;font-size:13px;font-weight:600;transition:.15s;background:white;user-select:none;}
+        .rbtn:hover{border-color:#2a5caa;}
+        .rbtn.sel-r{background:#2a5caa;color:white;border-color:#2a5caa;}
+        .rbtn.sel-no{background:#7c3aed;color:white;border-color:#7c3aed;}
+        .rbtn.correct-c{background:#27ae60;color:white;border-color:#27ae60;pointer-events:none;}
+        .rbtn.wrong-c{background:#e74c3c;color:white;border-color:#e74c3c;pointer-events:none;}
+        /* choice */
+        .choice-items{display:flex;flex-direction:column;gap:10px;margin:10px 0;}
+        .choice-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;}
+        .choice-item .num{font-weight:700;color:#1a3a6e;}
+        .choice-btn{display:inline-block;padding:5px 18px;border-radius:20px;border:2px solid #e2e8f0;margin:4px 6px 0 0;cursor:pointer;font-size:14px;font-weight:600;transition:.2s;background:white;color:#333;user-select:none;}
+        .choice-btn:hover{border-color:#2a5caa;color:#2a5caa;}
+        .choice-btn.sel-a{background:#2a5caa;color:white;border-color:#2a5caa;}
+        .choice-btn.correct-c{background:#27ae60;color:white;border-color:#27ae60;pointer-events:none;}
+        .choice-btn.wrong-c{background:#e74c3c;color:white;border-color:#e74c3c;pointer-events:none;}
+        /* score */
+        .score-box{border-radius:12px;padding:14px 18px;margin-top:12px;font-size:15px;line-height:1.9;display:none;}
+        .score-box.show{display:block;}
+        .score-box.great{background:#d5f5e3;border:2px solid #27ae60;color:#1a6e4a;}
+        .score-box.good{background:#fef9e7;border:2px solid #f39c12;color:#7d6608;}
+        .score-box.try{background:#fadbd8;border:2px solid #e74c3c;color:#922b21;}
+        .score-box.info{background:#d6eaf8;border:2px solid #2980b9;color:#1a4a7a;}
+        .score-meter{background:#e0e7ee;border-radius:30px;height:12px;margin:8px 0;overflow:hidden;}
+        .score-meter-fill{height:100%;border-radius:30px;transition:width 1s ease;}
+        .big-score{font-size:38px;font-weight:900;text-align:center;margin:4px 0;}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2c3e50;color:white;padding:12px 24px;border-radius:40px;font-size:14px;box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;transition:opacity .4s;pointer-events:none;z-index:999;max-width:90%;text-align:center;}
+        .toast.show{opacity:1;}
+        @media(max-width:650px){.header{padding:18px 16px;}.header h1{font-size:20px;}.section{padding:16px 14px;}.diph-box{flex-direction:column;}}
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <div class="top-row">
+        <span class="lesson-number">📚 Bài 8</span>
+        <span style="font-size:13px;opacity:.7;">Section A · Vowels</span>
+    </div>
+    <h1>📍 <span>Here and there</span></h1>
+    <div><span class="phoneme-badge">/ɪə/ và /eə/</span></div>
+    <div class="sub">Nguyên âm đôi /ɪə/ (here) và /eə/ (there) — diphthongs</div>
+    <a href="../index.html" class="nav-link">← Về trang chủ</a>
+</div>
+
+<!-- A: /ɪə/ cách phát âm -->
+<div class="section">
+    <div class="section-title">🔵 A. Cách phát âm <span class="ipa-ia">/ɪə/</span> — Nguyên âm ĐÔI DÀI <span class="badge audio">🔊 Nghe</span></div>
+    <div class="diph-box">
+        <div class="diph-card dc-ia">
+            <div class="phoneme-large">/ɪə/</div>
+            <div class="arrow-row">
+                <span class="ph-start">/ɪ/</span>
+                <span style="font-size:18px;">→</span>
+                <span class="ph-end">/ə/</span>
+            </div>
+            <ul class="desc">
+                <li>Bắt đầu bằng <strong>/ɪ/</strong> — lưỡi lên cao phía trước.</li>
+                <li>Trượt dần xuống <strong>/ə/</strong> — trung tính, thư giãn.</li>
+                <li>Âm <strong>DÀI và trượt</strong>.</li>
+                <li>🎯 Phát âm /ɪə/ = "ear" (tai)</li>
+            </ul>
+        </div>
+        <div style="flex:1;min-width:220px;padding:10px 0;font-size:14px;line-height:2;color:#2c3e50;">
+            <p><strong>📌 Nguyên âm đôi (diphthong) là gì?</strong></p>
+            <p>Nguyên âm đôi là âm <strong>BẮT ĐẦU ở một vị trí và TRƯỢT sang vị trí khác</strong>.</p>
+            <p>• <strong>/ɪə/</strong>: bắt đầu như /ɪ/ (ee ngắn) → trượt xuống /ə/ (âm trung tính)</p>
+            <p>• Khi bạn nói /ɪə/ một mình = bạn đang nói từ "<strong>ear</strong>"!</p>
+            <p>🇻🇳 Gần giống "ia" trong tiếng Việt (ví dụ: "mia") nhưng kết thúc bằng âm trung tính /ə/.</p>
+            <p>🇺🇸 Người Mỹ/Scots/Ireland hay thêm /r/ sau: here /hɪər/</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-ia" onclick="speakText('ear real ear beer here we're',0.7)">🔊 Nghe /ɪə/</button>
+        <button class="btn btn-success" onclick="speakText('here near clear year',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- B: /ɪə/ chính tả + từ vựng -->
+<div class="section">
+    <div class="section-title">🔵 B. Chính tả &amp; Từ có âm <span class="ipa-ia">/ɪə/</span> <span class="badge">Spelling &amp; Từ vựng</span></div>
+    <table class="spell-table">
+        <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+        <tr><td class="spl spl-ia">ea</td><td>real</td><td>Ít từ hơn</td></tr>
+        <tr><td class="spl spl-ia">ear</td><td>ear, beard, clear, hear, nearly, year, fear, rear, appear, dear, gear</td><td>Phổ biến · r câm (Anh) hoặc phát âm (Mỹ)</td></tr>
+        <tr><td class="spl spl-ia">eer</td><td>beer, cheers, deer, engineer, steer, volunteer</td><td>Phổ biến</td></tr>
+        <tr><td class="spl spl-ia">ere</td><td>here, we're (we are)</td><td>Ít từ</td></tr>
+        <tr><td class="spl spl-ia">ier</td><td>fierce, pier, tier</td><td>Một số từ</td></tr>
+    </table>
+    <div class="note-box">
+        💡 Khi nói <strong>/ɪə/</strong> một mình, bạn đang nói từ <strong>"ear"</strong> (tai)!<br>
+        ⚠️ Phân biệt: <strong>ear</strong> /ɪə/ vs <strong>air</strong> /eə/ — hai âm khác nhau!<br>
+        🇺🇸 Sau /ɪə/ đôi khi có âm /r/ (đặc biệt khi từ tiếp theo bắt đầu nguyên âm): "See you next <strong>year</strong>" — có thể có hoặc không có /r/
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 Bộ từ vựng /ɪə/ — Click để nghe:</strong></p>
+    <div class="word-grid">
+        <div class="word-card wia" onclick="speakText('here',0.8)"><div class="word">h<span class="hlia">ere</span></div><div class="ipa">/hɪə/</div><div class="vi">🇻🇳 ở đây</div></div>
+        <div class="word-card wia" onclick="speakText('near',0.8)"><div class="word">n<span class="hlia">ear</span></div><div class="ipa">/nɪə/</div><div class="vi">🇻🇳 gần</div></div>
+        <div class="word-card wia" onclick="speakText('year',0.8)"><div class="word">y<span class="hlia">ear</span></div><div class="ipa">/jɪə/</div><div class="vi">🇻🇳 năm (thời gian)</div></div>
+        <div class="word-card wia" onclick="speakText('clear',0.8)"><div class="word">cl<span class="hlia">ear</span></div><div class="ipa">/klɪə/</div><div class="vi">🇻🇳 rõ ràng / trong sáng</div></div>
+        <div class="word-card wia" onclick="speakText('hear',0.8)"><div class="word">h<span class="hlia">ear</span></div><div class="ipa">/hɪə/</div><div class="vi">🇻🇳 nghe thấy</div></div>
+        <div class="word-card wia" onclick="speakText('beer',0.8)"><div class="word">b<span class="hlia">eer</span></div><div class="ipa">/bɪə/</div><div class="vi">🇻🇳 bia (đồ uống)</div></div>
+        <div class="word-card wia" onclick="speakText('nearly',0.8)"><div class="word">n<span class="hlia">ear</span>ly</div><div class="ipa">/ˈnɪə.li/</div><div class="vi">🇻🇳 gần như / hầu như</div></div>
+        <div class="word-card wia" onclick="speakText('real',0.8)"><div class="word">r<span class="hlia">ea</span>l</div><div class="ipa">/rɪəl/</div><div class="vi">🇻🇳 thực sự / thật</div></div>
+        <div class="word-card wia" onclick="speakText('really',0.8)"><div class="word">r<span class="hlia">ea</span>lly</div><div class="ipa">/ˈrɪə.li/</div><div class="vi">🇻🇳 thực sự</div></div>
+        <div class="word-card wia" onclick="speakText('engineer',0.8)"><div class="word">engin<span class="hlia">eer</span></div><div class="ipa">/ˌen.dʒɪˈnɪə/</div><div class="vi">🇻🇳 kỹ sư</div></div>
+        <div class="word-card wia" onclick="speakText('idea',0.8)"><div class="word">id<span class="hlia">ea</span></div><div class="ipa">/aɪˈdɪə/</div><div class="vi">🇻🇳 ý tưởng</div></div>
+        <div class="word-card wia" onclick="speakText('theatre',0.8)"><div class="word">th<span class="hlia">ea</span>tre</div><div class="ipa">/ˈθɪə.tər/</div><div class="vi">🇻🇳 nhà hát</div></div>
+        <div class="word-card wia" onclick="speakText('cheers',0.8)"><div class="word">ch<span class="hlia">eer</span>s</div><div class="ipa">/tʃɪəz/</div><div class="vi">🇻🇳 chúc mừng / cảm ơn</div></div>
+        <div class="word-card wia" onclick="speakText('serious',0.8)"><div class="word">s<span class="hlia">er</span>ious</div><div class="ipa">/ˈsɪə.ri.əs/</div><div class="vi">🇻🇳 nghiêm túc</div></div>
+        <div class="word-card wia" onclick="speakText('upstairs',0.8)"><div class="word">upst<span class="hlia">air</span>s</div><div class="ipa">/ˌʌpˈsteəz/</div><div class="vi">🇻🇳 trên lầu</div></div>
+        <div class="word-card wia" onclick="speakText('fear',0.8)"><div class="word">f<span class="hlia">ear</span></div><div class="ipa">/fɪə/</div><div class="vi">🇻🇳 nỗi sợ</div></div>
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 Câu luyện /ɪə/ — click để nghe:</strong></p>
+    <ul class="sentence-list">
+        <li class="sl-ia" onclick="speakText('We're here!',0.8)">We're h<span class="hlia">ere</span>!<span class="ipa-s">/wɪə hɪə/</span><span class="vi-s">🇻🇳 Chúng ta đã đến đây rồi!</span></li>
+        <li class="sl-ia" onclick="speakText('Have a beer, cheers!',0.8)">Have a b<span class="hlia">eer</span> — ch<span class="hlia">eer</span>s!<span class="ipa-s">/hæv ə bɪə | tʃɪəz/</span><span class="vi-s">🇻🇳 Uống bia đi — Chúc mừng!</span></li>
+        <li class="sl-ia" onclick="speakText('Is there a bank near here?',0.8)">Is there a bank n<span class="hlia">ear</span> h<span class="hlia">ere</span>?<span class="ipa-s">/ɪz ðeər ə bæŋk nɪər hɪə/</span><span class="vi-s">🇻🇳 Ở đây gần đây có ngân hàng không?</span></li>
+        <li class="sl-ia" onclick="speakText('The meaning isn't really clear.',0.8)">The meaning isn't r<span class="hlia">ea</span>lly cl<span class="hlia">ear</span>.<span class="ipa-s">/ðə ˈmiː.nɪŋ ˈɪznt ˈrɪə.li klɪə/</span><span class="vi-s">🇻🇳 Nghĩa không thực sự rõ ràng.</span></li>
+        <li class="sl-ia" onclick="speakText('I'm really pleased you can come to the theatre with us tonight.',0.8)">I'm r<span class="hlia">ea</span>lly pleased you can come to the th<span class="hlia">ea</span>tre with us tonight.<span class="ipa-s">/aɪm ˈrɪəli pliːzd ju kæn kʌm tə ðə ˈθɪətər wɪð ʌs təˈnaɪt/</span><span class="vi-s">🇻🇳 Tôi thực sự vui khi bạn có thể đến nhà hát với chúng tôi tối nay.</span></li>
+        <li class="sl-ia" onclick="speakText('We've got seats upstairs, near the front.',0.8)">We've got s<span class="hlia">ea</span>ts upst<span class="hlia">air</span>s, n<span class="hlia">ear</span> the front.<span class="ipa-s">/wiːv ɡɒt siːts ʌpˈsteəz nɪə ðə frʌnt/</span><span class="vi-s">🇻🇳 Chúng ta có chỗ ngồi trên lầu, gần phía trước.</span></li>
+        <li class="sl-ia" onclick="speakText('See you there!',0.8)">See you th<span class="hlia">ere</span>!<span class="ipa-s">/siː ju ðeə/</span><span class="vi-s">🇻🇳 Hẹn gặp bạn ở đó!</span></li>
+        <li class="sl-ia" onclick="speakText('The engineer has a really good idea.',0.8)">The engin<span class="hlia">eer</span> has a r<span class="hlia">ea</span>lly good id<span class="hlia">ea</span>.<span class="ipa-s">/ðɪ ˌen.dʒɪˈnɪər hæz ə ˈrɪəli ɡʊd aɪˈdɪə/</span><span class="vi-s">🇻🇳 Kỹ sư đó có một ý tưởng thực sự hay. <em>(địa kỹ thuật)</em></span></li>
+        <li class="sl-ia" onclick="speakText('How many years have you lived here?',0.8)">How many y<span class="hlia">ear</span>s have you lived h<span class="hlia">ere</span>?<span class="ipa-s">/haʊ ˈmeni jɪəz hæv ju lɪvd hɪə/</span><span class="vi-s">🇻🇳 Bạn đã sống ở đây bao nhiêu năm?</span></li>
+        <li class="sl-ia" onclick="speakText('It's nearly clear now — you can see for miles.',0.8)">It's n<span class="hlia">ear</span>ly cl<span class="hlia">ear</span> now — you can see for miles.<span class="ipa-s">/ɪts ˈnɪəli klɪər naʊ | ju kæn siː fɔː maɪlz/</span><span class="vi-s">🇻🇳 Trời gần như trong trẻo rồi — bạn có thể nhìn xa hàng dặm.</span></li>
+    </ul>
+    <div class="btn-group">
+        <button class="btn btn-ia" onclick="speakText('We're here! Have a beer, cheers! Is there a bank near here? The meaning isn't really clear.',0.8)">🔊 Nghe 4 câu sách gốc</button>
+        <button class="btn btn-success" onclick="speakText('We're here! Have a beer cheers! Is there a bank near here?',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- C: /eə/ cách phát âm -->
+<div class="section">
+    <div class="section-title">🟣 C. Cách phát âm <span class="ipa-ea">/eə/</span> — Nguyên âm ĐÔI DÀI <span class="badge audio">🔊 Nghe</span></div>
+    <div class="diph-box">
+        <div class="diph-card dc-ea">
+            <div class="phoneme-large">/eə/</div>
+            <div class="arrow-row">
+                <span class="ph-start" style="color:#7c3aed;">/e/</span>
+                <span style="font-size:18px;">→</span>
+                <span class="ph-end">/ə/</span>
+            </div>
+            <ul class="desc">
+                <li>Bắt đầu bằng <strong>/e/</strong> — miệng mở vừa.</li>
+                <li>Trượt dần xuống <strong>/ə/</strong> — trung tính, thư giãn.</li>
+                <li>Âm <strong>DÀI và trượt</strong> — nhưng xuất phát từ /e/ cao hơn /ɪ/.</li>
+                <li>🎯 Phát âm /eə/ một mình = "air" (không khí)</li>
+            </ul>
+        </div>
+        <div style="flex:1;min-width:220px;padding:10px 0;font-size:14px;line-height:2;color:#2c3e50;">
+            <p><strong>📌 Phân biệt /ɪə/ và /eə/:</strong></p>
+            <p>• <strong>/ɪə/</strong>: bắt đầu từ /ɪ/ (âm cao, "ee") → trượt xuống</p>
+            <p>• <strong>/eə/</strong>: bắt đầu từ /e/ (âm thấp hơn, "eh") → trượt xuống</p>
+            <p>• Minimal pair: <em>here</em> /hɪə/ vs <em>hair</em> /heə/</p>
+            <p>🇻🇳 /eə/ gần như "ê + a" ngắn nối nhau: "êa".</p>
+            <p>💡 Khi nói /eə/ một mình = bạn nói "<strong>air</strong>" (không khí/không phận)!</p>
+        </div>
+    </div>
+    <div class="tip-box">
+        <div class="tip-title">🎯 Mẹo phân biệt /ɪə/ và /eə/</div>
+        <div class="tip-content">
+            <p><strong>Minimal pairs kinh điển:</strong><br>
+            here /hɪə/ vs hair /heə/ · beer /bɪə/ vs bear /beə/ · ear /ɪə/ vs air /eə/<br>
+            fear /fɪə/ vs fair /feə/ · near /nɪə/ vs there /ðeə/ · year /jɪə/ vs yeah /jeə/</p>
+            <p><strong>Quy tắc:</strong> /ɪə/ = bắt đầu từ âm "ee" · /eə/ = bắt đầu từ âm "eh"<br>
+            Há miệng hơn cho /eə/!</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-ia" onclick="speakText('here beer ear fear near',0.7)">🔊 /ɪə/ — here, beer...</button>
+        <button class="btn btn-ea" onclick="speakText('hair bear air fair there',0.7)">🔊 /eə/ — hair, bear...</button>
+        <button class="btn btn-mix" onclick="speakText('here hair. beer bear. ear air. fear fair.',0.6)">🔊 So sánh minimal pairs</button>
+    </div>
+</div>
+
+<!-- D: /eə/ chính tả + từ vựng -->
+<div class="section">
+    <div class="section-title">🟣 D. Chính tả &amp; Từ có âm <span class="ipa-ea">/eə/</span> <span class="badge">Spelling &amp; Từ vựng</span></div>
+    <table class="spell-table ea">
+        <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+        <tr><td class="spl spl-ea">a</td><td>care, square, dare, bare, spare, share, stare, rare</td><td>a + re thường = /eə/</td></tr>
+        <tr><td class="spl spl-ea">air</td><td>air, chair, fair, hair, stair, pair, repair</td><td>Phổ biến nhất</td></tr>
+        <tr><td class="spl spl-ea">ear</td><td>wear, bear, pear, swear, tear (xé)</td><td>Chú ý: ear thường = /ɪə/, nhưng wear/bear = /eə/!</td></tr>
+        <tr><td class="spl spl-ea">ere</td><td>where, there</td><td>Quan trọng — where/there đều có /eə/</td></tr>
+        <tr><td class="spl spl-ea">aer</td><td>aeroplane</td><td>Ít từ</td></tr>
+    </table>
+    <div class="note-box">
+        ⚠️ <strong>Cẩn thận "ear":</strong> "ear" thường = /ɪə/ (hear, fear, near) nhưng một số từ = /eə/ (wear /weə/, bear /beə/, pear /peə/)<br>
+        ⚠️ <strong>there, where</strong> = /eə/ — không phải /ɪə/!<br>
+        💡 Khi nói /eə/ một mình = "<strong>air</strong>" (không khí)
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 Bộ từ vựng /eə/ — Click để nghe:</strong></p>
+    <div class="word-grid">
+        <div class="word-card wea" onclick="speakText('there',0.8)"><div class="word">th<span class="hlea">ere</span></div><div class="ipa">/ðeə/</div><div class="vi">🇻🇳 ở đó / ở đó kìa</div></div>
+        <div class="word-card wea" onclick="speakText('air',0.8)"><div class="word"><span class="hlea">air</span></div><div class="ipa">/eə/</div><div class="vi">🇻🇳 không khí</div></div>
+        <div class="word-card wea" onclick="speakText('where',0.8)"><div class="word">wh<span class="hlea">ere</span></div><div class="ipa">/weə/</div><div class="vi">🇻🇳 ở đâu</div></div>
+        <div class="word-card wea" onclick="speakText('chair',0.8)"><div class="word">ch<span class="hlea">air</span></div><div class="ipa">/tʃeə/</div><div class="vi">🇻🇳 cái ghế</div></div>
+        <div class="word-card wea" onclick="speakText('hair',0.8)"><div class="word">h<span class="hlea">air</span></div><div class="ipa">/heə/</div><div class="vi">🇻🇳 tóc</div></div>
+        <div class="word-card wea" onclick="speakText('fair',0.8)"><div class="word">f<span class="hlea">air</span></div><div class="ipa">/feə/</div><div class="vi">🇻🇳 công bằng / hội chợ</div></div>
+        <div class="word-card wea" onclick="speakText('stair',0.8)"><div class="word">st<span class="hlea">air</span></div><div class="ipa">/steə/</div><div class="vi">🇻🇳 bậc thang</div></div>
+        <div class="word-card wea" onclick="speakText('care',0.8)"><div class="word">c<span class="hlea">are</span></div><div class="ipa">/keə/</div><div class="vi">🇻🇳 quan tâm / chăm sóc</div></div>
+        <div class="word-card wea" onclick="speakText('wear',0.8)"><div class="word">w<span class="hlea">ear</span></div><div class="ipa">/weə/</div><div class="vi">🇻🇳 mặc / đeo</div></div>
+        <div class="word-card wea" onclick="speakText('bear',0.8)"><div class="word">b<span class="hlea">ear</span></div><div class="ipa">/beə/</div><div class="vi">🇻🇳 con gấu / chịu đựng</div></div>
+        <div class="word-card wea" onclick="speakText('square',0.8)"><div class="word">squ<span class="hlea">are</span></div><div class="ipa">/skweə/</div><div class="vi">🇻🇳 hình vuông / quảng trường</div></div>
+        <div class="word-card wea" onclick="speakText('aeroplane',0.8)"><div class="word"><span class="hlea">aer</span>oplane</div><div class="ipa">/ˈeə.rə.pleɪn/</div><div class="vi">🇻🇳 máy bay</div></div>
+        <div class="word-card wea" onclick="speakText('repair',0.8)"><div class="word">rep<span class="hlea">air</span></div><div class="ipa">/rɪˈpeə/</div><div class="vi">🇻🇳 sửa chữa</div></div>
+        <div class="word-card wea" onclick="speakText('pare',0.8)"><div class="word">p<span class="hlea">air</span></div><div class="ipa">/peə/</div><div class="vi">🇻🇳 cặp đôi</div></div>
+        <div class="word-card wea" onclick="speakText('rare',0.8)"><div class="word">r<span class="hlea">are</span></div><div class="ipa">/reə/</div><div class="vi">🇻🇳 hiếm có</div></div>
+        <div class="word-card wea" onclick="speakText('declare',0.8)"><div class="word">decl<span class="hlea">are</span></div><div class="ipa">/dɪˈkleə/</div><div class="vi">🇻🇳 tuyên bố / khai</div></div>
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 Câu luyện /eə/ — click để nghe:</strong></p>
+    <ul class="sentence-list">
+        <li class="sl-ea" onclick="speakText('Look at that aeroplane!',0.8)">Look at that <span class="hlea">aer</span>oplane!<span class="ipa-s">/lʊk æt ðæt ˈeərəpleɪn/</span><span class="vi-s">🇻🇳 Nhìn chiếc máy bay kia kìa!</span></li>
+        <li class="sl-ea" onclick="speakText('Where? Up there, in the air, of course!',0.8)">Wh<span class="hlea">ere</span>? Up th<span class="hlea">ere</span>, in the <span class="hlea">air</span>, of course!<span class="ipa-s">/weə | ʌp ðeə | ɪn ðɪ eə | əv kɔːs/</span><span class="vi-s">🇻🇳 Ở đâu? Trên đó, trên không kia, tất nhiên!</span></li>
+        <li class="sl-ea" onclick="speakText('She's got fair hair.',0.8)">She's got f<span class="hlea">air</span> h<span class="hlea">air</span>.<span class="ipa-s">/ʃiːz ɡɒt feə heə/</span><span class="vi-s">🇻🇳 Cô ấy có mái tóc sáng màu.</span></li>
+        <li class="sl-ea" onclick="speakText('The chairs are over there by the stairs.',0.8)">The ch<span class="hlea">air</span>s are over th<span class="hlea">ere</span> by the st<span class="hlea">air</span>s.<span class="ipa-s">/ðə tʃeəz ɑːr ˈəʊvər ðeə baɪ ðə steəz/</span><span class="vi-s">🇻🇳 Những chiếc ghế ở đằng kia, cạnh cầu thang.</span></li>
+        <li class="sl-ea" onclick="speakText('Where are you going? I don't care where.',0.8)">Wh<span class="hlea">ere</span> are you going? I don't c<span class="hlea">are</span> wh<span class="hlea">ere</span>.<span class="ipa-s">/weər ɑː ju ˈɡəʊɪŋ | aɪ dəʊnt keə weə/</span><span class="vi-s">🇻🇳 Bạn đi đâu vậy? Tôi không quan tâm đâu.</span></li>
+        <li class="sl-ea" onclick="speakText('What are you wearing? It's so rare!',0.8)">What are you w<span class="hlea">ear</span>ing? It's so r<span class="hlea">are</span>!<span class="ipa-s">/wɒt ɑː ju ˈweərɪŋ | ɪts səʊ reə/</span><span class="vi-s">🇻🇳 Bạn đang mặc gì vậy? Hiếm thấy lắm!</span></li>
+        <li class="sl-ea" onclick="speakText('The square near the airport needs repair.',0.75)">The squ<span class="hlea">are</span> n<span class="hlia">ear</span> the <span class="hlea">air</span>port needs rep<span class="hlea">air</span>.<span class="ipa-s">/ðə skweər nɪər ðɪ ˈeəpɔːt niːdz rɪˈpeə/</span><span class="vi-s">🇻🇳 Quảng trường gần sân bay cần được sửa chữa. <em>(địa kỹ thuật)</em></span></li>
+        <li class="sl-ea" onclick="speakText('The bearing layer was declared unsafe.',0.75)">The b<span class="hlea">ear</span>ing layer was decl<span class="hlea">are</span>d unsafe.<span class="ipa-s">/ðə ˈbeərɪŋ ˈleɪər wəz dɪˈkleəd ʌnˈseɪf/</span><span class="vi-s">🇻🇳 Lớp chịu lực được tuyên bố là không an toàn. <em>(địa kỹ thuật)</em></span></li>
+    </ul>
+    <div class="btn-group">
+        <button class="btn btn-ea" onclick="speakText('Look at that aeroplane! Where? Up there, in the air, of course!',0.8)">🔊 Nghe câu sách gốc</button>
+        <button class="btn btn-success" onclick="speakText('Look at that aeroplane! Where? Up there in the air of course!',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- BÀI THƠ -->
+<div class="section">
+    <div class="section-title">🎵 Bài thơ luyện /ɪə/ và /eə/ <span class="badge audio">🔊 Nghe</span></div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:220px;">
+            <div style="font-weight:700;color:#2a5caa;margin-bottom:8px;">🔵 Poem 1 — /ɪə/</div>
+            <div class="poem-box poem-ia">
+                I've had th<span style="color:#2a5caa;font-weight:700;">ese ears</span><br>
+                a hundred y<span style="color:#2a5caa;font-weight:700;">ears</span>.<br>
+                Well, no, not r<span style="color:#2a5caa;font-weight:700;">eally</span><br>
+                but v<span style="color:#2a5caa;font-weight:700;">ery, very near</span>ly!
+            </div>
+            <div style="font-size:13px;color:#27ae60;margin-bottom:10px;">🇻🇳 Tôi đã có đôi tai này cả trăm năm rồi. À không, không hẳn thế — nhưng gần như vậy!</div>
+            <div class="btn-group">
+                <button class="btn btn-ia" onclick="speakText('I've had these ears a hundred years. Well, no, not really, but very very nearly!',0.8)">🔊 Nghe</button>
+                <button class="btn btn-success" onclick="speakText('I've had these ears a hundred years. Well no not really but very very nearly!',0.5)">🐢 Chậm</button>
+            </div>
+        </div>
+        <div style="flex:1;min-width:220px;">
+            <div style="font-weight:700;color:#7c3aed;margin-bottom:8px;">🟣 Poem 2 — /eə/</div>
+            <div class="poem-box poem-ea">
+                When nobody's <span style="color:#7c3aed;font-weight:700;">there</span><br>
+                I don't c<span style="color:#7c3aed;font-weight:700;">are</span> what I w<span style="color:#7c3aed;font-weight:700;">ear</span>,<br>
+                and I sit on the st<span style="color:#7c3aed;font-weight:700;">air</span><br>
+                with my feet on a ch<span style="color:#7c3aed;font-weight:700;">air</span>.
+            </div>
+            <div style="font-size:13px;color:#27ae60;margin-bottom:10px;">🇻🇳 Khi không có ai ở đó, tôi chẳng quan tâm mình mặc gì, và tôi ngồi trên cầu thang với đôi chân lên ghế.</div>
+            <div class="btn-group">
+                <button class="btn btn-ea" onclick="speakText('When nobody's there I don't care what I wear, and I sit on the stair with my feet on a chair.',0.8)">🔊 Nghe</button>
+                <button class="btn btn-success" onclick="speakText('When nobody's there I don't care what I wear, and I sit on the stair with my feet on a chair.',0.5)">🐢 Chậm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- KINH NGHIỆM -->
+<div class="section" style="border:2px solid #f39c12;">
+    <div class="section-title">💡 Kinh nghiệm luyện tập <span class="badge tip">🔥 Quan trọng</span></div>
+    <div class="tip-box">
+        <div class="tip-title">🎯 5 bí quyết nắm vững /ɪə/ và /eə/</div>
+        <div class="tip-content">
+            <p><strong>1. Nhớ qua 2 từ chìa khóa</strong><br>
+            <span class="ipa-ia">/ɪə/</span> = "ear" (tai) · <span class="ipa-ea">/eə/</span> = "air" (không khí)<br>
+            Khi đọc bất kỳ từ nào, tự hỏi: âm này giống "ear" hay "air"?</p>
+            <p><strong>2. /ɪə/ bắt đầu TỪ TRÊN, /eə/ bắt đầu THẤP HƠN</strong><br>
+            "here": bắt đầu như "ee" rồi trượt xuống = /ɪə/<br>
+            "hair": bắt đầu như "eh" rồi trượt xuống = /eə/ — miệng mở hơn</p>
+            <p><strong>3. Cẩn thận "ear" — không phải lúc nào cũng /ɪə/</strong><br>
+            hear /hɪə/ · fear /fɪə/ · near /nɪə/ = /ɪə/ ✓<br>
+            wear /weə/ · bear /beə/ · pear /peə/ = /eə/ — ngoại lệ quan trọng!</p>
+            <p><strong>4. there và where = /eə/ (không phải /ɪə/!)</strong><br>
+            "Where are you?" /weə ɑː juː/ · "Over there." /ˈəʊvər ðeə/<br>
+            Người học hay đọc nhầm "where" = /wɪə/!</p>
+            <p><strong>5. Luyện qua thơ — vần giúp nhớ âm</strong><br>
+            Poem 1: ears/years/nearly đều vần /ɪə/<br>
+            Poem 2: there/care/wear/stair/chair đều vần /eə/</p>
+        </div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 8.1 — Find /ɪə/ and /eə/ in a letter
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 8.1 — Tìm từ /ɪə/ và /eə/ trong thư <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            📖 Đọc lá thư → Click từ: 1 lần = <strong style="color:#2a5caa;">/ɪə/</strong> (xanh) · 2 lần = <strong style="color:#7c3aed;">/eə/</strong> (tím) · 3 lần = bỏ → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Tìm 4 từ /ɪə/ và 4 từ /eə/.</em>
+        </div>
+        <div style="background:#f9f5ff;border:2px solid #c4b5fd;border-radius:12px;padding:18px 22px;margin:12px 0;font-size:15px;font-family:'Georgia',serif;line-height:2.5;" id="ex81Letter"></div>
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx81()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx81()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx81()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score81" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 8.2 — Fill with /ɪə/ and /eə/ words
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 8.2 — Điền từ /ɪə/ và /eə/ <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            ✏️ Điền từ /ɪə/ hoặc /eə/ vào ô trống → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Gợi ý: fair, here, years, chairs, hear, steer, stairs, clear</em>
+        </div>
+        <div class="fill-items" id="ex82Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx82()">🔊 Nghe tất cả</button>
+            <button class="btn btn-warning" onclick="checkEx82()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx82()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx82()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score82" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 8.3 — /r/ sound after /ɪə/ or /eə/
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 8.3 — Có /r/ sau /ɪə/ hay /eə/ không? <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🎧 Nhìn từ gạch chân → Chọn có <strong>/r/</strong> hay <strong>không /r/</strong> sau âm đôi → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Quy tắc: có /r/ khi từ tiếp theo bắt đầu bằng nguyên âm.</em>
+        </div>
+        <div id="ex83Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx83()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx83()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx83()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score83" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 8.4 — Minimal pair listen
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 8.4 — Nghe chọn từ đúng <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🔊 Nhấn ▶️ → Chọn từ đúng → <strong>"Chấm bài"</strong>. Nhấn 🔀 để tạo bộ câu mới.
+        </div>
+        <div class="choice-items" id="ex84Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="randomizeEx84()">🔀 Tạo câu mới</button>
+            <button class="btn btn-warning" onclick="checkEx84()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx84()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx84()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score84" class="score-box"></div>
+    </div>
+</div>
+
+<!-- TỔNG KẾT -->
+<div class="section" style="border:2px solid #8e44ad;">
+    <div class="section-title">📌 Tổng kết <span class="badge" style="background:#f5eef8;color:#7d3c98;">✅ Checklist</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px;line-height:1.9;">
+        <div style="background:#dbeafe;padding:12px 14px;border-radius:10px;border:1px solid #2a5caa;">✅ <strong>/ɪə/</strong> = "ear" — here, near, clear, year, beer</div>
+        <div style="background:#ede9fe;padding:12px 14px;border-radius:10px;border:1px solid #7c3aed;">✅ <strong>/eə/</strong> = "air" — there, where, chair, hair, care</div>
+        <div style="background:#dbeafe;padding:12px 14px;border-radius:10px;border:1px solid #2a5caa;">✅ <strong>/ɪə/ viết</strong> — ea, ear, eer, ere, ier</div>
+        <div style="background:#ede9fe;padding:12px 14px;border-radius:10px;border:1px solid #7c3aed;">✅ <strong>/eə/ viết</strong> — a(re), air, ear(wear!), ere, aer</div>
+        <div style="background:#fff3cd;padding:12px 14px;border-radius:10px;border:1px solid #ffc107;">✅ wear/bear/pear = /eə/ (không phải /ɪə/!)</div>
+        <div style="background:#fff3cd;padding:12px 14px;border-radius:10px;border:1px solid #ffc107;">✅ there/where = /eə/ · here/hear = /ɪə/</div>
+    </div>
+</div>
+
+<div style="text-align:center;padding:20px 0 10px;color:#95a5a6;font-size:14px;border-top:1px solid #e2e8f0;margin-top:10px;">
+    <p>📍 <strong>"Here and there"</strong> — HERE=/ɪə/ · THERE=/eə/ — bắt đầu khác nhau!</p>
+    <p style="margin-top:4px;font-size:13px;"><a href="../index.html" style="color:#1a3a6e;font-weight:600;">← Về trang chủ</a></p>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let curUtt=null,_voices=[];
+function _loadVoices(){_voices=speechSynthesis.getVoices();if(_voices.length===0)setTimeout(_loadVoices,200);}
+function _bestVoice(){
+    const prefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+    for(const p of prefs){const v=_voices.find(x=>x.name.includes(p));if(v)return v;}
+    return _voices.find(x=>x.lang.startsWith("en")&&!x.name.toLowerCase().includes("male"))||_voices.find(x=>x.lang.startsWith("en"))||null;
+}
+function speakText(t,rate=0.85){
+    if(!window.speechSynthesis)return;
+    speechSynthesis.cancel();
+    const clean=t.replace(/<[^>]*>/g,"").trim();
+    function doSpeak(){
+        const u=new SpeechSynthesisUtterance(clean);
+        u.lang="en-GB";u.rate=rate;u.pitch=1.05;u.volume=1.0;
+        const v=_bestVoice();if(v)u.voice=v;
+        curUtt=u;u.onend=()=>curUtt=null;speechSynthesis.speak(u);
+    }
+    if(_voices.length>0)doSpeak();else{_loadVoices();setTimeout(doSpeak,350);}
+}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);}
+function showScore(id,correct,total,extra){
+    const pct=Math.round(correct/total*100);
+    let cls="try",emoji="😅",msg="Cần luyện thêm!";
+    if(pct>=90){cls="great";emoji="🎉";msg="Xuất sắc!";}
+    else if(pct>=65){cls="good";emoji="👍";msg="Khá tốt!";}
+    const el=document.getElementById("score"+id);
+    el.className=`score-box show ${cls}`;
+    el.innerHTML=`<div class="big-score">${emoji} ${pct}%</div><strong>${msg}</strong> — Đúng <strong>${correct}/${total}</strong>.<div class="score-meter"><div class="score-meter-fill" style="width:${pct}%;background:${pct>=90?"#27ae60":pct>=65?"#f39c12":"#e74c3c"}"></div></div>${extra||""}`;
+    showToast("Kết quả: "+pct+"%");
+}
+if(window.speechSynthesis){_loadVoices();speechSynthesis.onvoiceschanged=_loadVoices;}
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(8)){c.push(8);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+
+// ================================================================
+// EX 8.1 — Letter word classify
+// ================================================================
+const LETTER_WORDS=[
+    {w:"Dear",t:"ea"},{w:"really",t:"ia"},{w:"pleased",t:null},{w:"theatre",t:"ia"},
+    {w:"tonight",t:null},{w:"seats",t:null},{w:"upstairs",t:"ea"},{w:"near",t:"ia"},
+    {w:"front",t:null},{w:"there",t:"ea"},{w:"Mary",t:"ea"},
+];
+const ex81State={};
+function buildEx81(){
+    const letter=document.getElementById("ex81Letter");
+    // Reconstruct the letter with clickable words
+    const letterText=[
+        "Dear","Mary,",
+        "I'm","really","pleased","you","can","come","to","the","theatre","with","us","tonight.",
+        "We've","got","seats","upstairs,","near","the","front.","See","you","there!",
+        "Sarah"
+    ];
+    letter.innerHTML="";
+    letterText.forEach(rawWord=>{
+        const clean=rawWord.replace(/[,!.]/g,"");
+        const punct=rawWord.replace(/[a-zA-Z']/g,"");
+        const info=LETTER_WORDS.find(x=>x.w.toLowerCase()===clean.toLowerCase());
+        if(info&&info.t){
+            ex81State[clean]=0;
+            const span=document.createElement("span");
+            span.id=`lw81_${clean}`;
+            span.className="classify-chip";
+            span.style.margin="2px 4px";
+            span.textContent=clean+punct;
+            span.onclick=()=>cycleEx81(clean);
+            letter.appendChild(span);
+        } else {
+            const span=document.createElement("span");
+            span.textContent=rawWord+" ";
+            letter.appendChild(span);
+        }
+        if(rawWord.endsWith(",")||rawWord==="tonight."||rawWord==="Sarah")letter.appendChild(document.createElement("br"));
+    });
+}
+function cycleEx81(w){
+    ex81State[w]=(ex81State[w]+1)%3;
+    const el=document.getElementById(`lw81_${w}`);
+    el.classList.remove("marked-ia","marked-ea","correct-chip","wrong-chip");
+    if(ex81State[w]===1){el.classList.add("marked-ia");speakText(w,0.8);}
+    else if(ex81State[w]===2){el.classList.add("marked-ea");speakText(w,0.8);}
+}
+function checkEx81(){
+    let correct=0,total=0;
+    LETTER_WORDS.filter(x=>x.t).forEach(item=>{
+        total++;
+        const el=document.getElementById(`lw81_${item.w}`);if(!el)return;
+        el.classList.remove("marked-ia","marked-ea","correct-chip","wrong-chip");
+        const pick=ex81State[item.w]===1?"ia":(ex81State[item.w]===2?"ea":"");
+        if(pick===item.t){el.classList.add("correct-chip");correct++;}
+        else{el.classList.add("wrong-chip");}
+    });
+    showScore("81",correct,total,
+        "<br><em style='font-size:13px;'>🔵=/ɪə/: really, theatre, near, See you there(here) · 🟣=/eə/: Dear, Mary, upstairs, there</em>");
+}
+function resetEx81(){
+    LETTER_WORDS.filter(x=>x.t).forEach(item=>{
+        ex81State[item.w]=0;
+        const el=document.getElementById(`lw81_${item.w}`);
+        if(el){el.className="classify-chip";el.style.margin="2px 4px";}
+    });
+    document.getElementById("score81").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx81(){
+    LETTER_WORDS.filter(x=>x.t).forEach(item=>{
+        ex81State[item.w]=item.t==="ia"?1:2;
+        const el=document.getElementById(`lw81_${item.w}`);
+        if(el){
+            el.classList.remove("marked-ia","marked-ea","wrong-chip");
+            el.classList.add("correct-chip");
+            el.style.background=item.t==="ia"?"#2a5caa":"#7c3aed";
+            el.style.color="white";
+        }
+    });
+    document.getElementById("score81").className="score-box info show";
+    document.getElementById("score81").innerHTML=
+        "<strong>🔵 /ɪə/:</strong> really, theatre, near, (here in See you there)<br>"+
+        "<strong>🟣 /eə/:</strong> Dear, Mary, upstairs, there";
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 8.2 — Fill sentences
+// ================================================================
+const EX82=[
+    {num:1,pre:"She's got",blank:"fair",suf:"h",blank2:"air",suf2:".",
+     ans:["fair","hair"],audio:"She's got fair hair.",vi:"Cô ấy có mái tóc sáng màu."},
+    {num:2,pre:"The ch",blank:"airs",suf:"are under the st",blank2:"airs",suf2:".",
+     ans:["airs","airs"],audio:"The chairs are under the stairs.",vi:"Những chiếc ghế dưới cầu thang."},
+    {num:3,pre:"How many y",blank:"ears",suf:"have you lived h",blank2:"ere",suf2:"?",
+     ans:["ears","ere"],audio:"How many years have you lived here?",vi:"Bạn đã sống ở đây bao nhiêu năm?"},
+    {num:4,pre:"There's a man with a b",blank:"eard",suf:"sitting in the st",blank2:"eers",suf2:".",
+     ans:["eard","eers"],audio:"There's a man with a beard sitting in the steer position.",vi:"Có người đàn ông có râu ngồi ở đó."},
+    {num:5,pre:"Speak up! I can't h",blank:"ear",suf:"you.",
+     ans:["ear"],audio:"Speak up! I can't hear you.",vi:"Nói to hơn! Tôi không nghe thấy bạn."},
+    {num:6,pre:"It's a cl",blank:"ear",suf:"day — you can see for miles.",
+     ans:["ear"],audio:"It's a clear day — you can see for miles.",vi:"Trời trong xanh — bạn có thể nhìn xa hàng dặm."},
+];
+// Simplified version
+const EX82_SIMPLE=[
+    {num:1,pre:"She's got",blank:"fair",suf:"hair.",ans:"fair",audio:"She's got fair hair.",vi:"Cô ấy có mái tóc sáng màu."},
+    {num:2,pre:"The chairs are under the",blank:"stairs",suf:".",ans:"stairs",audio:"The chairs are under the stairs.",vi:"Ghế ở dưới cầu thang."},
+    {num:3,pre:"How many",blank:"years",suf:"have you lived here?",ans:"years",audio:"How many years have you lived here?",vi:"Bạn đã sống ở đây bao nhiêu năm?"},
+    {num:4,pre:"There's a man with a",blank:"beard",suf:"sitting in the steer.",ans:"beard",audio:"There's a man with a beard sitting there.",vi:"Có người đàn ông có râu ngồi ở đó."},
+    {num:5,pre:"Speak up! I can't",blank:"hear",suf:"you.",ans:"hear",audio:"Speak up! I can't hear you.",vi:"Nói to hơn! Tôi không nghe thấy bạn."},
+    {num:6,pre:"It's a",blank:"clear",suf:"day — you can see for miles.",ans:"clear",audio:"It's a clear day, you can see for miles.",vi:"Trời trong trẻo — bạn nhìn xa hàng dặm."},
+];
+function buildEx82(){
+    const c=document.getElementById("ex82Items");c.innerHTML="";
+    EX82_SIMPLE.forEach((item,i)=>{
+        c.innerHTML+=`<div class="fill-item">
+            <span class="num">${item.num}.</span>
+            <span>${item.pre}</span>
+            <input type="text" id="inp82_${i}" placeholder="?" autocomplete="off">
+            <span>${item.suf}</span>
+            <button class="btn btn-ia" style="padding:2px 9px;font-size:11px;" onclick="speakText('${item.audio}',0.8)">🔊</button>
+            <span style="font-size:12px;color:#27ae60;">🇻🇳 ${item.vi}</span>
+        </div>`;
+    });
+}
+function speakEx82(){EX82_SIMPLE.forEach(x=>speakText(x.audio,0.8));}
+function checkEx82(){
+    let correct=0;
+    EX82_SIMPLE.forEach((item,i)=>{
+        const inp=document.getElementById(`inp82_${i}`);if(!inp)return;
+        const val=inp.value.trim().toLowerCase();
+        const ok=val===item.ans.toLowerCase()||(item.ans.toLowerCase().startsWith(val)&&val.length>=3);
+        if(ok){inp.classList.add("correct");inp.classList.remove("wrong");correct++;}
+        else{inp.classList.add("wrong");inp.classList.remove("correct");}
+    });
+    showScore("82",correct,EX82_SIMPLE.length);
+}
+function resetEx82(){EX82_SIMPLE.forEach((_,i)=>{const inp=document.getElementById(`inp82_${i}`);if(inp){inp.value="";inp.className="";}});document.getElementById("score82").className="score-box";showToast("Đã đặt lại!");}
+function revealEx82(){
+    EX82_SIMPLE.forEach((item,i)=>{const inp=document.getElementById(`inp82_${i}`);if(inp){inp.value=item.ans;inp.classList.add("correct");}});
+    document.getElementById("score82").className="score-box info show";
+    document.getElementById("score82").innerHTML="<strong>Đáp án:</strong> "+EX82_SIMPLE.map(x=>`${x.num}. <strong>${x.ans}</strong>`).join(" | ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 8.3 — /r/ after /ɪə/ or /eə/
+// ================================================================
+const EX83=[
+    {num:"Ex",text:"See you next year.",target:"year",ans:"no",note:"year đứng cuối câu → không có r linking"},
+    {num:1,text:"See you next year.",target:"year",ans:"no",audio:"See you next year.",note:"cuối câu"},
+    {num:2,text:"We're from England — what about you?",target:"We're",ans:"r",audio:"We're from England, what about you?",note:"We're + from (phụ âm f) → không link... thực ra có r!"},
+    {num:3,text:"Bye — take care!",target:"care",ans:"no",audio:"Bye, take care!",note:"cuối câu"},
+    {num:4,text:"Bye — take care!",target:"care",ans:"no",audio:"Bye, take care! See you.",note:"cuối câu"},
+    {num:5,text:"Where shall we meet?",target:"Where",ans:"r",audio:"Where shall we meet?",note:"Where + shall → không rõ"},
+    {num:6,text:"Where shall we meet?",target:"Where",ans:"no",audio:"Where shall we meet? I don't know.",note:"Phụ thuộc ngữ cảnh"},
+];
+const EX83_DATA=[
+    {num:1,text:"See you next <u>year</u>.",ans:"no",audio:"See you next year.",vi:"(year cuối câu)"},
+    {num:2,text:"We're from England — what about <u>you</u>?",ans:"r",audio:"We're from England what about you?",vi:"(year + vowel... tùy ngữ cảnh)"},
+    {num:3,text:"Bye — take <u>care</u>!",ans:"no",audio:"Bye, take care!",vi:"(care cuối câu)"},
+    {num:4,text:"Bye — take <u>care</u>!",target:"chú ý 2 version",ans:"r",audio:"Bye take care everyone!",vi:"(care + everyone = có r linking)"},
+    {num:5,text:"<u>Where</u> shall we meet?",ans:"no",audio:"Where shall we meet?",vi:"(Where + shall = phụ âm → không link)"},
+    {num:6,text:"<u>Where</u> shall we meet?",target:"version khác",ans:"r",audio:"Where are we meeting?",vi:"(Where + are = nguyên âm → có r linking)"},
+];
+const ex83Sel={};
+function buildEx83(){
+    const c=document.getElementById("ex83Items");c.innerHTML="";
+    EX83_DATA.forEach((item,i)=>{
+        c.innerHTML+=`<div class="mark-sent">
+            <span class="num">${item.num}.</span> ${item.text}
+            <button class="btn btn-ia" style="padding:2px 9px;font-size:11px;margin-left:6px;" onclick="speakText('${item.audio}',0.8)">🔊</button>
+            <span style="font-size:12px;color:#27ae60;margin-left:4px;">🇻🇳 ${item.vi}</span>
+            <div class="choice-row">
+                <span class="rbtn" id="r83_${i}_r" onclick="selR83(${i},'r')">/r/ có</span>
+                <span class="rbtn" id="r83_${i}_no" onclick="selR83(${i},'no')">no /r/ không</span>
+            </div>
+        </div>`;
+    });
+}
+function selR83(i,v){
+    ex83Sel[i]=v;
+    ["r","no"].forEach(k=>{document.getElementById(`r83_${i}_${k}`).classList.remove("sel-r","sel-no");});
+    document.getElementById(`r83_${i}_${v}`).classList.add(v==="r"?"sel-r":"sel-no");
+}
+function checkEx83(){
+    let correct=0;
+    EX83_DATA.forEach((item,i)=>{
+        const rb=document.getElementById(`r83_${i}_r`);
+        const nb=document.getElementById(`r83_${i}_no`);
+        rb.style.pointerEvents="none";nb.style.pointerEvents="none";
+        if(ex83Sel[i]===item.ans){
+            (item.ans==="r"?rb:nb).classList.add("correct-c");correct++;
+        } else {
+            if(ex83Sel[i])(item.ans==="r"?nb:rb).classList.add("wrong-c");
+            (item.ans==="r"?rb:nb).style.outline="2px solid #27ae60";
+        }
+    });
+    showScore("83",correct,EX83_DATA.length,"<br><em style='font-size:13px;'>Quy tắc: r linking khi từ tiếp theo bắt đầu = nguyên âm</em>");
+}
+function resetEx83(){
+    Object.keys(ex83Sel).forEach(k=>delete ex83Sel[k]);
+    EX83_DATA.forEach((_,i)=>{
+        ["r","no"].forEach(k=>{const el=document.getElementById(`r83_${i}_${k}`);if(el){el.classList.remove("sel-r","sel-no","correct-c","wrong-c");el.style.pointerEvents="";el.style.outline="";}});
+    });
+    document.getElementById("score83").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx83(){
+    EX83_DATA.forEach((item,i)=>{
+        ["r","no"].forEach(k=>{const el=document.getElementById(`r83_${i}_${k}`);if(el){el.classList.remove("sel-r","sel-no","wrong-c");el.style.pointerEvents="none";}});
+        (item.ans==="r"?document.getElementById(`r83_${i}_r`):document.getElementById(`r83_${i}_no`)).classList.add("correct-c");
+    });
+    document.getElementById("score83").className="score-box info show";
+    document.getElementById("score83").innerHTML=
+        "<strong>Đáp án:</strong> "+EX83_DATA.map(x=>`${x.num}. <strong>${x.ans==="r"?"/r/ có":"no /r/"}</strong>`).join(" | ")+
+        "<br><em>💡 Khi từ tiếp theo bắt đầu nguyên âm → có /r/ linking · Cuối câu hoặc trước phụ âm → không có /r/</em>";
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 8.4 — Minimal pairs
+// ================================================================
+const EX84=[
+    {num:1,pair:["near","knee"],sounds:["ia","?"],hint:"sound pair 2"},
+    {num:2,pair:["bird","beard"],sounds:["?","ia"],hint:"sound pair 20"},
+    {num:3,pair:["wear","way"],sounds:["ea","?"],hint:"sound pair 21"},
+    {num:4,pair:["here","hair"],sounds:["ia","ea"],hint:"/ɪə/ vs /eə/"},
+    {num:5,pair:["beer","bear"],sounds:["ia","ea"],hint:"/ɪə/ vs /eə/"},
+    {num:6,pair:["fear","fair"],sounds:["ia","ea"],hint:"/ɪə/ vs /eə/"},
+    {num:7,pair:["ear","air"],sounds:["ia","ea"],hint:"/ɪə/ vs /eə/"},
+    {num:8,pair:["year","yeah"],sounds:["ia","ea"],hint:"/ɪə/ vs /eə/"},
+];
+let ex84Correct=[];
+function initEx84(){ex84Correct=EX84.map(x=>{const valid=[0,1].filter(j=>x.sounds[j]!=="?");return valid[Math.floor(Math.random()*valid.length)];});}
+function buildEx84(){
+    initEx84();
+    const c=document.getElementById("ex84Items");c.innerHTML="";
+    EX84.forEach((item,i)=>{
+        c.innerHTML+=`<div class="choice-item">
+            <span class="num">${item.num}.</span>
+            <small style="color:#888;font-style:italic;">${item.hint}</small><br>
+            ${item.pair.map((w,j)=>`<span class="choice-btn" id="cb84_${i}_${j}" onclick="selC84(${i},${j})">${w}</span>`).join("")}
+            <button class="btn btn-ia" style="padding:3px 10px;font-size:11px;margin-left:6px;" onclick="speakText('${item.pair[ex84Correct[i]]}',0.7)">▶️ Nghe</button>
+        </div>`;
+    });
+}
+const ex84Sel={};
+function selC84(i,j){ex84Sel[i]=j;[0,1].forEach(k=>document.getElementById(`cb84_${i}_${k}`).classList.remove("sel-a"));document.getElementById(`cb84_${i}_${j}`).classList.add("sel-a");}
+function randomizeEx84(){initEx84();buildEx84();Object.keys(ex84Sel).forEach(k=>delete ex84Sel[k]);document.getElementById("score84").className="score-box";showToast("Câu hỏi mới!");}
+function checkEx84(){
+    let correct=0;
+    EX84.forEach((_,i)=>{
+        const ans=ex84Correct[i];
+        [0,1].forEach(j=>{const el=document.getElementById(`cb84_${i}_${j}`);if(!el)return;el.style.pointerEvents="none";if(j===ans){if(ex84Sel[i]===j){el.classList.add("correct-c");correct++;}else el.style.textDecoration="underline dotted #27ae60";}else if(ex84Sel[i]===j)el.classList.add("wrong-c");});
+    });
+    showScore("84",correct,EX84.length,"<br><em>Nhấn 🔀 để nghe bộ câu mới!</em>");
+}
+function resetEx84(){buildEx84();Object.keys(ex84Sel).forEach(k=>delete ex84Sel[k]);document.getElementById("score84").className="score-box";showToast("Đã đặt lại!");}
+function revealEx84(){
+    EX84.forEach((_,i)=>{const ans=ex84Correct[i];[0,1].forEach(j=>{const el=document.getElementById(`cb84_${i}_${j}`);if(!el)return;el.classList.remove("sel-a","wrong-c");el.style.pointerEvents="none";if(j===ans)el.classList.add("correct-c");});});
+    document.getElementById("score84").className="score-box info show";
+    document.getElementById("score84").innerHTML="<strong>Đáp án:</strong> "+EX84.map((x,i)=>`${x.num}. <strong>${x.pair[ex84Correct[i]]}</strong>`).join(" | ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+document.addEventListener("DOMContentLoaded",()=>{buildEx81();buildEx82();buildEx83();buildEx84();});
+</script>
+</body>
+</html>

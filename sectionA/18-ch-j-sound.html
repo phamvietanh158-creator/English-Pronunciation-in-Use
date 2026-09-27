@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 18 – Chips and juice – /tʃ/ and /dʒ/</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#7a4a00 0%,#4a2a00 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 18px;font-size:1.2rem;font-weight:800}
+.header h1{font-size:1.35rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#7a4a00;border-bottom:2px solid #f0d5a0;padding-bottom:8px;margin-bottom:14px}
+.diagram-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px}
+.diag-card{border-radius:12px;padding:16px;border:1.5px solid}
+.diag-card.ch{background:#fff8f0;border-color:#c08030}
+.diag-card.dj{background:#f0fff0;border-color:#308030}
+.diag-card h3{font-size:1.4rem;font-weight:800;margin-bottom:8px}
+.diag-card.ch h3{color:#7a4a00}
+.diag-card.dj h3{color:#1a6a1a}
+.diag-card p{font-size:0.83rem;color:#555;line-height:1.5}
+.ipa{font-style:italic;color:#c0392b;font-weight:700}
+.hl-ch{color:#7a4a00;font-weight:800}
+.hl-dj{color:#1a6a1a;font-weight:800}
+.spell-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.spell-table th{background:#7a4a00;color:#fff;padding:9px 12px;text-align:left}
+.spell-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.spell-table tr:nth-child(even) td{background:#fff8f0}
+.spell-table .dj-row td{background:#f0fff0}
+.spell-table .dj-row:nth-child(even) td{background:#e0ffe0}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:110px;text-align:center;border:1.5px solid}
+.word-card.ch-card{background:#fff8f0;border-color:#c08030}
+.word-card.dj-card{background:#f0fff0;border-color:#60a860}
+.word-card:hover{transform:translateY(-2px)}
+.word-card.ch-card:hover{background:#7a4a00;color:#fff}
+.word-card.dj-card:hover{background:#1a6a1a;color:#fff}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card:hover .ipa2{color:#fec}
+.word-card .vn{font-size:0.78rem;margin-top:2px}
+.word-card.ch-card .vn{color:#7a4a00}
+.word-card.dj-card .vn{color:#1a6a1a}
+.word-card:hover .vn{color:#ffe}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{border-radius:9px;padding:10px 14px;cursor:pointer;transition:background 0.2s}
+.sentence-list li.ch-sent{background:#fff8f0;border-left:4px solid #7a4a00}
+.sentence-list li.dj-sent{background:#f0fff0;border-left:4px solid #1a6a1a}
+.sentence-list li:hover{opacity:0.8}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;margin-top:2px}
+.ch-sent .sent-vn{color:#7a4a00}
+.dj-sent .sent-vn{color:#1a6a1a}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.note-box{background:#fff8e1;border:1px dashed #f5c518;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.85rem}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-orange{background:#7a4a00;color:#fff}.btn-orange:hover{background:#4a2a00}
+.btn-green{background:#1a6a1a;color:#fff}.btn-green:hover{background:#0a4a0a}
+.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.ex-wrap{border:1.5px solid #f0d5a0;border-radius:12px;padding:18px;margin-bottom:16px;background:#fffcf5}
+.ex-label{display:inline-block;background:#7a4a00;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
+.fill-item input{border:none;border-bottom:2px solid #f0d5a0;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:120px;color:#7a4a00;font-weight:600}
+.fill-item input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-item input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.ipa-card{background:#fff8f0;border:1.5px solid #f0d5a0;border-radius:10px;padding:10px 14px;margin:5px 0;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background 0.2s}
+.ipa-card:hover{background:#ffe8cc}
+.ipa-card .ipa-text{font-size:1.05rem;font-weight:700;color:#7a4a00;min-width:100px}
+.ipa-card input{border:none;border-bottom:2px solid #f0d5a0;background:transparent;font-size:0.95rem;padding:2px 5px;outline:none;width:130px;color:#222;font-weight:600}
+.ipa-card input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.ipa-card input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.classify-chip{display:inline-block;border-radius:20px;padding:6px 14px;cursor:pointer;font-size:0.87rem;font-weight:600;transition:all 0.18s;user-select:none;margin:3px;border:2px solid #ccc;background:#f5f5f5}
+.classify-chip.sel-ch{background:#7a4a00;color:#fff;border-color:#7a4a00}
+.classify-chip.sel-dj{background:#1a6a1a;color:#fff;border-color:#1a6a1a}
+.col-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+.col-box{border-radius:9px;padding:10px;min-height:70px;border:2px solid}
+.col-box.ch-col{background:#fff8f0;border-color:#c08030}
+.col-box.dj-col{background:#f0fff0;border-color:#60a860}
+.col-box h5{font-size:0.85rem;font-weight:700;margin-bottom:6px}
+.col-box.ch-col h5{color:#7a4a00}
+.col-box.dj-col h5{color:#1a6a1a}
+.col-chips{display:flex;flex-wrap:wrap;gap:5px;min-height:30px}
+/* odd-one-out */
+.odd-row{display:flex;align-items:center;gap:8px;margin:8px 0;flex-wrap:wrap}
+.odd-word{padding:5px 12px;border-radius:16px;border:2px solid #ccc;cursor:pointer;font-size:0.88rem;font-weight:600;background:#f5f5f5;transition:all 0.18s}
+.odd-word:hover{border-color:#7a4a00;background:#fff8f0}
+.odd-word.selected{background:#7a4a00;color:#fff;border-color:#7a4a00}
+.odd-word.correct-odd{background:#27ae60;color:#fff;border-color:#27ae60}
+.odd-word.wrong-odd{background:#e74c3c;color:#fff;border-color:#e74c3c}
+.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 18</span>
+    <span class="phoneme-badge">/tʃ/ &amp; /dʒ/</span>
+  </div>
+  <h1>Chips and juice – /tʃ/ and /dʒ/</h1>
+  <div class="sub">Phụ âm tắc-xát /tʃ/ (vô thanh – chips) và /dʒ/ (hữu thanh – juice)</div>
+</div>
+<div id="toast" class="toast"></div>
+<div class="container">
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết phát âm</div>
+  <div class="diagram-row">
+    <div class="diag-card ch">
+      <h3>/tʃ/ – CHIPS</h3>
+      <p>
+        <b>Cấu tạo:</b> /tʃ/ = /t/ + /ʃ/ phát cùng lúc<br>
+        <b>Vị trí:</b> Lưỡi chạm lợi trên, sau đó nhả ra với tiếng xát /ʃ/.<br>
+        🔇 <b>Vô thanh</b> (voiceless) — không rung cổ họng.<br><br>
+        <b>🇻🇳 So sánh:</b> Gần giống /ch/ trong "chào" nhưng có thêm tiếng xát ở cuối.<br><br>
+        <b>Chính tả:</b> <b>ch</b> (chips, choose, March, which), <b>t</b> (future, question), <b>tch</b> (catch, watch, kitchen)<br>
+        <small>⚠️ Tên chữ H = /eɪtʃ/ | Czech: cz = /tʃ/ | check/cheque/Czech = /tʃek/</small>
+      </p>
+    </div>
+    <div class="diag-card dj">
+      <h3>/dʒ/ – JUICE</h3>
+      <p>
+        <b>Cấu tạo:</b> /dʒ/ = /d/ + /ʒ/ phát cùng lúc<br>
+        <b>Vị trí:</b> Giống /tʃ/ — lưỡi chạm lợi trên, sau đó nhả ra với tiếng xát /ʒ/.<br>
+        🔊 <b>Hữu thanh</b> (voiced) — cổ họng rung.<br><br>
+        <b>🇻🇳 So sánh:</b> Không có âm tương đương trong tiếng Việt.<br><br>
+        <b>Chính tả:</b> <b>j</b> (jam, jacket, jeans, job, jet), <b>g</b> (general), <b>ge</b> (age, large), <b>dge</b> (fridge)<br>
+        <small>⚠️ Tên chữ G = /dʒiː/ | Tên chữ J = /dʒeɪ/</small>
+      </p>
+    </div>
+  </div>
+
+  <table class="spell-table">
+    <tr><th colspan="3" style="background:#7a4a00">🟠 Cách viết âm /tʃ/</th></tr>
+    <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+    <tr><td><b>ch</b></td><td><em><span class="hl-ch">ch</span>ips, <span class="hl-ch">ch</span>oose, Mar<span class="hl-ch">ch</span>, whi<span class="hl-ch">ch</span></em></td><td>Phổ biến nhất</td></tr>
+    <tr><td><b>t</b></td><td><em>fu<span class="hl-ch">t</span>ure, ques<span class="hl-ch">ti</span>on</em></td><td>t + ure/ion</td></tr>
+    <tr><td><b>tch</b></td><td><em>ca<span class="hl-ch">tch</span>, wa<span class="hl-ch">tch</span>, ki<span class="hl-ch">tch</span>en</em></td><td>Sau nguyên âm ngắn</td></tr>
+    <tr><th colspan="3" style="background:#1a6a1a;color:#fff">🟢 Cách viết âm /dʒ/</th></tr>
+    <tr class="dj-row"><td><b>j</b></td><td><em><span class="hl-dj">j</span>am, <span class="hl-dj">j</span>acket, <span class="hl-dj">j</span>eans, <span class="hl-dj">j</span>ob, <span class="hl-dj">j</span>et</em></td><td>Phổ biến nhất</td></tr>
+    <tr class="dj-row"><td><b>g / ge</b></td><td><em><span class="hl-dj">g</span>eneral, a<span class="hl-dj">ge</span>, lar<span class="hl-dj">ge</span></em></td><td>Trước e/i/y</td></tr>
+    <tr class="dj-row"><td><b>dge</b></td><td><em>fri<span class="hl-dj">dge</span>, bri<span class="hl-dj">dge</span></em></td><td>Sau nguyên âm ngắn</td></tr>
+  </table>
+
+  <div class="note-box">
+    ⚠️ <b>Tên các chữ cái:</b> H = <span class="ipa">/eɪtʃ/</span> &nbsp;|&nbsp; G = <span class="ipa">/dʒiː/</span> &nbsp;|&nbsp; J = <span class="ipa">/dʒeɪ/</span><br>
+    ⚠️ <b>Czech, check, cheque</b> → đều đọc là <span class="ipa">/tʃek/</span> (xem Unit E8 Homophones)
+  </div>
+
+  <div class="tip-box">
+    <b>💡 Mẹo phân biệt /tʃ/ và /dʒ/:</b><br>
+    Cả hai đều là âm tắc-xát (affricate), chỉ khác nhau ở rung cổ họng.<br>
+    <b>watch /tʃ/</b> vs <b>wash /ʃ/</b> &nbsp;|&nbsp; <b>coach /tʃ/</b> vs <b>coats /ts/</b> &nbsp;|&nbsp; <b>shoes /ʃ/</b> vs <b>choose /tʃ/</b>
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-orange" onclick="speakText('chips choose March which future question catch watch kitchen')">🔊 Nghe /tʃ/</button>
+    <button class="btn-green" onclick="speakText('jam jacket jeans job jet general age large fridge bridge')">🔊 Nghe /dʒ/</button>
+    <button class="btn-teal" onclick="speakText('tsh tsh tsh dzh dzh dzh',0.5)">🐢 So sánh /tʃ/ vs /dʒ/</button>
+  </div>
+</div>
+
+<!-- WORD GRID -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng</div>
+  <div style="display:flex;gap:10px;margin-bottom:8px;font-size:0.85rem">
+    <span style="background:#fff8f0;border:1.5px solid #c08030;border-radius:8px;padding:4px 10px;color:#7a4a00;font-weight:700">🟠 /tʃ/ chips</span>
+    <span style="background:#f0fff0;border:1.5px solid #60a860;border-radius:8px;padding:4px 10px;color:#1a6a1a;font-weight:700">🟢 /dʒ/ juice</span>
+  </div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-orange" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> /tʃ/ và /dʒ/ xuất hiện trong:<br>
+    <em><b>ch</b>annel, tren<b>ch</b>, in<b>j</b>ection, <b>g</b>eotechnical, pro<b>j</b>ect, <b>j</b>oint, e<b>dge</b>, e<b>x</b>cavation /ˌekskəˈveɪʃən/</em>
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 18.1: IPA → word -->
+  <div class="ex-wrap">
+    <span class="ex-label">18.1</span>
+    <div class="ex-instruction">Đọc phiên âm và gõ từ đúng. Ví dụ: <em>/dʒæm/</em> → <b>jam</b></div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 18.2: odd-one-out -->
+  <div class="ex-wrap">
+    <span class="ex-label">18.2</span>
+    <div class="ex-instruction">Click vào từ <b>không cùng âm</b> với các từ còn lại trong mỗi nhóm (odd one out).</div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 18.3: sentences fill -->
+  <div class="ex-wrap">
+    <span class="ex-label">18.3</span>
+    <div class="ex-instruction">Nghe và điền từ đúng vào chỗ trống (tất cả có âm /tʃ/ hoặc /dʒ/).</div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx3()">🔊 Nghe câu</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 18.4: classify /tʃ/ or /dʒ/ (from book) -->
+  <div class="ex-wrap">
+    <span class="ex-label">18.4</span>
+    <div class="ex-instruction">Phân loại từ vào hai nhóm: <span style="color:#7a4a00;font-weight:700">/tʃ/</span> hay <span style="color:#1a6a1a;font-weight:700">/dʒ/</span>?<br>
+    <em>teacher, lounge, bridge, chair, large, chicken, cheap, juice, Dutch, language, chips, orange, cheese, dangerous</em></div>
+    <div class="col-grid">
+      <div class="col-box ch-col"><h5>🟠 /tʃ/ (teacher…)</h5><div class="col-chips" id="col_ch"></div></div>
+      <div class="col-box dj-col"><h5>🟢 /dʒ/ (lounge…)</h5><div class="col-chips" id="col_dj"></div></div>
+    </div>
+    <div id="chip_pool4" style="display:flex;flex-wrap:wrap;gap:7px;padding:10px;background:#f5f5f5;border-radius:8px;margin-bottom:8px"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- 18.5: fill from 18.4 words -->
+  <div class="ex-wrap">
+    <span class="ex-label">18.5</span>
+    <div class="ex-instruction">Điền từ từ bài 18.4 vào chỗ trống.</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx5()">🔊 Nghe câu</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+
+  <!-- 18.6: minimal pairs -->
+  <div class="ex-wrap">
+    <span class="ex-label">18.6</span>
+    <div class="ex-instruction">Nghe và chọn từ đúng (minimal pairs /tʃ/ vs /ʃ/, /dʒ/ vs /ʒ/, /tʃ/ vs /dʒ/).</div>
+    <div id="ex6Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx6()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx6()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx6()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score6" class="score-box"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+// WORDS
+const words=[
+  {w:"chips",s:"ch",ipa:"/tʃɪps/",vn:"khoai tây chiên"},{w:"choose",s:"ch",ipa:"/tʃuːz/",vn:"chọn"},
+  {w:"March",s:"ch",ipa:"/mɑːtʃ/",vn:"tháng Ba"},{w:"watch",s:"ch",ipa:"/wɒtʃ/",vn:"đồng hồ / xem"},
+  {w:"kitchen",s:"ch",ipa:"/ˈkɪtʃɪn/",vn:"nhà bếp"},{w:"question",s:"ch",ipa:"/ˈkwestʃən/",vn:"câu hỏi"},
+  {w:"teacher",s:"ch",ipa:"/ˈtiːtʃə/",vn:"giáo viên"},{w:"chicken",s:"ch",ipa:"/ˈtʃɪkɪn/",vn:"gà"},
+  {w:"juice",s:"dj",ipa:"/dʒuːs/",vn:"nước trái cây"},{w:"jacket",s:"dj",ipa:"/ˈdʒækɪt/",vn:"áo khoác"},
+  {w:"jeans",s:"dj",ipa:"/dʒiːnz/",vn:"quần jeans"},{w:"large",s:"dj",ipa:"/lɑːdʒ/",vn:"lớn"},
+  {w:"fridge",s:"dj",ipa:"/frɪdʒ/",vn:"tủ lạnh"},{w:"bridge",s:"dj",ipa:"/brɪdʒ/",vn:"cây cầu"},
+  {w:"trench",s:"ch",ipa:"/trentʃ/",vn:"hố đào (địa kỹ thuật)"},{w:"injection",s:"dj",ipa:"/ɪnˈdʒekʃən/",vn:"bơm vữa (địa kỹ thuật)"},
+  {w:"geotechnical",s:"dj",ipa:"/ˌdʒiːəʊˈteknɪkəl/",vn:"địa kỹ thuật"},{w:"channel",s:"ch",ipa:"/ˈtʃænəl/",vn:"kênh / hào"},
+];
+function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card ${w.s}-card" onclick="speakText('${w.w}')"><div class="word">${w.w}</div><div class="ipa2">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div></div>`).join('');}
+function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+
+// SENTENCES
+const sents=[
+  {en:"Which questions did you choose in the exam?",ipa:"/wɪtʃ ˈkwestʃənz dɪd jə tʃuːz ɪn ðɪ ɪɡˈzæm/",vn:"Bạn đã chọn những câu hỏi nào trong bài thi?",s:"ch"},
+  {en:"The picture in the kitchen is by a Czech artist.",ipa:"/ðə ˈpɪktʃə ɪn ðə ˈkɪtʃɪn ɪz baɪ ə tʃek ˈɑːtɪst/",vn:"Bức tranh trong bếp là của một nghệ sĩ Czech.",s:"ch"},
+  {en:"Who's that wearing a large orange jacket?",ipa:"/huːz ðæt ˈweərɪŋ ə lɑːdʒ ˈɒrɪndʒ ˈdʒækɪt/",vn:"Ai đó đang mặc áo khoác cam lớn vậy?",s:"dj"},
+  {en:"There's some juice in the fridge.",ipa:"/ðeəz sʌm dʒuːs ɪn ðə frɪdʒ/",vn:"Có một ít nước trái cây trong tủ lạnh.",s:"dj"},
+  {en:"Languages are a bridge between people.",ipa:"/ˈlæŋɡwɪdʒɪz ɑː ə brɪdʒ bɪˈtwiːn ˈpiːpəl/",vn:"Ngôn ngữ là cây cầu nối giữa con người.",s:"dj"},
+  {en:"I went to a small Russian village.",ipa:"/aɪ went tə ə smɔːl ˈrʌʃən ˈvɪlɪdʒ/",vn:"Tôi đã đến một ngôi làng nhỏ của Nga.",s:"dj"},
+  {en:"Cabbage is my favourite vegetable.",ipa:"/ˈkæbɪdʒ ɪz maɪ ˈfeɪvərɪt ˈvedʒtəbəl/",vn:"Bắp cải là loại rau yêu thích của tôi.",s:"dj"},
+  {en:"I was in Germany at Christmas.",ipa:"/aɪ wəz ɪn ˈdʒɜːməni ət ˈkrɪsməs/",vn:"Tôi đã ở Đức vào dịp Giáng sinh.",s:"dj"},
+  {en:"The trench was excavated to one metre depth.",ipa:"/ðə trentʃ wəz ˈekskəveɪtɪd tə wʌn ˈmiːtə depθ/",vn:"Hố đào được đào đến độ sâu một mét.",s:"ch"},
+  {en:"The geotechnical engineer checked the project specifications.",ipa:"/ðə ˌdʒiːəʊˈteknɪkəl ˌendʒɪˈnɪə tʃekt ðə ˈprɒdʒekt ˌspesɪfɪˈkeɪʃənz/",vn:"Kỹ sư địa kỹ thuật đã kiểm tra thông số kỹ thuật dự án.",s:"dj"},
+  {en:"Cement injection was used to strengthen the joints.",ipa:"/sɪˈment ɪnˈdʒekʃən wəz juːzd tə ˈstreŋθən ðə dʒɔɪnts/",vn:"Bơm xi măng được dùng để gia cố các mối nối.",s:"dj"},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li class="${s.s}-sent" onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// EX 1: IPA → word (from book 18.1)
+const ex1Book=[
+  {ipa:"/dʒæm/",ans:"jam",note:"ví dụ"},
+  {ipa:"/wɒtʃ/",ans:"watch"},{ipa:"/dʒɒb/",ans:"job"},
+  {ipa:"/tʃɪps/",ans:"chips"},{ipa:"/lɑːdʒ/",ans:"large"},
+  {ipa:"/dʒuːs/",ans:"juice"},{ipa:"/dʒɜːz/",ans:"germs"},
+  {ipa:"/tʃiː/",ans:"cheese"},{ipa:"/eɪdʒ/",ans:"age"},
+];
+// From actual book
+const ex1Fixed=[
+  {ipa:"/dʒæm/",ans:"jam",note:"ví dụ"},
+  {ipa:"/wɒtʃ/",ans:"watch"},{ipa:"/dʒɒb/",ans:"job"},
+  {ipa:"/tʃɪps/",ans:"chips"},{ipa:"/lɑːdʒ/",ans:"large"},
+  {ipa:"/dʒuːs/",ans:"juice"},{ipa:"/dʒɜːz/",ans:"germs"},
+  {ipa:"/tʃiːz/",ans:"cheese"},{ipa:"/eɪdʒ/",ans:"age"},
+];
+function renderEx1(){
+  let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+  ex1Fixed.forEach((d,i)=>{
+    html+=`<div class="ipa-card" onclick="speakText('${d.ans}')">
+      <span class="ipa-text">${d.ipa}</span>
+      <input id="e1_${i}" type="text" placeholder="từ..." data-ans="${d.ans}">
+      ${d.note?`<span style="font-size:0.75rem;color:#888">(${d.note})</span>`:''}
+    </div>`;
+  });
+  html+='</div>';
+  document.getElementById('ex1Content').innerHTML=html;
+}
+function checkEx1(){let c=0;ex1Fixed.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);if(inp.value.trim().toLowerCase()===d.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score1',c,ex1Fixed.length);showToast(c===ex1Fixed.length?'🎉 Hoàn hảo!':'😅 Xem lại ô đỏ!');}
+function resetEx1(){ex1Fixed.forEach((_,i)=>{const inp=document.getElementById('e1_'+i);inp.value='';inp.className='';});document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx1(){ex1Fixed.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);inp.value=d.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 2: odd one out (from book 18.2)
+// Each row: 3 words same sound, 1 odd
+const ex2Rows=[
+  {words:["larger","generally","guess","fridge"],odd:2,note:"guess=/ɡ/ (not /dʒ/); others=/dʒ/"},
+  {words:["village","get","Germany","page"],odd:1,note:"get=/ɡ/; others=/dʒ/"},
+  {words:["coach","check","Christmas","temperature"],odd:1,note:"check=/tʃ/; others: coach/Christmas/temperature=/tʃ/... actually check=/tʃ/ too. temperature has no /tʃ/ → odd"},
+  {words:["June","vegetable","give","cabbage"],odd:2,note:"give=/ɡ/; others=/dʒ/"},
+  {words:["station","Russian","picture","information"],odd:1,note:"Russian=/ʃ/; others have /tʃ/ or diff... station/picture/information have /ʃ/ too. picture=/tʃ/→odd"},
+];
+// Corrected from book key
+const ex2Data=[
+  {words:["larger","generally","guess","fridge"],odd:2,note:"guess /ɡ/ ≠ /dʒ/"},
+  {words:["village","get","Germany","page"],odd:1,note:"get /ɡ/ ≠ /dʒ/"},
+  {words:["coach","check","Christmas","temperature"],odd:3,note:"temperature /t/ ≠ /tʃ/"},
+  {words:["June","vegetable","give","cabbage"],odd:2,note:"give /ɡ/ ≠ /dʒ/"},
+  {words:["station","Russian","picture","information"],odd:2,note:"picture /tʃ/ ≠ /ʃ/"},
+];
+let ex2sel={};
+function renderEx2(){
+  ex2sel={};
+  document.getElementById('ex2Content').innerHTML=ex2Data.map((row,i)=>`
+    <div class="odd-row">
+      <span style="font-size:0.82rem;color:#888;min-width:20px">${i+1}.</span>
+      ${row.words.map((w,j)=>`<span class="odd-word" id="ow_${i}_${j}" onclick="selectOdd(${i},${j})" onclick="speakText('${w}')">${w}</span>`).join('')}
+      <button class="btn-teal" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${row.words.join(', ')}')">🔊</button>
+      <span style="font-size:0.78rem;color:#888">${row.note}</span>
+    </div>`).join('');
+}
+function selectOdd(i,j){
+  ex2Data[i].words.forEach((_,k)=>{const el=document.getElementById(`ow_${i}_${k}`);if(el)el.classList.remove('selected');});
+  const el=document.getElementById(`ow_${i}_${j}`);
+  if(el)el.classList.add('selected');
+  ex2sel[i]=j;
+}
+function checkEx2(){
+  let c=0;
+  ex2Data.forEach((row,i)=>{
+    row.words.forEach((_,j)=>{const el=document.getElementById(`ow_${i}_${j}`);if(el)el.classList.remove('selected','correct-odd','wrong-odd');});
+    document.getElementById(`ow_${i}_${row.odd}`)?.classList.add('correct-odd');
+    if(ex2sel[i]===row.odd){c++;} else if(ex2sel[i]!==undefined){document.getElementById(`ow_${i}_${ex2sel[i]}`)?.classList.add('wrong-odd');}
+  });
+  showScore('score2',c,ex2Data.length);
+}
+function resetEx2(){ex2sel={};document.querySelectorAll('.odd-word').forEach(el=>el.classList.remove('selected','correct-odd','wrong-odd'));document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){ex2Data.forEach((row,i)=>{ex2sel[i]=row.odd;row.words.forEach((_,j)=>{const el=document.getElementById(`ow_${i}_${j}`);if(el){el.classList.remove('selected','wrong-odd');if(j===row.odd)el.classList.add('correct-odd');}});});showToast('👁️ Đây là đáp án!');}
+
+// EX 3: sentences (from book 18.3)
+const ex3Items=[
+  {s:"1. I went to a small ___ village.",blanks:["Russian"],speak:"I went to a small Russian village."},
+  {s:"2. ___ is my favourite vegetable.",blanks:["Cabbage"],speak:"Cabbage is my favourite vegetable."},
+  {s:"3. I was in ___ at ___.",blanks:["Germany","Christmas"],speak:"I was in Germany at Christmas."},
+  {s:"4. Look at this ___ of information.",blanks:["page"],speak:"Look at this page of information."},
+  {s:"5. I'm going to the ___ station.",blanks:["coach"],speak:"I'm going to the coach station."},
+  {s:"6. Can you check the ___, please?",blanks:["temperature"],speak:"Can you check the temperature please?"},
+];
+function renderEx3(){
+  let gi=0,html='';
+  ex3Items.forEach(d=>{
+    let sent=d.s,bi=0;
+    sent=sent.replace(/___/g,()=>{
+      const idx=gi++;
+      const a=d.blanks[bi++];
+      return `<input id="e3_${idx}" type="text" placeholder="..." data-ans="${a.toLowerCase()}" style="width:${Math.max(80,a.length*12)}px">`;
+    });
+    html+=`<div class="fill-item">${sent}</div>`;
+  });
+  document.getElementById('ex3Content').innerHTML=html;
+}
+function speakEx3(){speakText(ex3Items.map(d=>d.speak).join(' '));}
+function checkEx3(){const inputs=document.querySelectorAll('[id^="e3_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score3',c,inputs.length);}
+function resetEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 4: classify from book 18.4
+const ex4Chips=[
+  {label:"teacher",cat:"ch"},{label:"lounge",cat:"dj"},{label:"bridge",cat:"dj"},
+  {label:"chair",cat:"ch"},{label:"large",cat:"dj"},{label:"chicken",cat:"ch"},
+  {label:"cheap",cat:"ch"},{label:"juice",cat:"dj"},{label:"Dutch",cat:"ch"},
+  {label:"language",cat:"dj"},{label:"chips",cat:"ch"},{label:"orange",cat:"dj"},
+  {label:"cheese",cat:"ch"},{label:"dangerous",cat:"dj"},
+];
+let ex4state={};
+function renderEx4(){ex4state={};document.getElementById('chip_pool4').innerHTML=ex4Chips.map((c,i)=>`<span class="classify-chip" id="ch4_${i}" onclick="clickChip4(${i})">${c.label}</span>`).join('');document.getElementById('col_ch').innerHTML='';document.getElementById('col_dj').innerHTML='';}
+function clickChip4(i){const cur=ex4state[i];const next=cur===undefined?'ch':cur==='ch'?'dj':undefined;ex4state[i]=next;const el=document.getElementById('ch4_'+i);el.className='classify-chip';if(next==='ch'){el.classList.add('sel-ch');document.getElementById('col_ch').appendChild(el);}else if(next==='dj'){el.classList.add('sel-dj');document.getElementById('col_dj').appendChild(el);}else{document.getElementById('chip_pool4').appendChild(el);}}
+function checkEx4(){let c=0;ex4Chips.forEach((ch,i)=>{if(ex4state[i]===ch.cat)c++;});showScore('score4',c,ex4Chips.length);}
+function resetEx4(){renderEx4();document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx4(){ex4Chips.forEach((ch,i)=>{ex4state[i]=ch.cat;const el=document.getElementById('ch4_'+i);el.className='classify-chip sel-'+ch.cat;if(ch.cat==='ch')document.getElementById('col_ch').appendChild(el);else document.getElementById('col_dj').appendChild(el);});showToast('👁️ Đây là đáp án!');}
+
+// EX 5: fill from 18.4 words (book 18.5)
+const ex5Items=[
+  {s:"1. Something to drink: ___",blanks:["orange"],speak:"Something to drink: orange juice."},
+  {s:"2. Something to eat, from a European country: ___ ___ ___",blanks:["Dutch","chicken","cheese"],speak:"Something to eat from a European country: Dutch chicken cheese."},
+  {s:"3. A ___ ___",blanks:["cheap","chair"],speak:"A cheap chair."},
+  {s:"4. Someone who teaches English or Chinese: a ___ ___ ___",blanks:["language","teacher","cheap"],speak:"A language teacher."},
+  {s:"5. A hot meal: ___ and ___",blanks:["chips","chicken"],speak:"A hot meal: chips and chicken."},
+  {s:"6. A ___ ___",blanks:["large","lounge"],speak:"A large lounge."},
+  {s:"7. A big room to sit and relax in: a ___ ___",blanks:["large","lounge"],speak:"A big room to sit and relax in: a large lounge."},
+];
+function renderEx5(){
+  let gi=0,html='';
+  ex5Items.forEach(d=>{
+    let sent=d.s,bi=0;
+    sent=sent.replace(/___/g,()=>{
+      const idx=gi++;
+      const a=d.blanks[bi++];
+      return `<input id="e5_${idx}" type="text" placeholder="..." data-ans="${a}" style="width:${Math.max(70,a.length*12)}px">`;
+    });
+    html+=`<div class="fill-item">${sent}</div>`;
+  });
+  document.getElementById('ex5Content').innerHTML=html;
+}
+function speakEx5(){speakText(ex5Items.map(d=>d.speak).join(' '));}
+function checkEx5(){const inputs=document.querySelectorAll('[id^="e5_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans.toLowerCase()){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score5',c,inputs.length);}
+function resetEx5(){document.querySelectorAll('[id^="e5_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){document.querySelectorAll('[id^="e5_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 6: minimal pairs (book 18.6)
+const ex6Data=[
+  {pair:["watch","wash"],sent:"Did you ___ the game last night?",ans:0,speak:"Did you watch the game last night?",note:"/tʃ/ vs /ʃ/"},
+  {pair:["shoes","choose"],sent:"Which ones did you ___?",ans:1,speak:"Which ones did you choose?",note:"/ʃ/ vs /tʃ/"},
+  {pair:["what's","watch"],sent:"___ the time?",ans:0,speak:"What's the time?",note:"/ts/ vs /tʃ/"},
+  {pair:["coach","coats"],sent:"We went by ___.",ans:0,speak:"We went by coach.",note:"/tʃ/ vs /ts/"},
+  {pair:["chip","ship"],sent:"The ___ arrived at port.",ans:1,speak:"The ship arrived at port.",note:"/tʃ/ vs /ʃ/"},
+  {pair:["chain","Jane"],sent:"My friend's name is ___.",ans:1,speak:"My friend's name is Jane.",note:"/tʃ/ vs /dʒ/"},
+  {pair:["project","protect"],sent:"We need to ___ the environment.",ans:1,speak:"We need to protect the environment.",note:"/dʒ/ vs /t/"},
+  {pair:["trench","French"],sent:"We dug a long ___.",ans:0,speak:"We dug a long trench.",note:"/tʃ/ both"},
+];
+function renderEx6(){document.getElementById('ex6Content').innerHTML=ex6Data.map((d,i)=>`<div class="mp-item"><span style="font-style:italic;min-width:240px">"${d.sent}"</span><button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>${d.pair.map((opt,j)=>`<label><input type="radio" name="mp6_${i}" value="${j}"> <b>${opt}</b></label>`).join(' ')}<span style="font-size:0.77rem;color:#888">${d.note}</span></div>`).join('');}
+function checkEx6(){let c=0;ex6Data.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp6_${i}"]:checked`);if(sel&&parseInt(sel.value)===d.ans)c++;});showScore('score6',c,ex6Data.length);}
+function resetEx6(){ex6Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp6_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score6').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx6(){ex6Data.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp6_${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+
+// INIT
+renderWords();renderSents();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();renderEx6();
+
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(18)){c.push(18);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>

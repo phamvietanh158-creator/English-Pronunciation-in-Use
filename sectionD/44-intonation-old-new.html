@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 44 – Intonation: Old & New Information</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#1a1a2e;line-height:1.6}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#1a1a4e 0%,#2d2d7a 50%,#4a1a6e 100%);color:#fff;padding:32px 24px 28px;text-align:center;position:relative}
+.header-label{font-size:13px;letter-spacing:3px;text-transform:uppercase;opacity:.7;margin-bottom:6px}
+.header h1{font-size:clamp(18px,4vw,28px);font-weight:800;margin-bottom:4px}
+.header h2{font-size:clamp(13px,2.5vw,17px);font-weight:400;opacity:.85;margin-bottom:14px}
+.phoneme-badge{display:inline-block;background:#f5c518;color:#1a1a2e;font-weight:800;font-size:18px;padding:5px 18px;border-radius:20px;letter-spacing:1px;margin-bottom:10px}
+.header-sub{font-size:13px;opacity:.75}
+.home-link{display:inline-block;margin-top:14px;color:#f5c518;text-decoration:none;font-size:13px;border:1px solid rgba(245,197,24,.4);padding:5px 14px;border-radius:20px}
+.home-link:hover{background:rgba(245,197,24,.15)}
+
+/* SECTIONS */
+.section{background:#fff;border-radius:14px;margin:20px auto;max-width:860px;padding:28px 24px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.section-title{font-size:17px;font-weight:800;color:#1a1a4e;border-left:4px solid #4a1a6e;padding-left:12px;margin-bottom:18px}
+
+/* THEORY CARDS */
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:18px}
+.theory-card{background:linear-gradient(135deg,#f8f0ff,#ede0ff);border-radius:10px;padding:16px;border-left:4px solid #7c3aed}
+.theory-card h3{font-size:13px;font-weight:700;color:#4a1a6e;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.theory-card p{font-size:13px;color:#333;line-height:1.5}
+
+/* INFO BOXES */
+.tip-box{background:#fffbeb;border-left:4px solid #f59e0b;border-radius:8px;padding:14px 16px;margin:14px 0;font-size:13px}
+.tip-box strong{color:#b45309}
+.geo-box{background:#f0fdfa;border-left:4px solid #14b8a6;border-radius:8px;padding:14px 16px;margin:14px 0;font-size:13px}
+.geo-box strong{color:#0f766e}
+.note-box{background:#fffbeb;border:1px dashed #f59e0b;border-radius:8px;padding:12px 14px;margin:10px 0;font-size:13px}
+
+/* DIALOGUE SECTION */
+.dialogue-block{background:#f8f8ff;border-radius:10px;padding:18px;margin:12px 0;border-left:4px solid #4a1a6e}
+.dialogue-block .dl-label{font-size:11px;font-weight:700;color:#7c3aed;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.dialogue-line{margin:5px 0;font-size:14px;line-height:1.6}
+.dialogue-line span.speaker{font-weight:700;color:#4a1a6e;margin-right:6px}
+.hl-new{color:#dc2626;font-weight:700;text-decoration:underline wavy #dc2626}
+.hl-old{color:#7c3aed;font-weight:600}
+.dialogue-note{font-size:12px;color:#666;font-style:italic;margin-top:8px;padding-top:8px;border-top:1px solid #e5e7eb}
+.speak-btn{background:transparent;border:1px solid #c4b5fd;color:#7c3aed;border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer;margin-left:6px;vertical-align:middle}
+.speak-btn:hover{background:#f5f3ff}
+
+/* SENTENCE LIST */
+.sentence-list{list-style:none;margin:10px 0}
+.sentence-list li{padding:12px 14px;border-radius:8px;margin:6px 0;cursor:pointer;border:1px solid #e5e7eb;transition:.2s}
+.sentence-list li:hover{background:#f5f3ff;border-color:#c4b5fd}
+.sent-en{font-size:14px;font-weight:500;margin-bottom:3px}
+.sent-vi{font-size:12px;color:#666}
+.sent-note{font-size:11px;color:#7c3aed;margin-top:2px;font-style:italic}
+
+/* EXERCISES */
+.ex-wrap{background:#f8f8ff;border-radius:12px;padding:20px;margin:14px 0;border:1px solid #e0d9f7}
+.ex-title{font-size:14px;font-weight:800;color:#4a1a6e;margin-bottom:6px}
+.ex-instruction{font-size:13px;color:#555;margin-bottom:14px;line-height:1.5}
+.dialogue-ex{background:#fff;border-radius:8px;padding:14px;margin:8px 0;border:1px solid #e5e7eb}
+.dialogue-ex .pair-label{font-size:11px;color:#7c3aed;font-weight:700;margin-bottom:6px}
+.dialogue-ex .dl-line{font-size:14px;margin:4px 0}
+.dl-line .bold-word{font-weight:700;color:#1a1a2e}
+.underline-choice{display:inline-block;min-width:100px;border-bottom:2px solid #7c3aed;margin:0 4px;padding:2px 4px;text-align:center;cursor:pointer;font-size:14px;position:relative}
+.mark-rise{background:#dcfce7;border-color:#16a34a;color:#166534}
+.mark-fall{background:#fee2e2;border-color:#dc2626;color:#991b1b}
+.mark-fall-rise{background:#fff7ed;border-color:#ea580c;color:#9a3412}
+
+/* CLASSIFY */
+.classify-area{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.classify-col{background:#fff;border-radius:10px;padding:14px;border:2px solid #e5e7eb;min-height:100px}
+.classify-col-title{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;text-align:center;padding:5px;border-radius:6px}
+.col-new .classify-col-title{background:#fee2e2;color:#991b1b}
+.col-old .classify-col-title{background:#f3e8ff;color:#6b21a8}
+.classify-drop{min-height:60px;display:flex;flex-wrap:wrap;gap:6px;padding:4px}
+.chip{display:inline-block;padding:5px 12px;border-radius:20px;font-size:13px;cursor:pointer;border:1.5px solid #c4b5fd;background:#f5f3ff;transition:.2s;user-select:none}
+.chip:hover{background:#ede9fe}
+.chip.selected{background:#7c3aed;color:#fff;border-color:#6d28d9}
+.chip-pool{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;padding:10px;background:#f9fafb;border-radius:8px}
+
+/* SCORE */
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.btn-group button{padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;transition:.2s}
+.btn-success{background:#22c55e;color:#fff}.btn-success:hover{background:#16a34a}
+.btn-warning{background:#f59e0b;color:#fff}.btn-warning:hover{background:#d97706}
+.btn-danger{background:#ef4444;color:#fff}.btn-danger:hover{background:#dc2626}
+.btn-purple{background:#7c3aed;color:#fff}.btn-purple:hover{background:#6d28d9}
+.score-box{display:none;margin-top:12px;padding:14px;border-radius:10px;text-align:center}
+.score-box.show{display:block}
+.big-score{font-size:36px;font-weight:900;margin-bottom:4px}
+.score-label{font-size:14px;margin-bottom:8px}
+.score-meter{background:#e5e7eb;border-radius:10px;height:10px;margin:8px 0}
+.score-meter-fill{height:100%;border-radius:10px;transition:width .5s}
+.score-detail{font-size:13px;color:#555}
+
+/* INTONATION VISUAL */
+.intonation-demo{background:#fff;border-radius:10px;padding:16px;margin:10px 0;border:1px solid #e5e7eb}
+.intonation-demo .word-row{display:flex;flex-wrap:wrap;gap:6px;align-items:flex-end;margin:10px 0}
+.iw{display:inline-flex;flex-direction:column;align-items:center;gap:3px;font-size:14px;font-weight:500}
+.iw .arrow{font-size:18px}
+.iw.rise .arrow{color:#16a34a}
+.iw.fall .arrow{color:#dc2626}
+.iw.fall-rise .arrow{color:#ea580c}
+.iw.neutral .arrow{color:#9ca3af}
+.iw.new-info{color:#dc2626;font-weight:700}
+.iw.old-info{color:#7c3aed}
+
+.legend-row{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px}
+.legend-dot{width:12px;height:12px;border-radius:50%}
+
+/* TOAST */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a4e;color:#fff;padding:10px 22px;border-radius:24px;font-size:13px;z-index:999;transition:transform .3s;opacity:0}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* FILL BLANK */
+.fill-input{border:none;border-bottom:2px solid #7c3aed;background:transparent;font-size:14px;padding:2px 6px;width:130px;outline:none;font-family:inherit}
+.fill-input.correct{border-color:#22c55e;background:#f0fdf4}
+.fill-input.wrong{border-color:#ef4444;background:#fef2f2}
+
+/* RADIO CHOICE */
+.radio-choice label{margin-right:12px;cursor:pointer;font-size:14px}
+.radio-choice input{margin-right:4px}
+
+@media(max-width:600px){
+  .classify-area{grid-template-columns:1fr}
+  .theory-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">📚 Bài 44</div>
+  <h1>Not half past two, half past three</h1>
+  <h2>Intonation for Old and New Information</h2>
+  <div class="phoneme-badge">↗ OLD vs NEW ↘</div>
+  <div class="header-sub">Ngữ điệu cho thông tin cũ và thông tin mới</div>
+  <a href="../index.html" class="home-link">← Về trang chủ</a>
+</div>
+
+<!-- SECTION A: LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">📖 Lý thuyết: Intonation for Old & New Information</div>
+
+  <div class="theory-grid">
+    <div class="theory-card">
+      <h3>🆕 Thông tin MỚI</h3>
+      <p>Thường được <strong>nhấn mạnh</strong> và dùng ngữ điệu <strong>xuống ↘</strong> (fall) hoặc lên-xuống. Đây là thông tin người nghe chưa biết.</p>
+    </div>
+    <div class="theory-card">
+      <h3>🔄 Thông tin CŨ</h3>
+      <p>Thông tin đã được đề cập hoặc ngầm hiểu. Thường nói <strong>lên ↗</strong> hoặc không nhấn mạnh, giọng "nhẹ" hơn.</p>
+    </div>
+    <div class="theory-card">
+      <h3>🔁 Lặp lại = giọng khác</h3>
+      <p>Khi lặp lại thông tin cũ với <strong>từ khác nhau</strong>, vẫn dùng ngữ điệu nhẹ/lên. Chỉ thông tin mới mới được nhấn.</p>
+    </div>
+    <div class="theory-card">
+      <h3>✂️ Lược bỏ</h3>
+      <p>Đôi khi chỉ nói <strong>thông tin mới</strong>, bỏ hẳn thông tin cũ đi (vì người nghe đã biết rồi).</p>
+    </div>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Bí quyết:</strong> Hỏi bản thân: "<em>Người nghe đã biết điều này chưa?</em>" — Nếu biết rồi → ngữ điệu nhẹ/lên (↗). Nếu chưa → nhấn mạnh + xuống (↘).
+  </div>
+
+  <div class="legend-row">
+    <div class="legend-item"><div class="legend-dot" style="background:#dc2626"></div> <span>Thông tin MỚI – nhấn mạnh ↘</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> <span>Thông tin CŨ – nhẹ/lên ↗</span></div>
+    <div class="legend-item"><div class="legend-dot" style="background:#9ca3af"></div> <span>Trung tính</span></div>
+  </div>
+
+  <!-- SECTION A - CASE A: Repeat same words, different intonation -->
+  <div class="dialogue-block">
+    <div class="dl-label">🅐 Lặp lại cùng từ, ngữ điệu khác nhau</div>
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> What time are we meeting? Did you say <span class="hl-old">half past two</span>?
+      <button class="speak-btn" onclick="speakText('What time are we meeting? Did you say half past two?')">🔊</button>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> No, not <span class="hl-old">half past</span> <span class="hl-old">two</span>, <span class="hl-new">half past three</span>.
+      <button class="speak-btn" onclick="speakText('No, not half past two, half past THREE.')">🔊</button>
+    </div>
+    <div class="dialogue-note">(<em>Two</em> là thông tin cũ; <strong>three</strong> là thông tin mới.)</div>
+  </div>
+
+  <div class="dialogue-block">
+    <div class="dl-label">🅐 Ví dụ 2</div>
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> Edinburgh's one of my favourite places in <span class="hl-old">England</span>.
+      <button class="speak-btn" onclick="speakText('Edinburgh's one of my favourite places in England.')">🔊</button>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> But <span class="hl-old">Edinburgh</span> isn't in <span class="hl-old">England</span>, it's in <span class="hl-new">Scotland</span>!
+      <button class="speak-btn" onclick="speakText('But Edinburgh isn't in England, it's in SCOTLAND!')">🔊</button>
+    </div>
+    <div class="dialogue-note">(<em>Edinburgh</em> và <em>England</em> là thông tin cũ; <strong>Scotland</strong> là thông tin mới.)</div>
+  </div>
+
+  <!-- CASE B: Say only old info -->
+  <div class="dialogue-block">
+    <div class="dl-label">🅑 Chỉ nói thông tin cũ (lược bỏ thông tin mới)</div>
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> Edinburgh's one of my favourite places in England.
+      <button class="speak-btn" onclick="speakText('Edinburgh's one of my favourite places in England.')">🔊</button>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> But <span class="hl-old">Edinburgh</span> isn't in <span class="hl-old">England</span>!
+      <button class="speak-btn" onclick="speakText('But Edinburgh isn't in England!')">🔊</button>
+    </div>
+    <div class="dialogue-note">(Người nói lược bỏ "nó ở Scotland" vì đã rõ ràng.)</div>
+  </div>
+
+  <!-- CASE C: Say old info in different words -->
+  <div class="dialogue-block">
+    <div class="dl-label">🅒 Dùng từ khác để nói thông tin cũ</div>
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> Look – that wine costs <span class="hl-old">£100</span>!
+      <button class="speak-btn" onclick="speakText('Look, that wine costs one hundred pounds!')">🔊</button>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> Yes, it's <span class="hl-old">expensive</span>, but <span class="hl-new">everything</span> in this shop's <span class="hl-new">expensive</span>!
+      <button class="speak-btn" onclick="speakText('Yes, it's expensive, but EVERYTHING in this shop's expensive!')">🔊</button>
+    </div>
+    <div class="dialogue-note">(<em>Expensive</em> lần 1 = thông tin cũ (= costs £100); <em>everything... expensive</em> = thông tin mới.)</div>
+  </div>
+
+  <!-- CASE D: Only part of old info -->
+  <div class="dialogue-block">
+    <div class="dl-label">🅓 Chỉ đề cập một phần thông tin cũ</div>
+    <div class="dialogue-line">
+      <span class="speaker">A:</span> I thought that film was really good.
+      <button class="speak-btn" onclick="speakText('I thought that film was really good.')">🔊</button>
+    </div>
+    <div class="dialogue-line">
+      <span class="speaker">B:</span> Well, I thought the <span class="hl-new">music</span> was good.
+      <button class="speak-btn" onclick="speakText('Well, I thought the MUSIC was good.')">🔊</button>
+    </div>
+    <div class="dialogue-note">(<em>The music</em> là một phần của <em>the film</em>.)</div>
+  </div>
+</div>
+
+<!-- SECTION: THÊM VÍ DỤ THỰC TẾ -->
+<div class="section">
+  <div class="section-title">💬 Câu luyện thêm – Cuộc sống hàng ngày</div>
+  <ul class="sentence-list" id="extraSentences">
+    <li onclick="speakText('Did you order coffee? No, not coffee, TEA.')">
+      <div class="sent-en">A: Did you order <span class="hl-old">coffee</span>? &nbsp; B: No, not <span class="hl-old">coffee</span>, <span class="hl-new">tea</span>.</div>
+      <div class="sent-vi">A: Bạn gọi cà phê à? &nbsp; B: Không, không phải cà phê, trà đó.</div>
+      <div class="sent-note">⬆ coffee = cũ | ⬇ tea = mới</div>
+    </li>
+    <li onclick="speakText('Is the meeting on Monday? No, not Monday, TUESDAY.')">
+      <div class="sent-en">A: Is the meeting on <span class="hl-old">Monday</span>? &nbsp; B: No, not <span class="hl-old">Monday</span>, <span class="hl-new">Tuesday</span>.</div>
+      <div class="sent-vi">A: Cuộc họp vào thứ Hai à? &nbsp; B: Không, không phải thứ Hai, thứ Ba.</div>
+    </li>
+    <li onclick="speakText('She said she was tired. Well, she was tired but she was also HUNGRY.')">
+      <div class="sent-en">A: She said she was <span class="hl-old">tired</span>. &nbsp; B: Well, she was <span class="hl-old">tired</span>, but she was also <span class="hl-new">hungry</span>.</div>
+      <div class="sent-vi">Cô ấy nói cô ấy mệt. Ừ, cô ấy mệt, nhưng cô ấy cũng đói nữa.</div>
+    </li>
+    <li onclick="speakText('I thought you lived in Hanoi. No, I live in Ho Chi Minh City.')">
+      <div class="sent-en">A: I thought you lived in <span class="hl-old">Hanoi</span>. &nbsp; B: No, I live in <span class="hl-new">Ho Chi Minh City</span>.</div>
+      <div class="sent-vi">Tôi tưởng bạn sống ở Hà Nội. Không, tôi sống ở TP.HCM.</div>
+    </li>
+    <li onclick="speakText('The borehole data shows settlement in the sand layer, not the gravel layer.')">
+      <div class="sent-en">The <span class="hl-old">borehole data</span> shows <span class="hl-old">settlement</span> in the <span class="hl-old">sand</span> layer, not the <span class="hl-new">gravel</span> layer.</div>
+      <div class="sent-vi">Dữ liệu lỗ khoan cho thấy lún ở lớp cát, không phải lớp sỏi.</div>
+      <div class="sent-note">🏗️ Geotech: borehole, settlement, sand, gravel</div>
+    </li>
+    <li onclick="speakText('We planned to drill to ten metres, but we drilled to FIFTEEN metres.')">
+      <div class="sent-en">We planned to drill to <span class="hl-old">ten</span> metres, but we drilled to <span class="hl-new">fifteen</span> metres.</div>
+      <div class="sent-vi">Chúng tôi dự định khoan đến 10 mét, nhưng đã khoan đến 15 mét.</div>
+      <div class="sent-note">🏗️ Geotech: drill depth</div>
+    </li>
+    <li onclick="speakText('The survey shows high stress in the upper layer, not the lower layer.')">
+      <div class="sent-en">The survey shows high <span class="hl-old">stress</span> in the <span class="hl-old">upper</span> layer, not the <span class="hl-new">lower</span> layer.</div>
+      <div class="sent-vi">Khảo sát cho thấy ứng suất cao ở lớp trên, không phải lớp dưới.</div>
+      <div class="sent-note">🏗️ Geotech: stress, layer, survey</div>
+    </li>
+    <li onclick="speakText('Did you say the bearing capacity is two hundred? No, not two hundred, THREE hundred kilonewtons.')">
+      <div class="sent-en">A: Did you say the bearing capacity is <span class="hl-old">200</span>? &nbsp; B: No, not <span class="hl-old">200</span>, <span class="hl-new">300</span> kN.</div>
+      <div class="sent-vi">Bạn nói sức chịu tải là 200 à? Không, 300 kN.</div>
+      <div class="sent-note">🏗️ Geotech: bearing capacity</div>
+    </li>
+    <li onclick="speakText('I thought the pile was concrete. Well, the pile is concrete, but the cap is STEEL.')">
+      <div class="sent-en">A: I thought the pile was <span class="hl-old">concrete</span>. &nbsp; B: Well, the <span class="hl-old">pile</span> is <span class="hl-old">concrete</span>, but the <span class="hl-new">cap</span> is <span class="hl-new">steel</span>.</div>
+      <div class="sent-vi">Tôi tưởng cọc là bê tông. Đúng, cọc là bê tông, nhưng mũ cọc là thép.</div>
+      <div class="sent-note">🏗️ Geotech: pile, concrete, steel cap</div>
+    </li>
+    <li onclick="speakText('Did you say drainage was poor? Yes, drainage is poor, but the COMPACTION is worse.')">
+      <div class="sent-en">A: Did you say <span class="hl-old">drainage</span> was poor? &nbsp; B: Yes, <span class="hl-old">drainage</span> is poor, but the <span class="hl-new">compaction</span> is worse.</div>
+      <div class="sent-vi">Bạn nói thoát nước kém à? Đúng, thoát nước kém, nhưng đầm chặt còn tệ hơn.</div>
+      <div class="sent-note">🏗️ Geotech: drainage, compaction</div>
+    </li>
+  </ul>
+</div>
+
+<!-- SECTION: EXERCISES -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- EX 44.1 -->
+  <div class="ex-wrap" id="ex441wrap">
+    <div class="ex-title">Bài 44.1 – Nhận diện thông tin MỚI</div>
+    <div class="ex-instruction">Đọc các hội thoại. Click vào từ/cụm từ là <strong>thông tin MỚI</strong> trong câu B. Từ đúng sẽ được tô đỏ.</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">Hội thoại 1</div>
+      <div class="dl-line">A: How about meeting on <strong>Tuesday</strong> or <strong>Thursday</strong> at one o'clock?</div>
+      <div class="dl-line">B: I can come on
+        <span class="chip" id="c441_1a" onclick="pickNew441(1,'a')">Tuesday</span>, but not before
+        <span class="chip" id="c441_1b" onclick="pickNew441(1,'b')">two o'clock</span>.
+      </div>
+      <div id="fb441_1" style="font-size:12px;color:#666;margin-top:6px"></div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">Hội thoại 2</div>
+      <div class="dl-line">A: Let's go to the <strong>beach</strong> and have a swim.</div>
+      <div class="dl-line">B: Well, I'll come to the <span class="chip" id="c441_2a" onclick="pickNew441(2,'a')">beach</span> with you, but I'll probably do some
+        <span class="chip" id="c441_2b" onclick="pickNew441(2,'b')">sunbathing</span>.
+      </div>
+      <div id="fb441_2" style="font-size:12px;color:#666;margin-top:6px"></div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">Hội thoại 3</div>
+      <div class="dl-line">A: Which shop? Is it on the <strong>corner</strong>?</div>
+      <div class="dl-line">B: Well, it isn't on the <span class="chip" id="c441_3a" onclick="pickNew441(3,'a')">corner</span>, exactly, but it's very
+        <span class="chip" id="c441_3b" onclick="pickNew441(3,'b')">near there</span>.
+      </div>
+      <div id="fb441_3" style="font-size:12px;color:#666;margin-top:6px"></div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">Hội thoại 4</div>
+      <div class="dl-line">A: When I was at school I was good at <strong>maths</strong> and physics.</div>
+      <div class="dl-line">B: I was good at <span class="chip" id="c441_4a" onclick="pickNew441(4,'a')">maths</span>, but my best subject was
+        <span class="chip" id="c441_4b" onclick="pickNew441(4,'b')">music</span>.
+      </div>
+      <div id="fb441_4" style="font-size:12px;color:#666;margin-top:6px"></div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check441()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset441()">🔄 Làm lại</button>
+    </div>
+    <div id="score441" class="score-box"></div>
+  </div>
+
+  <!-- EX 44.2 -->
+  <div class="ex-wrap" id="ex442wrap">
+    <div class="ex-title">Bài 44.2 – Điền từ thông tin mới</div>
+    <div class="ex-instruction">Điền từ còn thiếu vào chỗ trống. Từ cần điền là <strong>thông tin MỚI</strong> (nhấn mạnh trong hội thoại).</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1</div>
+      <div class="dl-line">A: Maybe we could have dinner on Thursday or Friday?</div>
+      <div class="dl-line">B: Well, I'm free on <input class="fill-input" id="f442_1" placeholder="...">.</div>
+      <div class="sent-vi" style="margin-top:4px">B: Tôi rảnh vào thứ ___.</div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">2</div>
+      <div class="dl-line">A: Let's have a quick drink at the pub and then go somewhere to eat.</div>
+      <div class="dl-line">B: Well, I've got time to go to the pub for half an hour. But I've only got time to go to the <input class="fill-input" id="f442_2" placeholder="...">.</div>
+      <div class="sent-vi" style="margin-top:4px">Tôi chỉ có thời gian đến ___ thôi.</div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">3</div>
+      <div class="dl-line">A: Are the shops open in the evenings and on Sundays?</div>
+      <div class="dl-line">B: Well, I know they're open in the <input class="fill-input" id="f442_3" placeholder="...">.</div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">4</div>
+      <div class="dl-line">A: My favourite school subjects were history and geography.</div>
+      <div class="dl-line">B: Really? I liked <input class="fill-input" id="f442_4" placeholder="..."> …</div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check442()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset442()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="reveal442()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score442" class="score-box"></div>
+  </div>
+
+  <!-- EX 44.3 -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 44.3 – Phân loại: Cũ hay Mới?</div>
+    <div class="ex-instruction">Click vào mỗi từ in đậm để phân loại: thông tin <strong>CŨ</strong> hay <strong>MỚI</strong>?</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1. A: It's freezing today! &nbsp; B: It's pretty <em>cold</em>, yes, but it's good <em>weather</em> for walking, so let's <em>go</em>!</div>
+      <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px">
+        <span class="chip" id="p443_cold" onclick="toggle443('cold')">cold</span>
+        <span class="chip" id="p443_weather" onclick="toggle443('weather')">weather for walking</span>
+        <span class="chip" id="p443_go" onclick="toggle443('go')">go!</span>
+      </div>
+      <div style="font-size:12px;color:#888;margin-top:6px">Gợi ý: "freezing" → "cold" là nói lại thông tin cũ bằng từ khác</div>
+    </div>
+
+    <div class="classify-area">
+      <div class="classify-col col-old">
+        <div class="classify-col-title">🔄 Thông tin CŨ (↗ lên)</div>
+        <div class="classify-drop" id="drop443_old"></div>
+      </div>
+      <div class="classify-col col-new">
+        <div class="classify-col-title">🆕 Thông tin MỚI (↘ xuống)</div>
+        <div class="classify-drop" id="drop443_new"></div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check443()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset443()">🔄 Làm lại</button>
+    </div>
+    <div id="score443" class="score-box"></div>
+  </div>
+
+  <!-- EX 44.4 -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 44.4 – Nghe & chọn thông tin mới</div>
+    <div class="ex-instruction">Nghe câu (click 🔊), rồi chọn thông tin <strong>MỚI</strong> trong câu trả lời B.</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1</div>
+      <div class="dl-line">A: Are the shops open at the weekend?</div>
+      <div class="dl-line">B: I know they're open on ___
+        <button class="speak-btn" onclick="speakText('I know they're open on Saturdays.')">🔊</button>
+      </div>
+      <div class="radio-choice" style="margin-top:8px">
+        <label><input type="radio" name="r444_1" value="a"> weekends</label>
+        <label><input type="radio" name="r444_1" value="b"> Saturdays ✓</label>
+        <label><input type="radio" name="r444_1" value="c"> open</label>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">2</div>
+      <div class="dl-line">A: What did you think of the band?</div>
+      <div class="dl-line">B: The ___ was good.
+        <button class="speak-btn" onclick="speakText('The SINGER was good.')">🔊</button>
+      </div>
+      <div class="radio-choice" style="margin-top:8px">
+        <label><input type="radio" name="r444_2" value="a"> band</label>
+        <label><input type="radio" name="r444_2" value="b"> singer ✓</label>
+        <label><input type="radio" name="r444_2" value="c"> good</label>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">3</div>
+      <div class="dl-line">A: Have you been sightseeing yet?</div>
+      <div class="dl-line">B: We've been to the ___; that's all we had time for today.
+        <button class="speak-btn" onclick="speakText('We've been to the castle; that's all we had time for today.')">🔊</button>
+      </div>
+      <div class="radio-choice" style="margin-top:8px">
+        <label><input type="radio" name="r444_3" value="a"> sightseeing</label>
+        <label><input type="radio" name="r444_3" value="b"> castle ✓</label>
+        <label><input type="radio" name="r444_3" value="c"> time</label>
+      </div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">4</div>
+      <div class="dl-line">A: Can I have something non-alcoholic?</div>
+      <div class="dl-line">B: We've got some ___ … or some ___ …
+        <button class="speak-btn" onclick="speakText('We've got some orange juice... or some mineral water.')">🔊</button>
+      </div>
+      <div class="radio-choice" style="margin-top:8px">
+        <label><input type="radio" name="r444_4" value="a"> non-alcoholic</label>
+        <label><input type="radio" name="r444_4" value="b"> orange juice / mineral water ✓</label>
+        <label><input type="radio" name="r444_4" value="c"> something / got</label>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-success" onclick="check444()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="reset444()">🔄 Làm lại</button>
+    </div>
+    <div id="score444" class="score-box"></div>
+  </div>
+
+  <!-- EX 44.5 – Viết câu trả lời -->
+  <div class="ex-wrap">
+    <div class="ex-title">Bài 44.5 – Viết câu trả lời nhấn thông tin mới</div>
+    <div class="ex-instruction">Đọc câu A, rồi viết câu B sao cho nhấn mạnh thông tin mới (dùng CHỮ HOA cho từ quan trọng nhất).</div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">1. A: Did you say the project starts in March?</div>
+      <div class="dl-line" style="margin-top:6px">B: No, not <input class="fill-input" style="width:90px" id="w445_1a" placeholder="March">, <input class="fill-input" style="width:90px" id="w445_1b" placeholder="APRIL">.</div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">2. A: Edinburgh's my favourite city in England.</div>
+      <div class="dl-line" style="margin-top:6px">B: But Edinburgh is in <input class="fill-input" style="width:100px" id="w445_2" placeholder="SCOTLAND">, not England!</div>
+    </div>
+
+    <div class="dialogue-ex">
+      <div class="pair-label">3. A: I thought that report was about drainage.</div>
+      <div class="dl-line" style="margin-top:6px">B: Well, it mentions <span style="color:#7c3aed">drainage</span>, but it's mainly about <input class="fill-input" style="width:120px" id="w445_3" placeholder="SETTLEMENT">.</div>
+      <div class="sent-vi" style="margin-top:4px">🏗️ Geotech: drainage, settlement</div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-purple" onclick="reveal445()">👁️ Xem đáp án mẫu</button>
+      <button class="btn-warning" onclick="reset445()">🔄 Làm lại</button>
+    </div>
+    <div id="score445" class="score-box"></div>
+  </div>
+
+</div>
+
+<!-- GEO BOX -->
+<div class="section">
+  <div class="section-title">🏗️ Geotech Corner</div>
+  <div class="geo-box">
+    <strong>Intonation trong kỹ thuật địa chất:</strong> Khi báo cáo kết quả khảo sát, ngữ điệu rất quan trọng để phân biệt thông tin mới (kết quả bất ngờ, thay đổi so với dự kiến) và thông tin cũ (đã biết/đã đề cập). Ví dụ: "We expected settlement in the <em>clay</em> layer — but we found it in the <em>SAND</em> layer." → "SAND" là thông tin mới, được nhấn mạnh.
+  </div>
+  <ul class="sentence-list">
+    <li onclick="speakText('We expected to find clay, but we found SAND.')">
+      <div class="sent-en">We expected to find <span class="hl-old">clay</span>, but we found <span class="hl-new">SAND</span>.</div>
+      <div class="sent-vi">Chúng tôi dự kiến tìm thấy sét, nhưng lại tìm thấy cát.</div>
+    </li>
+    <li onclick="speakText('The boring went to ten metres, not FIFTEEN metres.')">
+      <div class="sent-en">The boring went to <span class="hl-old">ten</span> metres, not <span class="hl-new">FIFTEEN</span>.</div>
+      <div class="sent-vi">Lỗ khoan sâu 10 mét, không phải 15 mét.</div>
+    </li>
+    <li onclick="speakText('The sample from borehole one showed gravel. The sample from borehole TWO showed clay.')">
+      <div class="sent-en">The sample from <span class="hl-old">borehole 1</span> showed gravel. The sample from <span class="hl-new">borehole 2</span> showed <span class="hl-new">clay</span>.</div>
+      <div class="sent-vi">Mẫu từ lỗ khoan 1 cho thấy sỏi. Mẫu từ lỗ khoan 2 cho thấy sét.</div>
+    </li>
+  </ul>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ===== TTS =====
+const voicePrefs = ["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+function speakText(t, rate=0.85) {
+  const u = new SpeechSynthesisUtterance(t);
+  u.lang = "en-GB"; u.rate = rate; u.pitch = 1.05;
+  const vs = speechSynthesis.getVoices();
+  for (const p of voicePrefs) { const v = vs.find(x => x.name===p); if(v){u.voice=v;break;} }
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+window.speechSynthesis && speechSynthesis.getVoices();
+
+// ===== TOAST =====
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove("show"), 3000);
+}
+
+// ===== SCORE =====
+function showScore(id, correct, total, extra="") {
+  const el = document.getElementById(id);
+  const pct = Math.round(correct/total*100);
+  let cls, label;
+  if(pct>=90){cls="#22c55e";label="🎉 Xuất sắc!";}
+  else if(pct>=65){cls="#f59e0b";label="👍 Khá tốt!";}
+  else{cls="#ef4444";label="😅 Cần luyện thêm!";}
+  el.innerHTML = `<div class="big-score" style="color:${cls}">${pct}%</div>
+    <div class="score-label">${label} ${extra}</div>
+    <div class="score-meter"><div class="score-meter-fill" style="width:${pct}%;background:${cls}"></div></div>
+    <div class="score-detail">${correct}/${total} câu đúng</div>`;
+  el.classList.add("show");
+}
+
+// ===== EX 44.1 =====
+const ans441 = {1:'b', 2:'b', 3:'b', 4:'b'};
+const sel441 = {};
+function pickNew441(q, opt) {
+  sel441[q] = opt;
+  ['a','b'].forEach(o => {
+    const el = document.getElementById(`c441_${q}${o}`);
+    el.classList.toggle('selected', o===opt);
+  });
+}
+function check441() {
+  let correct = 0;
+  [1,2,3,4].forEach(q => {
+    const fb = document.getElementById(`fb441_${q}`);
+    if(sel441[q] === ans441[q]) {
+      correct++;
+      fb.innerHTML = '<span style="color:#16a34a">✅ Đúng! Đây là thông tin mới.</span>';
+      document.getElementById(`c441_${q}${ans441[q]}`).style.background='#dcfce7';
+    } else {
+      fb.innerHTML = `<span style="color:#dc2626">❌ Chưa đúng. Thông tin mới là "${document.getElementById('c441_'+q+ans441[q]).textContent}".</span>`;
+      if(sel441[q]) document.getElementById(`c441_${q}${sel441[q]}`).style.background='#fee2e2';
+    }
+  });
+  showScore('score441', correct, 4);
+  showToast(correct===4 ? "Hoàn hảo! 🎉" : `${correct}/4 câu đúng`);
+}
+function reset441() {
+  [1,2,3,4].forEach(q => {
+    delete sel441[q];
+    ['a','b'].forEach(o => {
+      const el = document.getElementById(`c441_${q}${o}`);
+      el.classList.remove('selected');
+      el.style.background='';
+    });
+    document.getElementById(`fb441_${q}`).innerHTML='';
+  });
+  document.getElementById('score441').classList.remove('show');
+  showToast("Đã reset!");
+}
+
+// ===== EX 44.2 =====
+const ans442 = {1:'Thursday', 2:'pub', 3:'evenings', 4:'geography'};
+function check442() {
+  let correct = 0;
+  [1,2,3,4].forEach(q => {
+    const el = document.getElementById(`f442_${q}`);
+    const val = el.value.trim().toLowerCase();
+    const ans = ans442[q].toLowerCase();
+    if(val === ans || val === ans.replace(/\./g,'')) {
+      correct++;
+      el.classList.add('correct'); el.classList.remove('wrong');
+    } else {
+      el.classList.add('wrong'); el.classList.remove('correct');
+    }
+  });
+  showScore('score442', correct, 4);
+  showToast(correct===4 ? "Xuất sắc! 🎉" : `${correct}/4 đúng`);
+}
+function reset442() {
+  [1,2,3,4].forEach(q => {
+    const el = document.getElementById(`f442_${q}`);
+    el.value=''; el.classList.remove('correct','wrong');
+  });
+  document.getElementById('score442').classList.remove('show');
+  showToast("Đã reset!");
+}
+function reveal442() {
+  [1,2,3,4].forEach(q => {
+    const el = document.getElementById(`f442_${q}`);
+    el.value = ans442[q];
+    el.classList.add('correct'); el.classList.remove('wrong');
+  });
+  showToast("Đáp án đã hiện!");
+}
+
+// ===== EX 44.3 =====
+const ans443 = {cold:'old', weather:'new', go:'new'};
+const state443 = {};
+function toggle443(word) {
+  const chip = document.getElementById(`p443_${word}`);
+  const oldDrop = document.getElementById('drop443_old');
+  const newDrop = document.getElementById('drop443_new');
+  if(!state443[word]) {
+    state443[word] = 'old';
+    chip.classList.add('selected');
+    oldDrop.appendChild(chip);
+  } else if(state443[word]==='old') {
+    state443[word] = 'new';
+    chip.style.background='#fecaca';
+    newDrop.appendChild(chip);
+  } else {
+    state443[word] = null;
+    chip.classList.remove('selected');
+    chip.style.background='';
+    document.querySelector('.dialogue-ex div[style*="flex"]').appendChild(chip);
+  }
+}
+function check443() {
+  let correct = 0, total = Object.keys(ans443).length;
+  Object.keys(ans443).forEach(w => {
+    if(state443[w] === ans443[w]) correct++;
+  });
+  showScore('score443', correct, total);
+  showToast(`${correct}/${total} đúng`);
+}
+function reset443() {
+  ['cold','weather','go'].forEach(w => {
+    state443[w] = null;
+    const chip = document.getElementById(`p443_${w}`);
+    chip.classList.remove('selected'); chip.style.background='';
+    document.querySelector('#ex441wrap + .ex-wrap + .ex-wrap .dialogue-ex div[style*="flex"]').appendChild(chip);
+  });
+  document.getElementById('score443').classList.remove('show');
+  showToast("Đã reset!");
+}
+
+// ===== EX 44.4 =====
+const ans444 = {1:'b', 2:'b', 3:'b', 4:'b'};
+function check444() {
+  let correct = 0;
+  [1,2,3,4].forEach(q => {
+    const sel = document.querySelector(`input[name="r444_${q}"]:checked`);
+    if(sel && sel.value === ans444[q]) correct++;
+  });
+  showScore('score444', correct, 4);
+  showToast(correct===4 ? "Hoàn hảo! 🎉" : `${correct}/4 đúng`);
+}
+function reset444() {
+  [1,2,3,4].forEach(q => {
+    const sel = document.querySelector(`input[name="r444_${q}"]:checked`);
+    if(sel) sel.checked = false;
+  });
+  document.getElementById('score444').classList.remove('show');
+  showToast("Đã reset!");
+}
+
+// ===== EX 44.5 =====
+function reveal445() {
+  document.getElementById('w445_1a').value='March';
+  document.getElementById('w445_1b').value='APRIL';
+  document.getElementById('w445_2').value='SCOTLAND';
+  document.getElementById('w445_3').value='SETTLEMENT';
+  document.getElementById('score445').innerHTML='<div style="color:#7c3aed;font-size:13px;padding:8px">📋 Đáp án mẫu đã hiện. Lưu ý: Từ IN HOA = thông tin mới, được nhấn mạnh khi nói!</div>';
+  document.getElementById('score445').classList.add('show');
+  showToast("Đáp án mẫu đã hiện!");
+}
+function reset445() {
+  ['w445_1a','w445_1b','w445_2','w445_3'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('score445').classList.remove('show');
+  showToast("Đã reset!");
+}
+
+// ===== LOCALSTORAGE =====
+setTimeout(() => {
+  try {
+    let c = [];
+    try { const d = localStorage.getItem("epu_completed"); if(d) c = JSON.parse(d); } catch {}
+    if(!c.includes(44)) { c.push(44); localStorage.setItem("epu_completed", JSON.stringify(c)); }
+  } catch {}
+}, 1000);
+</script>
+</body>
+</html>

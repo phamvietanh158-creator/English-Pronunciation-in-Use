@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 24 – Sunglasses or umbrella? – Consonant groups in the middle</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#5a3a00 0%,#382300 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 16px;font-size:0.95rem;font-weight:800}
+.header h1{font-size:1.3rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#5a3a00;border-bottom:2px solid #f0c880;padding-bottom:8px;margin-bottom:14px}
+.rule-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.rule-card{border-radius:10px;padding:14px;border:1.5px solid}
+.rule-card.one{background:#fff8f0;border-color:#d09040}
+.rule-card.two{background:#f0f8ff;border-color:#4080d0}
+.rule-card.three{background:#f0fff4;border-color:#40a060}
+.rule-card h4{font-size:0.95rem;font-weight:700;margin-bottom:8px}
+.rule-card.one h4{color:#5a3a00}
+.rule-card.two h4{color:#1a3a7a}
+.rule-card.three h4{color:#1a5a2a}
+.rule-card p{font-size:0.82rem;color:#555;line-height:1.6}
+.hl-c{color:#c0392b;font-weight:800;background:#ffe8e8;padding:0 2px;border-radius:3px}
+.hl-s{color:#5a3a00;font-weight:800}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{background:#fff8f0;border:1.5px solid #d09040;border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:130px;text-align:center}
+.word-card:hover{background:#5a3a00;color:#fff;transform:translateY(-2px)}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card:hover .ipa2{color:#fec}
+.word-card .vn{font-size:0.78rem;color:#5a3a00;margin-top:2px}
+.word-card .num{font-size:0.72rem;background:#f0c880;color:#5a3a00;border-radius:8px;padding:1px 6px;margin-top:3px;display:inline-block}
+.word-card:hover .vn,.word-card:hover .num{color:#ffe}
+.word-card:hover .num{background:rgba(255,255,255,0.2)}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{background:#fff8f0;border-radius:9px;padding:10px 14px;cursor:pointer;border-left:4px solid #5a3a00;transition:background 0.2s}
+.sentence-list li:hover{background:#f5d5a0}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;color:#5a3a00;margin-top:2px}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.note-box{background:#fff8e1;border:1px dashed #f5c518;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.85rem}
+.info-box{background:#e8f4ff;border-left:4px solid #2980b9;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.info-box b{color:#1a5276}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-brown{background:#5a3a00;color:#fff}.btn-brown:hover{background:#382300}
+.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.ex-wrap{border:1.5px solid #f0c880;border-radius:12px;padding:18px;margin-bottom:16px;background:#fffcf5}
+.ex-label{display:inline-block;background:#5a3a00;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
+.blank-input{border:none;border-bottom:2px solid #f0c880;background:transparent;font-size:0.9rem;padding:2px 4px;outline:none;width:28px;text-align:center;color:#5a3a00;font-weight:700}
+.blank-input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.blank-input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.fill-input{border:none;border-bottom:2px solid #f0c880;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:120px;color:#5a3a00;font-weight:600}
+.fill-input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.classify-chip{display:inline-block;border-radius:20px;padding:5px 13px;cursor:pointer;font-size:0.87rem;font-weight:600;transition:all 0.18s;user-select:none;margin:3px;border:2px solid #ccc;background:#f5f5f5}
+.classify-chip.sel-2{background:#1a3a7a;color:#fff;border-color:#1a3a7a}
+.classify-chip.sel-3{background:#1a5a2a;color:#fff;border-color:#1a5a2a}
+.col-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+.col-box{border-radius:9px;padding:10px;min-height:60px;border:2px solid}
+.col-box.two-col{background:#f0f8ff;border-color:#4080d0}
+.col-box.three-col{background:#f0fff4;border-color:#40a060}
+.col-box h5{font-size:0.85rem;font-weight:700;margin-bottom:6px}
+.col-box.two-col h5{color:#1a3a7a}
+.col-box.three-col h5{color:#1a5a2a}
+.col-chips{display:flex;flex-wrap:wrap;gap:5px;min-height:30px}
+.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
+.dialogue-box{background:#f8f8f8;border-radius:10px;padding:14px;font-size:0.88rem;line-height:1.8;border:1.5px solid #ddd;margin:8px 0}
+.sp{font-weight:700;color:#5a3a00}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 24</span>
+    <span class="phoneme-badge">Cụm phụ âm giữa từ · Consonant groups in the middle</span>
+  </div>
+  <h1>Sunglasses or umbrella? – Consonant groups in the middle of words</h1>
+  <div class="sub">Cụm 1, 2, 3 phụ âm giữa từ — cách đọc tự nhiên không thêm nguyên âm</div>
+</div>
+<div id="toast" class="toast"></div>
+<div class="container">
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết – Cụm phụ âm giữa từ</div>
+
+  <div class="rule-grid">
+    <div class="rule-card one">
+      <h4>🔤 1 phụ âm giữa từ</h4>
+      <p>Một số từ có 2 chữ cái phụ âm nhưng chỉ có <b>1 âm</b>:<br>
+      <em>pa<span class="hl-c">p</span>er</em> (p đơn)<br>
+      <em>pe<span class="hl-c">pp</span>er</em> (pp = 1 âm /p/)<br>
+      <em>wea<span class="hl-c">th</span>er</em> (th = 1 âm /ð/)<br>
+      <em>li<span class="hl-c">st</span>en</em> (st = nhưng t câm → chỉ /s/)</p>
+    </div>
+    <div class="rule-card two">
+      <h4>🔤🔤 2 phụ âm giữa từ</h4>
+      <p>Nhiều từ có <b>2 âm phụ âm liên tiếp</b>:<br>
+      <em>col<span class="hl-c">d</span><span class="hl-c">e</span>r</em> (ld = /ld/)<br>
+      <em>com<span class="hl-c">p</span>uter</em> (mp = /mp/)<br>
+      <em>cla<span class="hl-c">ss</span>room</em> (ssr = /sr/ – 2 âm)<br>
+      <em>six<span class="hl-c">t</span>een</em> (xt = /kst/ – 3 âm!)<br><br>
+      <b>Ví dụ:</b> alphabet, asking, bookshop, building, dancing, lovely, remember, timetable</p>
+    </div>
+  </div>
+  <div class="rule-card three" style="margin-bottom:14px">
+    <h4>🔤🔤🔤 3 phụ âm giữa từ</h4>
+    <p style="font-size:0.82rem;color:#555;line-height:1.6">Một số từ có <b>3 âm phụ âm liên tiếp</b> — cần luyện kỹ để không thêm nguyên âm vào giữa:<br>
+    <em>chil<span class="hl-c">dr</span>en</em> /tʃɪl<b>dr</b>ən/, <em>com<span class="hl-c">pl</span>ete</em> /kəm<b>pl</b>iːt/, <em>coun<span class="hl-c">tr</span>y</em> /ˈkʌn<b>tr</b>i/, <em>down<span class="hl-c">st</span>airs</em> /daʊn<b>st</b>eəz/, <em>ex<span class="hl-c">p</span>ensive</em> /ɪk<b>sp</b>ɛnsɪv/, <em>frien<span class="hl-c">dl</span>y</em> /ˈfrɛn<b>dl</b>i/, <em><b>sungl</b>asses</em> /ˈsʌŋ<b>ɡl</b>ɑːsɪz/, <em>um<b>br</b>ella</em> /ʌm<b>br</b>ɛlə/</p>
+  </div>
+
+  <div class="info-box">
+    <b>📢 Quan trọng khi nghe:</b> Đôi khi không nghe rõ một âm trong cụm phụ âm:<br>
+    <em>Se<b>(p)</b>tember, Chris<b>(t)</b>mas, pi<b>(c)</b>nic, pos<b>(t)</b>card, goo<b>(d)</b>bye, brea<b>(k)</b>fast, foo<b>(t)</b>ball, sho<b>(p)</b>keeper</em>
+  </div>
+
+  <div class="tip-box">
+    <b>💡 Quy tắc vàng:</b> Đừng bao giờ thêm nguyên âm vào giữa cụm phụ âm!<br>
+    ❌ <em>sun-gu-lasses</em> &nbsp;|&nbsp; ✅ <em>sun-glasses</em> /ˈsʌŋɡlɑːsɪz/<br>
+    ❌ <em>um-bu-rella</em> &nbsp;|&nbsp; ✅ <em>um-brella</em> /ʌmˈbrelə/<br>
+    <b>🇻🇳 Lỗi phổ biến của người Việt:</b> Thêm /ə/ giữa phụ âm — <em>proble-em</em> thay vì <em>problem</em> /ˈprɒbləm/
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-brown" onclick="speakText('paper pepper weather listen colder computer classroom sixteen')">🔊 Nghe 1-2 phụ âm</button>
+    <button class="btn-brown" onclick="speakText('alphabet asking bookshop building dancing lovely remember timetable')">🔊 Nghe 2 phụ âm</button>
+    <button class="btn-brown" onclick="speakText('children complete country downstairs expensive friendly sunglasses umbrella')">🔊 Nghe 3 phụ âm</button>
+    <button class="btn-teal" onclick="speakText('September Christmas picnic postcard goodbye breakfast football shopkeeper',0.7)">🐢 Nghe âm bị mờ</button>
+  </div>
+</div>
+
+<!-- WORD GRID -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng – Cụm phụ âm giữa từ</div>
+  <div style="display:flex;gap:8px;margin-bottom:8px;font-size:0.85rem;flex-wrap:wrap">
+    <span style="background:#fff8f0;border:1.5px solid #d09040;border-radius:8px;padding:4px 10px;color:#5a3a00;font-weight:700">🔤 1 âm</span>
+    <span style="background:#f0f8ff;border:1.5px solid #4080d0;border-radius:8px;padding:4px 10px;color:#1a3a7a;font-weight:700">🔤🔤 2 âm</span>
+    <span style="background:#f0fff4;border:1.5px solid #40a060;border-radius:8px;padding:4px 10px;color:#1a5a2a;font-weight:700">🔤🔤🔤 3 âm</span>
+  </div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-brown" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> Cụm phụ âm giữa từ rất phổ biến:<br>
+    <em>sam<b>pl</b>e, com<b>pr</b>ession, con<b>st</b>ruction, trans<b>p</b>ort, ex<b>pl</b>oration, bor<b>ing</b> (bor<b>e</b>+ring!), foun<b>d</b>ation, set<b>tl</b>ement</em>
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 24.1: complete words with consonant clusters -->
+  <div class="ex-wrap">
+    <span class="ex-label">24.1</span>
+    <div class="ex-instruction">Điền chữ cái còn thiếu vào chỗ trống để hoàn thành từ trong câu. Chú ý cụm phụ âm giữa từ.</div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx1()">🔊 Nghe câu</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 24.2: complete words from pictures -->
+  <div class="ex-wrap">
+    <span class="ex-label">24.2</span>
+    <div class="ex-instruction">Điền chữ cái còn thiếu để hoàn thành từ. Nhìn hình ảnh để gợi ý.</div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx2()">🔊 Nghe câu</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 24.3: underline consonant groups in dialogues -->
+  <div class="ex-wrap">
+    <span class="ex-label">24.3</span>
+    <div class="ex-instruction">Click vào cụm phụ âm ở giữa từ trong hội thoại (như "probl<b>em</b>s", "sen<b>t</b>ences"). Chọn đúng các cụm phụ âm 2+ âm.</div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx3()">🔊 Nghe hội thoại</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 24.4: classify 2 or 3 consonant sounds -->
+  <div class="ex-wrap">
+    <span class="ex-label">24.4</span>
+    <div class="ex-instruction">Phân loại: cụm phụ âm giữa từ có <span style="color:#1a3a7a;font-weight:700">2 âm</span> hay <span style="color:#1a5a2a;font-weight:700">3 âm</span>?</div>
+    <div class="col-grid">
+      <div class="col-box two-col"><h5>🔤🔤 2 phụ âm</h5><div class="col-chips" id="col_2"></div></div>
+      <div class="col-box three-col"><h5>🔤🔤🔤 3 phụ âm</h5><div class="col-chips" id="col_3"></div></div>
+    </div>
+    <div id="chip_pool4" style="display:flex;flex-wrap:wrap;gap:7px;padding:10px;background:#f5f5f5;border-radius:8px;margin-bottom:8px"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- 24.5: minimal pairs / reduced consonants -->
+  <div class="ex-wrap">
+    <span class="ex-label">24.5</span>
+    <div class="ex-instruction">Nghe và chọn cách phát âm đúng — từ nào có âm bị mờ (reduced)?</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+// WORDS
+const words=[
+  {w:"paper",n:1,ipa:"/ˈpeɪpə/",vn:"tờ giấy"},{w:"pepper",n:1,ipa:"/ˈpepə/",vn:"tiêu"},
+  {w:"weather",n:1,ipa:"/ˈweðə/",vn:"thời tiết"},{w:"listen",n:1,ipa:"/ˈlɪsən/",vn:"nghe"},
+  {w:"alphabet",n:2,ipa:"/ˈælfəbet/",vn:"bảng chữ cái"},{w:"asking",n:2,ipa:"/ˈɑːskɪŋ/",vn:"hỏi"},
+  {w:"bookshop",n:2,ipa:"/ˈbʊkʃɒp/",vn:"hiệu sách"},{w:"building",n:2,ipa:"/ˈbɪldɪŋ/",vn:"tòa nhà"},
+  {w:"dancing",n:2,ipa:"/ˈdɑːnsɪŋ/",vn:"khiêu vũ"},{w:"lovely",n:2,ipa:"/ˈlʌvli/",vn:"dễ thương"},
+  {w:"remember",n:2,ipa:"/rɪˈmembə/",vn:"nhớ"},{w:"timetable",n:2,ipa:"/ˈtaɪmteɪbəl/",vn:"thời khóa biểu"},
+  {w:"children",n:3,ipa:"/ˈtʃɪldrən/",vn:"trẻ em"},{w:"complete",n:3,ipa:"/kəmˈpliːt/",vn:"hoàn thành"},
+  {w:"country",n:3,ipa:"/ˈkʌntri/",vn:"đất nước"},{w:"downstairs",n:3,ipa:"/ˌdaʊnˈsteəz/",vn:"tầng dưới"},
+  {w:"expensive",n:3,ipa:"/ɪkˈspensɪv/",vn:"đắt tiền"},{w:"friendly",n:3,ipa:"/ˈfrendli/",vn:"thân thiện"},
+  {w:"sunglasses",n:3,ipa:"/ˈsʌŋɡlɑːsɪz/",vn:"kính râm"},{w:"umbrella",n:3,ipa:"/ʌmˈbrelə/",vn:"cái ô"},
+];
+function renderWords(){
+  const colors=['#fff8f0','#f0f8ff','#f0fff4'];
+  const borders=['#d09040','#4080d0','#40a060'];
+  document.getElementById('wordGrid').innerHTML=words.map(w=>{
+    const ci=w.n-1;
+    return `<div class="word-card" style="background:${colors[ci]};border-color:${borders[ci]}" onclick="speakText('${w.w}')">
+      <div class="word">${w.w}</div>
+      <div class="ipa2">${w.ipa}</div>
+      <div class="vn">🇻🇳 ${w.vn}</div>
+      <div class="num">🔤×${w.n}</div>
+    </div>`;
+  }).join('');
+}
+function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+
+// SENTENCES
+const sents=[
+  {en:"The day after Monday is Tuesday.",ipa:"/ðə deɪ ˈɑːftə ˈmʌndeɪ ɪz ˈtjuːzdeɪ/",vn:"Ngày sau Thứ Hai là Thứ Ba."},
+  {en:"Can you remember the timetable?",ipa:"/kən jə rɪˈmembə ðə ˈtaɪmteɪbəl/",vn:"Bạn có nhớ thời khóa biểu không?"},
+  {en:"The children are friendly and lovely.",ipa:"/ðə ˈtʃɪldrən ə ˈfrendli ənd ˈlʌvli/",vn:"Bọn trẻ thân thiện và dễ thương."},
+  {en:"Shall I take my sunglasses or my umbrella?",ipa:"/ʃæl aɪ teɪk maɪ ˈsʌŋɡlɑːsɪz ɔː maɪ ʌmˈbrelə/",vn:"Tôi nên mang kính râm hay ô?"},
+  {en:"The hotel downstairs is expensive.",ipa:"/ðə həʊˈtel daʊnˈsteəz ɪz ɪkˈspensɪv/",vn:"Khách sạn tầng dưới đắt tiền."},
+  {en:"I think I need to practise more – sentences, tenses, and pronunciation.",ipa:"/aɪ θɪŋk aɪ niːd tə ˈpræktɪs mɔː ˈsentənsɪz ˈtensɪz ənd prəˌnʌnsɪˈeɪʃən/",vn:"Tôi nghĩ tôi cần luyện thêm — câu, thì, và phát âm."},
+  {en:"Where's my passport? In the wardrobe, upstairs.",ipa:"/weəz maɪ ˈpɑːspɔːt ɪn ðə ˈwɔːdrəʊb ʌpˈsteəz/",vn:"Hộ chiếu của tôi đâu? Trong tủ quần áo, trên lầu."},
+  {en:"Sample compression tests were completed on site.",ipa:"/ˈsɑːmpəl kəmˈpreʃən tests wə kəmˈpliːtɪd ɒn saɪt/",vn:"Thí nghiệm nén mẫu được hoàn thành tại công trường."},
+  {en:"Construction of the foundation was expensive but necessary.",ipa:"/kənˈstrʌkʃən əv ðə faʊnˈdeɪʃən wəz ɪkˈspensɪv bʌt ˈnesəsəri/",vn:"Xây dựng móng tốn kém nhưng cần thiết."},
+  {en:"Transport of the samples was completed before December.",ipa:"/ˈtrænspɔːt əv ðə ˈsɑːmpəlz wəz kəmˈpliːtɪd bɪˈfɔː dɪˈsembə/",vn:"Việc vận chuyển mẫu được hoàn tất trước tháng Mười Hai."},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// EX 1: complete words (from book 24.1) - fill missing letters in consonant clusters
+const ex1Data=[
+  {sent:"1. The day after Monday is Tue__day.",blanks:["s"],full:"Tuesday",speak:"The day after Monday is Tuesday."},
+  {sent:"2. 37 + 13 = fi__y.",blanks:["ft"],full:"fifty",speak:"37 plus 13 equals fifty."},
+  {sent:"3. The opposite of cheap is e__e__ive.",blanks:["x","p"],full:"expensive",speak:"The opposite of cheap is expensive."},
+  {sent:"4. A very short distance: a ce__imetre.",blanks:["nt"],full:"centimetre",speak:"A very short distance: a centimetre."},
+  {sent:"5. Something to write with: a pe__il.",blanks:["nc"],full:"pencil",speak:"Something to write with: a pencil."},
+  {sent:"6. The last month of the year is Dece__er.",blanks:["mb"],full:"December",speak:"The last month of the year is December."},
+  {sent:"7. The month after August is Se__ember.",blanks:["pt"],full:"September",speak:"The month after August is September."},
+  {sent:"8. The room where you sleep is the be__oom.",blanks:["dr"],full:"bedroom",speak:"The room where you sleep is the bedroom."},
+  {sent:"9. The tenth month of the year is O__ober.",blanks:["ct"],full:"October",speak:"The tenth month of the year is October."},
+  {sent:"10. An important test is an e__am.",blanks:["x"],full:"exam",speak:"An important test is an exam."},
+];
+function renderEx1(){
+  let gi=0,html='';
+  ex1Data.forEach(d=>{
+    let sent=d.sent,bi=0;
+    sent=sent.replace(/__/g,()=>{
+      const idx=gi++;
+      const a=d.blanks[bi++];
+      return `<input class="blank-input" id="e1_${idx}" type="text" placeholder="${'_'.repeat(a.length)}" data-ans="${a}" style="width:${Math.max(24,a.length*16)}px">`;
+    });
+    html+=`<div class="fill-item">${sent} <button class="btn-brown" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button></div>`;
+  });
+  document.getElementById('ex1Content').innerHTML=html;
+}
+function speakEx1(){speakText(ex1Data.map(d=>d.speak).join(' '));}
+function checkEx1(){const inputs=document.querySelectorAll('[id^="e1_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score1',c,inputs.length);showToast(c===inputs.length?'🎉 Hoàn hảo!':'😅 Xem lại ô đỏ!');}
+function resetEx1(){document.querySelectorAll('[id^="e1_"]').forEach(inp=>{inp.value='';inp.className='blank-input';});document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx1(){document.querySelectorAll('[id^="e1_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 2: complete words from pictures (from book 24.2)
+const ex2Data=[
+  {sent:"1. In winter we go skiing in the __nt____.",blanks:{pre:"mou",mid:"ain",full:"mountain"},key:"mou",key2:"ntain",speak:"In winter we go skiing in the mountains."},
+  {sent:"2. The hotel ____pt__ is open 24 hours a day.",blanks:{full:"reception"},key:"rece",key2:"ion",speak:"The hotel reception is open 24 hours a day."},
+  {sent:"3. The road was closed yesterday because of an __cc____.",blanks:{full:"accident"},key:"a",key2:"ident",speak:"The road was closed yesterday because of an accident."},
+  {sent:"4. Don't forget to send me a __stc___.",blanks:{full:"postcard"},key:"po",key2:"ard",speak:"Don't forget to send me a postcard."},
+  {sent:"5. Shall I take my __ngl____ or my __mbr____?",blanks:{full:"sunglasses",full2:"umbrella"},key:"su",key2:"asses",key3:"u",key4:"ella",speak:"Shall I take my sunglasses or my umbrella?"},
+];
+function renderEx2(){
+  let gi=0,html='';
+  const items=[
+    {s:"1. 🏔️ In winter we go skiing in the",part1:"mou",gap:"nt",part2:"ain",rest:"s.",ans:"nt",speak:"In winter we go skiing in the mountains."},
+    {s:"2. 🏨 The hotel",part1:"rece",gap:"pt",part2:"ion",rest:" is open 24 hours a day.",ans:"pt",speak:"The hotel reception is open 24 hours a day."},
+    {s:"3. 🚗 The road was closed yesterday because of an",part1:"a",gap:"cc",part2:"ident",rest:".",ans:"cc",speak:"The road was closed because of an accident."},
+    {s:"4. 📮 Don't forget to send me a",part1:"po",gap:"stc",part2:"ard",rest:".",ans:"stc",speak:"Don't forget to send me a postcard."},
+    {s:"5. 🕶️ Shall I take my",part1:"su",gap:"ngl",part2:"asses",rest:" or my",ans:"ngl",speak:"Shall I take my sunglasses."},
+    {s:"   🌂 or my",part1:"u",gap:"mbr",part2:"ella",rest:"?",ans:"mbr",speak:"or my umbrella?"},
+  ];
+  items.forEach(item=>{
+    const idx=gi++;
+    html+=`<div class="fill-item">${item.s} <em>${item.part1}</em><input class="blank-input" id="e2_${idx}" type="text" placeholder="${'_'.repeat(item.ans.length)}" data-ans="${item.ans}" style="width:${Math.max(24,item.ans.length*16)}px"><em>${item.part2}</em>${item.rest} <button class="btn-brown" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${item.speak.replace(/'/g,"\\'")}')">🔊</button></div>`;
+  });
+  document.getElementById('ex2Content').innerHTML=html;
+}
+function speakEx2(){speakText("In winter we go skiing in the mountains. The hotel reception is open 24 hours a day. The road was closed because of an accident. Don't forget to send me a postcard. Shall I take my sunglasses or my umbrella?");}
+function checkEx2(){const inputs=document.querySelectorAll('[id^="e2_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score2',c,inputs.length);}
+function resetEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value='';inp.className='blank-input';});document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 3: click consonant groups in dialogues (from book 24.3)
+// Key words with consonant clusters
+const ex3Words=[
+  "English","practise","problems","making","sentences","tenses","pronunciation","listening","answering","questions","conversation","mistakes","almost","expert",
+  "passport","suitcase","wardrobe","upstairs","kitchen","envelope","table","wastepaper","basket","important"
+];
+const ex3Correct=new Set(["problems","sentences","tenses","pronunciation","answering","questions","conversation","mistakes","almost","expert","suitcase","wardrobe","upstairs","kitchen","envelope","wastepaper","basket","important"]);
+let ex3sel=new Set();
+function renderEx3(){
+  ex3sel=new Set();
+  const d1=`<div class="dialogue-box">
+    <div><span class="sp">A:</span> How's your English?</div>
+    <div><span class="sp">B:</span> I think I need to practise more – I have <span class="classify-chip" id="ex3_problems" onclick="toggleEx3('problems')">problems</span> with <span class="classify-chip" id="ex3_making" onclick="toggleEx3('making')">making</span> <span class="classify-chip" id="ex3_sentences" onclick="toggleEx3('sentences')">sentences</span>, and <span class="classify-chip" id="ex3_tenses" onclick="toggleEx3('tenses')">tenses</span>, and <span class="classify-chip" id="ex3_pronunciation" onclick="toggleEx3('pronunciation')">pronunciation</span>, and <span class="classify-chip" id="ex3_listening" onclick="toggleEx3('listening')">listening</span>, and <span class="classify-chip" id="ex3_answering" onclick="toggleEx3('answering')">answering</span> <span class="classify-chip" id="ex3_questions" onclick="toggleEx3('questions')">questions</span>, and <span class="classify-chip" id="ex3_conversation" onclick="toggleEx3('conversation')">conversation</span>, and I make too many <span class="classify-chip" id="ex3_mistakes" onclick="toggleEx3('mistakes')">mistakes</span> …</div>
+    <div><span class="sp">A:</span> Don't worry, it's not so bad! You're <span class="classify-chip" id="ex3_almost" onclick="toggleEx3('almost')">almost</span> an <span class="classify-chip" id="ex3_expert" onclick="toggleEx3('expert')">expert</span>!</div>
+  </div>`;
+  const d2=`<div class="dialogue-box">
+    <div><span class="sp">A:</span> Where's my <span class="classify-chip" id="ex3_passport" onclick="toggleEx3('passport')">passport</span>?</div>
+    <div><span class="sp">B:</span> I don't know. In your <span class="classify-chip" id="ex3_suitcase" onclick="toggleEx3('suitcase')">suitcase</span>, maybe?</div>
+    <div><span class="sp">A:</span> Where's my <span class="classify-chip" id="ex3_suitcase2" onclick="toggleEx3('suitcase2')">suitcase</span>?</div>
+    <div><span class="sp">B:</span> <span class="classify-chip" id="ex3_upstairs" onclick="toggleEx3('upstairs')">Upstairs</span>, in the <span class="classify-chip" id="ex3_wardrobe" onclick="toggleEx3('wardrobe')">wardrobe</span>.</div>
+    <div><span class="sp">A:</span> Right. And where's the <span class="classify-chip" id="ex3_envelope" onclick="toggleEx3('envelope')">envelope</span> that was on the <span class="classify-chip" id="ex3_kitchen" onclick="toggleEx3('kitchen')">kitchen</span> table?</div>
+    <div><span class="sp">B:</span> In the <span class="classify-chip" id="ex3_wastepaper" onclick="toggleEx3('wastepaper')">wastepaper</span> <span class="classify-chip" id="ex3_basket" onclick="toggleEx3('basket')">basket</span> – was it <span class="classify-chip" id="ex3_important" onclick="toggleEx3('important')">important</span>?</div>
+  </div>`;
+  document.getElementById('ex3Content').innerHTML=`<div style="font-size:0.85rem;color:#555;margin-bottom:8px">Click vào từ có cụm phụ âm ở giữa (2+ phụ âm liên tiếp không có nguyên âm giữa):</div>`+d1+d2;
+}
+const ex3All=new Set(["problems","sentences","tenses","pronunciation","answering","questions","conversation","mistakes","almost","expert","passport","suitcase","suitcase2","upstairs","wardrobe","envelope","kitchen","wastepaper","basket","important"]);
+const ex3Wrong=new Set(["making","listening"]);
+function toggleEx3(id){
+  const el=document.getElementById('ex3_'+id);
+  if(!el)return;
+  if(ex3sel.has(id)){ex3sel.delete(id);el.classList.remove('sel-2','sel-3');}
+  else{ex3sel.add(id);el.classList.add('sel-2');}
+}
+function speakEx3(){speakText("How's your English? I think I need to practise more. I have problems with making sentences and tenses and pronunciation and listening and answering questions and conversation and I make too many mistakes. Don't worry, it's not so bad! You're almost an expert! Where's my passport? In your suitcase maybe? Where's my suitcase? Upstairs in the wardrobe. And where's the envelope that was on the kitchen table? In the wastepaper basket. Was it important?");}
+function checkEx3(){
+  let c=0,tot=ex3All.size;
+  ex3All.forEach(id=>{
+    const el=document.getElementById('ex3_'+id);
+    if(ex3sel.has(id))c++;
+    if(el){el.classList.remove('sel-2','sel-3');if(ex3All.has(id))el.classList.add('sel-3');else el.classList.remove('sel-2','sel-3');}
+  });
+  showScore('score3',c,tot);
+}
+function resetEx3(){ex3sel=new Set();document.querySelectorAll('[id^="ex3_"]').forEach(el=>el.classList.remove('sel-2','sel-3'));document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){ex3sel=new Set(ex3All);ex3All.forEach(id=>{const el=document.getElementById('ex3_'+id);if(el)el.classList.add('sel-3');});showToast('👁️ Đây là đáp án!');}
+
+// EX 4: classify 2 or 3 consonant sounds
+const ex4Chips=[
+  {label:"alphabet /lf/",cat:"2"},{label:"sunglasses /ŋgl/",cat:"3"},
+  {label:"building /ld/",cat:"2"},{label:"umbrella /mbr/",cat:"3"},
+  {label:"bookshop /kʃ/",cat:"2"},{label:"country /ntr/",cat:"3"},
+  {label:"remember /mb/",cat:"2"},{label:"children /ldr/",cat:"3"},
+  {label:"dancing /ns/",cat:"2"},{label:"expensive /ksp/",cat:"3"},
+  {label:"asking /sk/",cat:"2"},{label:"friendly /ndl/",cat:"3"},
+  {label:"timetable /mt/",cat:"2"},{label:"complete /mpl/",cat:"3"},
+  {label:"bedroom /dr/",cat:"2"},{label:"downstairs /nst/",cat:"3"},
+];
+let ex4state={};
+function renderEx4(){ex4state={};document.getElementById('chip_pool4').innerHTML=ex4Chips.map((c,i)=>`<span class="classify-chip" id="ch4_${i}" onclick="clickChip4(${i})">${c.label}</span>`).join('');document.getElementById('col_2').innerHTML='';document.getElementById('col_3').innerHTML='';}
+function clickChip4(i){const cur=ex4state[i];const next=cur===undefined?'2':cur==='2'?'3':undefined;ex4state[i]=next;const el=document.getElementById('ch4_'+i);el.className='classify-chip';if(next==='2'){el.classList.add('sel-2');document.getElementById('col_2').appendChild(el);}else if(next==='3'){el.classList.add('sel-3');document.getElementById('col_3').appendChild(el);}else{document.getElementById('chip_pool4').appendChild(el);}}
+function checkEx4(){let c=0;ex4Chips.forEach((ch,i)=>{if(ex4state[i]===ch.cat)c++;});showScore('score4',c,ex4Chips.length);}
+function resetEx4(){renderEx4();document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx4(){ex4Chips.forEach((ch,i)=>{ex4state[i]=ch.cat;const el=document.getElementById('ch4_'+i);el.className='classify-chip sel-'+ch.cat;if(ch.cat==='2')document.getElementById('col_2').appendChild(el);else document.getElementById('col_3').appendChild(el);});showToast('👁️ Đây là đáp án!');}
+
+// EX 5: reduced consonant pairs
+const ex5Data=[
+  {pair:["Se(p)tember","September (fully)"],sent:"My birthday is in ___.",ans:0,speak:"My birthday is in September.",note:"p thường bị mờ → /səˈtembə/"},
+  {pair:["Chris(t)mas","Christmas (t rõ)"],sent:"We spent ___ in London.",ans:0,speak:"We spent Christmas in London.",note:"t thường bị mờ → /ˈkrɪsməs/"},
+  {pair:["breakfast (full)","brea(k)fast"],sent:"Let's have ___ at 8.",ans:1,speak:"Let's have breakfast at 8.",note:"k thường bị mờ → /ˈbresfəst/"},
+  {pair:["goo(d)bye","goodbye (d rõ)"],sent:"Say ___ before you leave.",ans:0,speak:"Say goodbye before you leave.",note:"d thường bị mờ → /ɡəˈbaɪ/"},
+  {pair:["foo(t)ball","football (t rõ)"],sent:"Do you watch ___?",ans:0,speak:"Do you watch football?",note:"t thường bị mờ → /ˈfʊbɔːl/"},
+  {pair:["postcard (full)","pos(t)card"],sent:"Send me a ___ from Italy.",ans:1,speak:"Send me a postcard from Italy.",note:"t thường bị mờ"},
+];
+function renderEx5(){document.getElementById('ex5Content').innerHTML=ex5Data.map((d,i)=>`<div class="mp-item"><span style="font-style:italic;min-width:240px">"${d.sent}"</span><button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>${d.pair.map((opt,j)=>`<label><input type="radio" name="mp5_${i}" value="${j}"> ${opt}</label>`).join(' ')}<span style="font-size:0.77rem;color:#888">${d.note}</span></div>`).join('');}
+function checkEx5(){let c=0;ex5Data.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel&&parseInt(sel.value)===d.ans)c++;});showScore('score5',c,ex5Data.length);}
+function resetEx5(){ex5Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){ex5Data.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp5_${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+
+renderWords();renderSents();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(24)){c.push(24);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>

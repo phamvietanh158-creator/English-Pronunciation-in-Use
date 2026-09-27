@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 20 – How many hours? – /h/</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#0a5a4a 0%,#063830 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 18px;font-size:1.4rem;font-weight:800}
+.header h1{font-size:1.35rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#0a5a4a;border-bottom:2px solid #a0d8cc;padding-bottom:8px;margin-bottom:14px}
+.diag-card{background:#f0fff8;border-radius:12px;padding:16px;border:1.5px solid #60c0a0;margin-bottom:14px}
+.diag-card h3{font-size:1.3rem;font-weight:800;color:#0a5a4a;margin-bottom:8px}
+.diag-card p{font-size:0.85rem;color:#555;line-height:1.6}
+.ipa{font-style:italic;color:#c0392b;font-weight:700}
+.hl-h{color:#0a5a4a;font-weight:800}
+.spell-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.spell-table th{background:#0a5a4a;color:#fff;padding:9px 12px;text-align:left}
+.spell-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.spell-table tr:nth-child(even) td{background:#f0fff8}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{background:#f0fff8;border:1.5px solid #60c0a0;border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:110px;text-align:center}
+.word-card:hover{background:#0a5a4a;color:#fff;transform:translateY(-2px)}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card:hover .ipa2{color:#aef}
+.word-card .vn{font-size:0.78rem;color:#0a5a4a;margin-top:2px}
+.word-card:hover .vn{color:#ffe}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{background:#f0fff8;border-radius:9px;padding:10px 14px;cursor:pointer;border-left:4px solid #0a5a4a;transition:background 0.2s}
+.sentence-list li:hover{background:#c8f0e8}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;color:#0a5a4a;margin-top:2px}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.note-box{background:#fff8e1;border:1px dashed #f5c518;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.85rem}
+.info-box{background:#e8f4ff;border-left:4px solid #2980b9;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.info-box b{color:#1a5276}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-teal{background:#0a5a4a;color:#fff}.btn-teal:hover{background:#063830}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-cyan{background:#00897b;color:#fff}.btn-cyan:hover{background:#00695c}
+.ex-wrap{border:1.5px solid #a0d8cc;border-radius:12px;padding:18px;margin-bottom:16px;background:#f5fffc}
+.ex-label{display:inline-block;background:#0a5a4a;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
+.fill-item input{border:none;border-bottom:2px solid #a0d8cc;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:120px;color:#0a5a4a;font-weight:600}
+.fill-item input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-item input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.ipa-card{background:#f0fff8;border:1.5px solid #a0d8cc;border-radius:10px;padding:10px 14px;margin:5px 0;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background 0.2s}
+.ipa-card:hover{background:#c8f0e8}
+.ipa-card .ipa-text{font-size:1.05rem;font-weight:700;color:#0a5a4a;min-width:90px}
+.ipa-card input{border:none;border-bottom:2px solid #a0d8cc;background:transparent;font-size:0.95rem;padding:2px 5px;outline:none;width:130px;color:#222;font-weight:600}
+.ipa-card input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.ipa-card input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+/* picture grid */
+.pic-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0}
+.pic-card{background:#f5f5f5;border-radius:10px;padding:10px;border:1.5px solid #ddd;text-align:center}
+.pic-card .emoji{font-size:1.8rem;margin-bottom:4px}
+.pic-card .ctx{font-size:0.78rem;color:#888;margin-bottom:5px;line-height:1.3}
+.pic-card input{border:none;border-bottom:2px solid #a0d8cc;background:transparent;font-size:0.85rem;padding:2px 3px;outline:none;width:100%;text-align:center;color:#0a5a4a;font-weight:600}
+.pic-card input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.pic-card input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 20</span>
+    <span class="phoneme-badge">/h/</span>
+  </div>
+  <h1>How many hours? – /h/</h1>
+  <div class="sub">Phụ âm thanh hầu /h/ – vô thanh, hơi thoát qua khe hở phía sau</div>
+</div>
+<div id="toast" class="toast"></div>
+<div class="container">
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết phát âm</div>
+  <div class="diag-card">
+    <h3>/h/ – HAT</h3>
+    <p>
+      <b>Vị trí:</b> Hơi thoát qua một khe hở nhỏ phía sau miệng (thanh hầu).<br>
+      <b>Hơi thở:</b> Hơi thở nhẹ — <b>không có rung</b> cổ họng.<br>
+      🔇 <b>Vô thanh</b> (voiceless)<br><br>
+      <b>🇻🇳 So sánh:</b> Giống âm /h/ trong tiếng Việt (hà, hoa) nhưng nhẹ hơn, không có âm thanh phụ.<br><br>
+      <b>Chính tả chính:</b> <b>h</b> → hat, here, help, hot, how, behind<br>
+      <b>Chính tả khác:</b> <b>wh</b> → who, whose, whole (chỉ 3 từ này!)
+    </p>
+  </div>
+
+  <table class="spell-table">
+    <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+    <tr><td><b>h</b></td><td><em><span class="hl-h">h</span>at, <span class="hl-h">h</span>ere, <span class="hl-h">h</span>elp, <span class="hl-h">h</span>ot, <span class="hl-h">h</span>ow, be<span class="hl-h">h</span>ind</em></td><td>Phổ biến nhất</td></tr>
+    <tr><td><b>wh</b></td><td><em><span class="hl-h">wh</span>o, <span class="hl-h">wh</span>ose, <span class="hl-h">wh</span>ole</em></td><td>Chỉ 3 từ này! Các từ wh khác = /w/</td></tr>
+    <tr><td><b>h câm</b></td><td><em><span style="text-decoration:line-through">h</span>our, <span style="text-decoration:line-through">h</span>onest</em></td><td>h không đọc ở đầu 1 số từ</td></tr>
+    <tr><td><b>h yếu</b></td><td><em>is <span class="hl-h">h</span>e there? <span class="hl-h">h</span>ave you seen him?</em></td><td>h/him/her/his/have/had/has thường mất /h/ trong câu nói nhanh</td></tr>
+  </table>
+
+  <div class="note-box">
+    ⚠️ <b>h câm (silent h):</b> <em><b>h</b>our /aʊə/</em>, <em><b>h</b>onest /ˈɒnɪst/</em> — h không đọc!<br>
+    ⚠️ <b>wh = /h/ chỉ trong:</b> <em>who, whose, whole</em> (các từ wh còn lại như <em>what, where, when, which</em> = /w/)
+  </div>
+
+  <div class="info-box">
+    <b>📢 Quan trọng khi nghe:</b> Trong câu bình thường (hội thoại), /h/ ở đầu các từ chức năng thường <b>mất đi</b>:<br>
+    <em>"Is <b>(h)</b>e there?"</em> → /ɪz i ðeə/<br>
+    <em>"Have you seen <b>(h)</b>im?"</em> → /həv jə siːn ɪm/<br>
+    <em>"<b>(H)</b>as he got time?"</em> → /əz i ɡɒt taɪm/<br>
+    <em>"Do you know <b>(h)</b>er?"</em> → /də jə nəʊ ə/<br>
+    <em>"He went to visit <b>(h)</b>is family."</em> → /hi went tə ˈvɪzɪt ɪz ˈfæməli/
+  </div>
+
+  <div class="tip-box">
+    <b>💡 Mẹo nhớ:</b><br>
+    • <b>h thường đọc</b> khi đứng đầu câu hoặc sau dấu phẩy/dừng.<br>
+    • <b>h hay mất</b> khi đứng giữa câu trong từ chức năng (he, him, her, his, have, had, has).<br>
+    • Thử đặt bàn tay 5cm trước miệng khi nói /h/ → cảm nhận hơi ấm thoát ra.
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-teal" onclick="speakText('hat here help hot how behind who whose whole hour honest')">🔊 Nghe /h/ cơ bản</button>
+    <button class="btn-teal" onclick="speakText('Hi hello how are you. Whose hat is this. It is hot in here. We had a whole month holiday. Can you help me for half an hour.')">🔊 Nghe câu /h/</button>
+    <button class="btn-blue" onclick="speakText('Is he there. Have you seen him. Has he got time. Do you know her. He went to visit his family.',0.8)">🔊 /h/ mờ trong câu</button>
+  </div>
+</div>
+
+<!-- WORD GRID -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng</div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-teal" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> /h/ xuất hiện trong nhiều thuật ngữ:<br>
+    <em><b>h</b>ole, bore<b>h</b>ole, <b>h</b>orizontal, <b>h</b>ard, <b>h</b>igh, <b>h</b>eave, <b>h</b>ydraulic, <b>h</b>alf metre, de<b>pt</b><b>h</b> (h câm)</em>
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 20.1: IPA → word -->
+  <div class="ex-wrap">
+    <span class="ex-label">20.1</span>
+    <div class="ex-instruction">Đọc phiên âm và gõ từ đúng. Ví dụ: <em>/hed/</em> → <b>head</b></div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 20.2: dialogue fill -->
+  <div class="ex-wrap">
+    <span class="ex-label">20.2</span>
+    <div class="ex-instruction">Hoàn thành đoạn hội thoại. Tất cả từ cần điền đều có âm /h/.</div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx2()">🔊 Nghe hội thoại</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 20.3: picture titles -->
+  <div class="ex-wrap">
+    <span class="ex-label">20.3</span>
+    <div class="ex-instruction">Điền tiêu đề ảnh đúng. Chọn từ: <em>half, hand, home, perhaps, who, happy, happen, hours, helping, how, hi, house, holiday, history</em></div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx3()">🔊 Nghe tiêu đề</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 20.4: h silent or not? -->
+  <div class="ex-wrap">
+    <span class="ex-label">20.4</span>
+    <div class="ex-instruction">Trong câu sau, chữ <b>h</b> gạch chân được đọc hay không? Click <b>✓ Đọc</b> hoặc <b>✗ Câm</b>.</div>
+    <div id="ex4Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx4()">🔊 Nghe câu</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- 20.5: minimal pairs -->
+  <div class="ex-wrap">
+    <span class="ex-label">20.5</span>
+    <div class="ex-instruction">Nghe và chọn từ đúng (minimal pairs /h/ vs zero, /h/ vs /w/).</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+// WORDS
+const words=[
+  {w:"hat",ipa:"/hæt/",vn:"chiếc mũ"},{w:"here",ipa:"/hɪə/",vn:"ở đây"},
+  {w:"help",ipa:"/help/",vn:"giúp đỡ"},{w:"hot",ipa:"/hɒt/",vn:"nóng"},
+  {w:"how",ipa:"/haʊ/",vn:"như thế nào"},{w:"behind",ipa:"/bɪˈhaɪnd/",vn:"phía sau"},
+  {w:"who",ipa:"/huː/",vn:"ai (wh=/h/)"},{w:"whose",ipa:"/huːz/",vn:"của ai"},
+  {w:"whole",ipa:"/həʊl/",vn:"toàn bộ"},{w:"hour",ipa:"/aʊə/",vn:"giờ (h câm!)"},
+  {w:"honest",ipa:"/ˈɒnɪst/",vn:"trung thực (h câm!)"},{w:"half",ipa:"/hɑːf/",vn:"một nửa"},
+  {w:"holiday",ipa:"/ˈhɒlɪdeɪ/",vn:"kỳ nghỉ"},{w:"history",ipa:"/ˈhɪstəri/",vn:"lịch sử"},
+  {w:"borehole",ipa:"/ˈbɔːhəʊl/",vn:"lỗ khoan"},{w:"horizontal",ipa:"/ˌhɒrɪˈzɒntəl/",vn:"nằm ngang"},
+  {w:"hydraulic",ipa:"/haɪˈdrɔːlɪk/",vn:"thủy lực"},{w:"heave",ipa:"/hiːv/",vn:"trồi (địa kỹ thuật)"},
+];
+function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card" onclick="speakText('${w.w}')"><div class="word">${w.w}</div><div class="ipa2">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div></div>`).join('');}
+function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+
+// SENTENCES
+const sents=[
+  {en:"Hi, hello, how are you?",ipa:"/haɪ həˈləʊ haʊ ə jə/",vn:"Chào, xin chào, bạn khỏe không?"},
+  {en:"Whose hat is this?",ipa:"/huːz hæt ɪz ðɪs/",vn:"Đây là mũ của ai?"},
+  {en:"It's hot in here.",ipa:"/ɪts hɒt ɪn hɪə/",vn:"Trong này nóng quá."},
+  {en:"We had a whole month's holiday.",ipa:"/wiː həd ə həʊl mʌnθs ˈhɒlɪdeɪ/",vn:"Chúng tôi đã có một tháng nghỉ dài."},
+  {en:"Can you help me for half an hour?",ipa:"/kən jə help mi fə hɑːf ən ˈaʊə/",vn:"Bạn có thể giúp tôi trong nửa tiếng không?"},
+  {en:"Who's who?",ipa:"/huːz huː/",vn:"Ai là ai?"},
+  {en:"Is he there? Have you seen him?",ipa:"/ɪz i ðeə həv jə siːn ɪm/",vn:"Anh ấy ở đó không? Bạn có thấy anh ấy không? (/h/ mờ!)"},
+  {en:"Has he got time? Do you know her?",ipa:"/əz i ɡɒt taɪm də jə nəʊ ə/",vn:"Anh ấy có thời gian không? Bạn có biết cô ấy không? (/h/ mờ!)"},
+  {en:"He went to visit his family.",ipa:"/hi went tə ˈvɪzɪt ɪz ˈfæməli/",vn:"Anh ấy đã đi thăm gia đình. (his /h/ mờ)"},
+  {en:"The horizontal borehole was drilled to half a metre.",ipa:"/ðə ˌhɒrɪˈzɒntəl ˈbɔːhəʊl wəz drɪld tə hɑːf ə ˈmiːtə/",vn:"Lỗ khoan nằm ngang được khoan sâu nửa mét.",},
+  {en:"Hydraulic pressure caused heave in the foundation.",ipa:"/haɪˈdrɔːlɪk ˈpreʃə kɔːzd hiːv ɪn ðə faʊnˈdeɪʃən/",vn:"Áp suất thủy lực gây ra hiện tượng trồi đất trong móng."},
+  {en:"How many hours did the investigation take?",ipa:"/haʊ ˈmeni ˈaʊəz dɪd ðɪ ɪnˌvestɪˈɡeɪʃən teɪk/",vn:"Cuộc điều tra mất bao nhiêu giờ?"},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// EX 1: IPA → word (from book 20.1)
+const ex1Book=[
+  {ipa:"/hed/",ans:"head",note:"ví dụ"},
+  {ipa:"/hæt/",ans:"hat"},{ipa:"/haʊ/",ans:"how"},
+  {ipa:"/həʊm/",ans:"home"},{ipa:"/hɑːf/",ans:"half"},
+  {ipa:"/haɪ/",ans:"high"},{ipa:"/hjuː/",ans:"who"},
+];
+// Exact from book
+const ex1Fixed=[
+  {ipa:"/hed/",ans:"head",note:"ví dụ"},
+  {ipa:"/hæt/",ans:"hat"},{ipa:"/haʊ/",ans:"how"},
+  {ipa:"/həʊm/",ans:"home"},{ipa:"/hɑːf/",ans:"half"},
+  {ipa:"/haɪ/",ans:"high"},{ipa:"/huː/",ans:"who"},
+];
+function renderEx1(){
+  let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+  ex1Fixed.forEach((d,i)=>{
+    html+=`<div class="ipa-card" onclick="speakText('${d.ans}')">
+      <span class="ipa-text">${d.ipa}</span>
+      <input id="e1_${i}" type="text" placeholder="từ..." data-ans="${d.ans}">
+      ${d.note?`<span style="font-size:0.75rem;color:#888">(${d.note})</span>`:''}
+    </div>`;
+  });
+  html+='</div>';
+  document.getElementById('ex1Content').innerHTML=html;
+}
+function checkEx1(){let c=0;ex1Fixed.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);if(inp.value.trim().toLowerCase()===d.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score1',c,ex1Fixed.length);showToast(c===ex1Fixed.length?'🎉 Hoàn hảo!':'😅 Xem lại ô đỏ!');}
+function resetEx1(){ex1Fixed.forEach((_,i)=>{const inp=document.getElementById('e1_'+i);inp.value='';inp.className='';});document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx1(){ex1Fixed.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);inp.value=d.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 2: dialogue (from book 20.2) - directions to castle with /h/ words
+const ex2Items=[
+  {s:"A: Excuse me, can you tell me ___ to get to the castle?",blanks:["how"],speak:"Excuse me can you tell me how to get to the castle?"},
+  {s:"B: Yes. Go past the ___ and the ___, then there's a road ___.",blanks:["hospital","hotel","here"],speak:"Yes. Go past the hospital and the hotel, then there's a road here."},
+  {s:"Those ___. You go up a ___, and the castle's at the top.",blanks:["houses","hill"],speak:"Those houses. You go up a hill, and the castle's at the top."},
+  {s:"A: Thanks for your ___!",blanks:["help"],speak:"Thanks for your help!"},
+];
+function renderEx2(){
+  let gi=0,html='';
+  ex2Items.forEach(d=>{
+    let sent=d.s,bi=0;
+    sent=sent.replace(/___/g,()=>{
+      const idx=gi++;
+      const a=d.blanks[bi++];
+      return `<input id="e2_${idx}" type="text" placeholder="..." data-ans="${a}" style="width:${Math.max(70,a.length*12)}px">`;
+    });
+    html+=`<div class="fill-item">${sent}</div>`;
+  });
+  document.getElementById('ex2Content').innerHTML=html;
+}
+function speakEx2(){speakText(ex2Items.map(d=>d.speak).join(' '));}
+function checkEx2(){const inputs=document.querySelectorAll('[id^="e2_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score2',c,inputs.length);}
+function resetEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 3: picture titles (from book 20.3)
+const ex3Data=[
+  {label:"1. A ___ hand",ans:"helping",emoji:"🤝",ctx:"người giúp người",speak:"A helping hand"},
+  {label:"2. A ___ family",ans:"happy",emoji:"👨‍👩‍👧",ctx:"gia đình vui vẻ",speak:"A happy family"},
+  {label:"3. ___ many ___?",ans2:["how","hours"],emoji:"✈️",ctx:"bảng thông tin chuyến bay",speak:"How many hours?"},
+  {label:"4. ___ lessons?",ans:"history",emoji:"📚",ctx:"lịch sử",speak:"History lessons?"},
+  {label:"5. ___ a ___",ans2:["perhaps","house"],emoji:"🏠",ctx:"có lẽ là một ngôi nhà",speak:"Perhaps a house."},
+  {label:"6. ___ did it ___?",ans2:["how","happen"],emoji:"🚗",ctx:"chuyện xảy ra thế nào?",speak:"How did it happen?"},
+  {label:"7. ___ !",ans2:["hi","home"],emoji:"👋",ctx:"người về nhà",speak:"Hi! Home!"},
+];
+function renderEx3(){
+  let gi=0;
+  let html=`<div style="font-size:0.85rem;color:#555;margin-bottom:8px">📦 Từ cần dùng: <em>half, hand, home, perhaps, who, happy, happen, hours, helping, how, hi, house, holiday, history</em></div>`;
+  ex3Data.forEach((d,i)=>{
+    if(d.ans2){
+      let label=d.label;
+      let bi2=0;
+      label=label.replace(/___/g,()=>{
+        const idx=gi++;
+        const a=d.ans2[bi2++];
+        return `<input id="e3_${idx}" type="text" placeholder="..." data-ans="${a}" style="width:80px">`;
+      });
+      html+=`<div class="fill-item">${d.emoji} ${label} <span style="font-size:0.78rem;color:#888">(${d.ctx})</span> <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak}')">🔊</button></div>`;
+    } else {
+      const idx=gi++;
+      html+=`<div class="fill-item">${d.emoji} ${d.label.replace('___',`<input id="e3_${idx}" type="text" placeholder="..." data-ans="${d.ans}" style="width:90px">`)}<span style="font-size:0.78rem;color:#888;margin-left:5px">(${d.ctx})</span> <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak}')">🔊</button></div>`;
+    }
+  });
+  document.getElementById('ex3Content').innerHTML=html;
+}
+function speakEx3(){speakText(ex3Data.map(d=>d.speak).join('. '));}
+function checkEx3(){const inputs=document.querySelectorAll('[id^="e3_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score3',c,inputs.length);}
+function resetEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 4: h silent or pronounced?
+const ex4Data=[
+  {sent:"Is <u>he</u> there?",h:"he",ans:"silent",speak:"Is he there?",note:"he giữa câu → /h/ mờ"},
+  {sent:"<u>H</u>ave you seen him?",h:"Have",ans:"silent",speak:"Have you seen him?",note:"have đầu câu nhưng yếu form"},
+  {sent:"<u>H</u>as he got time?",h:"Has",ans:"silent",speak:"Has he got time?",note:"has yếu form"},
+  {sent:"<u>H</u>i, hello!",h:"Hi",ans:"sound",speak:"Hi hello!",note:"Hi đầu câu, nhấn mạnh → đọc"},
+  {sent:"<u>H</u>ot in here.",h:"Hot",ans:"sound",speak:"Hot in here.",note:"Hot = từ nội dung → đọc"},
+  {sent:"Can you help me? We had a <u>wh</u>ole holiday.",h:"whole",ans:"sound",speak:"Can you help me? We had a whole holiday.",note:"whole: wh = /h/ đặc biệt"},
+  {sent:"It took an <u>h</u>our.",h:"hour",ans:"silent",speak:"It took an hour.",note:"hour: h câm"},
+  {sent:"Do you know <u>h</u>er?",h:"her",ans:"silent",speak:"Do you know her?",note:"her giữa câu → /h/ mờ"},
+];
+let ex4sel={};
+function renderEx4(){
+  ex4sel={};
+  document.getElementById('ex4Content').innerHTML=ex4Data.map((d,i)=>`
+    <div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap;font-size:0.9rem">
+      <span style="font-style:italic;min-width:260px">"${d.sent}"</span>
+      <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>
+      <span style="display:inline-flex;gap:5px">
+        <span id="tc4_${i}_sound" style="display:inline-block;padding:4px 12px;border-radius:12px;border:2px solid #ccc;cursor:pointer;font-size:0.85rem;font-weight:600;background:#f5f5f5;transition:all 0.18s" onclick="selectH(${i},'sound')">✓ Đọc</span>
+        <span id="tc4_${i}_silent" style="display:inline-block;padding:4px 12px;border-radius:12px;border:2px solid #ccc;cursor:pointer;font-size:0.85rem;font-weight:600;background:#f5f5f5;transition:all 0.18s" onclick="selectH(${i},'silent')">✗ Câm</span>
+      </span>
+      <span style="font-size:0.77rem;color:#888">${d.note}</span>
+    </div>`).join('');
+}
+function selectH(i,val){
+  ['sound','silent'].forEach(v=>{const el=document.getElementById(`tc4_${i}_${v}`);if(el){el.style.background='#f5f5f5';el.style.color='#222';el.style.borderColor='#ccc';}});
+  const el=document.getElementById(`tc4_${i}_${val}`);
+  if(el){el.style.background=val==='sound'?'#0a5a4a':'#e74c3c';el.style.color='#fff';el.style.borderColor=val==='sound'?'#0a5a4a':'#e74c3c';}
+  ex4sel[i]=val;
+}
+function speakEx4(){speakText(ex4Data.map(d=>d.speak).join(' '));}
+function checkEx4(){
+  let c=0;
+  ex4Data.forEach((d,i)=>{
+    ['sound','silent'].forEach(v=>{const el=document.getElementById(`tc4_${i}_${v}`);if(el){el.style.background='#f5f5f5';el.style.color='#222';el.style.borderColor='#ccc';}});
+    const correct=document.getElementById(`tc4_${i}_${d.ans}`);
+    if(correct)correct.style.outline='3px solid #27ae60';
+    if(ex4sel[i]===d.ans){c++;document.getElementById(`tc4_${i}_${d.ans}`).style.background=d.ans==='sound'?'#27ae60':'#27ae60';document.getElementById(`tc4_${i}_${d.ans}`).style.color='#fff';}
+    else if(ex4sel[i]){const wrong=document.getElementById(`tc4_${i}_${ex4sel[i]}`);if(wrong){wrong.style.background='#e74c3c';wrong.style.color='#fff';}}
+  });
+  showScore('score4',c,ex4Data.length);
+}
+function resetEx4(){ex4sel={};ex4Data.forEach((_,i)=>{['sound','silent'].forEach(v=>{const el=document.getElementById(`tc4_${i}_${v}`);if(el){el.style.background='#f5f5f5';el.style.color='#222';el.style.borderColor='#ccc';el.style.outline='none';}});});document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx4(){ex4Data.forEach((d,i)=>{selectH(i,d.ans);});showToast('👁️ Đây là đáp án!');}
+
+// EX 5: minimal pairs (from book 20.4)
+const ex5Data=[
+  {pair:["hear","ear"],sent:"I can't ___ you – speak up!",ans:0,speak:"I can't hear you, speak up!",note:"/h/ vs vowel"},
+  {pair:["high","eye"],sent:"She has a beautiful ___.",ans:1,speak:"She has a beautiful eye.",note:"/h/ vs vowel"},
+  {pair:["hill","ill"],sent:"She's ___ in bed.",ans:1,speak:"She's ill in bed.",note:"/h/ vs vowel"},
+  {pair:["hair","air"],sent:"The ___ was warm today.",ans:1,speak:"The air was warm today.",note:"/h/ vs vowel"},
+  {pair:["who","woo"],sent:"___ is there?",ans:0,speak:"Who is there?",note:"wh=/h/ vs /w/"},
+  {pair:["whole","role"],sent:"She played the leading ___.",ans:1,speak:"She played the leading role.",note:"/h/ whole vs /r/ role"},
+  {pair:["how","ow"],sent:"___ did that happen?",ans:0,speak:"How did that happen?",note:"/h/ vs vowel"},
+  {pair:["his","is"],sent:"Where ___ hat?",ans:0,speak:"Where his hat?",note:"/h/ strong vs weak"},
+];
+function renderEx5(){document.getElementById('ex5Content').innerHTML=ex5Data.map((d,i)=>`<div class="mp-item"><span style="font-style:italic;min-width:230px">"${d.sent}"</span><button class="btn-cyan" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>${d.pair.map((opt,j)=>`<label><input type="radio" name="mp5_${i}" value="${j}"> <b>${opt}</b></label>`).join(' ')}<span style="font-size:0.77rem;color:#888">${d.note}</span></div>`).join('');}
+function checkEx5(){let c=0;ex5Data.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel&&parseInt(sel.value)===d.ans)c++;});showScore('score5',c,ex5Data.length);}
+function resetEx5(){ex5Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){ex5Data.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp5_${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+
+// INIT
+renderWords();renderSents();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();
+
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(20)){c.push(20);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>

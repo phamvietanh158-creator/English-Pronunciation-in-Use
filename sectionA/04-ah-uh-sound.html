@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 4 - /ɑː/ và /ʌ/ | Father and mother</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;background:#f0f4f8;padding:20px 15px;min-height:100vh;}
+        .container{max-width:1000px;margin:0 auto;}
+        .header{background:linear-gradient(135deg,#8b3a10,#c0550a);color:white;padding:24px 28px;border-radius:20px;margin-bottom:25px;box-shadow:0 8px 30px rgba(139,58,16,.35);}
+        .header .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+        .lesson-number{background:rgba(255,255,255,.15);padding:4px 18px;border-radius:30px;font-size:14px;border:1px solid rgba(255,255,255,.2);}
+        .header h1{font-size:28px;font-weight:800;margin-top:8px;}
+        .header h1 span{color:#f1c40f;}
+        .phoneme-badge{display:inline-block;background:#f1c40f;color:#8b3a10;font-size:22px;font-weight:900;padding:4px 18px;border-radius:12px;margin-top:8px;font-family:"Courier New",monospace;}
+        .header .sub{font-size:15px;opacity:.85;margin-top:6px;}
+        .nav-link{display:inline-block;margin-top:12px;color:#f1c40f;text-decoration:none;font-weight:600;font-size:14px;}
+        .section{background:white;border-radius:16px;padding:22px 26px;margin-bottom:20px;border:1px solid #e2e8f0;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+        .section-title{font-size:19px;font-weight:700;color:#8b3a10;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+        .badge{background:#eef2f7;font-size:13px;font-weight:600;padding:2px 14px;border-radius:30px;color:#2c3e50;}
+        .badge.audio{background:#d5f5e3;color:#1a6e4a;}
+        .badge.tip{background:#fef9e7;color:#7d6608;}
+        .badge.geo{background:#d6eaf8;color:#1a4a7a;}
+        .badge.life{background:#d5f5e3;color:#1a6e4a;}
+        .section p{font-size:15px;line-height:1.9;color:#2c3e50;margin-bottom:10px;}
+        .ipa-long{font-family:"Courier New",monospace;color:#8b3a10;background:#fdf0e8;padding:2px 10px;border-radius:6px;font-size:15px;}
+        .ipa-short{font-family:"Courier New",monospace;color:#1a4a9a;background:#e8f0fd;padding:2px 10px;border-radius:6px;font-size:15px;}
+        .vi-text{color:#27ae60;font-style:italic;background:#f0faf5;padding:8px 14px;border-radius:8px;margin:6px 0 12px;border-left:3px solid #27ae60;font-size:14px;}
+        .diagram-box{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0;}
+        .diagram-card{flex:1;min-width:180px;border-radius:14px;padding:16px 18px;}
+        .diagram-card.long-card{background:linear-gradient(135deg,#fdf0e8,#f5d5be);border:2px solid #c0550a;}
+        .diagram-card.short-card{background:linear-gradient(135deg,#e8f0fd,#c3d0f5);border:2px solid #1a4a9a;}
+        .phoneme{font-size:48px;font-weight:900;font-family:"Courier New",monospace;line-height:1.1;text-align:center;}
+        .long-card .phoneme{color:#8b3a10;}
+        .short-card .phoneme{color:#1a4a9a;}
+        .ipa-label{font-family:"Courier New",monospace;font-size:15px;color:#555;margin:4px 0;text-align:center;}
+        .desc{font-size:13px;color:#444;line-height:1.7;margin-top:8px;}
+        .desc li{margin-left:14px;margin-bottom:3px;}
+        .word-grid{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .word-card{background:white;border:2px solid #e2e8f0;border-radius:12px;padding:10px 14px;min-width:120px;cursor:pointer;transition:.2s;}
+        .word-card.wl:hover{border-color:#8b3a10;box-shadow:0 4px 14px rgba(139,58,16,.15);}
+        .word-card.ws:hover{border-color:#1a4a9a;box-shadow:0 4px 14px rgba(26,74,154,.15);}
+        .word-card .word{font-size:17px;font-weight:700;color:#1a2a3a;}
+        .word-card .ipa{font-family:"Courier New",monospace;font-size:12px;margin-top:2px;}
+        .wl .ipa{color:#8b3a10;}
+        .ws .ipa{color:#1a4a9a;}
+        .word-card .vi{font-size:12px;color:#27ae60;margin-top:2px;}
+        .hl{background:#8b3a10;color:white;border-radius:3px;padding:0 2px;}
+        .hs{background:#1a4a9a;color:white;border-radius:3px;padding:0 2px;}
+        .sentence-list{list-style:none;padding:0;margin:10px 0;}
+        .sentence-list li{padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:15px;line-height:1.8;background:#f8fafc;border-left:4px solid #e2e8f0;cursor:pointer;transition:.2s;}
+        .long-list li{border-left-color:#c0550a;}
+        .long-list li:hover{background:#fdf0e8;}
+        .short-list li{border-left-color:#1a4a9a;}
+        .short-list li:hover{background:#e8f0fd;}
+        .sentence-list li .ipa-s{font-family:"Courier New",monospace;font-size:12px;display:block;margin-top:3px;}
+        .long-list .ipa-s{color:#8b3a10;}
+        .short-list .ipa-s{color:#1a4a9a;}
+        .sentence-list li .vi-s{font-size:13px;color:#27ae60;display:block;margin-top:2px;}
+        .spell-table{width:100%;border-collapse:collapse;margin:12px 0;}
+        .spell-table th{background:#8b3a10;color:white;padding:8px 12px;text-align:left;font-size:14px;}
+        .spell-table td{padding:8px 12px;border-bottom:1px solid #e2e8f0;font-size:14px;}
+        .spell-table tr:nth-child(even){background:#fdf5f0;}
+        .spell-table .spl{font-family:"Courier New",monospace;color:#8b3a10;font-weight:700;}
+        .btn{background:#3498db;color:white;border:none;padding:8px 20px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px;}
+        .btn:hover{transform:scale(1.03);opacity:.9;}
+        .btn-long{background:#8b3a10;}
+        .btn-short{background:#1a4a9a;}
+        .btn-success{background:#27ae60;}
+        .btn-warning{background:#f39c12;}
+        .btn-purple{background:#8e44ad;}
+        .btn-danger{background:#e74c3c;}
+        .btn-teal{background:#1abc9c;}
+        .btn-group{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .tip-box{background:#fef9e7;border:2px solid #f7dc6f;border-radius:12px;padding:14px 18px;margin:12px 0;}
+        .tip-title{font-weight:700;color:#7d6608;font-size:15px;margin-bottom:6px;}
+        .tip-content{font-size:14px;color:#5a4a1a;line-height:1.9;}
+        .tip-content p{margin-bottom:8px;}
+        .note-box{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:14px;color:#856404;line-height:1.7;}
+        .info-box{background:#d6eaf8;border:1px solid #2980b9;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:14px;color:#1a4a7a;line-height:1.7;}
+        .geo-box{background:#eafaf1;border:2px solid #1abc9c;border-radius:12px;padding:14px 18px;margin:10px 0;}
+        .geo-title{font-weight:700;color:#1a6e4a;font-size:15px;margin-bottom:6px;}
+        .geo-content{font-size:14px;color:#1a4a3a;line-height:1.9;}
+        /* EXERCISES */
+        .ex-wrap{background:#fafcff;border:2px solid #e2e8f0;border-radius:14px;padding:20px 22px;margin:14px 0;}
+        .ex-title{font-weight:700;color:#8b3a10;font-size:17px;margin-bottom:10px;}
+        .ex-instruction{background:#fdf0e8;border:1px solid #c0550a;border-radius:10px;padding:11px 15px;font-size:14px;color:#8b3a10;margin-bottom:14px;line-height:1.7;}
+        .ex-instruction strong{color:#e74c3c;}
+        /* two-col sort */
+        .sort-container{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+        .sort-col{background:#f8fafc;border-radius:12px;padding:14px;border:2px solid #e2e8f0;min-height:100px;}
+        .sort-col h4{font-weight:700;margin-bottom:10px;font-size:15px;padding:6px 12px;border-radius:8px;text-align:center;}
+        .long-col h4{background:#8b3a10;color:white;}
+        .short-col h4{background:#1a4a9a;color:white;}
+        .sort-word{background:white;border:2px solid #e2e8f0;border-radius:8px;padding:5px 12px;margin:4px 0;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;display:flex;justify-content:space-between;align-items:center;}
+        .sort-word.correct-s{border-color:#27ae60;background:#d5f5e3;color:#1a6e4a;}
+        .sort-word.wrong-s{border-color:#e74c3c;background:#fadbd8;color:#922b21;}
+        /* pair-fill */
+        .pair-fill-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:11px 16px;margin-bottom:8px;font-size:15px;line-height:2.2;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+        .pair-fill-item .num{font-weight:700;color:#8b3a10;min-width:22px;}
+        .pair-fill-item input{border:2px solid #c0550a;border-radius:8px;padding:4px 10px;font-size:14px;outline:none;min-width:70px;max-width:120px;font-family:"Segoe UI",sans-serif;transition:.2s;}
+        .pair-fill-item input:focus{background:#fdf0e8;}
+        .pair-fill-item input.correct{border-color:#27ae60;background:#d5f5e3;color:#1a6e4a;}
+        .pair-fill-item input.wrong{border-color:#e74c3c;background:#fadbd8;color:#922b21;}
+        /* chips for classify */
+        .classify-words{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;padding:12px;background:#f0f4f8;border-radius:10px;}
+        .classify-chip{background:white;border:2px solid #e2e8f0;border-radius:20px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;user-select:none;}
+        .classify-chip:hover{border-color:#8b3a10;background:#fdf0e8;}
+        .marked-long{background:#8b3a10!important;color:white;border-color:#8b3a10!important;}
+        .marked-short{background:#1a4a9a!important;color:white;border-color:#1a4a9a!important;}
+        .correct-chip{background:#27ae60!important;color:white;border-color:#27ae60!important;}
+        .wrong-chip{background:#e74c3c!important;color:white;border-color:#e74c3c!important;}
+        /* choice */
+        .choice-items{display:flex;flex-direction:column;gap:10px;margin:10px 0;}
+        .choice-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;}
+        .choice-item .num{font-weight:700;color:#8b3a10;}
+        .choice-btn{display:inline-block;padding:5px 18px;border-radius:20px;border:2px solid #e2e8f0;margin:4px 6px 0 0;cursor:pointer;font-size:14px;font-weight:600;transition:.2s;background:white;color:#333;user-select:none;}
+        .choice-btn:hover{border-color:#8b3a10;color:#8b3a10;}
+        .choice-btn.sel-l{background:#8b3a10;color:white;border-color:#8b3a10;}
+        .choice-btn.sel-s{background:#1a4a9a;color:white;border-color:#1a4a9a;}
+        .choice-btn.correct-c{background:#27ae60;color:white;border-color:#27ae60;pointer-events:none;}
+        .choice-btn.wrong-c{background:#e74c3c;color:white;border-color:#e74c3c;pointer-events:none;}
+        /* score */
+        .score-box{border-radius:12px;padding:14px 18px;margin-top:12px;font-size:15px;line-height:1.9;display:none;}
+        .score-box.show{display:block;}
+        .score-box.great{background:#d5f5e3;border:2px solid #27ae60;color:#1a6e4a;}
+        .score-box.good{background:#fef9e7;border:2px solid #f39c12;color:#7d6608;}
+        .score-box.try{background:#fadbd8;border:2px solid #e74c3c;color:#922b21;}
+        .score-box.info{background:#d6eaf8;border:2px solid #2980b9;color:#1a4a7a;}
+        .score-meter{background:#e0e7ee;border-radius:30px;height:12px;margin:8px 0;overflow:hidden;}
+        .score-meter-fill{height:100%;border-radius:30px;transition:width 1s ease;}
+        .big-score{font-size:38px;font-weight:900;text-align:center;margin:4px 0;}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2c3e50;color:white;padding:12px 24px;border-radius:40px;font-size:14px;box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;transition:opacity .4s;pointer-events:none;z-index:999;max-width:90%;text-align:center;}
+        .toast.show{opacity:1;}
+        @media(max-width:650px){.header{padding:18px 16px;}.header h1{font-size:20px;}.section{padding:16px 14px;}.diagram-box,.sort-container{flex-direction:column;grid-template-columns:1fr;}}
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <div class="top-row">
+        <span class="lesson-number">📚 Bài 4</span>
+        <span style="font-size:13px;opacity:.7;">Section A · Vowels</span>
+    </div>
+    <h1>👨‍👩‍👧 <span>Father and mother</span></h1>
+    <div><span class="phoneme-badge">/ɑː/ và /ʌ/</span></div>
+    <div class="sub">Nguyên âm dài /ɑː/ (father) và nguyên âm ngắn /ʌ/ (mother)</div>
+    <a href="../index.html" class="nav-link">← Về trang chủ</a>
+</div>
+
+<!-- A: /ɑː/ -->
+<div class="section">
+    <div class="section-title">🟠 A. Cách phát âm <span class="ipa-long">/ɑː/</span> — Nguyên âm DÀI <span class="badge audio">🔊 Nghe</span></div>
+    <div class="diagram-box">
+        <div class="diagram-card long-card">
+            <div class="phoneme">/ɑː/</div>
+            <div class="ipa-label">"ah" — DÀI</div>
+            <ul class="desc">
+                <li>Há miệng <strong>rộng</strong>, hàm dưới thả thấp.</li>
+                <li>Lưỡi <strong>nằm phẳng</strong>, kéo về phía sau.</li>
+                <li>Giữ âm <strong>DÀI</strong> — như bác sĩ bảo "aaah".</li>
+                <li>🎯 Target: <span class="ipa-long">/ɑː/</span></li>
+            </ul>
+        </div>
+        <div style="flex:1;min-width:220px;padding:10px 0;font-size:14px;line-height:2;color:#2c3e50;">
+            <p><strong>📌 Cách phát âm /ɑː/:</strong></p>
+            <p>1. Mở miệng <em>rộng nhất có thể</em> — hàm dưới thả xuống.</p>
+            <p>2. Lưỡi nằm phẳng, không chạm vào đâu.</p>
+            <p>3. Giữ âm <strong>DÀI</strong> — "faaather", "caaaar".</p>
+            <p>🇻🇳 Gần giống âm "a" trong tiếng Việt <em>nhưng miệng mở rộng hơn và kéo dài hơn nhiều</em>.</p>
+            <p>✋ Thử: mở miệng như khi bác sĩ khám họng, nói "aaah".</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-long" onclick="speakText('aaah',0.4)">🔊 Nghe /ɑː/</button>
+        <button class="btn btn-long" onclick="speakText('father car park star',0.7)">🔊 Nghe từ mẫu</button>
+        <button class="btn btn-success" onclick="speakText('after afternoon ask answer bath bathroom',0.75)">🔊 Nghe từ sách gốc</button>
+    </div>
+</div>
+
+<!-- B: /ɑː/ spelling + words -->
+<div class="section">
+    <div class="section-title">🟠 B. Chính tả &amp; Từ có âm <span class="ipa-long">/ɑː/</span> <span class="badge">Spelling &amp; Từ vựng</span></div>
+    <table class="spell-table">
+        <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+        <tr><td class="spl">a / ar</td><td>after, afternoon, ask, answer, bath, bathroom, can't, class, dance, fast, father, glass, tomato, bar, car, card, far, park, star, start, art, arm, dark, farm, hard, large, market, part, smart, yard</td><td>Phổ biến nhất</td></tr>
+        <tr><td class="spl">au / augh</td><td>aunt, laugh, heart, half (l câm)</td><td>Đặc biệt — l trong "half" câm</td></tr>
+        <tr><td class="spl">ear / ere</td><td>heart /hɑːt/</td><td>Ngoại lệ quan trọng</td></tr>
+    </table>
+    <div class="note-box">
+        👂 <strong>Quan trọng khi nghe:</strong> Sau /ɑː/, nếu có chữ <strong>r</strong>, người Mỹ (và một số người Anh) phát âm luôn chữ r đó. Người Anh miền nam thường không đọc r này.<br>
+        <strong>car</strong>: Anh /kɑː/ · Mỹ /kɑːr/ &nbsp;|&nbsp; <strong>park</strong>: Anh /pɑːk/ · Mỹ /pɑːrk/<br>
+        📢 Tên chữ cái <strong>R</strong> = <span class="ipa-long">/ɑː/</span> hoặc <span class="ipa-long">/ɑːr/</span>. Từ <strong>are</strong> thường đọc là /ɑː/ hoặc /ɑːr/ (xem bài 40).
+    </div>
+
+    <p style="margin-top:12px;"><strong>📌 Bộ từ vựng /ɑː/ — Click để nghe:</strong></p>
+    <div class="word-grid">
+        <div class="word-card wl" onclick="speakText('father',0.8)"><div class="word">f<span class="hl">a</span>ther</div><div class="ipa">/ˈfɑː.ðər/</div><div class="vi">🇻🇳 người cha</div></div>
+        <div class="word-card wl" onclick="speakText('car',0.8)"><div class="word">c<span class="hl">ar</span></div><div class="ipa">/kɑː/</div><div class="vi">🇻🇳 ô tô</div></div>
+        <div class="word-card wl" onclick="speakText('park',0.8)"><div class="word">p<span class="hl">ar</span>k</div><div class="ipa">/pɑːk/</div><div class="vi">🇻🇳 công viên / đỗ xe</div></div>
+        <div class="word-card wl" onclick="speakText('bath',0.8)"><div class="word">b<span class="hl">a</span>th</div><div class="ipa">/bɑːθ/</div><div class="vi">🇻🇳 bồn tắm / tắm</div></div>
+        <div class="word-card wl" onclick="speakText('class',0.8)"><div class="word">cl<span class="hl">a</span>ss</div><div class="ipa">/klɑːs/</div><div class="vi">🇻🇳 lớp học</div></div>
+        <div class="word-card wl" onclick="speakText('dance',0.8)"><div class="word">d<span class="hl">a</span>nce</div><div class="ipa">/dɑːns/</div><div class="vi">🇻🇳 nhảy múa</div></div>
+        <div class="word-card wl" onclick="speakText('glass',0.8)"><div class="word">gl<span class="hl">a</span>ss</div><div class="ipa">/ɡlɑːs/</div><div class="vi">🇻🇳 kính / ly thủy tinh</div></div>
+        <div class="word-card wl" onclick="speakText('star',0.8)"><div class="word">st<span class="hl">ar</span></div><div class="ipa">/stɑː/</div><div class="vi">🇻🇳 ngôi sao</div></div>
+        <div class="word-card wl" onclick="speakText('heart',0.8)"><div class="word">h<span class="hl">ear</span>t</div><div class="ipa">/hɑːt/</div><div class="vi">🇻🇳 trái tim</div></div>
+        <div class="word-card wl" onclick="speakText('laugh',0.8)"><div class="word">l<span class="hl">au</span>gh</div><div class="ipa">/lɑːf/</div><div class="vi">🇻🇳 cười</div></div>
+        <div class="word-card wl" onclick="speakText('half',0.8)"><div class="word">h<span class="hl">a</span>lf</div><div class="ipa">/hɑːf/</div><div class="vi">🇻🇳 một nửa (l câm!)</div></div>
+        <div class="word-card wl" onclick="speakText('dark',0.8)"><div class="word">d<span class="hl">ar</span>k</div><div class="ipa">/dɑːk/</div><div class="vi">🇻🇳 tối tăm</div></div>
+        <div class="word-card wl" onclick="speakText('market',0.8)"><div class="word">m<span class="hl">ar</span>ket</div><div class="ipa">/ˈmɑː.kɪt/</div><div class="vi">🇻🇳 chợ, thị trường</div></div>
+        <div class="word-card wl" onclick="speakText('hard',0.8)"><div class="word">h<span class="hl">ar</span>d</div><div class="ipa">/hɑːd/</div><div class="vi">🇻🇳 khó / cứng</div></div>
+        <div class="word-card wl" onclick="speakText('arm',0.8)"><div class="word"><span class="hl">ar</span>m</div><div class="ipa">/ɑːm/</div><div class="vi">🇻🇳 cánh tay</div></div>
+        <div class="word-card wl" onclick="speakText('carpet',0.8)"><div class="word">c<span class="hl">ar</span>pet</div><div class="ipa">/ˈkɑː.pɪt/</div><div class="vi">🇻🇳 tấm thảm</div></div>
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 15 câu luyện /ɑː/ — click để nghe:</strong></p>
+    <ul class="sentence-list long-list">
+        <li onclick="speakText('How far is the car park?',0.8)">How f<span class="hl">ar</span> is the c<span class="hl">ar</span> p<span class="hl">ar</span>k?<span class="ipa-s">/haʊ fɑː ɪz ðə kɑː pɑːk/</span><span class="vi-s">🇻🇳 Bãi đỗ xe cách đây bao xa?</span></li>
+        <li onclick="speakText('We went to a large bar full of film stars.',0.8)">We went to a l<span class="hl">ar</span>ge b<span class="hl">ar</span> full of film st<span class="hl">ar</span>s.<span class="ipa-s">/wiː went tə ə lɑːdʒ bɑː fʊl əv fɪlm stɑːz/</span><span class="vi-s">🇻🇳 Chúng tôi đến một quán bar lớn đầy ngôi sao điện ảnh.</span></li>
+        <li onclick="speakText('We're starting in half an hour.',0.8)">We're st<span class="hl">ar</span>ting in h<span class="hl">a</span>lf an hour.<span class="ipa-s">/wɪər ˈstɑː.tɪŋ ɪn hɑːf ən ˈaʊər/</span><span class="vi-s">🇻🇳 Chúng ta bắt đầu sau nửa tiếng nữa.</span></li>
+        <li onclick="speakText('See you tomorrow afternoon.',0.8)">See you tomorrow <span class="hl">a</span>fternoon.<span class="ipa-s">/siː ju təˈmɒr.əʊ ˌɑːf.təˈnuːn/</span><span class="vi-s">🇻🇳 Hẹn gặp bạn chiều mai.</span></li>
+        <li onclick="speakText('I'll ask my aunt.',0.8)">I'll <span class="hl">a</span>sk my <span class="hl">au</span>nt.<span class="ipa-s">/aɪl ɑːsk maɪ ɑːnt/</span><span class="vi-s">🇻🇳 Tôi sẽ hỏi dì của tôi.</span></li>
+        <li onclick="speakText('We were laughing and dancing in the classroom.',0.8)">We were l<span class="hl">au</span>ghing and d<span class="hl">a</span>ncing in the cl<span class="hl">a</span>sstr<span class="hl">o</span>om.<span class="ipa-s">/wiː wər ˈlɑːf.ɪŋ ænd ˈdɑːn.sɪŋ ɪn ðə ˈklɑːs.ruːm/</span><span class="vi-s">🇻🇳 Chúng tôi vừa cười vừa nhảy trong phòng học.</span></li>
+        <li onclick="speakText('I left my glasses in the bathroom.',0.8)">I left my gl<span class="hl">a</span>sses in the b<span class="hl">a</span>thr<span class="hl">oo</span>m.<span class="ipa-s">/aɪ left maɪ ˈɡlɑː.sɪz ɪn ðə ˈbɑːθ.ruːm/</span><span class="vi-s">🇻🇳 Tôi để quên kính trong phòng tắm.</span></li>
+        <li onclick="speakText('My father parked the car in the dark garden.',0.8)">My f<span class="hl">a</span>ther p<span class="hl">ar</span>ked the c<span class="hl">ar</span> in the d<span class="hl">ar</span>k g<span class="hl">ar</span>den.<span class="ipa-s">/maɪ ˈfɑː.ðər pɑːkt ðə kɑːr ɪn ðə dɑːk ˈɡɑː.dən/</span><span class="vi-s">🇻🇳 Bố tôi đỗ xe trong khu vườn tối tăm.</span></li>
+        <li onclick="speakText('The art class starts at half past three.',0.8)">The <span class="hl">ar</span>t cl<span class="hl">a</span>ss st<span class="hl">ar</span>ts at h<span class="hl">a</span>lf p<span class="hl">a</span>st three.<span class="ipa-s">/ðɪ ɑːt klɑːs stɑːts æt hɑːf pɑːst θriː/</span><span class="vi-s">🇻🇳 Lớp học nghệ thuật bắt đầu lúc ba giờ rưỡi.</span></li>
+        <li onclick="speakText('I can't dance, but I can laugh at myself.',0.8)">I c<span class="hl">a</span>n't d<span class="hl">a</span>nce, but I c<span class="hl">a</span>n l<span class="hl">au</span>gh at myself.<span class="ipa-s">/aɪ kɑːnt dɑːns bʌt aɪ kæn lɑːf æt maɪˈself/</span><span class="vi-s">🇻🇳 Tôi không biết nhảy nhưng tôi có thể tự cười vào mình.</span></li>
+        <li onclick="speakText('She has a large carpet in the living room.',0.8)">She has a l<span class="hl">ar</span>ge c<span class="hl">ar</span>pet in the living room.<span class="ipa-s">/ʃiː hæz ə lɑːdʒ ˈkɑː.pɪt ɪn ðə ˈlɪv.ɪŋ ruːm/</span><span class="vi-s">🇻🇳 Cô ấy có một tấm thảm lớn trong phòng khách.</span></li>
+        <li onclick="speakText('The market on March Street is always fast and hard.',0.8)">The m<span class="hl">ar</span>ket on M<span class="hl">ar</span>ch Street is always f<span class="hl">a</span>st and h<span class="hl">ar</span>d.<span class="ipa-s">/ðə ˈmɑː.kɪt ɒn mɑːtʃ striːt ɪz ˈɔːl.weɪz fɑːst ænd hɑːd/</span><span class="vi-s">🇻🇳 Chợ trên phố March luôn tấp nập và bận rộn.</span></li>
+        <li onclick="speakText('My aunt asked him to start the car in the car park.',0.8)">My <span class="hl">au</span>nt <span class="hl">a</span>sked him to st<span class="hl">ar</span>t the c<span class="hl">ar</span> in the c<span class="hl">ar</span> p<span class="hl">ar</span>k.<span class="ipa-s">/maɪ ɑːnt ɑːskt hɪm tə stɑːt ðə kɑː ɪn ðə kɑː pɑːk/</span><span class="vi-s">🇻🇳 Dì tôi nhờ anh ấy khởi động xe trong bãi đỗ.</span></li>
+        <li onclick="speakText('He broke his arm in the dark and felt embarrassed.',0.8)">He broke his <span class="hl">ar</span>m in the d<span class="hl">ar</span>k and felt emb<span class="hl">ar</span>rassed.<span class="ipa-s">/hiː brəʊk hɪz ɑːm ɪn ðə dɑːk ænd felt ɪmˈbær.əst/</span><span class="vi-s">🇻🇳 Anh ấy bị gãy tay trong bóng tối và cảm thấy xấu hổ.</span></li>
+        <li onclick="speakText('After the bath, Father laughed at the glass of tomato juice on the carpet.',0.75)"><span class="hl">A</span>fter the b<span class="hl">a</span>th, F<span class="hl">a</span>ther l<span class="hl">au</span>ghed at the gl<span class="hl">a</span>ss of tom<span class="hl">a</span>to juice on the c<span class="hl">ar</span>pet.<span class="ipa-s">/ˈɑːf.tər ðə bɑːθ | ˈfɑː.ðər lɑːft æt ðə ɡlɑːs əv təˈmɑː.təʊ dʒuːs ɒn ðə ˈkɑː.pɪt/</span><span class="vi-s">🇻🇳 Sau khi tắm xong, Bố cười nhìn ly nước cà chua đổ trên thảm.</span></li>
+    </ul>
+    <div class="btn-group">
+        <button class="btn btn-long" onclick="speakText('How far is the car park? We went to a large bar full of film stars. We're starting in half an hour.',0.75)">🔊 Nghe 3 câu sách gốc</button>
+        <button class="btn btn-success" onclick="speakText('How far is the car park? We went to a large bar full of film stars. We're starting in half an hour.',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- C: /ʌ/ -->
+<div class="section">
+    <div class="section-title">🔵 C. Cách phát âm <span class="ipa-short">/ʌ/</span> — Nguyên âm NGẮN <span class="badge audio">🔊 Nghe</span></div>
+    <div class="diagram-box">
+        <div class="diagram-card short-card">
+            <div class="phoneme">/ʌ/</div>
+            <div class="ipa-label">"uh" — NGẮN</div>
+            <ul class="desc">
+                <li>Há miệng <strong>vừa phải</strong> (ít hơn /ɑː/).</li>
+                <li>Môi và hàm <strong>thư giãn</strong>.</li>
+                <li>Lưỡi <strong>giữa</strong>, không cao không thấp.</li>
+                <li>Âm <strong>NGẮN</strong> và trung lập.</li>
+                <li>🎯 Target: <span class="ipa-short">/ʌ/</span> — "mother"</li>
+            </ul>
+        </div>
+        <div style="flex:1;min-width:220px;padding:10px 0;font-size:14px;line-height:2;color:#2c3e50;">
+            <p><strong>📌 Khác biệt /ɑː/ vs /ʌ/:</strong></p>
+            <p>• <strong>/ɑː/</strong>: miệng mở rộng, lưỡi phẳng và lùi về sau, âm DÀI.</p>
+            <p>• <strong>/ʌ/</strong>: miệng mở vừa phải, môi thư giãn, âm NGẮN và trung tính.</p>
+            <p>🇻🇳 Không có âm tương đương trong tiếng Việt. Gần như âm "ơ" ngắn và trung tính.</p>
+            <p>✋ Thử: nói "uh" nhanh gọn, không kéo dài.</p>
+        </div>
+    </div>
+    <div class="tip-box">
+        <div class="tip-title">🎯 Mẹo phân biệt /ɑː/ vs /ʌ/</div>
+        <div class="tip-content">
+            <p><strong>Minimal pairs — nghe và so sánh:</strong><br>
+            heart /hɑːt/ vs hut /hʌt/ &nbsp;|&nbsp; car /kɑː/ vs cup /kʌp/ &nbsp;|&nbsp; cat /kæt/ vs cut /kʌt/<br>
+            dark /dɑːk/ vs duck /dʌk/ &nbsp;|&nbsp; barn /bɑːn/ vs bun /bʌn/ &nbsp;|&nbsp; hard /hɑːd/ vs hud /hʌd/<br>
+            calm /kɑːm/ vs come /kʌm/ &nbsp;|&nbsp; star /stɑː/ vs stun /stʌn/</p>
+            <p><strong>Quy tắc:</strong> /ɑː/ = há miệng "ahhh" rộng, DÀI · /ʌ/ = "uh" ngắn, thư giãn</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-long" onclick="speakText('father',0.55)">🔊 /ɑː/ (father)</button>
+        <button class="btn btn-short" onclick="speakText('mother',0.6)">🔊 /ʌ/ (mother)</button>
+        <button class="btn btn-purple" onclick="speakText('heart hut. car cup. dark duck. barn bun.',0.55)">🔊 So sánh minimal pairs</button>
+    </div>
+</div>
+
+<!-- D: /ʌ/ spelling + words -->
+<div class="section">
+    <div class="section-title">🔵 D. Chính tả &amp; Từ có âm <span class="ipa-short">/ʌ/</span> <span class="badge">Spelling &amp; Từ vựng</span></div>
+    <table class="spell-table">
+        <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+        <tr><td class="spl">u</td><td>bus, cup, fun, front, luck, much, nothing, number, run, study, sun, uncle, under, butter, colour, come, Monday, month, mother, love, money, some, done, none</td><td>Phổ biến nhất</td></tr>
+        <tr><td class="spl">ou</td><td>colour, country, couple, double, enough, rough, touch, young, trouble</td><td>Chú ý — không đọc "ou" mà đọc /ʌ/</td></tr>
+        <tr><td class="spl">o</td><td>Monday, month, mother, come, done, love, money, some, London, front, other, wonder, son</td><td>Nhiều từ phổ biến</td></tr>
+    </table>
+    <div class="note-box">
+        ⚠️ <strong>son</strong> và <strong>sun</strong> có cùng cách đọc: /sʌn/<br>
+        ⚠️ Số <strong>one</strong> đọc là /wʌn/ — không phải /ɒn/<br>
+        👂 Một số người ở miền Bắc nước Anh nói /ʊ/ thay cho /ʌ/: cup /kʊp/, love /lʊv/
+    </div>
+
+    <p style="margin-top:12px;"><strong>📌 Bộ từ vựng /ʌ/ — Click để nghe:</strong></p>
+    <div class="word-grid">
+        <div class="word-card ws" onclick="speakText('mother',0.8)"><div class="word">m<span class="hs">o</span>ther</div><div class="ipa">/ˈmʌð.ər/</div><div class="vi">🇻🇳 người mẹ</div></div>
+        <div class="word-card ws" onclick="speakText('bus',0.8)"><div class="word">b<span class="hs">u</span>s</div><div class="ipa">/bʌs/</div><div class="vi">🇻🇳 xe buýt</div></div>
+        <div class="word-card ws" onclick="speakText('cup',0.8)"><div class="word">c<span class="hs">u</span>p</div><div class="ipa">/kʌp/</div><div class="vi">🇻🇳 cái cốc / tách</div></div>
+        <div class="word-card ws" onclick="speakText('lunch',0.8)"><div class="word">l<span class="hs">u</span>nch</div><div class="ipa">/lʌntʃ/</div><div class="vi">🇻🇳 bữa trưa</div></div>
+        <div class="word-card ws" onclick="speakText('money',0.8)"><div class="word">m<span class="hs">o</span>ney</div><div class="ipa">/ˈmʌn.i/</div><div class="vi">🇻🇳 tiền bạc</div></div>
+        <div class="word-card ws" onclick="speakText('love',0.8)"><div class="word">l<span class="hs">o</span>ve</div><div class="ipa">/lʌv/</div><div class="vi">🇻🇳 tình yêu / yêu</div></div>
+        <div class="word-card ws" onclick="speakText('country',0.8)"><div class="word">c<span class="hs">ou</span>ntry</div><div class="ipa">/ˈkʌn.tri/</div><div class="vi">🇻🇳 đất nước / nông thôn</div></div>
+        <div class="word-card ws" onclick="speakText('Monday',0.8)"><div class="word">M<span class="hs">o</span>nday</div><div class="ipa">/ˈmʌn.deɪ/</div><div class="vi">🇻🇳 Thứ Hai</div></div>
+        <div class="word-card ws" onclick="speakText('London',0.8)"><div class="word">L<span class="hs">o</span>nd<span class="hs">o</span>n</div><div class="ipa">/ˈlʌn.dən/</div><div class="vi">🇻🇳 thành phố London</div></div>
+        <div class="word-card ws" onclick="speakText('number',0.8)"><div class="word">n<span class="hs">u</span>mber</div><div class="ipa">/ˈnʌm.bər/</div><div class="vi">🇻🇳 con số / số điện thoại</div></div>
+        <div class="word-card ws" onclick="speakText('uncle',0.8)"><div class="word"><span class="hs">u</span>ncle</div><div class="ipa">/ˈʌŋ.kəl/</div><div class="vi">🇻🇳 chú, cậu, dượng</div></div>
+        <div class="word-card ws" onclick="speakText('husband',0.8)"><div class="word">h<span class="hs">u</span>sb<span class="hs">a</span>nd</div><div class="ipa">/ˈhʌz.bənd/</div><div class="vi">🇻🇳 người chồng</div></div>
+        <div class="word-card ws" onclick="speakText('colour',0.8)"><div class="word">c<span class="hs">o</span>l<span class="hs">ou</span>r</div><div class="ipa">/ˈkʌl.ər/</div><div class="vi">🇻🇳 màu sắc</div></div>
+        <div class="word-card ws" onclick="speakText('front',0.8)"><div class="word">fr<span class="hs">o</span>nt</div><div class="ipa">/frʌnt/</div><div class="vi">🇻🇳 phía trước, mặt trước</div></div>
+        <div class="word-card ws" onclick="speakText('butter',0.8)"><div class="word">b<span class="hs">u</span>tter</div><div class="ipa">/ˈbʌt.ər/</div><div class="vi">🇻🇳 bơ</div></div>
+        <div class="word-card ws" onclick="speakText('sun',0.8)"><div class="word">s<span class="hs">u</span>n</div><div class="ipa">/sʌn/</div><div class="vi">🇻🇳 mặt trời / con trai (son)</div></div>
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 15 câu luyện /ʌ/ — click để nghe:</strong></p>
+    <ul class="sentence-list short-list">
+        <li onclick="speakText('Good luck with your exam next month!',0.8)">Good l<span class="hs">u</span>ck with your exam next m<span class="hs">o</span>nth!<span class="ipa-s">/ɡʊd lʌk wɪð jɔːr ɪɡˈzæm nekst mʌnθ/</span><span class="vi-s">🇻🇳 Chúc bạn thi tốt tháng tới nhé!</span></li>
+        <li onclick="speakText('Take the number one bus.',0.8)">Take the n<span class="hs">u</span>mber <span class="hs">o</span>ne b<span class="hs">u</span>s.<span class="ipa-s">/teɪk ðə ˈnʌm.bər wʌn bʌs/</span><span class="vi-s">🇻🇳 Lấy xe buýt số một.</span></li>
+        <li onclick="speakText('I said come on Monday, not come on Sunday.',0.8)">I said 'C<span class="hs">o</span>me on M<span class="hs">o</span>nday', not 'C<span class="hs">o</span>me on S<span class="hs">u</span>nday'.<span class="ipa-s">/aɪ sed ˈkʌm ɒn ˈmʌn.deɪ | nɒt ˈkʌm ɒn ˈsʌn.deɪ/</span><span class="vi-s">🇻🇳 Tôi nói đến vào Thứ Hai, không phải Chủ nhật.</span></li>
+        <li onclick="speakText('My brother is studying in London.',0.8)">My br<span class="hs">o</span>ther is st<span class="hs">u</span>dying in L<span class="hs">o</span>nd<span class="hs">o</span>n.<span class="ipa-s">/maɪ ˈbrʌð.ər ɪz ˈstʌd.i.ɪŋ ɪn ˈlʌn.dən/</span><span class="vi-s">🇻🇳 Anh trai tôi đang học ở London.</span></li>
+        <li onclick="speakText('My uncle loves butter and honey for lunch.',0.8)">My <span class="hs">u</span>ncle l<span class="hs">o</span>ves b<span class="hs">u</span>tter and h<span class="hs">o</span>ney for l<span class="hs">u</span>nch.<span class="ipa-s">/maɪ ˈʌŋ.kəl lʌvz ˈbʌt.ər ænd ˈhʌn.i fɔː lʌntʃ/</span><span class="vi-s">🇻🇳 Cậu tôi thích ăn bơ và mật ong cho bữa trưa.</span></li>
+        <li onclick="speakText('She doesn't have enough money to come to the country.',0.8)">She d<span class="hs">oe</span>sn't have en<span class="hs">ou</span>gh m<span class="hs">o</span>ney to c<span class="hs">o</span>me to the c<span class="hs">ou</span>ntry.<span class="ipa-s">/ʃiː ˈdʌz.ənt hæv ɪˈnʌf ˈmʌn.i tə kʌm tə ðə ˈkʌn.tri/</span><span class="vi-s">🇻🇳 Cô ấy không có đủ tiền để đến nông thôn.</span></li>
+        <li onclick="speakText('Mother and son were running under the sun.',0.8)">M<span class="hs">o</span>ther and s<span class="hs">o</span>n were r<span class="hs">u</span>nning <span class="hs">u</span>nder the s<span class="hs">u</span>n.<span class="ipa-s">/ˈmʌð.ər ænd sʌn wər ˈrʌn.ɪŋ ˈʌn.dər ðə sʌn/</span><span class="vi-s">🇻🇳 Mẹ và con trai đang chạy dưới nắng mặt trời.</span></li>
+        <li onclick="speakText('He cut his thumb and it hurt a lot.',0.8)">He c<span class="hs">u</span>t his th<span class="hs">u</span>mb and it h<span class="hs">u</span>rt a lot.<span class="ipa-s">/hiː kʌt hɪz θʌm ænd ɪt hɜːt ə lɒt/</span><span class="vi-s">🇻🇳 Anh ấy bị cắt ngón tay cái và đau lắm.</span></li>
+        <li onclick="speakText('One cup of coffee and a muffin, please.',0.8)"><span class="hs">O</span>ne c<span class="hs">u</span>p of c<span class="hs">o</span>ffee and a m<span class="hs">u</span>ffin, please.<span class="ipa-s">/wʌn kʌp əv ˈkɒf.i ænd ə ˈmʌf.ɪn pliːz/</span><span class="vi-s">🇻🇳 Cho tôi một tách cà phê và một bánh muffin, làm ơn.</span></li>
+        <li onclick="speakText('My husband loves his job but the front office is very stuffy.',0.8)">My h<span class="hs">u</span>sb<span class="hs">a</span>nd l<span class="hs">o</span>ves his job but the fr<span class="hs">o</span>nt office is very st<span class="hs">u</span>ffy.<span class="ipa-s">/maɪ ˈhʌz.bənd lʌvz hɪz dʒɒb bʌt ðə frʌnt ˈɒf.ɪs ɪz ˈver.i ˈstʌf.i/</span><span class="vi-s">🇻🇳 Chồng tôi yêu công việc nhưng phòng tiền sảnh rất bí bách.</span></li>
+        <li onclick="speakText('There is a bus every Monday from London to the countryside.',0.8)">There is a b<span class="hs">u</span>s every M<span class="hs">o</span>nday from L<span class="hs">o</span>nd<span class="hs">o</span>n to the c<span class="hs">ou</span>ntryside.<span class="ipa-s">/ðər ɪz ə bʌs ˈev.ri ˈmʌn.deɪ frəm ˈlʌn.dən tə ðə ˈkʌn.tri.saɪd/</span><span class="vi-s">🇻🇳 Có xe buýt mỗi Thứ Hai từ London đến nông thôn.</span></li>
+        <li onclick="speakText('The young couple had just enough money to buy lunch.',0.8)">The y<span class="hs">ou</span>ng c<span class="hs">ou</span>ple had just en<span class="hs">ou</span>gh m<span class="hs">o</span>ney to buy l<span class="hs">u</span>nch.<span class="ipa-s">/ðə jʌŋ ˈkʌp.əl hæd dʒʌst ɪˈnʌf ˈmʌn.i tə baɪ lʌntʃ/</span><span class="vi-s">🇻🇳 Cặp đôi trẻ vừa đủ tiền mua bữa trưa.</span></li>
+        <li onclick="speakText('I study numbers and colours every Sunday afternoon.',0.8)">I st<span class="hs">u</span>dy n<span class="hs">u</span>mbers and c<span class="hs">o</span>l<span class="hs">ou</span>rs every S<span class="hs">u</span>nday afternoon.<span class="ipa-s">/aɪ ˈstʌd.i ˈnʌm.bərz ænd ˈkʌl.ərz ˈev.ri ˈsʌn.deɪ ˌɑːf.təˈnuːn/</span><span class="vi-s">🇻🇳 Tôi học số và màu sắc mỗi chiều Chủ nhật.</span></li>
+        <li onclick="speakText('Under the front of the bus, there was a number I couldn't understand.',0.75)"><span class="hs">U</span>nder the fr<span class="hs">o</span>nt of the b<span class="hs">u</span>s, there was a n<span class="hs">u</span>mber I c<span class="hs">ou</span>ldn't <span class="hs">u</span>nderst<span class="hs">a</span>nd.<span class="ipa-s">/ˈʌn.dər ðə frʌnt əv ðə bʌs | ðər wəz ə ˈnʌm.bər aɪ ˈkʊdnt ˌʌn.dəˈstænd/</span><span class="vi-s">🇻🇳 Bên dưới đầu xe buýt có một con số tôi không thể hiểu được.</span></li>
+        <li onclick="speakText('Love is not just fun and colour — it's also trust.',0.8)">L<span class="hs">o</span>ve is not just f<span class="hs">u</span>n and c<span class="hs">o</span>l<span class="hs">ou</span>r — it's also tr<span class="hs">u</span>st.<span class="ipa-s">/lʌv ɪz nɒt dʒʌst fʌn ænd ˈkʌl.ər | ɪts ˈɔːl.səʊ trʌst/</span><span class="vi-s">🇻🇳 Tình yêu không chỉ là niềm vui và màu sắc — mà còn là sự tin tưởng.</span></li>
+    </ul>
+    <div class="btn-group">
+        <button class="btn btn-short" onclick="speakText('Good luck with your exam next month! Take the number one bus. I said Come on Monday, not Come on Sunday. My brother is studying in London.',0.75)">🔊 Nghe 4 câu sách gốc</button>
+        <button class="btn btn-success" onclick="speakText('Good luck with your exam next month! Take the number one bus. I said Come on Monday, not Come on Sunday. My brother is studying in London.',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- BỔ SUNG: CUỘC SỐNG -->
+<div class="section" style="border:2px solid #27ae60;">
+    <div class="section-title">🌱 Từ &amp; Câu bổ sung — Cuộc sống hàng ngày <span class="badge life">🏠 Life</span></div>
+    <div class="word-grid">
+        <div class="word-card wl" onclick="speakText('apartment',0.8)"><div class="word"><span class="hl">a</span>p<span class="hl">ar</span>tment</div><div class="ipa">/əˈpɑːt.mənt/</div><div class="vi">🇻🇳 căn hộ chung cư</div></div>
+        <div class="word-card ws" onclick="speakText('Sunday',0.8)"><div class="word">S<span class="hs">u</span>nday</div><div class="ipa">/ˈsʌn.deɪ/</div><div class="vi">🇻🇳 Chủ nhật</div></div>
+        <div class="word-card wl" onclick="speakText('garden',0.8)"><div class="word">g<span class="hl">ar</span>den</div><div class="ipa">/ˈɡɑː.dən/</div><div class="vi">🇻🇳 khu vườn</div></div>
+        <div class="word-card ws" onclick="speakText('funny',0.8)"><div class="word">f<span class="hs">u</span>nny</div><div class="ipa">/ˈfʌn.i/</div><div class="vi">🇻🇳 buồn cười, hài hước</div></div>
+        <div class="word-card wl" onclick="speakText('sharp',0.8)"><div class="word">sh<span class="hl">ar</span>p</div><div class="ipa">/ʃɑːp/</div><div class="vi">🇻🇳 sắc bén / đúng giờ</div></div>
+        <div class="word-card ws" onclick="speakText('summer',0.8)"><div class="word">s<span class="hs">u</span>mmer</div><div class="ipa">/ˈsʌm.ər/</div><div class="vi">🇻🇳 mùa hè</div></div>
+    </div>
+    <ul class="sentence-list">
+        <li onclick="speakText('Our apartment has a large garden but we have no money for a car.',0.8)">Our <span class="hs">a</span>p<span class="hl">ar</span>tment has a l<span class="hl">ar</span>ge g<span class="hl">ar</span>den but we have no m<span class="hs">o</span>ney for a c<span class="hl">ar</span>.<span class="ipa-s">/aʊər əˈpɑːt.mənt hæz ə lɑːdʒ ˈɡɑː.dən bʌt wiː hæv nəʊ ˈmʌn.i fɔːr ə kɑː/</span><span class="vi-s">🇻🇳 Căn hộ chúng tôi có vườn rộng nhưng không có tiền mua xe.</span></li>
+        <li onclick="speakText('Last summer my uncle told a funny story about his sharp garden tools.',0.75)">Last s<span class="hs">u</span>mmer my <span class="hs">u</span>ncle told a f<span class="hs">u</span>nny story about his sh<span class="hl">ar</span>p g<span class="hl">ar</span>den tools.<span class="ipa-s">/lɑːst ˈsʌm.ər maɪ ˈʌŋ.kəl təʊld ə ˈfʌn.i ˈstɔːr.i əˈbaʊt hɪz ʃɑːp ˈɡɑː.dən tuːlz/</span><span class="vi-s">🇻🇳 Mùa hè vừa rồi cậu tôi kể một câu chuyện hài về những dụng cụ làm vườn sắc bén của ông.</span></li>
+        <li onclick="speakText('She runs to the market every Sunday morning, come rain or sun.',0.75)">She r<span class="hs">u</span>ns to the m<span class="hl">ar</span>ket every S<span class="hs">u</span>nday morning, c<span class="hs">o</span>me rain or s<span class="hs">u</span>n.<span class="ipa-s">/ʃiː rʌnz tə ðə ˈmɑː.kɪt ˈev.ri ˈsʌn.deɪ ˈmɔː.nɪŋ | kʌm reɪn ɔː sʌn/</span><span class="vi-s">🇻🇳 Cô ấy chạy ra chợ mỗi sáng Chủ nhật, dù mưa hay nắng.</span></li>
+    </ul>
+</div>
+
+<!-- BỔ SUNG: ĐỊA KỸ THUẬT -->
+<div class="section" style="border:2px solid #1abc9c;">
+    <div class="section-title">🏗️ Từ &amp; Câu bổ sung — Địa kỹ thuật <span class="badge geo">🪨 Geotech</span></div>
+    <div class="word-grid">
+        <div class="word-card wl" onclick="speakText('embankment',0.8)"><div class="word">emb<span class="hl">a</span>nkment</div><div class="ipa">/ɪmˈbæŋk.mənt/</div><div class="vi">🇻🇳 đê đắp / bờ taluy</div></div>
+        <div class="word-card ws" onclick="speakText('undrained',0.8)"><div class="word"><span class="hs">u</span>ndr<span class="hs">ai</span>ned</div><div class="ipa">/ˌʌnˈdreɪnd/</div><div class="vi">🇻🇳 không thoát nước</div></div>
+        <div class="word-card wl" onclick="speakText('hard pan',0.8)"><div class="word">h<span class="hl">ar</span>d pan</div><div class="ipa">/hɑːd pæn/</div><div class="vi">🇻🇳 lớp đất cứng</div></div>
+        <div class="word-card ws" onclick="speakText('subsurface',0.8)"><div class="word">s<span class="hs">u</span>bsurface</div><div class="ipa">/ˈsʌb.sɜː.fɪs/</div><div class="vi">🇻🇳 bề mặt dưới</div></div>
+        <div class="word-card wl" onclick="speakText('large scale',0.8)"><div class="word">l<span class="hl">ar</span>ge scale</div><div class="ipa">/lɑːdʒ skeɪl/</div><div class="vi">🇻🇳 quy mô lớn</div></div>
+        <div class="word-card ws" onclick="speakText('strut',0.8)"><div class="word">str<span class="hs">u</span>t</div><div class="ipa">/strʌt/</div><div class="vi">🇻🇳 thanh chống</div></div>
+    </div>
+    <ul class="sentence-list long-list">
+        <li onclick="speakText('Undrained shear strength was measured along the hard pan layer at depth.',0.75)"><span class="hs">U</span>ndr<span class="hs">ai</span>ned she<span class="hl">ar</span> strength was meas<span class="hs">u</span>red along the h<span class="hl">ar</span>d pan l<span class="hl">ay</span>er at depth.<span class="ipa-s">/ˌʌnˈdreɪnd ʃɪər streŋθ wəz ˈmeʒ.əd əˈlɒŋ ðə hɑːd pæn ˈleɪ.ər æt depθ/</span><span class="vi-s">🇻🇳 Sức kháng cắt không thoát nước được đo dọc theo lớp đất cứng ở độ sâu.</span></li>
+        <li onclick="speakText('A large scale embankment was constructed on the subsurface clay.',0.75)">A l<span class="hl">ar</span>ge sc<span class="hl">a</span>le emb<span class="hl">a</span>nkment was constr<span class="hs">u</span>cted on the s<span class="hs">u</span>bsurf<span class="hl">a</span>ce cl<span class="hl">a</span>y.<span class="ipa-s">/ə lɑːdʒ skeɪl ɪmˈbæŋk.mənt wəz kənˈstrʌk.tɪd ɒn ðə ˈsʌb.sɜː.fɪs kleɪ/</span><span class="vi-s">🇻🇳 Một con đê quy mô lớn được xây dựng trên lớp sét bên dưới.</span></li>
+        <li onclick="speakText('The strut was cut and the hard soil under the structure was examined.',0.75)">The str<span class="hs">u</span>t was c<span class="hs">u</span>t and the h<span class="hl">ar</span>d soil <span class="hs">u</span>nder the str<span class="hs">u</span>cture was ex<span class="hl">a</span>mined.<span class="ipa-s">/ðə strʌt wəz kʌt ænd ðə hɑːd sɔɪl ˈʌn.dər ðə ˈstrʌk.tʃər wəz ɪɡˈzæm.ɪnd/</span><span class="vi-s">🇻🇳 Thanh chống bị cắt và đất cứng bên dưới kết cấu được kiểm tra.</span></li>
+    </ul>
+    <div class="geo-box">
+        <div class="geo-title">🪨 Kinh nghiệm phát âm từ chuyên ngành</div>
+        <div class="geo-content">
+            • <strong>embankment</strong>: "em-BANK-ment" — nhấn vào "-BANK-" · /ɪmˈbæŋk.mənt/<br>
+            • <strong>undrained</strong>: "un-DRAINED" — /ʌ/ trong "un-" · /ˌʌnˈdreɪnd/<br>
+            • <strong>subsurface</strong>: "SUB-sur-face" — /ʌ/ trong "sub-" · /ˈsʌb.sɜː.fɪs/<br>
+            • <strong>structure</strong>: "STRUC-ture" — /ʌ/ trong "struc" · /ˈstrʌk.tʃər/<br>
+            • <strong>large scale</strong>: cả hai chữ đều có /ɑː/ — "LARGE SCALE" · /lɑːdʒ skeɪl/
+        </div>
+    </div>
+</div>
+
+<!-- KINH NGHIỆM -->
+<div class="section" style="border:2px solid #f39c12;">
+    <div class="section-title">💡 Kinh nghiệm phát âm <span class="badge tip">🔥 Quan trọng</span></div>
+    <div class="tip-box">
+        <div class="tip-title">🎯 5 bí quyết phát âm /ɑː/ và /ʌ/ chuẩn</div>
+        <div class="tip-content">
+            <p><strong>1. /ɑː/ — há miệng "đến bác sĩ"</strong><br>
+            Khi bác sĩ bảo "nói ahhh" = đúng /ɑː/. Hàm phải thả xuống thật thấp.<br>
+            after, father, car, park — há miệng rộng, giữ âm DÀI.</p>
+            <p><strong>2. /ʌ/ — ngắn và trung tính</strong><br>
+            Nói "uh" nhanh, không cầu kỳ. Miệng vừa mở, cơ thư giãn.<br>
+            mother, bus, cup, lunch — đừng há miệng quá rộng.</p>
+            <p><strong>3. Cẩn thận với chữ "o" = /ʌ/</strong><br>
+            love /lʌv/, come /kʌm/, Monday /ˈmʌn.deɪ/, London /ˈlʌn.dən/<br>
+            Người Việt hay đọc những từ này là /ɒ/ — sai!</p>
+            <p><strong>4. "ou" = /ʌ/ trong nhiều từ phổ biến</strong><br>
+            country /ˈkʌn.tri/, young /jʌŋ/, enough /ɪˈnʌf/, colour /ˈkʌl.ər/<br>
+            Đừng đọc là "ou" = /aʊ/ như trong "out"!</p>
+            <p><strong>5. Luyện từ theo cặp /ɑː/ và /ʌ/</strong><br>
+            father/mother, car/cup, park/pub, heart/hut, start/strut<br>
+            Xen kẽ để cảm nhận sự khác biệt về độ mở miệng.</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-warning" onclick="speakText('heart hut. car cup. park pub. dark duck. barn bun.',0.55)">🔊 Minimal pairs /ɑː/ vs /ʌ/</button>
+        <button class="btn btn-warning" onclick="speakText('love come Monday London colour country young enough.',0.7)">🔊 o/ou = /ʌ/</button>
+    </div>
+</div>
+
+<!-- EX 4.1 — Sort words with /ɑː/ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 4.1 — Phân loại từ có /ɑː/ <span class="badge">Bài tập sách</span></div>
+    <p>Phân các từ sau vào đúng cột: từ có âm /ɑː/ hoặc nguyên âm khác.</p>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 Click từ để đánh dấu <strong style="color:#8b3a10;">/ɑː/</strong> (cam) · Click lại để bỏ.<br>
+            💡 <em>Các từ: artist, garden, March, part, square, talk, warm, watch</em>
+        </div>
+        <div class="classify-words" id="ex41Words"></div>
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx41()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx41()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx41()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score41" class="score-box"></div>
+    </div>
+</div>
+
+<!-- EX 4.2 — Sort words with /ʌ/ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 4.2 — Phân loại từ có /ʌ/ <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 Click từ để đánh dấu <strong style="color:#1a4a9a;">/ʌ/</strong> (xanh) · Click lại để bỏ.<br>
+            💡 <em>Các từ: business, country, fun, home, lots, money, mother, push</em>
+        </div>
+        <div class="classify-words" id="ex42Words"></div>
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx42()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx42()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx42()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score42" class="score-box"></div>
+    </div>
+</div>
+
+<!-- EX 4.3 — Complete sentences with /ɑː/ and /ʌ/ words -->
+<div class="section">
+    <div class="section-title">📝 Exercise 4.3 — Điền một từ /ɑː/ và một từ /ʌ/ <span class="badge">Bài tập sách</span></div>
+    <p>Điền một từ /ɑː/ và một từ /ʌ/ vào mỗi câu. Từ có sẵn: <strong>butter · carpet · dark · hard · husband · love · Prague · son</strong></p>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🎧 Nghe câu → Gõ từ thích hợp → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Mỗi câu cần 1 từ /ɑː/ và 1 từ /ʌ/ từ danh sách trên.</em>
+        </div>
+        <div id="ex43Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx43()">🔊 Nghe tất cả</button>
+            <button class="btn btn-warning" onclick="checkEx43()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx43()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx43()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score43" class="score-box"></div>
+    </div>
+</div>
+
+<!-- EX 4.4 — minimal pairs choose -->
+<div class="section">
+    <div class="section-title">📝 Exercise 4.4 — Chọn từ bạn nghe <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🔊 Nhấn ▶️ Nghe → Chọn từ đúng → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Phân biệt /ɑː/ vs /ʌ/ và các cặp nguyên âm liên quan.</em>
+        </div>
+        <div class="choice-items" id="ex44Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx44Random()">🔊 Tạo câu hỏi mới</button>
+            <button class="btn btn-warning" onclick="checkEx44()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx44()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx44()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score44" class="score-box"></div>
+    </div>
+</div>
+
+<!-- TỔNG KẾT -->
+<div class="section" style="border:2px solid #8e44ad;">
+    <div class="section-title">📌 Tổng kết <span class="badge" style="background:#f5eef8;color:#7d3c98;">✅ Checklist</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px;line-height:1.9;">
+        <div style="background:#fdf0e8;padding:12px 14px;border-radius:10px;border:1px solid #c0550a;">✅ <strong>/ɑː/ DÀI</strong> — miệng mở rộng, lưỡi phẳng, há hàm</div>
+        <div style="background:#e8f0fd;padding:12px 14px;border-radius:10px;border:1px solid #1a4a9a;">✅ <strong>/ʌ/ NGẮN</strong> — miệng vừa, thư giãn, trung tính</div>
+        <div style="background:#fdf0e8;padding:12px 14px;border-radius:10px;border:1px solid #c0550a;">✅ <strong>/ɑː/ viết</strong> — a, ar, au, augh, ear (heart)</div>
+        <div style="background:#e8f0fd;padding:12px 14px;border-radius:10px;border:1px solid #1a4a9a;">✅ <strong>/ʌ/ viết</strong> — u, ou, o (love, Monday)</div>
+        <div style="background:#fdf0e8;padding:12px 14px;border-radius:10px;border:1px solid #c0550a;">✅ <strong>half = /hɑːf/</strong> — l câm!</div>
+        <div style="background:#e8f0fd;padding:12px 14px;border-radius:10px;border:1px solid #1a4a9a;">✅ <strong>one = /wʌn/, son = sun = /sʌn/</strong></div>
+    </div>
+</div>
+
+<div style="text-align:center;padding:20px 0 10px;color:#95a5a6;font-size:14px;border-top:1px solid #e2e8f0;margin-top:10px;">
+    <p>👨‍👩‍👧 <strong>"Father and mother"</strong> — /ɑː/ há rộng DÀI · /ʌ/ thư giãn NGẮN!</p>
+    <p style="margin-top:4px;font-size:13px;"><a href="../index.html" style="color:#8b3a10;font-weight:600;">← Về trang chủ</a></p>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let curUtt=null,_voices=[];
+function _loadVoices(){_voices=speechSynthesis.getVoices();if(_voices.length===0)setTimeout(_loadVoices,200);}
+function _bestVoice(){
+    const prefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+    for(const p of prefs){const v=_voices.find(x=>x.name.includes(p));if(v)return v;}
+    return _voices.find(x=>x.lang.startsWith("en")&&!x.name.toLowerCase().includes("male"))||_voices.find(x=>x.lang.startsWith("en"))||null;
+}
+function speakText(t,rate=0.85){
+    if(!window.speechSynthesis)return;
+    speechSynthesis.cancel();
+    const clean=t.replace(/<[^>]*>/g,"").trim();
+    function doSpeak(){
+        const u=new SpeechSynthesisUtterance(clean);
+        u.lang="en-US";u.rate=rate;u.pitch=1.05;u.volume=1.0;
+        const v=_bestVoice();if(v)u.voice=v;
+        curUtt=u;u.onend=()=>curUtt=null;speechSynthesis.speak(u);
+    }
+    if(_voices.length>0)doSpeak();else{_loadVoices();setTimeout(doSpeak,350);}
+}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);}
+function showScore(id,correct,total,extra){
+    const pct=Math.round(correct/total*100);
+    let cls="try",emoji="😅",msg="Cần luyện thêm!";
+    if(pct>=90){cls="great";emoji="🎉";msg="Xuất sắc!";}
+    else if(pct>=65){cls="good";emoji="👍";msg="Khá tốt!";}
+    const el=document.getElementById("score"+id);
+    el.className=`score-box show ${cls}`;
+    el.innerHTML=`<div class="big-score">${emoji} ${pct}%</div><strong>${msg}</strong> — Đúng <strong>${correct}/${total}</strong>.<div class="score-meter"><div class="score-meter-fill" style="width:${pct}%;background:${pct>=90?"#27ae60":pct>=65?"#f39c12":"#e74c3c"}"></div></div>${extra||""}`;
+    showToast("Kết quả: "+pct+"%");
+}
+if(window.speechSynthesis){_loadVoices();speechSynthesis.onvoiceschanged=_loadVoices;}
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(4)){c.push(4);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+
+// EX 4.1 — classify /ɑː/ words
+const EX41=[
+    {w:"artist",t:"l",ipa:"/ˈɑː.tɪst/"},{w:"garden",t:"l",ipa:"/ˈɡɑː.dən/"},{w:"March",t:"l",ipa:"/mɑːtʃ/"},
+    {w:"part",t:"l",ipa:"/pɑːt/"},{w:"square",t:"n",ipa:"/skweər/"},{w:"talk",t:"n",ipa:"/tɔːk/"},
+    {w:"warm",t:"n",ipa:"/wɔːm/"},{w:"watch",t:"n",ipa:"/wɒtʃ/"},
+];
+const ex41State={};
+function buildEx41(){
+    const c=document.getElementById("ex41Words");c.innerHTML="";
+    EX41.forEach((item,i)=>{ex41State[i]=false;c.innerHTML+=`<span class="classify-chip" id="chip41_${i}" onclick="toggleChip41(${i},'${item.w}')">${item.w}</span>`;});
+}
+function toggleChip41(i,w){ex41State[i]=!ex41State[i];document.getElementById(`chip41_${i}`).classList.toggle("marked-long",ex41State[i]);if(ex41State[i])speakText(w,0.8);}
+function checkEx41(){
+    let correct=0,total=EX41.length;
+    EX41.forEach((item,i)=>{
+        const el=document.getElementById(`chip41_${i}`);
+        el.classList.remove("marked-long","correct-chip","wrong-chip");
+        const marked=ex41State[i];
+        if(item.t==="l"&&marked){el.classList.add("correct-chip");correct++;}
+        else if(item.t==="n"&&!marked){el.classList.add("correct-chip");correct++;}
+        else{el.classList.add("wrong-chip");}
+    });
+    showScore("41",correct,total,"<br><em style='font-size:13px;'>🟠 = /ɑː/ đúng · ⬜ = không có /ɑː/</em>");
+}
+function resetEx41(){EX41.forEach((_,i)=>{ex41State[i]=false;const el=document.getElementById(`chip41_${i}`);el.className="classify-chip";});document.getElementById("score41").className="score-box";showToast("Đã đặt lại!");}
+function revealEx41(){
+    EX41.forEach((item,i)=>{
+        ex41State[i]=item.t==="l";
+        const el=document.getElementById(`chip41_${i}`);
+        el.classList.remove("marked-long","wrong-chip");
+        el.classList.add("correct-chip");
+        if(item.t==="l"){el.style.background="#8b3a10";el.style.color="white";}
+        else{el.style.background="#27ae60";el.style.color="white";}
+    });
+    document.getElementById("score41").className="score-box info show";
+    document.getElementById("score41").innerHTML="<strong>/ɑː/:</strong> "+EX41.filter(x=>x.t==="l").map(x=>`${x.w} <small>${x.ipa}</small>`).join(", ")+"<br><strong>Nguyên âm khác:</strong> "+EX41.filter(x=>x.t==="n").map(x=>`${x.w} <small>${x.ipa}</small>`).join(", ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// EX 4.2 — classify /ʌ/ words
+const EX42=[
+    {w:"business",t:"n",ipa:"/ˈbɪz.nɪs/"},{w:"country",t:"s",ipa:"/ˈkʌn.tri/"},{w:"fun",t:"s",ipa:"/fʌn/"},
+    {w:"home",t:"n",ipa:"/həʊm/"},{w:"lots",t:"n",ipa:"/lɒts/"},{w:"money",t:"s",ipa:"/ˈmʌn.i/"},
+    {w:"mother",t:"s",ipa:"/ˈmʌð.ər/"},{w:"push",t:"n",ipa:"/pʊʃ/"},
+];
+const ex42State={};
+function buildEx42(){
+    const c=document.getElementById("ex42Words");c.innerHTML="";
+    EX42.forEach((item,i)=>{ex42State[i]=false;c.innerHTML+=`<span class="classify-chip" id="chip42_${i}" onclick="toggleChip42(${i},'${item.w}')">${item.w}</span>`;});
+}
+function toggleChip42(i,w){ex42State[i]=!ex42State[i];document.getElementById(`chip42_${i}`).classList.toggle("marked-short",ex42State[i]);if(ex42State[i])speakText(w,0.8);}
+function checkEx42(){
+    let correct=0,total=EX42.length;
+    EX42.forEach((item,i)=>{
+        const el=document.getElementById(`chip42_${i}`);
+        el.classList.remove("marked-short","correct-chip","wrong-chip");
+        const marked=ex42State[i];
+        if(item.t==="s"&&marked){el.classList.add("correct-chip");el.style.background="#27ae60";el.style.color="white";correct++;}
+        else if(item.t==="n"&&!marked){el.classList.add("correct-chip");el.style.background="#27ae60";el.style.color="white";correct++;}
+        else{el.classList.add("wrong-chip");el.style.background="#e74c3c";el.style.color="white";}
+    });
+    showScore("42",correct,total);
+}
+function resetEx42(){EX42.forEach((_,i)=>{ex42State[i]=false;const el=document.getElementById(`chip42_${i}`);el.className="classify-chip";el.style.background="";el.style.color="";});document.getElementById("score42").className="score-box";showToast("Đã đặt lại!");}
+function revealEx42(){
+    EX42.forEach((item,i)=>{
+        const el=document.getElementById(`chip42_${i}`);
+        el.classList.remove("marked-short","wrong-chip");
+        el.classList.add("correct-chip");
+        el.style.color="white";
+        el.style.background=item.t==="s"?"#1a4a9a":"#27ae60";
+    });
+    document.getElementById("score42").className="score-box info show";
+    document.getElementById("score42").innerHTML="<strong>/ʌ/:</strong> "+EX42.filter(x=>x.t==="s").map(x=>`${x.w} <small>${x.ipa}</small>`).join(", ")+"<br><strong>Nguyên âm khác:</strong> "+EX42.filter(x=>x.t==="n").map(x=>`${x.w} <small>${x.ipa}</small>`).join(", ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// EX 4.3 — pair fill
+const EX43=[
+    {num:1,template:"The <input id='a43_1a'> 's too <input id='a43_1b'>.",
+     ans1:"butter",ans2:"hard",audio:"The butter's too hard.",vi:"Bơ quá cứng."},
+    {num:2,template:"I'd <input id='a43_2a'> to buy that <input id='a43_2b'>!",
+     ans1:"love",ans2:"carpet",audio:"I'd love to buy that carpet!",vi:"Tôi muốn mua tấm thảm đó!"},
+    {num:3,template:"Their <input id='a43_3a'>'s got <input id='a43_3b'> hair.",
+     ans1:"son",ans2:"dark",audio:"Their son's got dark hair.",vi:"Con trai họ có tóc tối màu."},
+    {num:4,template:"I first met my <input id='a43_4a'> in <input id='a43_4b'>.",
+     ans1:"husband",ans2:"Prague",audio:"I first met my husband in Prague.",vi:"Tôi gặp chồng tôi lần đầu ở Prague."},
+];
+function buildEx43(){
+    const c=document.getElementById("ex43Items");c.innerHTML="";
+    EX43.forEach(item=>{
+        c.innerHTML+=`<div class="pair-fill-item">
+            <span class="num">${item.num}.</span>
+            <span>${item.template.replace(/<input id='([^']+)'>/g,(m,id)=>`<input type="text" id="${id}" placeholder="?" autocomplete="off" style="border:2px solid #c0550a;border-radius:8px;padding:4px 10px;font-size:14px;outline:none;min-width:70px;max-width:120px;font-family:'Segoe UI',sans-serif;">`)}</span>
+            <button class="btn btn-long" style="padding:3px 10px;font-size:11px;" onclick="speakText('${item.audio}',0.75)">🔊</button>
+            <span class="vi-text" style="font-size:12px;padding:2px 8px;">🇻🇳 ${item.vi}</span>
+        </div>`;
+    });
+}
+function speakEx43(){EX43.forEach(x=>speakText(x.audio,0.75));}
+function checkEx43(){
+    let correct=0,total=0;
+    EX43.forEach((item,i)=>{
+        const n=i+1;
+        const inp1=document.getElementById(`a43_${n}a`);
+        const inp2=document.getElementById(`a43_${n}b`);
+        [inp1,inp2].forEach((inp,j)=>{
+            if(!inp)return;total++;
+            const ans=j===0?item.ans1:item.ans2;
+            if(inp.value.trim().toLowerCase()===ans.toLowerCase()){inp.style.background="#d5f5e3";inp.style.borderColor="#27ae60";correct++;}
+            else{inp.style.background="#fadbd8";inp.style.borderColor="#e74c3c";}
+        });
+    });
+    showScore("43",correct,total);
+}
+function resetEx43(){
+    EX43.forEach((_,i)=>{const n=i+1;["a","b"].forEach(s=>{const inp=document.getElementById(`a43_${n}${s}`);if(inp){inp.value="";inp.style.background="";inp.style.borderColor="#c0550a";}});});
+    document.getElementById("score43").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx43(){
+    EX43.forEach((item,i)=>{
+        const n=i+1;
+        const inp1=document.getElementById(`a43_${n}a`);const inp2=document.getElementById(`a43_${n}b`);
+        if(inp1){inp1.value=item.ans1;inp1.style.background="#d5f5e3";inp1.style.borderColor="#27ae60";}
+        if(inp2){inp2.value=item.ans2;inp2.style.background="#d5f5e3";inp2.style.borderColor="#27ae60";}
+    });
+    document.getElementById("score43").className="score-box info show";
+    document.getElementById("score43").innerHTML="<strong>Đáp án:</strong><br>"+EX43.map(x=>`${x.num}. <strong>${x.ans1}</strong> &amp; <strong>${x.ans2}</strong> — <em style='color:#27ae60;font-size:13px;'>🇻🇳 ${x.vi}</em>`).join("<br>");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// EX 4.4 — minimal pairs
+const EX44=[
+    {num:1,pair:["heart","hat"],soundPair:"(→ sound pair 7)"},
+    {num:2,pair:["far","four"],soundPair:"(→ sound pair 8)"},
+    {num:3,pair:["cat","cut"],soundPair:"(→ sound pair 9)"},
+    {num:4,pair:["look","luck"],soundPair:"(→ sound pair 5)"},
+    {num:5,pair:["luck","lock"],soundPair:"(→ sound pair 10)"},
+    {num:6,pair:["butter","better"],soundPair:"(→ sound pair 18)"},
+    {num:7,pair:["car","cup"],soundPair:"/ɑː/ vs /ʌ/"},
+    {num:8,pair:["dark","duck"],soundPair:"/ɑː/ vs /ʌ/"},
+];
+let ex44Correct=[];
+function initEx44(){ex44Correct=EX44.map(()=>Math.floor(Math.random()*2));}
+function buildEx44(){
+    initEx44();
+    const c=document.getElementById("ex44Items");c.innerHTML="";
+    EX44.forEach((item,i)=>{
+        c.innerHTML+=`<div class="choice-item">
+            <span class="num">${item.num}.</span> <span style="font-size:13px;color:#888;">${item.soundPair}</span><br>
+            ${item.pair.map((w,j)=>`<span class="choice-btn" id="cb44_${i}_${j}" onclick="selC44(${i},${j})">${w}</span>`).join("")}
+            <button class="btn btn-long" style="padding:3px 10px;font-size:11px;margin-left:4px;" onclick="speakText('${item.pair[ex44Correct[i]]}',0.65)">▶️ Nghe</button>
+        </div>`;
+    });
+}
+function selC44(i,j){[0,1].forEach(k=>document.getElementById(`cb44_${i}_${k}`).classList.remove("sel-l","sel-s"));document.getElementById(`cb44_${i}_${j}`).classList.add(j===0?"sel-l":"sel-s");}
+function speakEx44Random(){initEx44();buildEx44();showToast("Câu hỏi mới! Nhấn ▶️ trên từng dòng.");}
+function checkEx44(){
+    let correct=0;
+    EX44.forEach((_,i)=>{
+        const ans=ex44Correct[i];
+        [0,1].forEach(j=>{
+            const el=document.getElementById(`cb44_${i}_${j}`);if(!el)return;
+            const chosen=el.classList.contains("sel-l")||el.classList.contains("sel-s");
+            el.style.pointerEvents="none";
+            if(j===ans){if(chosen){el.classList.add("correct-c");correct++;}else el.style.textDecoration="underline dotted #27ae60";}
+            else if(chosen)el.classList.add("wrong-c");
+        });
+    });
+    showScore("44",correct,EX44.length,"<br><em style='font-size:13px;'>Nhấn Làm lại để nghe bộ câu mới!</em>");
+}
+function resetEx44(){buildEx44();document.getElementById("score44").className="score-box";showToast("Đã đặt lại!");}
+function revealEx44(){
+    EX44.forEach((_,i)=>{const ans=ex44Correct[i];[0,1].forEach(j=>{const el=document.getElementById(`cb44_${i}_${j}`);if(!el)return;el.classList.remove("sel-l","sel-s","wrong-c");el.style.pointerEvents="none";if(j===ans)el.classList.add("correct-c");});});
+    document.getElementById("score44").className="score-box info show";
+    document.getElementById("score44").innerHTML="<strong>Đáp án:</strong> "+EX44.map((item,i)=>`${item.num}. <strong>${item.pair[ex44Correct[i]]}</strong>`).join(" | ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+document.addEventListener("DOMContentLoaded",()=>{buildEx41();buildEx42();buildEx43();buildEx44();});
+</script>
+</body>
+</html>

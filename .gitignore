@@ -1,0 +1,15 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+
+# Local dev server (không đưa lên GitHub)
+serve.ps1
+
+# Temp
+*.tmp
+*.bak

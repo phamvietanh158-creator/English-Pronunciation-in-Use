@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 17 – Fresh fish, usually – /ʃ/ and /ʒ/</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#7a1a5a 0%,#4a0a38 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 18px;font-size:1.2rem;font-weight:800}
+.header h1{font-size:1.35rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#7a1a5a;border-bottom:2px solid #f0b8da;padding-bottom:8px;margin-bottom:14px}
+.diagram-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px}
+.diag-card{border-radius:12px;padding:16px;border:1.5px solid}
+.diag-card.sh{background:#fff0f8;border-color:#c060a0}
+.diag-card.zh{background:#f0f8ff;border-color:#6080c0}
+.diag-card h3{font-size:1.4rem;font-weight:800;margin-bottom:8px}
+.diag-card.sh h3{color:#7a1a5a}
+.diag-card.zh h3{color:#204080}
+.diag-card p{font-size:0.83rem;color:#555;line-height:1.5}
+.ipa{font-style:italic;color:#c0392b;font-weight:700}
+.hl-sh{color:#7a1a5a;font-weight:800}
+.hl-zh{color:#204080;font-weight:800}
+.spell-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.spell-table th{background:#7a1a5a;color:#fff;padding:9px 12px;text-align:left}
+.spell-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.spell-table tr:nth-child(even) td{background:#fff0f8}
+.spell-table .zh-row td{background:#f0f8ff}
+.spell-table .zh-row:nth-child(even) td{background:#e0ecff}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:110px;text-align:center;border:1.5px solid}
+.word-card.sh-card{background:#fff0f8;border-color:#c060a0}
+.word-card.zh-card{background:#f0f8ff;border-color:#8090d0}
+.word-card:hover{transform:translateY(-2px)}
+.word-card.sh-card:hover{background:#7a1a5a;color:#fff}
+.word-card.zh-card:hover{background:#204080;color:#fff}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card:hover .ipa2{color:#fde}
+.word-card .vn{font-size:0.78rem;margin-top:2px}
+.word-card.sh-card .vn{color:#7a1a5a}
+.word-card.zh-card .vn{color:#204080}
+.word-card:hover .vn{color:#ffe}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{border-radius:9px;padding:10px 14px;cursor:pointer;transition:background 0.2s}
+.sentence-list li.sh-sent{background:#fff0f8;border-left:4px solid #7a1a5a}
+.sentence-list li.zh-sent{background:#f0f8ff;border-left:4px solid #204080}
+.sentence-list li:hover{opacity:0.8}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;margin-top:2px}
+.sh-sent .sent-vn{color:#7a1a5a}
+.zh-sent .sent-vn{color:#204080}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.note-box{background:#fff8e1;border:1px dashed #f5c518;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.85rem}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+.recipe-box{background:#f8f8f8;border:2px solid #ccc;border-radius:12px;padding:20px;font-size:0.9rem;line-height:2;font-family:Georgia,serif}
+.recipe-box h3{text-align:center;font-size:1.2rem;margin-bottom:14px;color:#7a1a5a}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-pink{background:#7a1a5a;color:#fff}.btn-pink:hover{background:#4a0a38}
+.btn-navy{background:#204080;color:#fff}.btn-navy:hover{background:#102060}
+.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.ex-wrap{border:1.5px solid #f0b8da;border-radius:12px;padding:18px;margin-bottom:16px;background:#fff8fc}
+.ex-label{display:inline-block;background:#7a1a5a;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
+.fill-item input{border:none;border-bottom:2px solid #f0b8da;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:120px;color:#7a1a5a;font-weight:600}
+.fill-item input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-item input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.ipa-card{background:#fff0f8;border:1.5px solid #f0b8da;border-radius:10px;padding:10px 14px;margin:5px 0;display:flex;align-items:center;gap:12px;cursor:pointer;transition:background 0.2s}
+.ipa-card:hover{background:#fdd5ee}
+.ipa-card .ipa-text{font-size:1.05rem;font-weight:700;color:#7a1a5a;min-width:100px}
+.ipa-card input{border:none;border-bottom:2px solid #f0b8da;background:transparent;font-size:0.95rem;padding:2px 5px;outline:none;width:130px;color:#222;font-weight:600}
+.ipa-card input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.ipa-card input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.classify-chip{display:inline-block;border-radius:20px;padding:6px 14px;cursor:pointer;font-size:0.87rem;font-weight:600;transition:all 0.18s;user-select:none;margin:3px;border:2px solid #ccc;background:#f5f5f5}
+.classify-chip.sel-sh{background:#7a1a5a;color:#fff;border-color:#7a1a5a}
+.classify-chip.sel-zh{background:#204080;color:#fff;border-color:#204080}
+.col-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+.col-box{border-radius:9px;padding:10px;min-height:70px;border:2px solid}
+.col-box.sh-col{background:#fff0f8;border-color:#c060a0}
+.col-box.zh-col{background:#f0f8ff;border-color:#8090d0}
+.col-box h5{font-size:0.85rem;font-weight:700;margin-bottom:6px}
+.col-box.sh-col h5{color:#7a1a5a}
+.col-box.zh-col h5{color:#204080}
+.col-chips{display:flex;flex-wrap:wrap;gap:5px;min-height:30px}
+.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 17</span>
+    <span class="phoneme-badge">/ʃ/ &amp; /ʒ/</span>
+  </div>
+  <h1>Fresh fish, usually – /ʃ/ and /ʒ/</h1>
+  <div class="sub">Phụ âm xát /ʃ/ (vô thanh – shop) và /ʒ/ (hữu thanh – television)</div>
+</div>
+<div id="toast" class="toast"></div>
+<div class="container">
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết phát âm</div>
+  <div class="diagram-row">
+    <div class="diag-card sh">
+      <h3>/ʃ/ – SHOP</h3>
+      <p>
+        <b>Vị trí:</b> Lưỡi hướng lên vòm miệng, chạm nhẹ hai bên răng. Môi hơi chúm lại.<br>
+        <b>Hơi thở:</b> Thổi hơi mạnh — <b>không có rung</b> cổ họng.<br>
+        🔇 <b>Vô thanh</b> (voiceless)<br><br>
+        <b>🇻🇳 So sánh:</b> Gần giống /x/ trong "khuya" hay "xuân" nhưng lưỡi cao hơn và môi chúm.<br><br>
+        <b>Cách viết chính:</b> <b>sh</b> (shop, fashion, cash, fresh, wash, mushroom)<br>
+        <b>Ngoại lệ:</b> c→ocean, ch→machine, ci→delicious, s→sugar, ss→Russia, ti→international
+      </p>
+    </div>
+    <div class="diag-card zh">
+      <h3>/ʒ/ – TELEVISION</h3>
+      <p>
+        <b>Vị trí:</b> Giống /ʃ/ — lưỡi hướng lên vòm miệng, môi chúm.<br>
+        <b>Hơi thở:</b> Hơi ít hơn, <b>cổ họng rung</b>.<br>
+        🔊 <b>Hữu thanh</b> (voiced)<br><br>
+        <b>🇻🇳 Không có âm tương đương!</b><br><br>
+        <b>⚠️ Rất ít từ có /ʒ/ trong tiếng Anh!</b><br>
+        Chính tả: <b>si</b> → tele<b>vi</b>sion, <b>s</b> → A<b>s</b>ia, u<b>s</b>ually<br>
+        <b>A: Do you like sport?<br>B: Yes … but only on television, usually!</b>
+      </p>
+    </div>
+  </div>
+
+  <table class="spell-table">
+    <tr><th colspan="3" style="background:#7a1a5a">🔴 Cách viết âm /ʃ/</th></tr>
+    <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+    <tr><td><b>sh</b></td><td><em><span class="hl-sh">sh</span>op, fa<span class="hl-sh">sh</span>ion, ca<span class="hl-sh">sh</span>, fre<span class="hl-sh">sh</span>, wa<span class="hl-sh">sh</span>, mu<span class="hl-sh">sh</span>room</em></td><td>Phổ biến nhất</td></tr>
+    <tr><td><b>c</b></td><td><em>o<span class="hl-sh">c</span>ean</em></td><td>Hiếm</td></tr>
+    <tr><td><b>ch</b></td><td><em>ma<span class="hl-sh">ch</span>ine</em></td><td>Từ gốc Pháp</td></tr>
+    <tr><td><b>ci / ti</b></td><td><em>deli<span class="hl-sh">ci</span>ous, spe<span class="hl-sh">ci</span>al, interna<span class="hl-sh">ti</span>onal</em></td><td>Trước nguyên âm</td></tr>
+    <tr><td><b>s / ss</b></td><td><em><span class="hl-sh">s</span>ugar, <span class="hl-sh">s</span>ure, Ru<span class="hl-sh">ss</span>ia</em></td><td>Trước 'u' hoặc trong tên riêng</td></tr>
+    <tr><th colspan="3" style="background:#204080;color:#fff">🔵 Cách viết âm /ʒ/ (rất ít!)</th></tr>
+    <tr class="zh-row"><td><b>si / s</b></td><td><em>tele<span class="hl-zh">vi</span><span class="hl-zh">si</span>on, A<span class="hl-zh">s</span>ia, u<span class="hl-zh">s</span>ually</em></td><td>Giữa nguyên âm</td></tr>
+  </table>
+
+  <div class="tip-box">
+    <b>💡 Mẹo phân biệt /ʃ/ và /ʒ/:</b><br>
+    Cả hai đều có môi chúm và lưỡi hướng lên — khác biệt duy nhất là /ʒ/ có rung cổ họng.<br>
+    <b>shoe /ʃuː/</b> vs <b>choose /tʃuːz/</b> &nbsp;|&nbsp; <b>shop /ʃ/</b> vs <b>usual /ʒ/</b><br>
+    /ʒ/ thường xuất hiện GIỮA nguyên âm: tele<b>vi</b>sion, A<b>s</b>ia, u<b>s</b>ually
+  </div>
+
+  <div class="note-box">
+    ⚠️ <b>Đặc biệt: /ʒ/ rất hiếm!</b> Tiếng Anh có ít từ dùng /ʒ/ hơn nhiều so với /ʃ/.<br>
+    Các từ thông dụng: <em>television, Asia, usually, decision, pleasure, measure, treasure, vision, occasion</em>
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-pink" onclick="speakText('shop fashion cash fresh wash mushroom ocean machine delicious special sugar sure Russia international')">🔊 Nghe /ʃ/</button>
+    <button class="btn-navy" onclick="speakText('television Asia usually decision pleasure measure treasure vision')">🔊 Nghe /ʒ/</button>
+    <button class="btn-teal" onclick="speakText('shhhhh zhzhzhzh shhhhh zhzhzhzh',0.5)">🐢 So sánh /ʃ/ vs /ʒ/</button>
+  </div>
+</div>
+
+<!-- WORD GRID -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng</div>
+  <div style="display:flex;gap:10px;margin-bottom:8px;font-size:0.85rem">
+    <span style="background:#fff0f8;border:1.5px solid #c060a0;border-radius:8px;padding:4px 10px;color:#7a1a5a;font-weight:700">🔴 /ʃ/ shop</span>
+    <span style="background:#f0f8ff;border:1.5px solid #8090d0;border-radius:8px;padding:4px 10px;color:#204080;font-weight:700">🔵 /ʒ/ television</span>
+  </div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-pink" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> /ʃ/ xuất hiện trong các thuật ngữ:<br>
+    <em><b>sh</b>ear strength, <b>sh</b>eet pile, shale, cru<b>sh</b>ing, fre<b>sh</b> water | spe<b>ci</b>fication, ini<b>ti</b>al, essen<b>ti</b>al, foun<b>da</b><b>ti</b>on</em>
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 17.1: IPA → word -->
+  <div class="ex-wrap">
+    <span class="ex-label">17.1</span>
+    <div class="ex-instruction">Đọc phiên âm và gõ từ đúng. Ví dụ: <em>/ˈʃʊɡə/</em> → <b>sugar</b></div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 17.2: Recipe fill -->
+  <div class="ex-wrap">
+    <span class="ex-label">17.2</span>
+    <div class="ex-instruction">Hoàn thành công thức nấu ăn. Tất cả từ cần điền đều có âm /ʃ/.</div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx2()">🔊 Nghe công thức</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 17.3: fill sentences with /ʃ/ and /ʒ/ -->
+  <div class="ex-wrap">
+    <span class="ex-label">17.3</span>
+    <div class="ex-instruction">Điền từ đúng vào chỗ trống (có âm /ʃ/ hoặc /ʒ/).</div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx3()">🔊 Nghe câu</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 17.4: classify /ʃ/ or /ʒ/ -->
+  <div class="ex-wrap">
+    <span class="ex-label">17.4</span>
+    <div class="ex-instruction">Phân loại: âm nổi bật là <span style="color:#7a1a5a;font-weight:700">/ʃ/</span> hay <span style="color:#204080;font-weight:700">/ʒ/</span>?</div>
+    <div class="col-grid">
+      <div class="col-box sh-col"><h5>🔴 /ʃ/ (vô thanh)</h5><div class="col-chips" id="col_sh"></div></div>
+      <div class="col-box zh-col"><h5>🔵 /ʒ/ (hữu thanh)</h5><div class="col-chips" id="col_zh"></div></div>
+    </div>
+    <div id="chip_pool4" style="display:flex;flex-wrap:wrap;gap:7px;padding:10px;background:#f5f5f5;border-radius:8px;margin-bottom:8px"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- 17.5: minimal pairs -->
+  <div class="ex-wrap">
+    <span class="ex-label">17.5</span>
+    <div class="ex-instruction">Nghe và chọn từ đúng (minimal pairs /ʃ/ vs /s/, /tʃ/, /ʒ/).</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+// WORDS
+const words=[
+  {w:"shop",s:"sh",ipa:"/ʃɒp/",vn:"cửa hàng"},{w:"fashion",s:"sh",ipa:"/ˈfæʃən/",vn:"thời trang"},
+  {w:"fresh",s:"sh",ipa:"/freʃ/",vn:"tươi"},{w:"wash",s:"sh",ipa:"/wɒʃ/",vn:"rửa"},
+  {w:"mushroom",s:"sh",ipa:"/ˈmʌʃruːm/",vn:"nấm"},{w:"special",s:"sh",ipa:"/ˈspeʃəl/",vn:"đặc biệt"},
+  {w:"delicious",s:"sh",ipa:"/dɪˈlɪʃəs/",vn:"ngon"},{w:"sugar",s:"sh",ipa:"/ˈʃʊɡə/",vn:"đường"},
+  {w:"machine",s:"sh",ipa:"/məˈʃiːn/",vn:"máy móc"},{w:"international",s:"sh",ipa:"/ˌɪntəˈnæʃənəl/",vn:"quốc tế"},
+  {w:"television",s:"zh",ipa:"/ˈtelɪvɪʒən/",vn:"ti-vi"},{w:"Asia",s:"zh",ipa:"/ˈeɪʒə/",vn:"châu Á"},
+  {w:"usually",s:"zh",ipa:"/ˈjuːʒuəli/",vn:"thường thường"},{w:"decision",s:"zh",ipa:"/dɪˈsɪʒən/",vn:"quyết định"},
+  {w:"pleasure",s:"zh",ipa:"/ˈpleʒə/",vn:"niềm vui"},{w:"measure",s:"zh",ipa:"/ˈmeʒə/",vn:"đo lường"},
+  {w:"shear",s:"sh",ipa:"/ʃɪə/",vn:"cắt/trượt (địa kỹ thuật)"},{w:"specification",s:"sh",ipa:"/ˌspesɪfɪˈkeɪʃən/",vn:"thông số kỹ thuật"},
+];
+function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card ${w.s}-card" onclick="speakText('${w.w}')"><div class="word">${w.w}</div><div class="ipa2">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div></div>`).join('');}
+function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+
+// SENTENCES
+const sents=[
+  {en:"This is a very special pronunciation machine.",ipa:"/ðɪs ɪz ə ˈveri ˈspeʃəl prəˌnʌnsɪˈeɪʃən məˈʃiːn/",vn:"Đây là một cái máy phát âm rất đặc biệt.",s:"sh"},
+  {en:"All our food is fresh, and we serve delicious international specialities.",ipa:"/ɔːl aʊə fuːd ɪz freʃ ənd wi sɜːv dɪˈlɪʃəs ˌɪntəˈnæʃənəl ˌspeʃɪˈælɪtiz/",vn:"Tất cả thức ăn của chúng tôi đều tươi, và chúng tôi phục vụ các đặc sản quốc tế ngon tuyệt.",s:"sh"},
+  {en:"You didn't put sugar in my tea, did you? Are you sure?",ipa:"/jə ˈdɪdnt pʊt ˈʃʊɡər ɪn maɪ tiː dɪd jə ə jə ʃʊə/",vn:"Bạn không bỏ đường vào trà của tôi chứ? Bạn chắc chắn không?",s:"sh"},
+  {en:"A: Do you like sport? B: Yes … but only on television, usually!",ipa:"/də jə laɪk spɔːt jes bʌt ˈəʊnli ɒn ˈtelɪvɪʒən ˈjuːʒuəli/",vn:"A: Bạn có thích thể thao không? B: Có … nhưng chỉ trên tivi thôi, thường thường!",s:"zh"},
+  {en:"We're an international business based in Washington.",ipa:"/wɪər ən ˌɪntəˈnæʃənəl ˈbɪznɪs beɪst ɪn ˈwɒʃɪŋtən/",vn:"Chúng tôi là một doanh nghiệp quốc tế có trụ sở tại Washington.",s:"sh"},
+  {en:"Why are you shouting at that machine?",ipa:"/waɪ ə jə ˈʃaʊtɪŋ ət ðæt məˈʃiːn/",vn:"Tại sao bạn lại hét vào cái máy đó vậy?",s:"sh"},
+  {en:"The shear strength of the soil was measured at each station.",ipa:"/ðə ʃɪə streŋθ əv ðə sɔɪl wəz ˈmeʒəd ət iːtʃ ˈsteɪʃən/",vn:"Sức kháng cắt của đất được đo tại mỗi điểm.",s:"sh"},
+  {en:"The specification requires shale to be removed.",ipa:"/ðə ˌspesɪfɪˈkeɪʃən rɪˈkwaɪəz ʃeɪl tə bi rɪˈmuːvd/",vn:"Thông số kỹ thuật yêu cầu loại bỏ đá phiến.",s:"sh"},
+  {en:"The decision on foundation type was made after initial investigation.",ipa:"/ðə dɪˈsɪʒən ɒn faʊnˈdeɪʃən taɪp wəz meɪd ɑːftər ɪˈnɪʃəl ɪnˌvestɪˈɡeɪʃən/",vn:"Quyết định về loại móng được đưa ra sau khảo sát ban đầu.",s:"zh"},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li class="${s.s}-sent" onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// EX 1: IPA → word (from book 17.1)
+const ex1Book=[
+  {ipa:"/ˈʃʊɡə/",ans:"sugar",note:"ví dụ"},
+  {ipa:"/fɪʃ/",ans:"fish"},
+  {ipa:"/ˈsteɪʃən/",ans:"station"},
+  {ipa:"/ˈfɪnɪʃ/",ans:"finish"},
+  {ipa:"/ʃaʊt/",ans:"shout"},
+  {ipa:"/ʃɔːt/",ans:"short"},
+  {ipa:"/dɪʃ/",ans:"dish"},
+];
+function renderEx1(){
+  let html='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+  ex1Book.forEach((d,i)=>{
+    html+=`<div class="ipa-card" onclick="speakText('${d.ans}')">
+      <span class="ipa-text">${d.ipa}</span>
+      <input id="e1_${i}" type="text" placeholder="từ..." data-ans="${d.ans}">
+      ${d.note?`<span style="font-size:0.75rem;color:#888">(${d.note})</span>`:''}
+    </div>`;
+  });
+  html+='</div>';
+  document.getElementById('ex1Content').innerHTML=html;
+}
+function checkEx1(){let c=0;ex1Book.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);if(inp.value.trim().toLowerCase()===d.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score1',c,ex1Book.length);showToast(c===ex1Book.length?'🎉 Hoàn hảo!':'😅 Xem lại ô đỏ!');}
+function resetEx1(){ex1Book.forEach((_,i)=>{const inp=document.getElementById('e1_'+i);inp.value='';inp.className='';});document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx1(){ex1Book.forEach((d,i)=>{const inp=document.getElementById('e1_'+i);inp.value=d.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 2: Recipe (from book 17.2)
+// "Fresh fish" recipe using /ʃ/ words
+const ex2Recipe=[
+  {line:"Take your",blank:"cash",after:"."},
+  {line:"Go to the",blank:"fish shop",after:"."},
+  {line:"Buy some",blank:"fresh",after:""},
+  {line:"and some",blank:"mushrooms",after:"."},
+  {line:"Take them home."},
+  {line:"",blank:"Wash",after:" them."},
+  {line:"Cook them for a",blank:"short",after:" time."},
+  {line:"Put them in a",blank:"dish",after:"."},
+  {line:"Eat them."},
+  {line:"",blank:"Delicious",after:", '",blank2:"Fresh",after2:" fish!'"},
+];
+function renderEx2(){
+  let gi=0;
+  let html='<div class="recipe-box"><h3>🍽️ Recipe</h3>';
+  ex2Recipe.forEach(d=>{
+    let line=d.line||'';
+    if(d.blank){
+      const idx=gi++;
+      line+=` <input id="e2_${idx}" type="text" placeholder="..." data-ans="${d.blank}" style="width:${Math.max(70,d.blank.length*12)}px">${d.after||''}`;
+    }
+    if(d.blank2){
+      const idx2=gi++;
+      line+=`<input id="e2_${idx2}" type="text" placeholder="..." data-ans="${d.blank2}" style="width:${Math.max(60,d.blank2.length*12)}px">${d.after2||''}`;
+    }
+    if(!d.blank&&!d.blank2) line+=d.after||'';
+    html+=`<div style="margin:4px 0">${line}</div>`;
+  });
+  html+='</div>';
+  document.getElementById('ex2Content').innerHTML=html;
+}
+function speakEx2(){speakText("Take your cash. Go to the fish shop. Buy some fresh fish and some mushrooms. Take them home. Wash them. Cook them for a short time. Put them in a dish. Eat them. Delicious! Fresh fish!");}
+function checkEx2(){const inputs=document.querySelectorAll('[id^="e2_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans.toLowerCase()){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score2',c,inputs.length);}
+function resetEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 3: fill from book 17.3
+const ex3Items=[
+  {s:"1. Yes, we're an ___ business.",blanks:["international"],speak:"Yes we're an international business."},
+  {s:"We're based in ___, but we fly to anywhere in ___ and the Pacific.",blanks:["Washington","Asia"],speak:"We're based in Washington but we fly to anywhere in Asia and the Pacific."},
+  {s:"2. A: Why are you ___ at that ___?",blanks:["shouting","machine"],speak:"Why are you shouting at that machine?"},
+  {s:"B: It's eaten my ___ !",blanks:["decision"],speak:"It's eaten my decision."},
+];
+function renderEx3(){
+  let gi=0,html='';
+  ex3Items.forEach(d=>{
+    let sent=d.s,bi=0;
+    sent=sent.replace(/___/g,()=>{
+      const idx=gi++;
+      const a=d.blanks[bi++];
+      return `<input id="e3_${idx}" type="text" placeholder="..." data-ans="${a}" style="width:${Math.max(80,a.length*12)}px">`;
+    });
+    html+=`<div class="fill-item">${sent}</div>`;
+  });
+  document.getElementById('ex3Content').innerHTML=html;
+}
+function speakEx3(){speakText("Yes we're an international business. We're based in Washington but we fly to anywhere in Asia and the Pacific. Why are you shouting at that machine? It's eaten my decision!");}
+function checkEx3(){const inputs=document.querySelectorAll('[id^="e3_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans.toLowerCase()){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score3',c,inputs.length);}
+function resetEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 4: classify chips
+const ex4Chips=[
+  {label:"shop",cat:"sh"},{label:"television",cat:"zh"},{label:"fashion",cat:"sh"},{label:"Asia",cat:"zh"},
+  {label:"fresh",cat:"sh"},{label:"usually",cat:"zh"},{label:"machine",cat:"sh"},{label:"decision",cat:"zh"},
+  {label:"special",cat:"sh"},{label:"pleasure",cat:"zh"},{label:"sugar",cat:"sh"},{label:"measure",cat:"zh"},
+  {label:"shear",cat:"sh"},{label:"vision",cat:"zh"},{label:"station",cat:"sh"},{label:"treasure",cat:"zh"},
+];
+let ex4state={};
+function renderEx4(){ex4state={};document.getElementById('chip_pool4').innerHTML=ex4Chips.map((c,i)=>`<span class="classify-chip" id="ch4_${i}" onclick="clickChip4(${i})">${c.label}</span>`).join('');document.getElementById('col_sh').innerHTML='';document.getElementById('col_zh').innerHTML='';}
+function clickChip4(i){const cur=ex4state[i];const next=cur===undefined?'sh':cur==='sh'?'zh':undefined;ex4state[i]=next;const el=document.getElementById('ch4_'+i);el.className='classify-chip';if(next==='sh'){el.classList.add('sel-sh');document.getElementById('col_sh').appendChild(el);}else if(next==='zh'){el.classList.add('sel-zh');document.getElementById('col_zh').appendChild(el);}else{document.getElementById('chip_pool4').appendChild(el);}}
+function checkEx4(){let c=0;ex4Chips.forEach((ch,i)=>{if(ex4state[i]===ch.cat)c++;});showScore('score4',c,ex4Chips.length);}
+function resetEx4(){renderEx4();document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx4(){ex4Chips.forEach((ch,i)=>{ex4state[i]=ch.cat;const el=document.getElementById('ch4_'+i);el.className='classify-chip sel-'+ch.cat;if(ch.cat==='sh')document.getElementById('col_sh').appendChild(el);else document.getElementById('col_zh').appendChild(el);});showToast('👁️ Đây là đáp án!');}
+
+// EX 5: minimal pairs (from book 17.4)
+const ex5Data=[
+  {pair:["shoe","Sue"],sent:"___ works in the fashion industry.",ans:1,speak:"Sue works in the fashion industry.",note:"/ʃ/ vs /s/"},
+  {pair:["shoes","choose"],sent:"Which ones did you ___?",ans:1,speak:"Which ones did you choose?",note:"/ʃ/ vs /tʃ/"},
+  {pair:["shop","chop"],sent:"Please ___ the vegetables finely.",ans:1,speak:"Please chop the vegetables finely.",note:"/ʃ/ vs /tʃ/"},
+  {pair:["share","chair"],sent:"Can I sit in this ___?",ans:1,speak:"Can I sit in this chair?",note:"/ʃ/ vs /tʃ/"},
+  {pair:["measure","pleasure"],sent:"It was a real ___ to meet you.",ans:1,speak:"It was a real pleasure to meet you.",note:"/ʒ/ vs /ʒ/ (both!)"},
+  {pair:["fashion","passion"],sent:"He has a great ___ for music.",ans:1,speak:"He has a great passion for music.",note:"/ʃ/ same"},
+  {pair:["shear","sheer"],sent:"The ___ strength was tested.",ans:0,speak:"The shear strength was tested.",note:"地技: shear strength"},
+  {pair:["usual","visual"],sent:"It was the ___ method.",ans:0,speak:"It was the usual method.",note:"/ʒ/ both"},
+];
+function renderEx5(){document.getElementById('ex5Content').innerHTML=ex5Data.map((d,i)=>`<div class="mp-item"><span style="font-style:italic;min-width:250px">"${d.sent}"</span><button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>${d.pair.map((opt,j)=>`<label><input type="radio" name="mp5_${i}" value="${j}"> <b>${opt}</b></label>`).join(' ')}<span style="font-size:0.77rem;color:#888">${d.note}</span></div>`).join('');}
+function checkEx5(){let c=0;ex5Data.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel&&parseInt(sel.value)===d.ans)c++;});showScore('score5',c,ex5Data.length);}
+function resetEx5(){ex5Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){ex5Data.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp5_${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+
+// INIT
+renderWords();renderSents();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();
+
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(17)){c.push(17);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>

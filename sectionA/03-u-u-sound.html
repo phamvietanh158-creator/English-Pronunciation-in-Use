@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 3 - /uː/ và /ʊ/ | A spoonful of sugar</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;background:#f0f4f8;padding:20px 15px;min-height:100vh;}
+        .container{max-width:1000px;margin:0 auto;}
+        .header{background:linear-gradient(135deg,#7b2d8b,#4a1060);color:white;padding:24px 28px;border-radius:20px;margin-bottom:25px;box-shadow:0 8px 30px rgba(74,16,96,.35);}
+        .header .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+        .lesson-number{background:rgba(255,255,255,.15);padding:4px 18px;border-radius:30px;font-size:14px;border:1px solid rgba(255,255,255,.2);}
+        .header h1{font-size:28px;font-weight:800;margin-top:8px;}
+        .header h1 span{color:#f1c40f;}
+        .phoneme-badge{display:inline-block;background:#f1c40f;color:#4a1060;font-size:22px;font-weight:900;padding:4px 18px;border-radius:12px;margin-top:8px;font-family:"Courier New",monospace;}
+        .header .sub{font-size:15px;opacity:.85;margin-top:6px;}
+        .nav-link{display:inline-block;margin-top:12px;color:#f1c40f;text-decoration:none;font-weight:600;font-size:14px;}
+        .section{background:white;border-radius:16px;padding:22px 26px;margin-bottom:20px;border:1px solid #e2e8f0;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+        .section-title{font-size:19px;font-weight:700;color:#4a1060;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+        .badge{background:#eef2f7;font-size:13px;font-weight:600;padding:2px 14px;border-radius:30px;color:#2c3e50;}
+        .badge.audio{background:#d5f5e3;color:#1a6e4a;}
+        .badge.tip{background:#fef9e7;color:#7d6608;}
+        .badge.geo{background:#d6eaf8;color:#1a4a7a;}
+        .badge.life{background:#d5f5e3;color:#1a6e4a;}
+        .section p{font-size:15px;line-height:1.9;color:#2c3e50;margin-bottom:10px;}
+        .ipa-text{font-family:"Courier New",monospace;color:#7b2d8b;background:#f5eef8;padding:2px 10px;border-radius:6px;font-size:15px;}
+        .ipa-text-s{font-family:"Courier New",monospace;color:#1a6e4a;background:#e8f5ee;padding:2px 10px;border-radius:6px;font-size:15px;}
+        .vi-text{color:#27ae60;font-style:italic;background:#f0faf5;padding:8px 14px;border-radius:8px;margin:6px 0 12px;border-left:3px solid #27ae60;font-size:14px;}
+        .ipa-row{display:flex;flex-wrap:wrap;gap:6px 16px;background:#f8fafc;padding:10px 16px;border-radius:10px;margin:8px 0;border:1px solid #e2e8f0;}
+        .diagram-box{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0;}
+        .diagram-card{flex:1;min-width:180px;border-radius:14px;padding:16px 18px;}
+        .diagram-card.long-card{background:linear-gradient(135deg,#f5eef8,#e8d5f5);border:2px solid #9b59b6;}
+        .diagram-card.short-card{background:linear-gradient(135deg,#eafaf1,#c3e6d0);border:2px solid #27ae60;}
+        .diagram-card .phoneme{font-size:48px;font-weight:900;font-family:"Courier New",monospace;line-height:1.1;text-align:center;}
+        .long-card .phoneme{color:#7b2d8b;}
+        .short-card .phoneme{color:#1b7a4a;}
+        .diagram-card .ipa-label{font-family:"Courier New",monospace;font-size:16px;color:#555;margin:4px 0;text-align:center;}
+        .diagram-card .desc{font-size:13px;color:#444;line-height:1.7;margin-top:8px;}
+        .diagram-card .desc li{margin-left:14px;margin-bottom:3px;}
+        .word-grid{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .word-card{background:white;border:2px solid #e2e8f0;border-radius:12px;padding:10px 14px;min-width:120px;cursor:pointer;transition:.2s;}
+        .word-card.wl:hover{border-color:#7b2d8b;box-shadow:0 4px 14px rgba(123,45,139,.15);}
+        .word-card.ws:hover{border-color:#1b7a4a;box-shadow:0 4px 14px rgba(27,122,74,.15);}
+        .word-card .word{font-size:17px;font-weight:700;color:#1a2a3a;}
+        .word-card .ipa{font-family:"Courier New",monospace;font-size:12px;margin-top:2px;}
+        .wl .ipa{color:#7b2d8b;}
+        .ws .ipa{color:#1b7a4a;}
+        .word-card .vi{font-size:12px;color:#27ae60;margin-top:2px;}
+        .hl{background:#7b2d8b;color:white;border-radius:3px;padding:0 2px;}
+        .hs{background:#1b7a4a;color:white;border-radius:3px;padding:0 2px;}
+        .sentence-list{list-style:none;padding:0;margin:10px 0;}
+        .sentence-list li{padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:15px;line-height:1.8;background:#f8fafc;border-left:4px solid #e2e8f0;cursor:pointer;transition:.2s;}
+        .sentence-list.long-list li{border-left-color:#9b59b6;}
+        .sentence-list.long-list li:hover{background:#f5eef8;}
+        .sentence-list.short-list li{border-left-color:#27ae60;}
+        .sentence-list.short-list li:hover{background:#eafaf1;}
+        .sentence-list li .ipa-s{font-family:"Courier New",monospace;font-size:12px;display:block;margin-top:3px;}
+        .long-list .ipa-s{color:#7b2d8b;}
+        .short-list .ipa-s{color:#1b7a4a;}
+        .sentence-list li .vi-s{font-size:13px;color:#27ae60;display:block;margin-top:2px;}
+        .spell-table{width:100%;border-collapse:collapse;margin:12px 0;}
+        .spell-table th{background:#4a1060;color:white;padding:8px 12px;text-align:left;font-size:14px;}
+        .spell-table td{padding:8px 12px;border-bottom:1px solid #e2e8f0;font-size:14px;}
+        .spell-table tr:nth-child(even){background:#f8fafc;}
+        .spell-table .spl{font-family:"Courier New",monospace;color:#7b2d8b;font-weight:700;}
+        .btn{background:#3498db;color:white;border:none;padding:8px 20px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px;}
+        .btn:hover{transform:scale(1.03);opacity:.9;}
+        .btn-long{background:#7b2d8b;}
+        .btn-short{background:#1b7a4a;}
+        .btn-success{background:#27ae60;}
+        .btn-warning{background:#f39c12;}
+        .btn-purple{background:#8e44ad;}
+        .btn-danger{background:#e74c3c;}
+        .btn-teal{background:#1abc9c;}
+        .btn-group{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .tip-box{background:#fef9e7;border:2px solid #f7dc6f;border-radius:12px;padding:14px 18px;margin:12px 0;}
+        .tip-title{font-weight:700;color:#7d6608;font-size:15px;margin-bottom:6px;}
+        .tip-content{font-size:14px;color:#5a4a1a;line-height:1.9;}
+        .tip-content p{margin-bottom:8px;}
+        .note-box{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:14px;color:#856404;line-height:1.7;}
+        .geo-box{background:#eafaf1;border:2px solid #1abc9c;border-radius:12px;padding:14px 18px;margin:10px 0;}
+        .geo-title{font-weight:700;color:#1a6e4a;font-size:15px;margin-bottom:6px;}
+        .geo-content{font-size:14px;color:#1a4a3a;line-height:1.9;}
+        /* EXERCISES */
+        .ex-wrap{background:#fafcff;border:2px solid #e2e8f0;border-radius:14px;padding:20px 22px;margin:14px 0;}
+        .ex-title{font-weight:700;color:#4a1060;font-size:17px;margin-bottom:10px;}
+        .ex-instruction{background:#f5eef8;border:1px solid #9b59b6;border-radius:10px;padding:11px 15px;font-size:14px;color:#4a1060;margin-bottom:14px;line-height:1.7;}
+        .ex-instruction strong{color:#e74c3c;}
+        /* word chips for classify */
+        .classify-words{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;padding:12px;background:#f0f4f8;border-radius:10px;}
+        .classify-chip{background:white;border:2px solid #e2e8f0;border-radius:20px;padding:5px 14px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;user-select:none;}
+        .classify-chip:hover{border-color:#7b2d8b;background:#f5eef8;}
+        .classify-chip.marked-long{background:#7b2d8b;color:white;border-color:#7b2d8b;}
+        .classify-chip.marked-short{background:#1b7a4a;color:white;border-color:#1b7a4a;}
+        .classify-chip.correct-l{background:#27ae60!important;color:white;border-color:#27ae60;}
+        .classify-chip.wrong-l{background:#e74c3c!important;color:white;border-color:#e74c3c;}
+        /* fill gap */
+        .fill-items{display:flex;flex-direction:column;gap:8px;margin:10px 0;}
+        .fill-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:11px 16px;font-size:15px;line-height:2;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+        .fill-item .num{font-weight:700;color:#4a1060;min-width:22px;}
+        .fill-item input{border:2px solid #9b59b6;border-radius:8px;padding:4px 10px;font-size:15px;outline:none;min-width:80px;max-width:140px;transition:.2s;font-family:"Segoe UI",sans-serif;}
+        .fill-item input:focus{border-color:#7b2d8b;background:#f5eef8;}
+        .fill-item input.correct{border-color:#27ae60;background:#d5f5e3;color:#1a6e4a;}
+        .fill-item input.wrong{border-color:#e74c3c;background:#fadbd8;color:#922b21;}
+        /* choice */
+        .choice-items{display:flex;flex-direction:column;gap:10px;margin:10px 0;}
+        .choice-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;}
+        .choice-item .num{font-weight:700;color:#4a1060;}
+        .choice-btn{display:inline-block;padding:5px 18px;border-radius:20px;border:2px solid #e2e8f0;margin:4px 6px 0 0;cursor:pointer;font-size:14px;font-weight:600;transition:.2s;background:white;color:#333;user-select:none;}
+        .choice-btn:hover{border-color:#7b2d8b;color:#7b2d8b;}
+        .choice-btn.sel-l{background:#7b2d8b;color:white;border-color:#7b2d8b;}
+        .choice-btn.sel-s{background:#1b7a4a;color:white;border-color:#1b7a4a;}
+        .choice-btn.correct-c{background:#27ae60;color:white;border-color:#27ae60;pointer-events:none;}
+        .choice-btn.wrong-c{background:#e74c3c;color:white;border-color:#e74c3c;pointer-events:none;}
+        /* 3.5 two-column sort */
+        .sort-container{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0;}
+        .sort-col{background:#f8fafc;border-radius:12px;padding:14px;border:2px solid #e2e8f0;min-height:120px;}
+        .sort-col h4{font-weight:700;margin-bottom:10px;font-size:15px;padding:6px 12px;border-radius:8px;text-align:center;}
+        .long-col h4{background:#7b2d8b;color:white;}
+        .short-col h4{background:#1b7a4a;color:white;}
+        .sort-word{background:white;border:2px solid #e2e8f0;border-radius:8px;padding:5px 12px;margin:4px 0;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;display:flex;justify-content:space-between;align-items:center;}
+        .sort-word:hover{border-color:#7b2d8b;}
+        .sort-word.correct-s{border-color:#27ae60;background:#d5f5e3;color:#1a6e4a;}
+        .sort-word.wrong-s{border-color:#e74c3c;background:#fadbd8;color:#922b21;}
+        /* score */
+        .score-box{border-radius:12px;padding:14px 18px;margin-top:12px;font-size:15px;line-height:1.9;display:none;}
+        .score-box.show{display:block;}
+        .score-box.great{background:#d5f5e3;border:2px solid #27ae60;color:#1a6e4a;}
+        .score-box.good{background:#fef9e7;border:2px solid #f39c12;color:#7d6608;}
+        .score-box.try{background:#fadbd8;border:2px solid #e74c3c;color:#922b21;}
+        .score-box.info{background:#d6eaf8;border:2px solid #2980b9;color:#1a4a7a;}
+        .score-meter{background:#e0e7ee;border-radius:30px;height:12px;margin:8px 0;overflow:hidden;}
+        .score-meter-fill{height:100%;border-radius:30px;transition:width 1s ease;}
+        .big-score{font-size:38px;font-weight:900;text-align:center;margin:4px 0;}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2c3e50;color:white;padding:12px 24px;border-radius:40px;font-size:14px;box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;transition:opacity .4s;pointer-events:none;z-index:999;max-width:90%;text-align:center;}
+        .toast.show{opacity:1;}
+        @media(max-width:650px){.header{padding:18px 16px;}.header h1{font-size:20px;}.section{padding:16px 14px;}.diagram-box{flex-direction:column;}.sort-container{grid-template-columns:1fr;}}
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <div class="top-row">
+        <span class="lesson-number">📚 Bài 3</span>
+        <span style="font-size:13px;opacity:.7;">Section A · Vowels</span>
+    </div>
+    <h1>🥄 <span>A spoonful of sugar</span></h1>
+    <div><span class="phoneme-badge">/uː/ và /ʊ/</span></div>
+    <div class="sub">Nguyên âm dài /uː/ (food) và nguyên âm ngắn /ʊ/ (foot)</div>
+    <a href="../index.html" class="nav-link">← Về trang chủ</a>
+</div>
+
+<!-- A: /uː/ -->
+<div class="section">
+    <div class="section-title">🔵 A. Cách phát âm <span class="ipa-text">/uː/</span> — Nguyên âm DÀI <span class="badge audio">🔊 Nghe</span></div>
+    <div class="diagram-box">
+        <div class="diagram-card long-card">
+            <div class="phoneme">/uː/</div>
+            <div class="ipa-label">"oo" — DÀI</div>
+            <ul class="desc">
+                <li>Môi tròn và <strong>chìa về phía trước</strong> như hình đường hầm.</li>
+                <li>Lưỡi <strong>lùi ra sau</strong> và nâng lên cao.</li>
+                <li>Giữ âm <strong>DÀI</strong> — kéo dài rõ ràng.</li>
+                <li>🎯 Target: <span class="ipa-text">/uː/</span> — "fooood"</li>
+            </ul>
+        </div>
+        <div style="flex:1;min-width:220px;padding:10px 0;font-size:14px;line-height:2;color:#2c3e50;">
+            <p><strong>📌 Cách phát âm /uː/:</strong></p>
+            <p>1. Tròn môi, chìa môi về phía trước như đang thổi nến.</p>
+            <p>2. Lưỡi <em>kéo về sau và lên cao</em> trong miệng.</p>
+            <p>3. Giữ âm <strong>DÀI</strong> — đây là sự khác biệt quan trọng nhất với /ʊ/.</p>
+            <p>🇻🇳 Gần giống "u" trong tiếng Việt <em>nhưng môi tròn nhiều hơn và kéo dài hơn</em>.</p>
+            <p>✋ Thử: nói "moooon" — môi thành hình chữ O nhỏ, tròn.</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-long" onclick="speakText('oooo',0.4)">🔊 Nghe /uː/</button>
+        <button class="btn btn-long" onclick="speakText('food moon blue shoe too',0.7)">🔊 Nghe từ mẫu</button>
+        <button class="btn btn-success" onclick="speakText('too group shoe blue',0.75)">🔊 too, group, shoe, blue</button>
+    </div>
+</div>
+
+<!-- B: /uː/ spelling + words -->
+<div class="section">
+    <div class="section-title">🔵 B. Chính tả &amp; Từ có âm <span class="ipa-text">/uː/</span> <span class="badge">Spelling &amp; Từ vựng</span></div>
+    <table class="spell-table">
+        <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+        <tr><td class="spl">oo</td><td>too, food, moon, room, school, spoon, cool, tool, pool, soon, noon, zoo</td><td>Phổ biến nhất</td></tr>
+        <tr><td class="spl">ou</td><td>group, soup, through, you, youth, wound (vết thương)</td><td>Một số từ phổ biến</td></tr>
+        <tr><td class="spl">oe / ue</td><td>shoe, blue, true, clue, sue, due, glue</td><td>—</td></tr>
+        <tr><td class="spl">u / ue</td><td>music (+ /j/), new (+ /j/), cube, tune, fuse, mute</td><td>Thường có /j/ trước: /juː/</td></tr>
+        <tr><td class="spl">wo / tw</td><td>two, who, do, move, prove, lose, whose</td><td>Không quy tắc</td></tr>
+        <tr><td class="spl">ui</td><td>fruit, juice, suit, cruise, bruise</td><td>—</td></tr>
+    </table>
+    <div class="note-box">
+        📢 Tên chữ cái <strong>U</strong> trong bảng chữ cái = <span class="ipa-text">/juː/</span><br>
+        📢 Khi viết là <strong>u</strong> hoặc <strong>ew</strong>, thường có âm /j/ trước /uː/: <strong>music</strong> /ˈmjuː.zɪk/ • <strong>new</strong> /njuː/ • <strong>few</strong> /fjuː/<br>
+        📢 Nhưng sau /r/, /tʃ/, /dʒ/, /ʃ/ thì KHÔNG có /j/: <strong>rude</strong> /ruːd/ • <strong>chew</strong> /tʃuː/ • <strong>June</strong> /dʒuːn/
+    </div>
+
+    <p style="margin-top:12px;"><strong>📌 Bộ từ vựng /uː/ — Click để nghe:</strong></p>
+    <div class="word-grid">
+        <div class="word-card wl" onclick="speakText('food',0.8)"><div class="word">f<span class="hl">oo</span>d</div><div class="ipa">/fuːd/</div><div class="vi">🇻🇳 thức ăn</div></div>
+        <div class="word-card wl" onclick="speakText('moon',0.8)"><div class="word">m<span class="hl">oo</span>n</div><div class="ipa">/muːn/</div><div class="vi">🇻🇳 mặt trăng</div></div>
+        <div class="word-card wl" onclick="speakText('school',0.8)"><div class="word">sch<span class="hl">oo</span>l</div><div class="ipa">/skuːl/</div><div class="vi">🇻🇳 trường học</div></div>
+        <div class="word-card wl" onclick="speakText('spoon',0.8)"><div class="word">sp<span class="hl">oo</span>n</div><div class="ipa">/spuːn/</div><div class="vi">🇻🇳 cái muỗng</div></div>
+        <div class="word-card wl" onclick="speakText('soup',0.8)"><div class="word">s<span class="hl">ou</span>p</div><div class="ipa">/suːp/</div><div class="vi">🇻🇳 súp, canh</div></div>
+        <div class="word-card wl" onclick="speakText('group',0.8)"><div class="word">gr<span class="hl">ou</span>p</div><div class="ipa">/ɡruːp/</div><div class="vi">🇻🇳 nhóm</div></div>
+        <div class="word-card wl" onclick="speakText('shoe',0.8)"><div class="word">sh<span class="hl">oe</span></div><div class="ipa">/ʃuː/</div><div class="vi">🇻🇳 giày</div></div>
+        <div class="word-card wl" onclick="speakText('blue',0.8)"><div class="word">bl<span class="hl">ue</span></div><div class="ipa">/bluː/</div><div class="vi">🇻🇳 màu xanh dương</div></div>
+        <div class="word-card wl" onclick="speakText('two',0.8)"><div class="word">t<span class="hl">wo</span></div><div class="ipa">/tuː/</div><div class="vi">🇻🇳 số hai</div></div>
+        <div class="word-card wl" onclick="speakText('fruit',0.8)"><div class="word">fr<span class="hl">ui</span>t</div><div class="ipa">/fruːt/</div><div class="vi">🇻🇳 trái cây</div></div>
+        <div class="word-card wl" onclick="speakText('juice',0.8)"><div class="word">j<span class="hl">ui</span>ce</div><div class="ipa">/dʒuːs/</div><div class="vi">🇻🇳 nước ép</div></div>
+        <div class="word-card wl" onclick="speakText('music',0.8)"><div class="word">m<span class="hl">u</span>sic</div><div class="ipa">/ˈmjuː.zɪk/</div><div class="vi">🇻🇳 âm nhạc</div></div>
+        <div class="word-card wl" onclick="speakText('news',0.8)"><div class="word">n<span class="hl">ew</span>s</div><div class="ipa">/njuːz/</div><div class="vi">🇻🇳 tin tức</div></div>
+        <div class="word-card wl" onclick="speakText('room',0.8)"><div class="word">r<span class="hl">oo</span>m</div><div class="ipa">/ruːm/</div><div class="vi">🇻🇳 phòng</div></div>
+        <div class="word-card wl" onclick="speakText('pool',0.8)"><div class="word">p<span class="hl">oo</span>l</div><div class="ipa">/puːl/</div><div class="vi">🇻🇳 bể bơi</div></div>
+        <div class="word-card wl" onclick="speakText('Tuesday',0.8)"><div class="word">T<span class="hl">ue</span>sday</div><div class="ipa">/ˈtjuːz.deɪ/</div><div class="vi">🇻🇳 thứ Ba</div></div>
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 15 câu luyện /uː/ — click để nghe:</strong></p>
+    <ul class="sentence-list long-list">
+        <li onclick="speakText('Me too.',0.8)">Me t<span class="hl">oo</span>.<span class="ipa-s">/miː tuː/</span><span class="vi-s">🇻🇳 Tôi cũng vậy.</span></li>
+        <li onclick="speakText('I work in groups.',0.8)">I work in gr<span class="hl">ou</span>ps.<span class="ipa-s">/aɪ wɜːk ɪn ɡruːps/</span><span class="vi-s">🇻🇳 Tôi làm việc theo nhóm.</span></li>
+        <li onclick="speakText('New shoes.',0.8)">New sh<span class="hl">oe</span>s.<span class="ipa-s">/njuː ʃuːz/</span><span class="vi-s">🇻🇳 Đôi giày mới.</span></li>
+        <li onclick="speakText('Red and blue.',0.8)">Red and bl<span class="hl">ue</span>.<span class="ipa-s">/red ænd bluː/</span><span class="vi-s">🇻🇳 Màu đỏ và xanh dương.</span></li>
+        <li onclick="speakText('Listen to the music.',0.8)">Listen to the m<span class="hl">u</span>sic.<span class="ipa-s">/ˈlɪs.ən tə ðə ˈmjuː.zɪk/</span><span class="vi-s">🇻🇳 Hãy nghe nhạc đi.</span></li>
+        <li onclick="speakText('Forty-two.',0.8)">Forty-t<span class="hl">wo</span>.<span class="ipa-s">/ˈfɔː.ti tuː/</span><span class="vi-s">🇻🇳 Bốn mươi hai.</span></li>
+        <li onclick="speakText('Fruit juice.',0.8)">Fr<span class="hl">ui</span>t j<span class="hl">ui</span>ce.<span class="ipa-s">/fruːt dʒuːs/</span><span class="vi-s">🇻🇳 Nước ép trái cây.</span></li>
+        <li onclick="speakText('The school swimming pool is too cool.',0.8)">The sch<span class="hl">oo</span>l swimming p<span class="hl">oo</span>l is t<span class="hl">oo</span> c<span class="hl">oo</span>l.<span class="ipa-s">/ðə skuːl ˈswɪm.ɪŋ puːl ɪz tuː kuːl/</span><span class="vi-s">🇻🇳 Bể bơi của trường học quá mát mẻ.</span></li>
+        <li onclick="speakText('Are you coming to school on Tuesday?',0.8)">Are y<span class="hl">ou</span> coming to sch<span class="hl">oo</span>l on T<span class="hl">ue</span>sday?<span class="ipa-s">/ɑː ju ˈkʌm.ɪŋ tə skuːl ɒn ˈtjuːz.deɪ/</span><span class="vi-s">🇻🇳 Thứ Ba bạn có đến trường không?</span></li>
+        <li onclick="speakText('The news room is on the second floor.',0.8)">The n<span class="hl">ew</span>s r<span class="hl">oo</span>m is on the sec<span class="hl">o</span>nd fl<span class="hl">oo</span>r.<span class="ipa-s">/ðə njuːz ruːm ɪz ɒn ðə ˈsek.ənd flɔː/</span><span class="vi-s">🇻🇳 Phòng tin tức ở trên tầng hai.</span></li>
+        <li onclick="speakText('Would you like to try this fruit juice? It is smooth and cool.',0.8)">W<span class="hl">ou</span>ld you like to try this fr<span class="hl">ui</span>t j<span class="hl">ui</span>ce? It is sm<span class="hl">oo</span>th and c<span class="hl">oo</span>l.<span class="ipa-s">/wʊd ju laɪk tə traɪ ðɪs fruːt dʒuːs | ɪt ɪz smuːθ ænd kuːl/</span><span class="vi-s">🇻🇳 Bạn có muốn thử nước ép trái cây này không? Nó mịn và mát.</span></li>
+        <li onclick="speakText('The group listened to the music in the big room.',0.8)">The gr<span class="hl">ou</span>p listened to the m<span class="hl">u</span>sic in the big r<span class="hl">oo</span>m.<span class="ipa-s">/ðə ɡruːp ˈlɪs.ənd tə ðə ˈmjuː.zɪk ɪn ðə bɪɡ ruːm/</span><span class="vi-s">🇻🇳 Nhóm người lắng nghe âm nhạc trong căn phòng rộng.</span></li>
+        <li onclick="speakText('Please use a spoon for the soup, not your hands!',0.8)">Please use a sp<span class="hl">oo</span>n for the s<span class="hl">ou</span>p, not your hands!<span class="ipa-s">/pliːz juːz ə spuːn fɔː ðə suːp | nɒt jɔː hændz/</span><span class="vi-s">🇻🇳 Xin hãy dùng muỗng cho canh, đừng dùng tay!</span></li>
+        <li onclick="speakText('He moved to a new school near the zoo.',0.8)">He m<span class="hl">ove</span>d to a n<span class="hl">ew</span> sch<span class="hl">oo</span>l near the z<span class="hl">oo</span>.<span class="ipa-s">/hiː muːvd tə ə njuː skuːl nɪər ðə zuː/</span><span class="vi-s">🇻🇳 Anh ấy chuyển đến một trường học mới gần vườn thú.</span></li>
+        <li onclick="speakText('Two blue shoes and a spoonful of sugar — who could refuse?',0.8)">T<span class="hl">wo</span> bl<span class="hl">ue</span> sh<span class="hl">oe</span>s and a sp<span class="hl">oo</span>nful of s<span class="hl">u</span>gar — wh<span class="hl">o</span> c<span class="hl">ou</span>ld ref<span class="hl">u</span>se?<span class="ipa-s">/tuː bluː ʃuːz ænd ə ˈspuːn.fʊl əv ˈʃʊɡ.ər | huː kʊd rɪˈfjuːz/</span><span class="vi-s">🇻🇳 Hai chiếc giày xanh và một thìa đường — ai mà từ chối được?</span></li>
+    </ul>
+    <div class="btn-group">
+        <button class="btn btn-long" onclick="speakText('Me too. I work in groups. New shoes. Red and blue. Listen to the music. Forty two. Fruit juice.',0.75)">🔊 Nghe 7 cụm sách gốc</button>
+        <button class="btn btn-success" onclick="speakText('Me too. I work in groups. New shoes. Red and blue. Listen to the music. Forty two. Fruit juice.',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- C: /ʊ/ -->
+<div class="section">
+    <div class="section-title">🟢 C. Cách phát âm <span class="ipa-text-s">/ʊ/</span> — Nguyên âm NGẮN <span class="badge audio">🔊 Nghe</span></div>
+    <div class="diagram-box">
+        <div class="diagram-card short-card">
+            <div class="phoneme">/ʊ/</div>
+            <div class="ipa-label">"u" — NGẮN</div>
+            <ul class="desc">
+                <li>Môi tròn <strong>một chút</strong> (ít hơn /uː/).</li>
+                <li>Môi chìa về phía trước <strong>ít hơn</strong>.</li>
+                <li>Lưỡi không <strong>lùi ra sau nhiều</strong> như /uː/.</li>
+                <li>Âm <strong>NGẮN</strong> — không kéo dài.</li>
+                <li>🎯 Target: <span class="ipa-text-s">/ʊ/</span> — "foot"</li>
+            </ul>
+        </div>
+        <div style="flex:1;min-width:220px;padding:10px 0;font-size:14px;line-height:2;color:#2c3e50;">
+            <p><strong>📌 Khác biệt /uː/ vs /ʊ/:</strong></p>
+            <p>• <strong>/uː/</strong>: môi rất tròn, chìa nhiều, lưỡi lùi xa, âm DÀI và căng.</p>
+            <p>• <strong>/ʊ/</strong>: môi tròn ít hơn, chìa ít hơn, âm NGẮN và thư giãn.</p>
+            <p>🇻🇳 Không có âm tương đương trong tiếng Việt. Nằm giữa "u" và âm không có trong TV.</p>
+            <p>✋ Thử: nói "foot" thật nhanh, ngắn — đừng kéo dài âm "u".</p>
+        </div>
+    </div>
+    <div class="tip-box">
+        <div class="tip-title">🎯 Mẹo phân biệt /uː/ vs /ʊ/</div>
+        <div class="tip-content">
+            <p><strong>Minimal pairs — nghe và so sánh:</strong><br>
+            pool /puːl/ vs pull /pʊl/ &nbsp;|&nbsp; food /fuːd/ vs foot /fʊt/ &nbsp;|&nbsp; moon /muːn/ vs cook /kʊk/<br>
+            Luke /luːk/ vs look /lʊk/ &nbsp;|&nbsp; fool /fuːl/ vs full /fʊl/ &nbsp;|&nbsp; soup /suːp/ vs soot /sʊt/<br>
+            cool /kuːl/ vs could /kʊd/ &nbsp;|&nbsp; who'd /huːd/ vs hood /hʊd/</p>
+            <p><strong>Quy tắc ngắn gọn:</strong> /uː/ = "ooooo" dài tròn môi nhiều · /ʊ/ = "u" nhanh ngắn thư giãn</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-long" onclick="speakText('food',0.55)">🔊 /uː/ (food)</button>
+        <button class="btn btn-short" onclick="speakText('foot',0.6)">🔊 /ʊ/ (foot)</button>
+        <button class="btn btn-purple" onclick="speakText('pool pull. food foot. moon cook. look Luke. fool full.',0.55)">🔊 So sánh minimal pairs</button>
+    </div>
+</div>
+
+<!-- D: /ʊ/ spelling + words -->
+<div class="section">
+    <div class="section-title">🟢 D. Chính tả &amp; Từ có âm <span class="ipa-text-s">/ʊ/</span> <span class="badge">Spelling &amp; Từ vựng</span></div>
+    <table class="spell-table">
+        <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+        <tr><td class="spl">u</td><td>full, sugar, pull, push, put, bush, bull, cushion, pudding</td><td>Phổ biến nhất</td></tr>
+        <tr><td class="spl">oo</td><td>book, cook, look, good, foot, wood, wool, stood, took, hood</td><td>Phân biệt với oo=/uː/: food, moon</td></tr>
+        <tr><td class="spl">ou</td><td>would, could, should, tour, your</td><td>—</td></tr>
+        <tr><td class="spl">o</td><td>woman /ˈwʊm.ən/</td><td>Đặc biệt!</td></tr>
+    </table>
+    <div class="note-box">
+        ⚠️ <strong>oo có thể là /uː/ hoặc /ʊ/ — phải học từng từ!</strong><br>
+        /uː/: food, moon, school, room, spoon, pool, soon, too, zoo<br>
+        /ʊ/: book, cook, look, good, foot, wood, wool, stood, took<br>
+        🧠 Mẹo ghi nhớ: các từ <em>book, cook, look, took, hook</em> thường là /ʊ/
+    </div>
+
+    <p style="margin-top:12px;"><strong>📌 Bộ từ vựng /ʊ/ — Click để nghe:</strong></p>
+    <div class="word-grid">
+        <div class="word-card ws" onclick="speakText('full',0.8)"><div class="word">f<span class="hs">u</span>ll</div><div class="ipa">/fʊl/</div><div class="vi">🇻🇳 đầy, no</div></div>
+        <div class="word-card ws" onclick="speakText('sugar',0.8)"><div class="word">s<span class="hs">u</span>gar</div><div class="ipa">/ˈʃʊɡ.ər/</div><div class="vi">🇻🇳 đường</div></div>
+        <div class="word-card ws" onclick="speakText('book',0.8)"><div class="word">b<span class="hs">oo</span>k</div><div class="ipa">/bʊk/</div><div class="vi">🇻🇳 cuốn sách</div></div>
+        <div class="word-card ws" onclick="speakText('foot',0.8)"><div class="word">f<span class="hs">oo</span>t</div><div class="ipa">/fʊt/</div><div class="vi">🇻🇳 bàn chân</div></div>
+        <div class="word-card ws" onclick="speakText('good',0.8)"><div class="word">g<span class="hs">oo</span>d</div><div class="ipa">/ɡʊd/</div><div class="vi">🇻🇳 tốt, ngon</div></div>
+        <div class="word-card ws" onclick="speakText('look',0.8)"><div class="word">l<span class="hs">oo</span>k</div><div class="ipa">/lʊk/</div><div class="vi">🇻🇳 nhìn, trông</div></div>
+        <div class="word-card ws" onclick="speakText('cook',0.8)"><div class="word">c<span class="hs">oo</span>k</div><div class="ipa">/kʊk/</div><div class="vi">🇻🇳 nấu ăn / đầu bếp</div></div>
+        <div class="word-card ws" onclick="speakText('wood',0.8)"><div class="word">w<span class="hs">oo</span>d</div><div class="ipa">/wʊd/</div><div class="vi">🇻🇳 gỗ</div></div>
+        <div class="word-card ws" onclick="speakText('could',0.8)"><div class="word">c<span class="hs">ou</span>ld</div><div class="ipa">/kʊd/</div><div class="vi">🇻🇳 có thể (quá khứ)</div></div>
+        <div class="word-card ws" onclick="speakText('would',0.8)"><div class="word">w<span class="hs">ou</span>ld</div><div class="ipa">/wʊd/</div><div class="vi">🇻🇳 sẽ (điều kiện)</div></div>
+        <div class="word-card ws" onclick="speakText('woman',0.8)"><div class="word">w<span class="hs">o</span>man</div><div class="ipa">/ˈwʊm.ən/</div><div class="vi">🇻🇳 người phụ nữ</div></div>
+        <div class="word-card ws" onclick="speakText('push',0.8)"><div class="word">p<span class="hs">u</span>sh</div><div class="ipa">/pʊʃ/</div><div class="vi">🇻🇳 đẩy</div></div>
+        <div class="word-card ws" onclick="speakText('put',0.8)"><div class="word">p<span class="hs">u</span>t</div><div class="ipa">/pʊt/</div><div class="vi">🇻🇳 đặt, để</div></div>
+        <div class="word-card ws" onclick="speakText('took',0.8)"><div class="word">t<span class="hs">oo</span>k</div><div class="ipa">/tʊk/</div><div class="vi">🇻🇳 đã lấy (take→took)</div></div>
+        <div class="word-card ws" onclick="speakText('wool',0.8)"><div class="word">w<span class="hs">oo</span>l</div><div class="ipa">/wʊl/</div><div class="vi">🇻🇳 len</div></div>
+        <div class="word-card ws" onclick="speakText('cookery',0.8)"><div class="word">c<span class="hs">oo</span>kery</div><div class="ipa">/ˈkʊk.ər.i/</div><div class="vi">🇻🇳 nghệ thuật nấu ăn</div></div>
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 15 câu luyện /ʊ/ — click để nghe:</strong></p>
+    <ul class="sentence-list short-list">
+        <li onclick="speakText('My bag is full.',0.8)">My bag's f<span class="hs">u</span>ll.<span class="ipa-s">/maɪ bæɡz fʊl/</span><span class="vi-s">🇻🇳 Túi của tôi đầy rồi.</span></li>
+        <li onclick="speakText('Where is my book?',0.8)">Where's my b<span class="hs">oo</span>k?<span class="ipa-s">/weəz maɪ bʊk/</span><span class="vi-s">🇻🇳 Cuốn sách của tôi đâu rồi?</span></li>
+        <li onclick="speakText('My left foot.',0.8)">My left f<span class="hs">oo</span>t.<span class="ipa-s">/maɪ left fʊt/</span><span class="vi-s">🇻🇳 Bàn chân trái của tôi.</span></li>
+        <li onclick="speakText('A kilo of sugar.',0.8)">A kilo of s<span class="hs">u</span>gar.<span class="ipa-s">/ə ˈkiː.ləʊ əv ˈʃʊɡ.ər/</span><span class="vi-s">🇻🇳 Một kilô đường.</span></li>
+        <li onclick="speakText('Who is that woman?',0.8)">Who's that w<span class="hs">o</span>man?<span class="ipa-s">/huːz ðæt ˈwʊm.ən/</span><span class="vi-s">🇻🇳 Người phụ nữ đó là ai vậy?</span></li>
+        <li onclick="speakText('Could you look at this cookery book for me?',0.8)">C<span class="hs">ou</span>ld you l<span class="hs">oo</span>k at this c<span class="hs">oo</span>kery b<span class="hs">oo</span>k for me?<span class="ipa-s">/kʊd ju lʊk æt ðɪs ˈkʊk.ər.i bʊk fɔː miː/</span><span class="vi-s">🇻🇳 Bạn có thể xem giúp tôi cuốn sách nấu ăn này không?</span></li>
+        <li onclick="speakText('A good cook always puts sugar in the pudding.',0.8)">A g<span class="hs">oo</span>d c<span class="hs">oo</span>k always p<span class="hs">u</span>ts s<span class="hs">u</span>gar in the p<span class="hs">u</span>dding.<span class="ipa-s">/ə ɡʊd kʊk ˈɔːl.weɪz pʊts ˈʃʊɡ.ər ɪn ðə ˈpʊd.ɪŋ/</span><span class="vi-s">🇻🇳 Một đầu bếp giỏi luôn cho đường vào bánh pudding.</span></li>
+        <li onclick="speakText('Please push the door and put your bag in the corner.',0.8)">Please p<span class="hs">u</span>sh the door and p<span class="hs">u</span>t your bag in the corner.<span class="ipa-s">/pliːz pʊʃ ðə dɔː ænd pʊt jɔː bæɡ ɪn ðə ˈkɔː.nər/</span><span class="vi-s">🇻🇳 Xin hãy đẩy cửa và để túi của bạn vào góc.</span></li>
+        <li onclick="speakText('Would you like to book a good table?',0.8)">W<span class="hs">ou</span>ld you like to b<span class="hs">oo</span>k a g<span class="hs">oo</span>d table?<span class="ipa-s">/wʊd ju laɪk tə bʊk ə ɡʊd ˈteɪ.bəl/</span><span class="vi-s">🇻🇳 Bạn có muốn đặt một bàn đẹp không?</span></li>
+        <li onclick="speakText('She took the wool from the wooden box.',0.8)">She t<span class="hs">oo</span>k the w<span class="hs">oo</span>l from the w<span class="hs">oo</span>den box.<span class="ipa-s">/ʃiː tʊk ðə wʊl frəm ðə ˈwʊd.ən bɒks/</span><span class="vi-s">🇻🇳 Cô ấy lấy cuộn len từ hộp gỗ ra.</span></li>
+        <li onclick="speakText('I should look at this cookery book before cooking.',0.8)">I sh<span class="hs">ou</span>ld l<span class="hs">oo</span>k at this c<span class="hs">oo</span>kery b<span class="hs">oo</span>k before cooking.<span class="ipa-s">/aɪ ʃʊd lʊk æt ðɪs ˈkʊk.ər.i bʊk bɪˈfɔː ˈkʊk.ɪŋ/</span><span class="vi-s">🇻🇳 Tôi nên xem cuốn sách dạy nấu ăn này trước khi nấu.</span></li>
+        <li onclick="speakText('The woman put sugar and butter in the pudding.',0.8)">The w<span class="hs">o</span>man p<span class="hs">u</span>t s<span class="hs">u</span>gar and b<span class="hs">u</span>tter in the p<span class="hs">u</span>dding.<span class="ipa-s">/ðə ˈwʊm.ən pʊt ˈʃʊɡ.ər ænd ˈbʌt.ər ɪn ðə ˈpʊd.ɪŋ/</span><span class="vi-s">🇻🇳 Người phụ nữ cho đường và bơ vào bánh pudding.</span></li>
+        <li onclick="speakText('Could you look at my foot? I think I hurt it.',0.8)">C<span class="hs">ou</span>ld you l<span class="hs">oo</span>k at my f<span class="hs">oo</span>t? I think I hurt it.<span class="ipa-s">/kʊd ju lʊk æt maɪ fʊt | aɪ θɪŋk aɪ hɜːt ɪt/</span><span class="vi-s">🇻🇳 Bạn có thể xem bàn chân của tôi không? Tôi nghĩ mình bị đau rồi.</span></li>
+        <li onclick="speakText('The wooden bookshelf is full of good cookery books.',0.8)">The w<span class="hs">oo</span>den b<span class="hs">oo</span>kshelf is f<span class="hs">u</span>ll of g<span class="hs">oo</span>d c<span class="hs">oo</span>kery b<span class="hs">oo</span>ks.<span class="ipa-s">/ðə ˈwʊd.ən ˈbʊk.ʃelf ɪz fʊl əv ɡʊd ˈkʊk.ər.i bʊks/</span><span class="vi-s">🇻🇳 Kệ sách gỗ chứa đầy những cuốn sách dạy nấu ăn hay.</span></li>
+        <li onclick="speakText('Look! The football is stuck in the bush near the wooden fence.',0.8)">L<span class="hs">oo</span>k! The f<span class="hs">oo</span>tb<span class="hs">a</span>ll is st<span class="hs">u</span>ck in the b<span class="hs">u</span>sh near the w<span class="hs">oo</span>den fence.<span class="ipa-s">/lʊk | ðə ˈfʊt.bɔːl ɪz stʌk ɪn ðə bʊʃ nɪər ðə ˈwʊd.ən fens/</span><span class="vi-s">🇻🇳 Nhìn kìa! Quả bóng bị mắc trong bụi cây gần hàng rào gỗ.</span></li>
+    </ul>
+    <div class="btn-group">
+        <button class="btn btn-short" onclick="speakText('My bag is full. Where is my book? My left foot. A kilo of sugar. Who is that woman?',0.75)">🔊 Nghe 5 cụm sách gốc</button>
+        <button class="btn btn-success" onclick="speakText('My bag is full. Where is my book? My left foot. A kilo of sugar. Who is that woman?',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- BỔ SUNG: CUỘC SỐNG -->
+<div class="section" style="border:2px solid #27ae60;">
+    <div class="section-title">🌱 Từ &amp; Câu bổ sung — Cuộc sống hàng ngày <span class="badge life">🏠 Life</span></div>
+    <div class="word-grid">
+        <div class="word-card wl" onclick="speakText('bathroom',0.8)"><div class="word">b<span class="hl">a</span>thr<span class="hl">oo</span>m</div><div class="ipa">/ˈbɑːθ.ruːm/</div><div class="vi">🇻🇳 phòng tắm</div></div>
+        <div class="word-card ws" onclick="speakText('cushion',0.8)"><div class="word">c<span class="hs">u</span>shion</div><div class="ipa">/ˈkʊʃ.ən/</div><div class="vi">🇻🇳 cái gối/đệm</div></div>
+        <div class="word-card wl" onclick="speakText('toothbrush',0.8)"><div class="word">t<span class="hl">oo</span>thbrush</div><div class="ipa">/ˈtuːθ.brʌʃ/</div><div class="vi">🇻🇳 bàn chải đánh răng</div></div>
+        <div class="word-card ws" onclick="speakText('football',0.8)"><div class="word">f<span class="hs">oo</span>tb<span class="hs">a</span>ll</div><div class="ipa">/ˈfʊt.bɔːl/</div><div class="vi">🇻🇳 bóng đá</div></div>
+        <div class="word-card wl" onclick="speakText('shampoo',0.8)"><div class="word">shamp<span class="hl">oo</span></div><div class="ipa">/ʃæmˈpuː/</div><div class="vi">🇻🇳 dầu gội đầu</div></div>
+        <div class="word-card ws" onclick="speakText('notebook',0.8)"><div class="word">n<span class="hs">o</span>teb<span class="hs">oo</span>k</div><div class="ipa">/ˈnəʊt.bʊk/</div><div class="vi">🇻🇳 quyển vở, laptop</div></div>
+        <div class="word-card wl" onclick="speakText('afternoon',0.8)"><div class="word">aftern<span class="hl">oo</span>n</div><div class="ipa">/ˌɑːf.təˈnuːn/</div><div class="vi">🇻🇳 buổi chiều</div></div>
+        <div class="word-card ws" onclick="speakText('butcher',0.8)"><div class="word">b<span class="hs">u</span>tcher</div><div class="ipa">/ˈbʊtʃ.ər/</div><div class="vi">🇻🇳 người bán thịt</div></div>
+    </div>
+    <ul class="sentence-list">
+        <li onclick="speakText('I use shampoo every afternoon after football.',0.8)">I use shamp<span class="hl">oo</span> every aftern<span class="hl">oo</span>n after f<span class="hs">oo</span>tb<span class="hs">a</span>ll.<span class="ipa-s">/aɪ juːz ʃæmˈpuː ˈev.ri ˌɑːf.təˈnuːn ˈɑːf.tər ˈfʊt.bɔːl/</span><span class="vi-s">🇻🇳 Tôi dùng dầu gội mỗi buổi chiều sau khi đá bóng.</span></li>
+        <li onclick="speakText('Could you put my notebook in the bathroom please?',0.8)">C<span class="hs">ou</span>ld you p<span class="hs">u</span>t my n<span class="hs">o</span>teb<span class="hs">oo</span>k in the bathr<span class="hl">oo</span>m please?<span class="ipa-s">/kʊd ju pʊt maɪ ˈnəʊt.bʊk ɪn ðə ˈbɑːθ.ruːm pliːz/</span><span class="vi-s">🇻🇳 Bạn có thể để cuốn vở của tôi vào phòng tắm giúp tôi không?</span></li>
+        <li onclick="speakText('The butcher on the corner sells good food at a good price.',0.8)">The b<span class="hs">u</span>tcher on the corner sells g<span class="hs">oo</span>d f<span class="hl">oo</span>d at a g<span class="hs">oo</span>d price.<span class="ipa-s">/ðə ˈbʊtʃ.ər ɒn ðə ˈkɔː.nər selz ɡʊd fuːd æt ə ɡʊd praɪs/</span><span class="vi-s">🇻🇳 Người bán thịt ở góc phố bán thực phẩm ngon với giá tốt.</span></li>
+    </ul>
+</div>
+
+<!-- BỔ SUNG: ĐỊA KỸ THUẬT -->
+<div class="section" style="border:2px solid #1abc9c;">
+    <div class="section-title">🏗️ Từ &amp; Câu bổ sung — Địa kỹ thuật <span class="badge geo">🪨 Geotech</span></div>
+    <div class="word-grid">
+        <div class="word-card wl" onclick="speakText('smooth',0.8)"><div class="word">sm<span class="hl">oo</span>th</div><div class="ipa">/smuːð/</div><div class="vi">🇻🇳 nhẵn, trơn</div></div>
+        <div class="word-card ws" onclick="speakText('groundwater',0.8)"><div class="word">gr<span class="hs">ou</span>ndwater</div><div class="ipa">/ˈɡraʊnd.wɔː.tər/</div><div class="vi">🇻🇳 nước ngầm</div></div>
+        <div class="word-card wl" onclick="speakText('proof',0.8)"><div class="word">pr<span class="hl">oo</span>f</div><div class="ipa">/pruːf/</div><div class="vi">🇻🇳 bằng chứng, chứng minh</div></div>
+        <div class="word-card ws" onclick="speakText('footprint',0.8)"><div class="word">f<span class="hs">oo</span>tprint</div><div class="ipa">/ˈfʊt.prɪnt/</div><div class="vi">🇻🇳 dấu chân / diện tích móng</div></div>
+        <div class="word-card wl" onclick="speakText('groove',0.8)"><div class="word">gr<span class="hl">oo</span>ve</div><div class="ipa">/ɡruːv/</div><div class="vi">🇻🇳 rãnh, khe</div></div>
+        <div class="word-card ws" onclick="speakText('overburden',0.8)"><div class="word">overb<span class="hs">u</span>rden</div><div class="ipa">/ˌəʊ.vəˈbɜː.dən/</div><div class="vi">🇻🇳 lớp đất phủ trên</div></div>
+    </div>
+    <ul class="sentence-list long-list">
+        <li onclick="speakText('The smooth groove in the rock was proof of water movement.',0.75)">The sm<span class="hl">oo</span>th gr<span class="hl">oo</span>ve in the rock was pr<span class="hl">oo</span>f of water movement.<span class="ipa-s">/ðə smuːð ɡruːv ɪn ðə rɒk wəz pruːf əv ˈwɔː.tər ˈmuːv.mənt/</span><span class="vi-s">🇻🇳 Rãnh nhẵn trong đá là bằng chứng về sự dịch chuyển của nước.</span></li>
+        <li onclick="speakText('The foundation footprint should avoid the groundwater table.',0.75)">The f<span class="hs">ou</span>ndation f<span class="hs">oo</span>tprint sh<span class="hs">ou</span>ld avoid the gr<span class="hs">ou</span>ndwater table.<span class="ipa-s">/ðə faʊnˈdeɪ.ʃən ˈfʊt.prɪnt ʃʊd əˈvɔɪd ðə ˈɡraʊnd.wɔː.tər ˈteɪ.bəl/</span><span class="vi-s">🇻🇳 Diện tích móng nên tránh xa mực nước ngầm.</span></li>
+        <li onclick="speakText('The overburden was removed using a group of bulldozers and tools.',0.75)">The overb<span class="hs">u</span>rden was rem<span class="hl">oo</span>ved using a gr<span class="hl">ou</span>p of bulldozers and t<span class="hl">oo</span>ls.<span class="ipa-s">/ðɪ ˌəʊ.vəˈbɜː.dən wəz rɪˈmuːvd ˈjuː.zɪŋ ə ɡruːp əv ˈbʊl.dəʊ.zərz ænd tuːlz/</span><span class="vi-s">🇻🇳 Lớp đất phủ được bóc bỏ bằng một nhóm máy ủi và dụng cụ.</span></li>
+    </ul>
+    <div class="geo-box">
+        <div class="geo-title">🪨 Kinh nghiệm phát âm từ chuyên ngành</div>
+        <div class="geo-content">
+            • <strong>smooth</strong>: /uː/ — "smuuuth" kéo dài, không nói "smuf"<br>
+            • <strong>groundwater</strong>: /ɡraʊnd/ + /ˈwɔː.tər/ — chú ý "ound" là /aʊ/, không phải /ʊ/<br>
+            • <strong>proof</strong>: /uː/ rõ ràng — "proooof", không rút ngắn<br>
+            • <strong>footprint</strong>: /fʊt/ ngắn + /prɪnt/ — nhấn vào "FOOT"<br>
+            • <strong>overburden</strong>: nhấn vào "BUR" — /ˌəʊ.vəˈBÜR.dən/
+        </div>
+    </div>
+</div>
+
+<!-- KINH NGHIỆM -->
+<div class="section" style="border:2px solid #f39c12;">
+    <div class="section-title">💡 Kinh nghiệm phát âm <span class="badge tip">🔥 Quan trọng</span></div>
+    <div class="tip-box">
+        <div class="tip-title">🎯 5 bí quyết phát âm /uː/ và /ʊ/ chuẩn</div>
+        <div class="tip-content">
+            <p><strong>1. Phân biệt bằng độ tròn môi và độ dài</strong><br>
+            /uː/ = môi rất tròn, chìa nhiều, kéo dài → "ooooo"<br>
+            /ʊ/ = môi tròn ít, chìa ít, ngắn gọn → "u" nhanh</p>
+            <p><strong>2. Học thuộc lòng nhóm "oo" = /ʊ/ (ngắn)</strong><br>
+            book, cook, look, took, hook, wood, good, foot, wool, stood<br>
+            Còn lại "oo" thường là /uː/: food, moon, room, school, cool</p>
+            <p><strong>3. Chú ý /j/ trước /uː/ sau một số phụ âm</strong><br>
+            music = /ˈmjuː.zɪk/ • new = /njuː/ • beautiful = /ˈbjuː.tɪ.fəl/<br>
+            Nhưng: rude, shoe, chew, June — KHÔNG có /j/</p>
+            <p><strong>4. "would, could, should" đều có /ʊ/</strong><br>
+            Phát âm ngắn: would /wʊd/ • could /kʊd/ • should /ʃʊd/</p>
+            <p><strong>5. Luyện minimal pairs mỗi ngày</strong><br>
+            pool/pull • food/foot • moon/book • fool/full • soup/soot<br>
+            Ghi âm và so sánh với TTS!</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-warning" onclick="speakText('pool pull. food foot. fool full. cool could. moon book.',0.55)">🔊 Minimal pairs</button>
+        <button class="btn btn-warning" onclick="speakText('would could should. music new few beautiful.',0.7)">🔊 Từ đặc biệt</button>
+    </div>
+</div>
+
+<!-- EX 3.1: circle /uː/ words -->
+<div class="section">
+    <div class="section-title">📝 Exercise 3.1 — Khoanh tròn từ có âm /uː/ <span class="badge">Bài tập sách</span></div>
+    <p>Trong danh sách dưới, có <strong>9 từ</strong> chứa âm /uː/. Click để đánh dấu, sau đó chấm bài.</p>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 Click từ màu <strong style="color:#7b2d8b;">tím = /uː/</strong> · Click lại để bỏ.<br>
+            💡 <em>Có đúng 9 từ /uː/ trong danh sách.</em>
+        </div>
+        <div class="classify-words" id="ex31Words"></div>
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx31()">✅ Chấm bài (9 từ /uː/)</button>
+            <button class="btn btn-danger" onclick="resetEx31()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx31()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score31" class="score-box"></div>
+    </div>
+</div>
+
+<!-- EX 3.2: fill /uː/ words -->
+<div class="section">
+    <div class="section-title">📝 Exercise 3.2 — Điền từ /uː/ vào câu <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🎧 Nghe câu → Gõ từ /uː/ thích hợp → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Các từ lấy từ Exercise 3.1 ở trên.</em>
+        </div>
+        <div class="fill-items" id="ex32Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx32()">🔊 Nghe tất cả</button>
+            <button class="btn btn-warning" onclick="checkEx32()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx32()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx32()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score32" class="score-box"></div>
+    </div>
+</div>
+
+<!-- EX 3.3: circle /ʊ/ words -->
+<div class="section">
+    <div class="section-title">📝 Exercise 3.3 — Khoanh tròn từ có âm /ʊ/ <span class="badge">Bài tập sách</span></div>
+    <p>Trong danh sách dưới, có <strong>6 từ</strong> chứa âm /ʊ/. Click để đánh dấu.</p>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 Click từ màu <strong style="color:#1b7a4a;">xanh = /ʊ/</strong> · Click lại để bỏ.
+        </div>
+        <div class="classify-words" id="ex33Words"></div>
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx33()">✅ Chấm bài (6 từ /ʊ/)</button>
+            <button class="btn btn-danger" onclick="resetEx33()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx33()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score33" class="score-box"></div>
+    </div>
+</div>
+
+<!-- EX 3.4: fill /ʊ/ words -->
+<div class="section">
+    <div class="section-title">📝 Exercise 3.4 — Điền từ /ʊ/ vào câu <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🎧 Nghe câu → Gõ từ /ʊ/ thích hợp → <strong>"Chấm bài"</strong>.
+        </div>
+        <div class="fill-items" id="ex34Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx34()">🔊 Nghe tất cả</button>
+            <button class="btn btn-warning" onclick="checkEx34()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx34()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx34()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score34" class="score-box"></div>
+    </div>
+</div>
+
+<!-- EX 3.5: sort into /uː/ or /ʊ/ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 3.5 — Phân loại /uː/ hoặc /ʊ/ <span class="badge">Bài tập sách + mở rộng</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 Click từ để chuyển vào cột đúng. Sau đó nhấn <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Ví dụ: "true" → /uː/ · "foot" → /ʊ/</em>
+        </div>
+        <div class="sort-container">
+            <div class="sort-col long-col"><h4>/uː/ DÀI 🔵</h4><div id="sortLong"></div></div>
+            <div class="sort-col short-col"><h4>/ʊ/ NGẮN 🟢</h4><div id="sortShort"></div></div>
+        </div>
+        <div style="background:#f0f4f8;border-radius:10px;padding:12px;margin:8px 0;font-weight:600;font-size:14px;color:#4a1060;">
+            📋 Từ chưa phân loại: <span id="unsorted"></span>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx35()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx35()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx35()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score35" class="score-box"></div>
+    </div>
+</div>
+
+<!-- EX 3.6: minimal pairs choose -->
+<div class="section">
+    <div class="section-title">📝 Exercise 3.6 — Chọn từ bạn nghe <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🔊 Nhấn ▶️ Nghe → Chọn từ đúng → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Phân biệt /uː/ vs /ʊ/ qua độ dài và hình môi.</em>
+        </div>
+        <div class="choice-items" id="ex36Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx36Random()">🔊 Tạo câu hỏi mới</button>
+            <button class="btn btn-warning" onclick="checkEx36()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx36()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx36()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score36" class="score-box"></div>
+    </div>
+</div>
+
+<!-- TỔNG KẾT -->
+<div class="section" style="border:2px solid #8e44ad;">
+    <div class="section-title">📌 Tổng kết <span class="badge" style="background:#f5eef8;color:#7d3c98;">✅ Checklist</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px;line-height:1.9;">
+        <div style="background:#f5eef8;padding:12px 14px;border-radius:10px;border:1px solid #9b59b6;">✅ <strong>/uː/ DÀI</strong> — môi rất tròn, chìa nhiều, kéo dài</div>
+        <div style="background:#eafaf1;padding:12px 14px;border-radius:10px;border:1px solid #27ae60;">✅ <strong>/ʊ/ NGẮN</strong> — môi tròn ít, ngắn gọn, thư giãn</div>
+        <div style="background:#f5eef8;padding:12px 14px;border-radius:10px;border:1px solid #9b59b6;">✅ <strong>/uː/ viết</strong> — oo, ou, oe, ue, u, ui, two, who</div>
+        <div style="background:#eafaf1;padding:12px 14px;border-radius:10px;border:1px solid #27ae60;">✅ <strong>/ʊ/ viết</strong> — u, oo (book), ou (would)</div>
+        <div style="background:#f5eef8;padding:12px 14px;border-radius:10px;border:1px solid #9b59b6;">✅ <strong>/juː/</strong> — music, new, few, beautiful</div>
+        <div style="background:#eafaf1;padding:12px 14px;border-radius:10px;border:1px solid #27ae60;">✅ <strong>woman = /wʊm.ən/</strong> — ngoại lệ đặc biệt!</div>
+    </div>
+</div>
+
+<div style="text-align:center;padding:20px 0 10px;color:#95a5a6;font-size:14px;border-top:1px solid #e2e8f0;margin-top:10px;">
+    <p>🥄 <strong>"A spoonful of sugar"</strong> — /uː/ & /ʊ/ là cặp hay nhầm nhất sau /iː/ & /ɪ/!</p>
+    <p style="margin-top:4px;font-size:13px;"><a href="../index.html" style="color:#4a1060;font-weight:600;">← Về trang chủ</a></p>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ================================================================
+// AUDIO — Improved voice selection
+// ================================================================
+let curUtt=null, _voices=[];
+function _loadVoices(){_voices=speechSynthesis.getVoices();if(_voices.length===0)setTimeout(_loadVoices,200);}
+function _bestVoice(){
+    const prefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria","Zira"];
+    for(const p of prefs){const v=_voices.find(x=>x.name.includes(p));if(v)return v;}
+    return _voices.find(x=>x.lang.startsWith("en")&&!x.name.toLowerCase().includes("male"))||_voices.find(x=>x.lang.startsWith("en"))||null;
+}
+function speakText(t,rate=0.85){
+    if(!window.speechSynthesis) return;
+    speechSynthesis.cancel();
+    const clean=t.replace(/<[^>]*>/g,"").trim();
+    function doSpeak(){
+        const u=new SpeechSynthesisUtterance(clean);
+        u.lang="en-US";u.rate=rate;u.pitch=1.05;u.volume=1.0;
+        const v=_bestVoice();if(v)u.voice=v;
+        curUtt=u;u.onend=()=>curUtt=null;speechSynthesis.speak(u);
+    }
+    if(_voices.length>0)doSpeak();else{_loadVoices();setTimeout(doSpeak,350);}
+}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);}
+function showScore(id,correct,total,extra){
+    const pct=Math.round(correct/total*100);
+    let cls="try",emoji="😅",msg="Cần luyện thêm!";
+    if(pct>=90){cls="great";emoji="🎉";msg="Xuất sắc!";}
+    else if(pct>=65){cls="good";emoji="👍";msg="Khá tốt!";}
+    const el=document.getElementById("score"+id);
+    el.className=`score-box show ${cls}`;
+    el.innerHTML=`<div class="big-score">${emoji} ${pct}%</div><strong>${msg}</strong> — Đúng <strong>${correct}/${total}</strong>.<div class="score-meter"><div class="score-meter-fill" style="width:${pct}%;background:${pct>=90?"#27ae60":pct>=65?"#f39c12":"#e74c3c"}"></div></div>${extra||""}`;
+    showToast("Kết quả: "+pct+"%");
+}
+if(window.speechSynthesis){_loadVoices();speechSynthesis.onvoiceschanged=_loadVoices;}
+
+// Mark lesson 3 complete in localStorage
+setTimeout(()=>{
+    try{
+        let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}
+        if(!c.includes(3)){c.push(3);localStorage.setItem("epu_completed",JSON.stringify(c));}
+    }catch{}
+},1000);
+
+// ================================================================
+// EX 3.1 — circle /uː/ words (9 of them)
+// ================================================================
+const EX31_WORDS=[
+    {w:"food",t:"l"},{w:"four",t:"n"},{w:"June",t:"l"},{w:"look",t:"n"},
+    {w:"news",t:"l"},{w:"room",t:"l"},{w:"school",t:"l"},{w:"soup",t:"l"},
+    {w:"spoon",t:"l"},{w:"sugar",t:"n"},{w:"town",t:"n"},{w:"Tuesday",t:"l"},
+    {w:"two",t:"l"},
+];
+const ex31State={};
+function buildEx31(){
+    const c=document.getElementById("ex31Words");c.innerHTML="";
+    EX31_WORDS.forEach((item,i)=>{
+        ex31State[i]=false;
+        c.innerHTML+=`<span class="classify-chip" id="chip31_${i}" onclick="toggleChip31(${i},'${item.w}')">${item.w}</span>`;
+    });
+}
+function toggleChip31(i,w){
+    ex31State[i]=!ex31State[i];
+    const el=document.getElementById(`chip31_${i}`);
+    el.classList.toggle("marked-long",ex31State[i]);
+    if(ex31State[i])speakText(w,0.8);
+}
+function checkEx31(){
+    let correct=0;
+    EX31_WORDS.forEach((item,i)=>{
+        const el=document.getElementById(`chip31_${i}`);
+        el.classList.remove("marked-long","correct-l","wrong-l");
+        if(item.t==="l"&&ex31State[i]){el.classList.add("correct-l");correct++;}
+        else if(item.t==="l"&&!ex31State[i]){el.classList.add("wrong-l");}
+        else if(item.t==="n"&&ex31State[i]){el.classList.add("wrong-l");}
+    });
+    showScore("31",correct,9);
+}
+function resetEx31(){EX31_WORDS.forEach((_,i)=>{ex31State[i]=false;const el=document.getElementById(`chip31_${i}`);el.className="classify-chip";});document.getElementById("score31").className="score-box";showToast("Đã đặt lại!");}
+function revealEx31(){
+    EX31_WORDS.forEach((item,i)=>{
+        const el=document.getElementById(`chip31_${i}`);
+        el.classList.remove("marked-long","wrong-l");
+        if(item.t==="l"){el.classList.add("correct-l");el.style.background="#7b2d8b";}
+    });
+    const long=EX31_WORDS.filter(x=>x.t==="l").map(x=>x.w).join(", ");
+    document.getElementById("score31").className="score-box info show";
+    document.getElementById("score31").innerHTML=`<strong>9 từ /uː/:</strong> ${long}`;
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 3.2 — fill /uː/ words
+// ================================================================
+const EX32=[
+    {num:1,pre:"Do you like fast",blank:"food",suf:"?",audio:"Do you like fast food?"},
+    {num:2,pre:"Are you coming to",blank:"school",suf:"?",audio:"Are you coming to school?"},
+    {num:3,pre:"It's",blank:"June",suf:", the second of…",audio:"It's June, the second of…"},
+    {num:4,pre:"Let's watch the",blank:"news",suf:".",audio:"Let's watch the news."},
+    {num:5,pre:"",blank:"Tuesday",suf:"is over there.",audio:"Tuesday is over there."},
+    {num:6,pre:"Here's a",blank:"spoon",suf:"for your",audio:"Here's a spoon for your soup."},
+];
+function buildEx32(){
+    const c=document.getElementById("ex32Items");c.innerHTML="";
+    EX32.forEach((item,i)=>{
+        c.innerHTML+=`<div class="fill-item">
+            <span class="num">${item.num}.</span>
+            ${item.pre?item.pre+" ":""}
+            <input type="text" id="inp32_${i}" placeholder="/uː/?" autocomplete="off">
+            ${item.suf}
+            <button class="btn btn-long" style="padding:3px 10px;font-size:11px;" onclick="speakText('${item.audio}',0.75)">🔊</button>
+        </div>`;
+    });
+}
+function speakEx32(){EX32.forEach(x=>speakText(x.audio,0.75));}
+function checkEx32(){let c=0;EX32.forEach((item,i)=>{const inp=document.getElementById(`inp32_${i}`);const v=inp.value.trim().toLowerCase();if(v===item.blank.toLowerCase()){inp.className="correct";c++;}else inp.className="wrong";});showScore("32",c,EX32.length);}
+function resetEx32(){EX32.forEach((_,i)=>{const inp=document.getElementById(`inp32_${i}`);inp.value="";inp.className="";});document.getElementById("score32").className="score-box";showToast("Đã đặt lại!");}
+function revealEx32(){EX32.forEach((item,i)=>{const inp=document.getElementById(`inp32_${i}`);inp.value=item.blank;inp.className="correct";});document.getElementById("score32").className="score-box info show";document.getElementById("score32").innerHTML="<strong>Đáp án:</strong> "+EX32.map(x=>`${x.num}. <strong>${x.blank}</strong>`).join(" | ");showToast("Đã hiển thị đáp án!");}
+
+// ================================================================
+// EX 3.3 — circle /ʊ/ words (6)
+// ================================================================
+const EX33_WORDS=[
+    {w:"book",t:"s"},{w:"cookery",t:"s"},{w:"cough",t:"n"},{w:"could",t:"s"},
+    {w:"good",t:"s"},{w:"looking",t:"s"},{w:"lunch",t:"n"},{w:"soon",t:"n"},
+    {w:"sugar",t:"s"},{w:"thought",t:"n"},{w:"through",t:"n"},
+];
+const ex33State={};
+function buildEx33(){
+    const c=document.getElementById("ex33Words");c.innerHTML="";
+    EX33_WORDS.forEach((item,i)=>{
+        ex33State[i]=false;
+        c.innerHTML+=`<span class="classify-chip" id="chip33_${i}" onclick="toggleChip33(${i},'${item.w}')">${item.w}</span>`;
+    });
+}
+function toggleChip33(i,w){
+    ex33State[i]=!ex33State[i];
+    document.getElementById(`chip33_${i}`).classList.toggle("marked-short",ex33State[i]);
+    if(ex33State[i])speakText(w,0.8);
+}
+function checkEx33(){
+    let correct=0;
+    EX33_WORDS.forEach((item,i)=>{
+        const el=document.getElementById(`chip33_${i}`);
+        el.classList.remove("marked-short","correct-l","wrong-l");
+        if(item.t==="s"&&ex33State[i]){el.classList.add("correct-l");el.style.background="#1b7a4a";correct++;}
+        else if(item.t==="s"&&!ex33State[i]){el.classList.add("wrong-l");}
+        else if(item.t==="n"&&ex33State[i]){el.classList.add("wrong-l");}
+    });
+    showScore("33",correct,6);
+}
+function resetEx33(){EX33_WORDS.forEach((_,i)=>{ex33State[i]=false;const el=document.getElementById(`chip33_${i}`);el.className="classify-chip";el.style.background="";});document.getElementById("score33").className="score-box";showToast("Đã đặt lại!");}
+function revealEx33(){
+    EX33_WORDS.forEach((item,i)=>{
+        const el=document.getElementById(`chip33_${i}`);
+        el.classList.remove("marked-short","wrong-l");
+        if(item.t==="s"){el.classList.add("correct-l");el.style.background="#1b7a4a";el.style.color="white";}
+    });
+    const short=EX33_WORDS.filter(x=>x.t==="s").map(x=>x.w).join(", ");
+    document.getElementById("score33").className="score-box info show";
+    document.getElementById("score33").innerHTML=`<strong>6 từ /ʊ/:</strong> ${short}`;
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 3.4 — fill /ʊ/ words
+// ================================================================
+const EX34=[
+    {num:1,pre:"Do you take",blank:"sugar",suf:"?",audio:"Do you take sugar?"},
+    {num:2,pre:"Can you help me? I'm",blank:"looking",suf:"for a",blank2:"cookery",suf2:"book.",audio:"Can you help me? I'm looking for a cookery book."},
+];
+function buildEx34(){
+    const c=document.getElementById("ex34Items");c.innerHTML="";
+    EX34.forEach((item,i)=>{
+        let html=`<div class="fill-item"><span class="num">${item.num}.</span> ${item.pre} <input type="text" id="inp34_${i}_0" placeholder="/ʊ/?" autocomplete="off"> ${item.suf}`;
+        if(item.blank2) html+=` <input type="text" id="inp34_${i}_1" placeholder="/ʊ/?" autocomplete="off"> ${item.suf2}`;
+        html+=` <button class="btn btn-short" style="padding:3px 10px;font-size:11px;" onclick="speakText('${item.audio}',0.75)">🔊</button></div>`;
+        c.innerHTML+=html;
+    });
+}
+function speakEx34(){EX34.forEach(x=>speakText(x.audio,0.75));}
+function checkEx34(){
+    let correct=0,total=0;
+    EX34.forEach((item,i)=>{
+        total++;
+        const inp=document.getElementById(`inp34_${i}_0`);
+        if(inp.value.trim().toLowerCase()===item.blank.toLowerCase()){inp.className="correct";correct++;}else inp.className="wrong";
+        if(item.blank2){
+            total++;
+            const inp2=document.getElementById(`inp34_${i}_1`);
+            if(inp2&&inp2.value.trim().toLowerCase()===item.blank2.toLowerCase()){inp2.className="correct";correct++;}else if(inp2)inp2.className="wrong";
+        }
+    });
+    showScore("34",correct,total);
+}
+function resetEx34(){EX34.forEach((_,i)=>{[0,1].forEach(j=>{const inp=document.getElementById(`inp34_${i}_${j}`);if(inp){inp.value="";inp.className="";}});});document.getElementById("score34").className="score-box";showToast("Đã đặt lại!");}
+function revealEx34(){
+    EX34.forEach((item,i)=>{
+        const inp=document.getElementById(`inp34_${i}_0`);if(inp){inp.value=item.blank;inp.className="correct";}
+        if(item.blank2){const inp2=document.getElementById(`inp34_${i}_1`);if(inp2){inp2.value=item.blank2;inp2.className="correct";}}
+    });
+    document.getElementById("score34").className="score-box info show";
+    document.getElementById("score34").innerHTML="<strong>Đáp án:</strong> 1. <strong>sugar</strong> | 2. <strong>looking</strong> for a <strong>cookery</strong> book";
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 3.5 — Sort words into /uː/ or /ʊ/
+// ================================================================
+const EX35_DATA=[
+    {w:"true",t:"l",ipa:"/truː/"},{w:"foot",t:"s",ipa:"/fʊt/"},{w:"room",t:"l",ipa:"/ruːm/"},
+    {w:"pull",t:"s",ipa:"/pʊl/"},{w:"toothbrush",t:"l",ipa:"/ˈtuːθ.brʌʃ/"},{w:"push",t:"s",ipa:"/pʊʃ/"},
+    {w:"door",t:"n",ipa:""},{w:"soon",t:"l",ipa:"/suːn/"},{w:"book",t:"s",ipa:"/bʊk/"},
+    {w:"lose",t:"l",ipa:"/luːz/"},{w:"good",t:"s",ipa:"/ɡʊd/"},{w:"keys",t:"n",ipa:""},
+    {w:"put",t:"s",ipa:"/pʊt/"},{w:"June",t:"l",ipa:"/dʒuːn/"},{w:"could",t:"s",ipa:"/kʊd/"},
+    {w:"pool",t:"l",ipa:"/puːl/"},{w:"full",t:"s",ipa:"/fʊl/"},{w:"wool",t:"s",ipa:"/wʊl/"},
+];
+// Only include l and s (not n which are neither)
+const EX35_ITEMS=EX35_DATA.filter(x=>x.t!=="n");
+const ex35Sort={};
+function buildEx35(){
+    Object.keys(ex35Sort).forEach(k=>delete ex35Sort[k]);
+    document.getElementById("sortLong").innerHTML="";
+    document.getElementById("sortShort").innerHTML="";
+    updateUnsorted();
+}
+function updateUnsorted(){
+    const placed=Object.values(ex35Sort);
+    const remaining=EX35_ITEMS.filter(x=>!placed.includes(x.w)).map(x=>`<span style="cursor:pointer;margin:3px;display:inline-block;background:white;border:2px solid #9b59b6;border-radius:16px;padding:3px 12px;font-weight:600;font-size:13px;" onclick="openSort('${x.w}')">${x.w}</span>`).join("");
+    document.getElementById("unsorted").innerHTML=remaining||"<em style='color:#27ae60;'>Tất cả đã phân loại! ✅</em>";
+}
+function openSort(w){
+    const choice=confirm(`"${w}" thuộc âm nào?
+
+OK = /uː/ DÀI
+Cancel = /ʊ/ NGẮN`);
+    const col=choice?"l":"s";
+    ex35Sort[w]=col;
+    // Find item
+    const item=EX35_ITEMS.find(x=>x.w===w);
+    const div=choice?document.getElementById("sortLong"):document.getElementById("sortShort");
+    div.innerHTML+=`<div class="sort-word" id="sw_${w}" onclick="removeSort('${w}')"><span>${w} <small style="font-family:monospace;color:#888;">${item.ipa}</small></span><span style="font-size:12px;color:#aaa;">✕</span></div>`;
+    updateUnsorted();
+}
+function removeSort(w){
+    delete ex35Sort[w];
+    const el=document.getElementById(`sw_${w}`);
+    if(el)el.remove();
+    updateUnsorted();
+}
+function checkEx35(){
+    let correct=0,total=EX35_ITEMS.length;
+    EX35_ITEMS.forEach(item=>{
+        const el=document.getElementById(`sw_${item.w}`);
+        if(el){
+            if(ex35Sort[item.w]===item.t){el.classList.add("correct-s");correct++;}
+            else el.classList.add("wrong-s");
+        }
+    });
+    showScore("35",correct,total);
+}
+function resetEx35(){Object.keys(ex35Sort).forEach(k=>delete ex35Sort[k]);document.getElementById("sortLong").innerHTML="";document.getElementById("sortShort").innerHTML="";document.getElementById("score35").className="score-box";updateUnsorted();showToast("Đã đặt lại!");}
+function revealEx35(){
+    document.getElementById("sortLong").innerHTML="";
+    document.getElementById("sortShort").innerHTML="";
+    Object.keys(ex35Sort).forEach(k=>delete ex35Sort[k]);
+    EX35_ITEMS.forEach(item=>{
+        ex35Sort[item.w]=item.t;
+        const div=item.t==="l"?document.getElementById("sortLong"):document.getElementById("sortShort");
+        div.innerHTML+=`<div class="sort-word correct-s" id="sw_${item.w}"><span>${item.w} <small style="font-family:monospace;">${item.ipa}</small></span></div>`;
+    });
+    updateUnsorted();
+    document.getElementById("score35").className="score-box info show";
+    document.getElementById("score35").innerHTML="<strong>/uː/:</strong> "+EX35_ITEMS.filter(x=>x.t==="l").map(x=>x.w).join(", ")+"<br><strong>/ʊ/:</strong> "+EX35_ITEMS.filter(x=>x.t==="s").map(x=>x.w).join(", ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 3.6 — Choose word you hear
+// ================================================================
+const EX36=[
+    {num:1,pair:["pool","pull"],soundPair:"(→ sound pair 4)"},
+    {num:2,pair:["look","Luke"],soundPair:"(→ sound pair 5)"},
+    {num:3,pair:["soup","soot"],soundPair:"(→ sound pair 6)"},
+    {num:4,pair:["fool","full"],soundPair:"/uː/ vs /ʊ/"},
+    {num:5,pair:["food","foot"],soundPair:"/uː/ vs /ʊ/"},
+    {num:6,pair:["moon","book"],soundPair:"/uː/ vs /ʊ/"},
+    {num:7,pair:["soon","good"],soundPair:"/uː/ vs /ʊ/"},
+    {num:8,pair:["true","wood"],soundPair:"/uː/ vs /ʊ/"},
+];
+let ex36Correct=[];
+function initEx36(){ex36Correct=EX36.map(()=>Math.floor(Math.random()*2));}
+function buildEx36(){
+    initEx36();
+    const c=document.getElementById("ex36Items");c.innerHTML="";
+    EX36.forEach((item,i)=>{
+        c.innerHTML+=`<div class="choice-item">
+            <span class="num">${item.num}.</span> <span style="font-size:13px;color:#888;">${item.soundPair}</span><br>
+            ${item.pair.map((w,j)=>`<span class="choice-btn" id="cb36_${i}_${j}" onclick="selC36(${i},${j})">${w}</span>`).join("")}
+            <button class="btn btn-long" style="padding:3px 10px;font-size:11px;margin-left:4px;" onclick="speakText('${item.pair[ex36Correct[i]]}',0.65)">▶️ Nghe</button>
+        </div>`;
+    });
+}
+function selC36(i,j){[0,1].forEach(k=>document.getElementById(`cb36_${i}_${k}`).classList.remove("sel-l","sel-s"));document.getElementById(`cb36_${i}_${j}`).classList.add(j===0?"sel-l":"sel-s");}
+function speakEx36Random(){initEx36();buildEx36();showToast("Câu hỏi mới! Nhấn ▶️ trên từng dòng.");}
+function checkEx36(){
+    let correct=0;
+    EX36.forEach((_,i)=>{
+        const ans=ex36Correct[i];
+        [0,1].forEach(j=>{
+            const el=document.getElementById(`cb36_${i}_${j}`);
+            if(!el)return;
+            const chosen=el.classList.contains("sel-l")||el.classList.contains("sel-s");
+            el.style.pointerEvents="none";
+            if(j===ans){if(chosen){el.classList.add("correct-c");correct++;}else el.style.textDecoration="underline dotted #27ae60";}
+            else if(chosen)el.classList.add("wrong-c");
+        });
+    });
+    showScore("36",correct,EX36.length,"<br><em style='font-size:13px;'>Nhấn Làm lại để nghe bộ câu mới!</em>");
+}
+function resetEx36(){buildEx36();document.getElementById("score36").className="score-box";showToast("Đã đặt lại!");}
+function revealEx36(){
+    EX36.forEach((_,i)=>{const ans=ex36Correct[i];[0,1].forEach(j=>{const el=document.getElementById(`cb36_${i}_${j}`);if(!el)return;el.classList.remove("sel-l","sel-s","wrong-c");el.style.pointerEvents="none";if(j===ans)el.classList.add("correct-c");});});
+    document.getElementById("score36").className="score-box info show";
+    document.getElementById("score36").innerHTML="<strong>Đáp án:</strong> "+EX36.map((item,i)=>`${item.num}. <strong>${item.pair[ex36Correct[i]]}</strong>`).join(" | ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+    buildEx31();buildEx32();buildEx33();buildEx34();buildEx35();buildEx36();
+});
+</script>
+</body>
+</html>

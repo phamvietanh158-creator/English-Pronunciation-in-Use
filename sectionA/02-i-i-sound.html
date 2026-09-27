@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 2 - /iː/ và /ɪ/ | Pizza for dinner</title>
+<link rel="stylesheet" href="../assets/epu-core.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="../assets/epu-core.js"></script>
+<script src="../assets/epu-lesson.js"></script>
+<script>
+/* ===================== BÀI 2 — /iː/ và /ɪ/ (EPU V2) =====================
+   Chỉ có DỮ LIỆU. Giao diện + bài tập do ../assets/epu-lesson.js dựng.
+   Markup: [chữ|âm] tô theo âm · [chữ|âm@us] chỉ tô ở giọng US · [ea] chữ cần đoán */
+const LESSON = {
+  id: 2,
+  section: "Section A · Vowels",
+  title: "Pizza for dinner",
+  emoji: "🍕",
+  sub: "Nguyên âm dài /iː/ (pizza) và nguyên âm ngắn /ɪ/ (dinner)",
+  theme: ["#1b4332", "#2d6a4f"],
+  footer: "<p>🍕 <b>“Pizza for dinner”</b>: PIZZA /iː/ · DINNER /ɪ/. Một âm căng, một âm thả lỏng.</p>",
+
+  sounds: {
+    ii: { ipa: "/iː/", name: "i dài, căng", color: "#1b7a4a", bg: "#e1f3e8", ex: ["see", "tea", "piece", "police", "pizza"] },
+    i:  { ipa: "/ɪ/", name: "i ngắn, thả lỏng", color: "#7d3c98", bg: "#f3e8f8", ex: ["sit", "big", "gym", "busy", "dinner"] }
+  },
+
+  soundCards: [
+    { key: "ii",
+      how: ["Môi <b>kéo ngang như đang cười</b>.",
+            "Lưỡi <b>nâng cao và đẩy về trước</b>, hai bên lưỡi chạm răng hàm trên.",
+            "Cơ miệng <b>căng</b>.",
+            "Âm <b>dài</b> (dấu ː), rõ nhất ở cuối từ và trước b, d, g, v, z, m, n, l (see, need, feel)."],
+      vn: "Gần “i” trong “đi”, nhưng <b>căng hơn và dài hơn</b>. <i>see</i> ≈ “xii”.",
+      ukus: "Hai giọng giống nhau. Âm cuối không nhấn trong <i>happy, city</i> là /i/ ngắn, nhẹ ở cả hai giọng.",
+      mistake: "Đọc /iː/ quá ngắn và lỏng trước p, t, k khiến <i>seat</i> nghe như <i>sit</i>. Hãy giữ độ <b>căng</b>, kể cả khi âm ngắn lại." },
+    { key: "i",
+      how: ["Môi và lưỡi <b>thả lỏng</b>, miệng hé hơn /iː/ một chút.",
+            "Lưỡi <b>thấp hơn và lùi hơn</b> /iː/ một chút.",
+            "Không căng, không cười.",
+            "Âm <b>NGẮN</b>."],
+      vn: "Nằm <b>giữa “i” và “ê”</b> tiếng Việt. Nếu đọc bằng “i” Việt, <i>ship</i> sẽ nghe gần giống <i>sheep</i>.",
+      ukus: "🇬🇧 các âm tiết không nhấn như be-, re-, -es, -ed, -age thường là /ɪ/; 🇺🇸 hay đọc thành /ə/ (begin: 🇬🇧 /bɪˈɡɪn/ · 🇺🇸 /bɪˈɡɪn/ hoặc /bəˈɡɪn/).",
+      mistake: "/ɪ/ <b>không phải</b> /iː/ đọc ngắn đi, mà là một âm khác (lưỡi thấp và lỏng hơn). Đừng thêm “ơ” sau phụ âm cuối: big ≠ “bi-gơ”." }
+  ],
+
+  pairs: [["sheep","ʃiːp","ship","ʃɪp"], ["seat","siːt","sit","sɪt"], ["green","ɡriːn","grin","ɡrɪn"],
+          ["cheap","tʃiːp","chip","tʃɪp"], ["eat","iːt","it","ɪt"], ["bean","biːn","bin","bɪn"]],
+
+  rules: [
+    { code: "I1", key: "ii", spell: "ee", ex: "see, green, meet, sleep", note: "Gần như luôn là /iː/" },
+    { code: "I2", key: "ii", spell: "ea (đa số)", ex: "eat, tea, clean, speak", note: "Ngoại lệ: bread /e/ (bài 6), break /eɪ/" },
+    { code: "I3", key: "ii", spell: "e cuối từ ngắn · e + phụ âm + e câm", ex: "me, he, she, these, complete", note: "" },
+    { code: "I4", key: "ii", spell: "ie · ei (sau c)", ex: "piece, field, believe, receive", note: "“i trước e, trừ khi đứng sau c”" },
+    { code: "I5", key: "ii", spell: "i trong từ mượn Pháp/Ý", ex: "police, pizza, magazine, visa", note: "Thường ở âm tiết nhấn cuối: poLICE" },
+    { code: "S1", key: "i",  spell: "i + phụ âm (âm tiết nhấn, không có e câm)", ex: "sit, big, fish, listen, city", note: "Phổ biến nhất" },
+    { code: "S2", key: "i",  spell: "y ở giữa từ", ex: "gym, myth, system, symbol", note: "" },
+    { code: "S3", key: "i",  spell: "e / i ở âm tiết KHÔNG nhấn: be-, re-, de-, -es, -ed, -age, -ic", ex: "begin, return, boxes, wanted, village, music", note: "🇺🇸 hay đọc /ə/" },
+    { code: "S4", key: "i",  spell: "Ngoại lệ phải nhớ: o · u · e · ui", ex: "women, busy, pretty, English, build", note: "Chữ khác nhưng đọc /ɪ/" }
+  ],
+  traps: [
+    { code: "T1", sound: "/aɪ/", spell: "i + phụ âm + e câm · i + gh / ld / nd", ex: "time, like, night, child, find", note: "" },
+    { code: "T2", sound: "/ɪə/", spell: "ee / ea / e + r", ex: "beer, near, here, career", note: "🇺🇸 /ɪr/ (bài 8)" },
+    { code: "T3", sound: "/e/ · /eɪ/", spell: "ea (nhóm nhỏ)", ex: "bread, head, break, steak", note: "Xem bài 6" },
+    { code: "T4", sound: "/ɜː/", spell: "i / e + r", ex: "bird, first, her, term", note: "🇺🇸 /ɝː/ (bài 7)" }
+  ],
+
+  words: {
+    ii: [
+      { w: "s[ee|ii]", ipa: "siː", vi: "nhìn thấy" },
+      { w: "gr[ee|ii]n", ipa: "ɡriːn", vi: "màu xanh lá" },
+      { w: "t[ea|ii]", ipa: "tiː", vi: "trà" },
+      { w: "pl[ea|ii]se", ipa: "pliːz", vi: "làm ơn" },
+      { w: "p[ie|ii]ce", ipa: "piːs", vi: "miếng, mẩu" },
+      { w: "k[ey|ii]", ipa: "kiː", vi: "chìa khóa" },
+      { w: "p[eo|ii]ple", ipa: "ˈpiː.pəl", vi: "mọi người" },
+      { w: "th[e|ii]se", ipa: "ðiːz", vi: "những cái này" },
+      { w: "pol[i|ii]ce", ipa: "pəˈliːs", vi: "cảnh sát" },
+      { w: "p[i|ii]zza", ipa: "ˈpiːt.sə", vi: "bánh pizza" },
+      { w: "r[e|i]c[ei|ii]pt", ipa: "rɪˈsiːt", vi: "hóa đơn (có cả /ɪ/ và /iː/)" }
+    ],
+    i: [
+      { w: "s[i|i]t", ipa: "sɪt", vi: "ngồi" },
+      { w: "f[i|i]sh", ipa: "fɪʃ", vi: "con cá" },
+      { w: "b[i|i]g", ipa: "bɪɡ", vi: "to, lớn" },
+      { w: "c[i|i]ty", ipa: { uk: "ˈsɪt.i", us: "ˈsɪt̬.i" }, vi: "thành phố" },
+      { w: "l[i|i]sten", ipa: "ˈlɪs.ən", vi: "lắng nghe" },
+      { w: "d[i|i]nner", ipa: { uk: "ˈdɪn.ə", us: "ˈdɪn.ɚ" }, vi: "bữa tối" },
+      { w: "g[y|i]m", ipa: "dʒɪm", vi: "phòng tập" },
+      { w: "b[u|i]sy", ipa: "ˈbɪz.i", vi: "bận" },
+      { w: "w[o|i]m[e|i]n", ipa: "ˈwɪm.ɪn", vi: "phụ nữ (số nhiều)" },
+      { w: "pr[e|i]tty", ipa: { uk: "ˈprɪt.i", us: "ˈprɪt̬.i" }, vi: "xinh; khá là" },
+      { w: "[E|i]ngl[i|i]sh", ipa: "ˈɪŋ.ɡlɪʃ", vi: "tiếng Anh" }
+    ]
+  },
+
+  sentences: {
+    ii: [
+      { t: "Pl[ea|ii]se have a s[ea|ii]t.", ipa: "pliːz hæv ə siːt", vi: "Mời ngồi." },
+      { t: "Thr[ee|ii] gr[ee|ii]n t[ea|ii]s, pl[ea|ii]se.", ipa: "θriː ɡriːn tiːz pliːz", vi: "Cho ba trà xanh nhé." },
+      { t: "S[ee|ii] you next w[ee|ii]k.", ipa: "siː jə nekst wiːk", vi: "Hẹn gặp tuần sau." },
+      { t: "Can I have the r[e|i]c[ei|ii]pt, pl[ea|ii]se?", ipa: "kən aɪ hæv ðə rɪˈsiːt pliːz", vi: "Cho tôi xin hóa đơn." },
+      { t: "Let's l[ea|ii]ve at thr[ee|ii].", ipa: "lets liːv ət θriː", vi: "Mình đi lúc ba giờ nhé." },
+      { t: "The f[ie|ii]ld t[ea|ii]m n[ee|ii]ds thr[ee|ii] more soil samples.", ipa: { uk: "ðə fiːld tiːm niːdz θriː mɔː sɔɪl ˈsɑːm.pəlz", us: "ðə fiːld tiːm niːdz θriː mɔːr sɔɪl ˈsæm.pəlz" }, vi: "Đội hiện trường cần thêm ba mẫu đất.", geo: true }
+    ],
+    i: [
+      { t: "S[i|i]t st[i|i]ll!", ipa: "sɪt stɪl", vi: "Ngồi yên nào!" },
+      { t: "Th[i|i]s [i|i]s my s[i|i]ster.", ipa: { uk: "ðɪs ɪz maɪ ˈsɪs.tə", us: "ðɪs ɪz maɪ ˈsɪs.tɚ" }, vi: "Đây là chị/em gái tôi." },
+      { t: "[I|i]t's a b[i|i]t w[i|i]ndy.", ipa: "ɪts ə bɪt ˈwɪn.di", vi: "Trời hơi có gió." },
+      { t: "D[i|i]d you f[i|i]x the pr[i|i]nter?", ipa: { uk: "dɪd ju fɪks ðə ˈprɪn.tə", us: "dɪd ju fɪks ðə ˈprɪn.t̬ɚ" }, vi: "Bạn sửa máy in chưa?" },
+      { t: "[I|i]s [i|i]t f[i|i]sh for d[i|i]nner?", ipa: { uk: "ɪz ɪt fɪʃ fə ˈdɪn.ə", us: "ɪz ɪt fɪʃ fɚ ˈdɪn.ɚ" }, vi: "Tối nay ăn cá à?" },
+      { t: "Dr[i|i]ll s[i|i]x test p[i|i]ts on th[i|i]s h[i|i]ll.", ipa: { uk: "drɪl sɪks test pɪts ɒn ðɪs hɪl", us: "drɪl sɪks test pɪts ɑːn ðɪs hɪl" }, vi: "Khoan sáu hố thăm dò trên ngọn đồi này.", geo: true }
+    ]
+  },
+
+  tips: [
+    "<b>Cười hay thả lỏng?</b> Nói <i>sheep</i> với môi cười và căng; nói <i>ship</i> với miệng thả lỏng như lúc nghỉ. Soi gương để thấy môi thay đổi.",
+    "<b>Độ căng quan trọng hơn độ dài.</b> Trước p, t, k, /iː/ ngắn lại (seat, cheap, leak) nhưng vẫn căng; còn /ɪ/ (sit, chip, lick) thì lỏng.",
+    "<b>Đọc từ mới:</b> thấy <b>ee</b> thì gần như chắc chắn là /iː/. Thấy <b>i + phụ âm + e câm</b> thì là /aɪ/ (time), trừ các từ mượn Pháp/Ý (police).",
+    "🏗️ <b>Từ chuyên ngành:</b> f<b>ie</b>ld /iː/ · st<b>ee</b>l /iː/ · s<b>ee</b>page /iː/ · dr<b>i</b>ll /ɪ/ · p<b>i</b>t /ɪ/ · f<b>i</b>ll /ɪ/ (đất đắp). Nói nhầm <i>fill</i> thành <i>feel</i> là đổi nghĩa!"
+  ],
+
+  // ---------- X.1 Nghe câu, chọn nghĩa ----------
+  x1: {
+    n: 6,
+    after: "/iː/ căng và dài, môi kéo như cười; /ɪ/ thả lỏng, ngắn, nằm giữa “i” và “ê”.",
+    bank: [
+      { a: { t: "I want to [leave|ii] here.", m: "🚪 rời khỏi đây" }, b: { t: "I want to [live|i] here.", m: "🏠 sống ở đây" } },
+      { a: { t: "Can you [feel|ii] it?", m: "✋ cảm nhận được" }, b: { t: "Can you [fill|i] it?", m: "🥛 đổ đầy" } },
+      { a: { t: "Don't [heat|ii] it.", m: "🔥 đun nóng" }, b: { t: "Don't [hit|i] it.", m: "👊 đánh" } },
+      { a: { t: "He [beat|ii] me.", m: "🏆 thắng tôi" }, b: { t: "He [bit|i] me.", m: "🦷 cắn tôi" } },
+      { a: { t: "Don't [sleep|ii] on the floor.", m: "😴 ngủ" }, b: { t: "Don't [slip|i] on the floor.", m: "🍌 trượt ngã" } },
+      { a: { t: "The [heel|ii] is too high.", m: "👠 gót giày" }, b: { t: "The [hill|i] is too high.", m: "⛰️ ngọn đồi" } },
+      { a: { t: "Where's the [team|ii]?", m: "👥 cả đội" }, b: { t: "Where's [Tim|i]?", m: "🧑 anh Tim" } },
+      { a: { t: "Did you see the [peach|ii]?", m: "🍑 quả đào" }, b: { t: "Did you see the [pitch|i]?", m: "⚽ sân bóng" } }
+    ]
+  },
+
+  // ---------- X.2 Từ lạ: đoán trước, nghe sau (100% từ mới) ----------
+  x2: {
+    items: [
+      { w: "br[ee]ze", s: "ii", ipa: "briːz", rule: "I1" },
+      { w: "s[ea]son", s: "ii", ipa: "ˈsiː.zən", rule: "I2" },
+      { w: "gr[ie]f", s: "ii", ipa: "ɡriːf", rule: "I4" },
+      { w: "c[ei]ling", s: "ii", ipa: "ˈsiː.lɪŋ", rule: "I4" },
+      { w: "mach[i]ne", s: "ii", ipa: "məˈʃiːn", rule: "I5", note: "i + n + e câm nhưng KHÔNG đọc /aɪ/, vì đây là từ gốc Pháp." },
+      { w: "f[i]ction", s: "i", ipa: "ˈfɪk.ʃən", rule: "S1" },
+      { w: "l[y]ric", s: "i", ipa: "ˈlɪr.ɪk", rule: "S2" },
+      { w: "b[u]siness", s: "i", ipa: "ˈbɪz.nɪs", rule: "S4", note: "Cùng họ với <i>busy</i>: chữ u đọc /ɪ/." },
+      { w: "g[ui]lt", s: "i", ipa: "ɡɪlt", rule: "S4" },
+      { w: "sh[i]ne", s: "other", real: "aɪ", ipa: "ʃaɪn", rule: "T1" },
+      { w: "w[i]ld", s: "other", real: "aɪ", ipa: "waɪld", rule: "T1" },
+      { w: "gr[ea]t", s: "other", real: "eɪ", ipa: "ɡreɪt", rule: "T3" }
+    ]
+  },
+
+  // ---------- X.3 Nói & so sánh ----------
+  x3: {
+    items: [
+      { t: "Pl[ea|ii]se s[i|i]t down.", tip: "please dài và căng; sit ngắn và thả lỏng." },
+      { t: "[I|i]t's a b[i|i]g c[i|i]ty.", tip: "Giữ âm g cuối của big; city kết thúc bằng /i/ nhẹ." },
+      { t: "Thr[ee|ii] gr[ee|ii]n t[ea|ii]s, pl[ea|ii]se.", tip: "Kéo dài /iː/, môi cười." },
+      { t: "[I|i]s th[i|i]s s[ea|ii]t fr[ee|ii]?", tip: "this /ɪ/ ngắn và seat /iː/ căng đứng cạnh nhau." },
+      { t: "I th[i|i]nk [i|i]t's ch[ea|ii]p.", tip: "think /ɪ/ lỏng; cheap /iː/ căng nhưng ngắn lại trước p." }
+    ],
+    checklist: [
+      "/iː/: môi kéo ngang như cười, lưỡi căng, âm dài hơn.",
+      "/ɪ/: môi và lưỡi thả lỏng, âm ngắn, không đọc thành “i” Việt.",
+      "Không thêm “ơ” sau phụ âm cuối: big ≠ “bi-gơ”, sit ≠ “xít-tơ”.",
+      "Trước p, t, k, /iː/ ngắn lại (seat, cheap) nhưng vẫn căng."
+    ],
+    asr: [["ship", "sheep"], ["live", "leave"], ["bit", "beat"]]
+  },
+
+  // ---------- X.4 Tình huống ----------
+  x4: {
+    title: "Ở phòng khám",
+    place: "🩺 Phòng khám bác sĩ gia đình",
+    roles: { A: "Bác sĩ", B: "Bệnh nhân" },
+    userRole: "B",
+    lines: [
+      ["A", "Hi, [please|ii] take a [seat|ii]. What [seems|ii] to [be|~] the problem?", "Chào bạn, mời ngồi. Bạn bị làm sao?"],
+      ["B", "[I|!Chữ I đứng một mình đọc /aɪ/.] [feel|ii] [sick|i] and I can't [sleep|ii]. My [skin|i] [is|i] [itchy|i].", "Tôi thấy buồn nôn và không ngủ được. Da tôi bị ngứa."],
+      ["A", "[Is|i] [it|i] [itchy|i] [here|!e + r + e đọc /ɪə/ (bẫy T2).], [near|!ea + r đọc /ɪə/ (bẫy T2).] the [knee|ii]?", "Ngứa ở đây, gần đầu gối phải không?"],
+      ["B", "[Yes|!e ở đây đọc /e/ (bài 6), không phải /iː/ hay /ɪ/.], [it|i] [is|i]. [Since|i] [Monday|~].", "Vâng, đúng rồi. Từ thứ Hai."],
+      ["A", "Let [me|ii] [see|ii]. I [think|i] [it's|i] a [little|i] [insect|i] [bite|!i + phụ âm + e câm đọc /aɪ/ (bẫy T1).].", "Để tôi xem. Tôi nghĩ đó là vết côn trùng cắn."],
+      ["B", "[Is|i] [it|i] bad?", "Có nặng không ạ?"],
+      ["A", "No. Take [these|ii] [pills|i] [three|ii] [times|!i + phụ âm + e câm đọc /aɪ/ (bẫy T1).] a day. You'll [feel|ii] [fine|!i + phụ âm + e câm đọc /aɪ/ (bẫy T1).] [this|i] [week|ii].", "Không. Uống thuốc này ba lần một ngày. Tuần này bạn sẽ khỏe thôi."]
+    ]
+  },
+
+  // ---------- X.5 Ôn xen kẽ ----------
+  x5: {
+    rounds: 8,
+    goal: "Bài 2 là bài nguyên âm đầu tiên nên phần ôn chỉ trộn /iː/ và /ɪ/, nhưng dùng <b>các cặp từ hoàn toàn mới</b>, không có ở phần trên. " +
+          "Học xong bài 6, hãy quay lại nghe thêm thang âm <i>beat · bit · bet · bat</i>.",
+    groups: [
+      [{ w: "feet", ipa: "fiːt" }, { w: "fit", ipa: "fɪt" }],
+      [{ w: "peel", ipa: "piːl" }, { w: "pill", ipa: "pɪl" }],
+      [{ w: "deep", ipa: "diːp" }, { w: "dip", ipa: "dɪp" }],
+      [{ w: "bead", ipa: "biːd" }, { w: "bid", ipa: "bɪd" }],
+      [{ w: "least", ipa: "liːst" }, { w: "list", ipa: "lɪst" }],
+      [{ w: "cheek", ipa: "tʃiːk" }, { w: "chick", ipa: "tʃɪk" }],
+      [{ w: "reach", ipa: "riːtʃ" }, { w: "rich", ipa: "rɪtʃ" }],
+      [{ w: "wheel", ipa: "wiːl" }, { w: "will", ipa: "wɪl" }],
+      [{ w: "steal", ipa: "stiːl" }, { w: "still", ipa: "stɪl" }]
+    ]
+  },
+
+  summary: [
+    "<b>/iː/</b>: căng, dài, môi cười: see, tea, piece, police",
+    "<b>/ɪ/</b>: thả lỏng, ngắn, giữa “i” và “ê”: sit, gym, busy, women",
+    "<b>Đọc từ mới:</b> ee / ie / ei (sau c) → /iː/ · i + phụ âm → /ɪ/ · i + phụ âm + e câm → /aɪ/",
+    "<b>ea</b> đa số là /iː/; trước r thành /ɪə/ (near); vài từ là /e/ (bread)",
+    "Âm tiết không nhấn be-, re-, -es, -age: 🇬🇧 /ɪ/ · 🇺🇸 hay /ə/",
+    "Phân biệt bằng <b>độ căng</b>, không chỉ độ dài: seat và sit đều ngắn nhưng khác chất âm"
+  ]
+};
+EPU.renderLesson(LESSON);
+</script>
+</body>
+</html>

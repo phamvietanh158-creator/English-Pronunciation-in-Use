@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài 25 – Train in the rain – Consonant groups at the beginning</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
+.header{background:linear-gradient(135deg,#1a3a6a 0%,#0d2040 100%);color:#fff;padding:28px 24px 22px;position:relative}
+.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
+.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 16px;font-size:0.9rem;font-weight:800}
+.header h1{font-size:1.3rem;font-weight:800;margin-top:8px}
+.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
+.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
+.home-link:hover{background:rgba(255,255,255,0.22)}
+.container{max-width:860px;margin:0 auto;padding:18px 12px}
+.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
+.section-title{font-size:1.08rem;font-weight:700;color:#1a3a6a;border-bottom:2px solid #a8c0e8;padding-bottom:8px;margin-bottom:14px}
+.rule-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
+.rule-card{border-radius:10px;padding:14px;border:1.5px solid;text-align:center}
+.rule-card.one{background:#fff8f0;border-color:#d09040}
+.rule-card.two{background:#f0f8ff;border-color:#4080d0}
+.rule-card.three{background:#f0fff4;border-color:#40a060}
+.rule-card h4{font-size:0.9rem;font-weight:700;margin-bottom:8px}
+.rule-card.one h4{color:#5a3a00}
+.rule-card.two h4{color:#1a3a7a}
+.rule-card.three h4{color:#1a5a2a}
+.rule-card p{font-size:0.82rem;color:#555;line-height:1.6;text-align:left}
+.hl-c{color:#c0392b;font-weight:800;background:#ffe8e8;padding:0 2px;border-radius:3px}
+.cluster-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.cluster-table th{background:#1a3a6a;color:#fff;padding:9px 12px;text-align:left}
+.cluster-table td{padding:8px 12px;border-bottom:1px solid #eee}
+.cluster-table tr:nth-child(even) td{background:#f5f8ff}
+.cluster-badge{display:inline-block;background:#1a3a6a;color:#fff;border-radius:10px;padding:2px 8px;font-size:0.8rem;font-weight:700;margin-right:4px}
+.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.word-card{background:#f0f4ff;border:1.5px solid #6080d0;border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:120px;text-align:center}
+.word-card:hover{background:#1a3a6a;color:#fff;transform:translateY(-2px)}
+.word-card .word{font-size:1rem;font-weight:700}
+.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
+.word-card:hover .ipa2{color:#c8d8ff}
+.word-card .vn{font-size:0.78rem;color:#1a3a6a;margin-top:2px}
+.word-card:hover .vn{color:#ffe}
+.word-card .cl{font-size:0.72rem;background:#dde8ff;color:#1a3a6a;border-radius:8px;padding:1px 6px;margin-top:3px;display:inline-block}
+.word-card:hover .cl{background:rgba(255,255,255,0.2);color:#fff}
+.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.sentence-list li{background:#f0f4ff;border-radius:9px;padding:10px 14px;cursor:pointer;border-left:4px solid #1a3a6a;transition:background 0.2s}
+.sentence-list li:hover{background:#c8d8ff}
+.sent-en{font-size:0.95rem;font-weight:600}
+.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
+.sent-vn{font-size:0.82rem;color:#1a3a6a;margin-top:2px}
+.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.tip-box b{color:#b8860b}
+.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
+.geo-box b{color:#00695c}
+.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
+.btn-navy{background:#1a3a6a;color:#fff}.btn-navy:hover{background:#0d2040}
+.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
+.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
+.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
+.ex-wrap{border:1.5px solid #a8c0e8;border-radius:12px;padding:18px;margin-bottom:16px;background:#f8faff}
+.ex-label{display:inline-block;background:#1a3a6a;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
+.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
+.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
+.score-box.show{display:block}
+.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
+.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
+.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
+.big-score{font-size:1.8rem;font-weight:800}
+.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
+.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
+.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
+.blank-input{border:none;border-bottom:2px solid #a8c0e8;background:transparent;font-size:0.9rem;padding:2px 4px;outline:none;width:26px;text-align:center;color:#1a3a6a;font-weight:700}
+.blank-input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.blank-input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+.fill-input{border:none;border-bottom:2px solid #a8c0e8;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:100px;color:#1a3a6a;font-weight:600}
+.fill-input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
+.fill-input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
+/* word-pair buttons */
+.pair-row{display:flex;align-items:center;gap:12px;margin:6px 0;font-size:0.9rem}
+.pair-btn{padding:5px 14px;border-radius:16px;border:2px solid #ccc;cursor:pointer;font-size:0.88rem;font-weight:600;background:#f5f5f5;transition:all 0.18s}
+.pair-btn:hover{border-color:#1a3a6a;background:#dde8ff}
+.pair-btn.selected{background:#1a3a6a;color:#fff;border-color:#1a3a6a}
+.pair-btn.correct{background:#27ae60;color:#fff;border-color:#27ae60}
+.pair-btn.wrong{background:#e74c3c;color:#fff;border-color:#e74c3c}
+/* combo box table */
+.combo-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
+.combo-table th{background:#1a3a6a;color:#fff;padding:8px;text-align:center}
+.combo-table td{padding:8px;border:1px solid #dde8ff;text-align:center;vertical-align:top;background:#f5f8ff}
+.combo-table td.example-col{background:#fff8f0;font-style:italic;font-size:0.82rem;color:#5a3a00}
+.combo-word{display:inline-block;background:#dde8ff;border-radius:8px;padding:3px 8px;margin:2px;font-weight:600;cursor:pointer;transition:all 0.18s}
+.combo-word:hover{background:#1a3a6a;color:#fff}
+.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="home-link" href="../index.html">← Về trang chủ</a>
+  <div class="header-top">
+    <span class="badge-num">📚 Bài 25</span>
+    <span class="phoneme-badge">Cụm phụ âm đầu từ · Consonant groups at the beginning</span>
+  </div>
+  <h1>Train in the rain – Consonant groups at the beginning of words</h1>
+  <div class="sub">Cụm 1, 2, 3 phụ âm ở đầu từ — không thêm nguyên âm!</div>
+</div>
+<div id="toast" class="toast"></div>
+<div class="container">
+
+<!-- LÝ THUYẾT -->
+<div class="section">
+  <div class="section-title">🧠 Lý thuyết – Cụm phụ âm đầu từ</div>
+  <div class="rule-grid">
+    <div class="rule-card one">
+      <h4>🔤 1 phụ âm đầu từ</h4>
+      <p><em><span class="hl-c">l</span>ate, <span class="hl-c">r</span>ain, <span class="hl-c">wh</span>ite</em><br>
+      (wh = 2 chữ nhưng chỉ 1 âm /w/)<br><br>
+      Đây là phổ biến nhất — không có vấn đề gì đặc biệt.</p>
+    </div>
+    <div class="rule-card two">
+      <h4>🔤🔤 2 phụ âm đầu từ</h4>
+      <p><em><span class="hl-c">pl</span>ate, <span class="hl-c">tr</span>ain, <span class="hl-c">qu</span>ite (/kw/)</em><br><br>
+      <b>Ví dụ:</b><br>
+      br: bread, bring, bridge<br>
+      pr: price, practise<br>
+      bl: bless, blue, black<br>
+      cl: class, clean, clock<br>
+      gl: glass, glad<br>
+      cr: cream, cross<br>
+      qu/kw: quiet, queen<br>
+      sw: swim, sweet<br>
+      st: stand, street<br>
+      sp: spell, speak<br>
+      sn: stranger, snow<br>
+      str: stress, strong</p>
+    </div>
+    <div class="rule-card three">
+      <h4>🔤🔤🔤 3 phụ âm đầu từ</h4>
+      <p><em><span class="hl-c">spr</span>ing, <span class="hl-c">str</span>eet, <span class="hl-c">squ</span>are (/skw/)</em><br><br>
+      Các cụm 3 phụ âm phổ biến:<br>
+      <b>spr</b>: spring, spray, spread<br>
+      <b>str</b>: street, stress, strange<br>
+      <b>spl</b>: splash, split<br>
+      <b>squ/skw</b>: square, squeeze<br>
+      <b>scr</b>: screen, scratch<br>
+      <b>thr</b>: three, through, throw</p>
+    </div>
+  </div>
+
+  <table class="cluster-table">
+    <tr><th>Cụm</th><th>Ví dụ (từ sách)</th><th>Câu ví dụ</th></tr>
+    <tr><td><span class="cluster-badge">br</span></td><td><em>bread</em></td><td>Pass me some bread.</td></tr>
+    <tr><td><span class="cluster-badge">pr</span></td><td><em>price</em></td><td>What's the price?</td></tr>
+    <tr><td><span class="cluster-badge">bl</span></td><td><em>bless</em></td><td>(sneeze) Bless you!</td></tr>
+    <tr><td><span class="cluster-badge">cl</span></td><td><em>class</em></td><td>How many are there in your class?</td></tr>
+    <tr><td><span class="cluster-badge">gl</span></td><td><em>glass</em></td><td>Where are my glasses?</td></tr>
+    <tr><td><span class="cluster-badge">cr</span></td><td><em>cream</em></td><td>Do you like ice cream?</td></tr>
+    <tr><td><span class="cluster-badge">kw/qu</span></td><td><em>quiet</em></td><td>Isn't it quiet?</td></tr>
+    <tr><td><span class="cluster-badge">sp</span></td><td><em>spell</em></td><td>How do you spell it?</td></tr>
+    <tr><td><span class="cluster-badge">st</span></td><td><em>stand</em></td><td>Where shall I stand?</td></tr>
+    <tr><td><span class="cluster-badge">sw</span></td><td><em>swim</em></td><td>Can you swim?</td></tr>
+    <tr><td><span class="cluster-badge">str</span></td><td><em>stranger / stress</em></td><td>I'm a stranger here. / a job with a lot of stress</td></tr>
+    <tr><td><span class="cluster-badge">spr/str/skw</span></td><td><em>spring / street / square</em></td><td>3-consonant clusters</td></tr>
+  </table>
+
+  <div class="tip-box">
+    <b>💡 Quy tắc vàng:</b> Đừng bao giờ thêm nguyên âm VÀO TRƯỚC hoặc GIỮA cụm phụ âm!<br>
+    ❌ <em>e-street</em> &nbsp;|&nbsp; ✅ <em>street</em> /striːt/<br>
+    ❌ <em>e-spell</em> &nbsp;|&nbsp; ✅ <em>spell</em> /spel/<br>
+    <b>🇻🇳 Lỗi phổ biến:</b> <em>a-street, e-spring, e-square</em> — Người Việt hay thêm /ə/ trước s!
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-navy" onclick="speakText('late rain white plate train quite spring street square')">🔊 Nghe 1-2-3 phụ âm</button>
+    <button class="btn-navy" onclick="speakText('bread price bless class glass cream quiet spell stand swim stranger stress')">🔊 Nghe từ sách</button>
+    <button class="btn-teal" onclick="speakText('Pass me some bread. What is the price. Bless you! How many are there in your class. Where are my glasses. Do you like ice cream. Is it quiet. How do you spell it. Where shall I stand. Can you swim. I am a stranger here. A job with a lot of stress.')">🔊 Nghe câu</button>
+  </div>
+</div>
+
+<!-- WORD GRID -->
+<div class="section">
+  <div class="section-title">📚 Từ vựng – Cụm phụ âm đầu từ</div>
+  <div class="word-grid" id="wordGrid"></div>
+  <div class="btn-group"><button class="btn-navy" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
+</div>
+
+<!-- SENTENCES -->
+<div class="section">
+  <div class="section-title">🗣️ Câu luyện tập</div>
+  <ul class="sentence-list" id="sentList"></ul>
+  <div class="geo-box">
+    <b>🏗️ Geotech:</b> Cụm phụ âm đầu từ trong địa kỹ thuật:<br>
+    <em><b>gr</b>ound, <b>gr</b>avel, <b>str</b>ength, <b>str</b>ess, <b>dr</b>ain, <b>dr</b>illing, <b>cl</b>ay, <b>cr</b>ack, <b>bl</b>ock, <b>spr</b>eading, <b>pr</b>essure, <b>pl</b>an, <b>tr</b>ial, <b>tr</b>ench</em>
+  </div>
+</div>
+
+<!-- BÀI TẬP -->
+<div class="section">
+  <div class="section-title">✏️ Bài tập</div>
+
+  <!-- 25.1: circle word you hear -->
+  <div class="ex-wrap">
+    <span class="ex-label">25.1</span>
+    <div class="ex-instruction">Nhìn cặp từ và chọn từ nào khó hơn (có cụm phụ âm đầu). Click để nghe và chọn.</div>
+    <div id="ex1Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score1" class="score-box"></div>
+  </div>
+
+  <!-- 25.2: combo word builder from boxes -->
+  <div class="ex-wrap">
+    <span class="ex-label">25.2</span>
+    <div class="ex-instruction">Ghép phần đầu (Box 1) + Box 2 (nguyên âm) + Box 3 (cuối) để tạo từ. Click từ để nghe. Ví dụ: <b>gr + eɪ + t → great</b></div>
+    <div id="ex2Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score2" class="score-box"></div>
+  </div>
+
+  <!-- 25.3: complete words with 2-consonant clusters -->
+  <div class="ex-wrap">
+    <span class="ex-label">25.3</span>
+    <div class="ex-instruction">Điền 2 chữ phụ âm vào đầu từ để hoàn thành câu. (Đúng theo sách 25.3)</div>
+    <div id="ex3Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
+      <button class="btn-blue" onclick="speakEx3()">🔊 Nghe câu</button>
+    </div>
+    <div id="score3" class="score-box"></div>
+  </div>
+
+  <!-- 25.4: classify consonant clusters -->
+  <div class="ex-wrap">
+    <span class="ex-label">25.4</span>
+    <div class="ex-instruction">Click vào từ có <b>3 phụ âm đầu</b> (spr/str/spl/squ/scr/thr). Các từ còn lại chỉ có 2 phụ âm đầu.</div>
+    <div id="ex4Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score4" class="score-box"></div>
+  </div>
+
+  <!-- 25.5: minimal pairs with/without initial consonant -->
+  <div class="ex-wrap">
+    <span class="ex-label">25.5</span>
+    <div class="ex-instruction">Nghe và chọn từ đúng (minimal pairs: có hay không có phụ âm đầu).</div>
+    <div id="ex5Content"></div>
+    <div class="btn-group">
+      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
+      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
+      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
+    </div>
+    <div id="score5" class="score-box"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+let cachedVoice=null;
+function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
+function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
+speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+
+// WORDS
+const words=[
+  {w:"bread",cl:"br",ipa:"/bred/",vn:"bánh mì"},{w:"price",cl:"pr",ipa:"/praɪs/",vn:"giá"},
+  {w:"bless",cl:"bl",ipa:"/bles/",vn:"chúc phúc"},{w:"class",cl:"cl",ipa:"/klɑːs/",vn:"lớp học"},
+  {w:"glass",cl:"gl",ipa:"/ɡlɑːs/",vn:"cái kính/ly"},{w:"cream",cl:"cr",ipa:"/kriːm/",vn:"kem"},
+  {w:"quiet",cl:"qu",ipa:"/ˈkwaɪət/",vn:"yên tĩnh"},{w:"spell",cl:"sp",ipa:"/spel/",vn:"đánh vần"},
+  {w:"stand",cl:"st",ipa:"/stænd/",vn:"đứng"},{w:"swim",cl:"sw",ipa:"/swɪm/",vn:"bơi"},
+  {w:"stranger",cl:"str",ipa:"/ˈstreɪndʒə/",vn:"người lạ"},{w:"stress",cl:"str",ipa:"/stres/",vn:"ứng suất/căng thẳng"},
+  {w:"spring",cl:"spr",ipa:"/sprɪŋ/",vn:"mùa xuân/lò xo"},{w:"street",cl:"str",ipa:"/striːt/",vn:"đường phố"},
+  {w:"square",cl:"squ",ipa:"/skweə/",vn:"hình vuông/quảng trường"},{w:"train",cl:"tr",ipa:"/treɪn/",vn:"xe lửa"},
+  {w:"ground",cl:"gr",ipa:"/ɡraʊnd/",vn:"mặt đất"},{w:"drain",cl:"dr",ipa:"/dreɪn/",vn:"thoát nước"},
+  {w:"clay",cl:"cl",ipa:"/kleɪ/",vn:"đất sét"},{w:"pressure",cl:"pr",ipa:"/ˈpreʃə/",vn:"áp suất"},
+];
+function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card" onclick="speakText('${w.w}')"><div class="word">${w.w}</div><div class="ipa2">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div><div class="cl">${w.cl}-</div></div>`).join('');}
+function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+
+// SENTENCES
+const sents=[
+  {en:"Pass me some bread.",ipa:"/pɑːs mi sʌm bred/",vn:"Đưa tôi một ít bánh mì."},
+  {en:"What's the price?",ipa:"/wɒts ðə praɪs/",vn:"Giá bao nhiêu?"},
+  {en:"(sneeze) Bless you!",ipa:"/bles juː/",vn:"(hắt hơi) Sức khoẻ nhé!"},
+  {en:"How many are there in your class?",ipa:"/haʊ ˈmeni ə ðeə ɪn jə klɑːs/",vn:"Có bao nhiêu người trong lớp bạn?"},
+  {en:"Where are my glasses?",ipa:"/weər ə maɪ ˈɡlɑːsɪz/",vn:"Kính của tôi đâu rồi?"},
+  {en:"Do you like ice cream?",ipa:"/də jə laɪk aɪs kriːm/",vn:"Bạn có thích kem không?"},
+  {en:"Isn't it quiet?",ipa:"/ˈɪznt ɪt ˈkwaɪət/",vn:"Yên tĩnh quá phải không?"},
+  {en:"How do you spell it?",ipa:"/haʊ də jə spel ɪt/",vn:"Bạn đánh vần nó như thế nào?"},
+  {en:"Where shall I stand?",ipa:"/weə ʃæl aɪ stænd/",vn:"Tôi nên đứng ở đâu?"},
+  {en:"Can you swim?",ipa:"/kən jə swɪm/",vn:"Bạn có biết bơi không?"},
+  {en:"I'm a stranger here.",ipa:"/aɪm ə ˈstreɪndʒə hɪə/",vn:"Tôi không quen đường ở đây."},
+  {en:"Ground investigation confirmed clay at three metres.",ipa:"/ɡraʊnd ɪnˌvestɪˈɡeɪʃən kənˈfɜːmd kleɪ ət θriː ˈmiːtəz/",vn:"Khảo sát địa chất xác nhận có sét ở độ sâu 3 mét."},
+  {en:"Drainage and pressure relief were planned for the trench.",ipa:"/ˈdreɪnɪdʒ ənd ˈpreʃə rɪˈliːf wə plænd fə ðə trentʃ/",vn:"Hệ thống thoát nước và giảm áp được lên kế hoạch cho hào đào."},
+  {en:"The strength of the gravel layer was tested.",ipa:"/ðə streŋθ əv ðə ˈɡrævəl ˈleɪə wəz ˈtestɪd/",vn:"Độ bền của lớp sỏi đã được thử nghiệm."},
+];
+function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+
+// EX 1: word pairs (from book 25.1) - which has initial consonant cluster?
+// Book: pairs of words, one with cluster (harder), one without
+const ex1Data=[
+  {pair:["dress","address"],ans:0,note:"dr- vs vowel"},
+  {pair:["rain","train"],ans:1,note:"vowel vs tr-"},
+  {pair:["miles","smiles"],ans:1,note:"m- vs sm-"},
+  {pair:["cool","school"],ans:1,note:"c- vs sch-"},
+  {pair:["sleep","asleep"],ans:0,note:"sl- vs vowel"},
+  {pair:["rain","train"],ans:1,note:"r- vs tr-"},
+  {pair:["dress","address"],ans:0,note:"dr- is cluster"},
+  {pair:["sleep","asleep"],ans:0,note:"sl-"},
+  {pair:["miles","smiles"],ans:1,note:"sm-"},
+  {pair:["cool","school"],ans:1,note:"sch-"},
+  {pair:["win","twin"],ans:1,note:"w- vs tw-"},
+  {pair:["win","twin"],ans:1,note:"tw- cluster"},
+];
+// Simplified to unique pairs
+const ex1Simple=[
+  {pair:["dress","address"],ans:0,speak:["dress","address"]},
+  {pair:["rain","train"],ans:1,speak:["rain","train"]},
+  {pair:["miles","smiles"],ans:1,speak:["miles","smiles"]},
+  {pair:["cool","school"],ans:1,speak:["cool","school"]},
+  {pair:["sleep","asleep"],ans:0,speak:["sleep","asleep"]},
+  {pair:["win","twin"],ans:1,speak:["win","twin"]},
+];
+let ex1sel={};
+function renderEx1(){
+  ex1sel={};
+  document.getElementById('ex1Content').innerHTML=`<div style="font-size:0.85rem;color:#555;margin-bottom:8px">Từ nào có cụm phụ âm đầu (khó hơn)? Click để chọn, rồi nghe để kiểm tra.</div>`+
+  ex1Simple.map((d,i)=>`
+    <div class="pair-row">
+      <span style="font-size:0.82rem;color:#888;min-width:20px">${i+1}.</span>
+      ${d.pair.map((w,j)=>`<span class="pair-btn" id="p1_${i}_${j}" onclick="selPair1(${i},${j})">${w}</span>`).join(' vs ')}
+      <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak[0]}...${d.speak[1]}')">🔊 Nghe cả hai</button>
+    </div>`).join('');
+}
+function selPair1(i,j){
+  [0,1].forEach(x=>{const el=document.getElementById(`p1_${i}_${x}`);if(el)el.className='pair-btn';});
+  const el=document.getElementById(`p1_${i}_${j}`);
+  if(el)el.classList.add('selected');
+  ex1sel[i]=j;
+}
+function checkEx1(){
+  let c=0;
+  ex1Simple.forEach((d,i)=>{
+    [0,1].forEach(x=>{const el=document.getElementById(`p1_${i}_${x}`);if(el)el.className='pair-btn';});
+    if(ex1sel[i]===d.ans){c++;document.getElementById(`p1_${i}_${d.ans}`)?.classList.add('correct');}
+    else{if(ex1sel[i]!==undefined)document.getElementById(`p1_${i}_${ex1sel[i]}`)?.classList.add('wrong');document.getElementById(`p1_${i}_${d.ans}`)?.classList.add('correct');}
+  });
+  showScore('score1',c,ex1Simple.length);
+}
+function resetEx1(){ex1sel={};document.querySelectorAll('[id^="p1_"]').forEach(el=>el.className='pair-btn');document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx1(){ex1Simple.forEach((d,i)=>{ex1sel[i]=d.ans;[0,1].forEach(x=>{const el=document.getElementById(`p1_${i}_${x}`);if(el){el.className='pair-btn';if(x===d.ans)el.classList.add('correct');}});});showToast('👁️ Đây là đáp án!');}
+
+// EX 2: word combinator (from book 25.2)
+// Box1 + Box2 + Box3 → words
+// Row 1: g/p/r + eɪ + t/n/t → grey, great, gate, grain, plate, plain, rate, rain
+// Row 2: f/t/s/r + iː + t → feet, tree, street, free
+// Row 3: s/sl/sn + əʊ + z/p → so, slow, snow, nose, snows
+// Row 4: f/fr/fl + aɪ + t → fight, fright, flight
+const ex2Words={
+  r1:["grey","great","gate","grain","plate","plain","rate","rain"],
+  r2:["feet","tree","street","free","three"],
+  r3:["so","slow","snow","nose","snows"],
+  r4:["fight","fright","flight","fly","fry"],
+};
+function renderEx2(){
+  const all=[...ex2Words.r1,...ex2Words.r2,...ex2Words.r3,...ex2Words.r4];
+  let html=`<div style="font-size:0.85rem;color:#555;margin-bottom:8px">Click vào từ để nghe phát âm. Chú ý cụm phụ âm đầu:</div>`;
+  html+=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin:10px 0">`;
+  [["Row 1 (gr/pr/r):",ex2Words.r1],["Row 2 (f/tr/str/fr/thr):",ex2Words.r2],["Row 3 (s/sl/sn/n):",ex2Words.r3],["Row 4 (f/fr/fl):",ex2Words.r4]].forEach(([label,ws])=>{
+    html+=`<div style="background:#f0f4ff;border-radius:8px;padding:10px;border:1.5px solid #a8c0e8"><div style="font-size:0.78rem;font-weight:700;color:#1a3a6a;margin-bottom:6px">${label}</div>${ws.map(w=>`<span class="combo-word" onclick="speakText('${w}')">${w}</span>`).join(' ')}</div>`;
+  });
+  html+='</div>';
+  // Simple quiz
+  html+=`<div style="margin-top:12px;font-size:0.87rem;color:#555">📝 Điền từ đúng (dùng cụm phụ âm đầu):</div>`;
+  const quizItems=[
+    {q:"Màu xám:",ans:"grey",speak:"grey"},{q:"Tuyệt vời:",ans:"great",speak:"great"},
+    {q:"Con đường:",ans:"street",speak:"street"},{q:"Tuyết:",ans:"snow",speak:"snow"},
+    {q:"Chuyến bay:",ans:"flight",speak:"flight"},{q:"Cây (một cây):",ans:"tree",speak:"tree"},
+  ];
+  let gi=0;
+  html+=quizItems.map(item=>`<div class="fill-item" style="margin:6px 0">${item.q} <input class="fill-input" id="e2q_${gi++}" type="text" placeholder="..." data-ans="${item.ans}" style="width:90px"> <button class="btn-navy" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${item.speak}')">🔊</button></div>`).join('');
+  document.getElementById('ex2Content').innerHTML=html;
+}
+function checkEx2(){const inputs=document.querySelectorAll('[id^="e2q_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score2',c,inputs.length);}
+function resetEx2(){document.querySelectorAll('[id^="e2q_"]').forEach(inp=>{inp.value='';inp.className='fill-input';});document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx2(){document.querySelectorAll('[id^="e2q_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 3: complete words with 2-consonant starts (from book 25.3)
+const ex3Data=[
+  {sent:"1. I don't like travelling by <u>p</u>lane.",pre:"p",gap:"l",rest:"ane.",ans:"l",speak:"I don't like travelling by plane."},
+  {sent:"2. The sky's <u>_</u>ue today.",pre:"",gap:"bl",rest:"ue today.",ans:"bl",speak:"The sky is blue today."},
+  {sent:"3. What would you like to <u>_</u>ink?",pre:"",gap:"dr",rest:"ink?",ans:"dr",speak:"What would you like to drink?"},
+  {sent:"4. Is it the <u>_</u>elfth?",pre:"",gap:"tw",rest:"elfth?",ans:"tw",speak:"Is it the twelfth?"},
+  {sent:"5. Is this seat <u>_</u>ee?",pre:"",gap:"fr",rest:"ee?",ans:"fr",speak:"Is this seat free?"},
+  {sent:"6. It's five o'<u>_</u>ock.",pre:"",gap:"cl",rest:"ock.",ans:"cl",speak:"It's five o'clock."},
+  {sent:"7. How many languages can you <u>_</u>eak?",pre:"",gap:"sp",rest:"eak?",ans:"sp",speak:"How many languages can you speak?"},
+  {sent:"8. Don't sit on that dirty <u>_</u>oor.",pre:"",gap:"fl",rest:"oor.",ans:"fl",speak:"Don't sit on that dirty floor."},
+];
+function renderEx3(){
+  let gi=0,html='';
+  ex3Data.forEach(d=>{
+    const idx=gi++;
+    html+=`<div class="fill-item">${d.sent.replace(/<u>_?<\/u>/,`<input class="blank-input" id="e3_${idx}" type="text" placeholder="${'_'.repeat(d.ans.length)}" data-ans="${d.ans}" style="width:${Math.max(24,d.ans.length*18)}px">`)}<button class="btn-navy" style="padding:3px 8px;font-size:0.78rem;margin-left:6px" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button></div>`;
+  });
+  document.getElementById('ex3Content').innerHTML=html;
+}
+function speakEx3(){speakText(ex3Data.map(d=>d.speak).join(' '));}
+function checkEx3(){const inputs=document.querySelectorAll('[id^="e3_"]');let c=0;inputs.forEach(inp=>{if(inp.value.trim().toLowerCase()===inp.dataset.ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}else{inp.classList.add('wrong');inp.classList.remove('correct');}});showScore('score3',c,inputs.length);}
+function resetEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value='';inp.className='blank-input';});document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx3(){document.querySelectorAll('[id^="e3_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+
+// EX 4: click 3-consonant words
+const ex4All=[
+  {w:"spring",is3:true},{w:"bread",is3:false},{w:"street",is3:true},{w:"price",is3:false},
+  {w:"square",is3:true},{w:"glass",is3:false},{w:"spray",is3:true},{w:"swim",is3:false},
+  {w:"splash",is3:true},{w:"cream",is3:false},{w:"stress",is3:true},{w:"spell",is3:false},
+  {w:"three",is3:true},{w:"train",is3:false},{w:"screen",is3:true},{w:"stand",is3:false},
+];
+let ex4sel=new Set();
+function renderEx4(){
+  ex4sel=new Set();
+  document.getElementById('ex4Content').innerHTML=`<div style="font-size:0.85rem;color:#555;margin-bottom:8px">Click từ có <b>3 phụ âm đầu</b> (spr/str/spl/squ/scr/thr):</div><div style="display:flex;flex-wrap:wrap;gap:8px">`+
+  ex4All.map((d,i)=>`<span class="combo-word" id="ex4_${i}" onclick="toggleEx4(${i})" style="font-size:0.95rem;padding:6px 14px">${d.w}</span>`).join('')+'</div>';
+}
+function toggleEx4(i){
+  const el=document.getElementById('ex4_'+i);
+  if(ex4sel.has(i)){ex4sel.delete(i);el.style.background='#dde8ff';el.style.color='#222';}
+  else{ex4sel.add(i);el.style.background='#1a3a6a';el.style.color='#fff';}
+}
+function checkEx4(){
+  let c=0;
+  ex4All.forEach((d,i)=>{
+    const el=document.getElementById('ex4_'+i);
+    const sel=ex4sel.has(i);
+    if(sel===d.is3){c++;el.style.background=d.is3?'#27ae60':'#dde8ff';el.style.color=d.is3?'#fff':'#222';}
+    else{el.style.background=sel?'#e74c3c':'#ffe';el.style.color=sel?'#fff':'#222';if(d.is3)el.style.outline='3px solid #27ae60';}
+  });
+  showScore('score4',c,ex4All.length);
+}
+function resetEx4(){ex4sel=new Set();ex4All.forEach((_,i)=>{const el=document.getElementById('ex4_'+i);if(el){el.style.background='#dde8ff';el.style.color='#222';el.style.outline='none';}});document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx4(){ex4All.forEach((d,i)=>{const el=document.getElementById('ex4_'+i);if(el){if(d.is3){ex4sel.add(i);el.style.background='#27ae60';el.style.color='#fff';}else{ex4sel.delete(i);el.style.background='#dde8ff';el.style.color='#222';}el.style.outline='none';}});showToast('👁️ Đây là đáp án!');}
+
+// EX 5: minimal pairs
+const ex5Data=[
+  {pair:["rain","train"],sent:"I took the ___ to London.",ans:1,speak:"I took the train to London.",note:"r- vs tr-"},
+  {pair:["lack","black"],sent:"The cat is completely ___.",ans:1,speak:"The cat is completely black.",note:"l- vs bl-"},
+  {pair:["price","rice"],sent:"___ is expensive here.",ans:1,speak:"Rice is expensive here.",note:"pr- vs r-"},
+  {pair:["cream","ream"],sent:"Add some ___ to the coffee.",ans:0,speak:"Add some cream to the coffee.",note:"cr- vs r-"},
+  {pair:["stress","tress"],sent:"She has beautiful golden ___es.",ans:1,speak:"She has beautiful golden tresses.",note:"str- vs tr-"},
+  {pair:["spring","ring"],sent:"She lost her ___ in the garden.",ans:1,speak:"She lost her ring in the garden.",note:"spr- vs r-"},
+  {pair:["ground","round"],sent:"The ___ investigation is complete.",ans:0,speak:"The ground investigation is complete.",note:"gr- vs r-"},
+  {pair:["clay","lay"],sent:"The samples showed ___ at 3 metres.",ans:0,speak:"The samples showed clay at 3 metres.",note:"cl- vs l-"},
+];
+function renderEx5(){document.getElementById('ex5Content').innerHTML=ex5Data.map((d,i)=>`<div class="mp-item"><span style="font-style:italic;min-width:260px">"${d.sent}"</span><button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>${d.pair.map((opt,j)=>`<label><input type="radio" name="mp5_${i}" value="${j}"> <b>${opt}</b></label>`).join(' ')}<span style="font-size:0.77rem;color:#888">${d.note}</span></div>`).join('');}
+function checkEx5(){let c=0;ex5Data.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel&&parseInt(sel.value)===d.ans)c++;});showScore('score5',c,ex5Data.length);}
+function resetEx5(){ex5Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
+function revealEx5(){ex5Data.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp5_${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+
+renderWords();renderSents();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(25)){c.push(25);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 7 - /ɜː/ | My birthday's on Thursday</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;background:#f0f4f8;padding:20px 15px;min-height:100vh;}
+        .container{max-width:1000px;margin:0 auto;}
+        .header{background:linear-gradient(135deg,#1a4a2a,#2d7a4a);color:white;padding:24px 28px;border-radius:20px;margin-bottom:25px;box-shadow:0 8px 30px rgba(26,74,42,.35);}
+        .header .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+        .lesson-number{background:rgba(255,255,255,.15);padding:4px 18px;border-radius:30px;font-size:14px;border:1px solid rgba(255,255,255,.2);}
+        .header h1{font-size:26px;font-weight:800;margin-top:8px;}
+        .header h1 span{color:#f1c40f;}
+        .phoneme-badge{display:inline-block;background:#f1c40f;color:#1a4a2a;font-size:22px;font-weight:900;padding:4px 18px;border-radius:12px;margin-top:8px;font-family:"Courier New",monospace;}
+        .header .sub{font-size:14px;opacity:.85;margin-top:6px;}
+        .nav-link{display:inline-block;margin-top:12px;color:#f1c40f;text-decoration:none;font-weight:600;font-size:14px;}
+        .section{background:white;border-radius:16px;padding:22px 26px;margin-bottom:20px;border:1px solid #e2e8f0;box-shadow:0 2px 12px rgba(0,0,0,.04);}
+        .section-title{font-size:18px;font-weight:700;color:#1a4a2a;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+        .badge{background:#eef2f7;font-size:13px;font-weight:600;padding:2px 14px;border-radius:30px;color:#2c3e50;}
+        .badge.audio{background:#d5f5e3;color:#1a6e4a;}
+        .section p{font-size:15px;line-height:1.9;color:#2c3e50;margin-bottom:10px;}
+        .ipa-er{font-family:"Courier New",monospace;color:#1a4a2a;background:#d5f5e3;padding:2px 10px;border-radius:6px;font-size:15px;}
+        .note-box{background:#fff3cd;border:1px solid #ffc107;border-radius:10px;padding:10px 14px;margin:8px 0;font-size:14px;color:#856404;line-height:1.7;}
+        .info-box{background:#d6eaf8;border:1px solid #2980b9;border-radius:10px;padding:12px 16px;margin:10px 0;font-size:14px;color:#1a4a7a;line-height:1.8;}
+        /* DIAGRAM */
+        .diagram-box{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0;}
+        .diagram-card{flex:1;min-width:200px;border-radius:14px;padding:16px 18px;background:linear-gradient(135deg,#d5f5e3,#a9dfbf);border:2px solid #2d7a4a;}
+        .phoneme{font-size:52px;font-weight:900;font-family:"Courier New",monospace;text-align:center;color:#1a4a2a;}
+        .desc{font-size:13px;color:#1a3a2a;line-height:1.7;margin-top:8px;}
+        .desc li{margin-left:14px;margin-bottom:3px;}
+        /* SPELL TABLE */
+        .spell-table{width:100%;border-collapse:collapse;margin:12px 0;}
+        .spell-table th{background:#1a4a2a;color:white;padding:9px 14px;text-align:left;font-size:14px;}
+        .spell-table td{padding:9px 14px;border-bottom:1px solid #e2e8f0;font-size:14px;}
+        .spell-table tr:nth-child(even){background:#f0faf5;}
+        .spell-table .spl{font-family:"Courier New",monospace;color:#1a4a2a;font-weight:700;font-size:16px;}
+        /* WORD GRID */
+        .word-grid{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .word-card{background:white;border:2px solid #a9dfbf;border-radius:12px;padding:10px 14px;min-width:120px;cursor:pointer;transition:.2s;}
+        .word-card:hover{border-color:#1a4a2a;box-shadow:0 4px 14px rgba(26,74,42,.15);}
+        .word-card .word{font-size:16px;font-weight:700;color:#1a2a3a;}
+        .word-card .ipa{font-family:"Courier New",monospace;font-size:12px;color:#1a4a2a;margin-top:2px;}
+        .word-card .vi{font-size:12px;color:#27ae60;margin-top:2px;}
+        .hl{background:#1a4a2a;color:white;border-radius:3px;padding:0 2px;}
+        /* SENTENCE LIST */
+        .sentence-list{list-style:none;padding:0;margin:10px 0;}
+        .sentence-list li{padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:15px;line-height:1.8;background:#f8fafc;border-left:4px solid #2d7a4a;cursor:pointer;transition:.2s;}
+        .sentence-list li:hover{background:#d5f5e3;}
+        .sentence-list li .ipa-s{font-family:"Courier New",monospace;font-size:12px;color:#1a4a2a;display:block;margin-top:3px;}
+        .sentence-list li .vi-s{font-size:13px;color:#27ae60;display:block;margin-top:2px;}
+        /* BUTTONS */
+        .btn{background:#3498db;color:white;border:none;padding:8px 20px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:7px;}
+        .btn:hover{transform:scale(1.03);opacity:.9;}
+        .btn-er{background:#1a4a2a;}
+        .btn-success{background:#27ae60;}
+        .btn-warning{background:#f39c12;}
+        .btn-purple{background:#7c3aed;}
+        .btn-danger{background:#e74c3c;}
+        .btn-teal{background:#1abc9c;}
+        .btn-gray{background:#64748b;}
+        .btn-group{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+        .tip-box{background:#fef9e7;border:2px solid #f7dc6f;border-radius:12px;padding:14px 18px;margin:12px 0;}
+        .tip-title{font-weight:700;color:#7d6608;font-size:15px;margin-bottom:6px;}
+        .tip-content{font-size:14px;color:#5a4a1a;line-height:1.9;}
+        .tip-content p{margin-bottom:8px;}
+        .geo-box{background:#eafaf1;border:2px solid #1abc9c;border-radius:12px;padding:14px 18px;margin:10px 0;}
+        .geo-title{font-weight:700;color:#1a6e4a;font-size:15px;margin-bottom:6px;}
+        .geo-content{font-size:14px;color:#1a4a3a;line-height:1.9;}
+        /* EXERCISES */
+        .ex-wrap{background:#fafcff;border:2px solid #e2e8f0;border-radius:14px;padding:20px 22px;margin:14px 0;}
+        .ex-instruction{background:#d5f5e3;border:1px solid #1a4a2a;border-radius:10px;padding:11px 15px;font-size:14px;color:#1a4a2a;margin-bottom:14px;line-height:1.7;}
+        .ex-instruction strong{color:#e74c3c;}
+        /* 4-column classify */
+        .four-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0;}
+        .sort-col{border-radius:12px;padding:12px 14px;min-height:80px;}
+        .sort-col h4{font-size:13px;font-weight:700;margin-bottom:8px;padding:5px 10px;border-radius:8px;text-align:center;font-family:"Courier New",monospace;}
+        .col-er{background:#d5f5e3;border:2px solid #1a4a2a;}
+        .col-er h4{background:#1a4a2a;color:white;}
+        .col-or{background:#fde8d0;border:2px solid #b85c00;}
+        .col-or h4{background:#b85c00;color:white;}
+        .col-ar{background:#fce4ec;border:2px solid #a8184d;}
+        .col-ar h4{background:#a8184d;color:white;}
+        .col-other{background:#eef2f7;border:2px solid #64748b;}
+        .col-other h4{background:#64748b;color:white;}
+        .sort-chip{background:white;border:2px solid #e2e8f0;border-radius:20px;padding:4px 12px;margin:3px 2px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s;display:inline-block;user-select:none;}
+        .sort-chip:hover{border-color:#1a4a2a;}
+        .chip-pool{display:flex;flex-wrap:wrap;gap:6px;padding:12px;background:#f0f4f8;border-radius:10px;margin:12px 0;min-height:50px;}
+        /* fill blank */
+        .fill-items{display:flex;flex-direction:column;gap:8px;margin:10px 0;}
+        .fill-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:11px 16px;font-size:15px;line-height:2;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+        .fill-item .num{font-weight:700;color:#1a4a2a;min-width:22px;}
+        .fill-item input{border:2px solid #1a4a2a;border-radius:8px;padding:4px 10px;font-size:14px;outline:none;min-width:70px;max-width:130px;font-family:"Segoe UI",sans-serif;transition:.2s;}
+        .fill-item input.correct{border-color:#27ae60;background:#d5f5e3;color:#1a6e4a;}
+        .fill-item input.wrong{border-color:#e74c3c;background:#fadbd8;color:#922b21;}
+        /* number fill */
+        .num-fill-items{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0;}
+        .num-fill-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;}
+        .num-fill-item .num{font-weight:700;color:#1a4a2a;min-width:20px;}
+        .num-fill-item input{border:2px solid #1a4a2a;border-radius:8px;padding:4px 10px;font-size:15px;outline:none;min-width:70px;font-family:"Segoe UI",sans-serif;}
+        .num-fill-item input.correct{border-color:#27ae60;background:#d5f5e3;color:#1a6e4a;}
+        .num-fill-item input.wrong{border-color:#e74c3c;background:#fadbd8;color:#922b21;}
+        /* choice */
+        .choice-items{display:flex;flex-direction:column;gap:10px;margin:10px 0;}
+        .choice-item{background:white;border:2px solid #e2e8f0;border-radius:10px;padding:12px 16px;}
+        .choice-item .num{font-weight:700;color:#1a4a2a;}
+        .choice-btn{display:inline-block;padding:5px 18px;border-radius:20px;border:2px solid #e2e8f0;margin:4px 6px 0 0;cursor:pointer;font-size:14px;font-weight:600;transition:.2s;background:white;color:#333;user-select:none;}
+        .choice-btn:hover{border-color:#1a4a2a;color:#1a4a2a;}
+        .choice-btn.sel-a{background:#1a4a2a;color:white;border-color:#1a4a2a;}
+        .choice-btn.correct-c{background:#27ae60;color:white;border-color:#27ae60;pointer-events:none;}
+        .choice-btn.wrong-c{background:#e74c3c;color:white;border-color:#e74c3c;pointer-events:none;}
+        /* score */
+        .score-box{border-radius:12px;padding:14px 18px;margin-top:12px;font-size:15px;line-height:1.9;display:none;}
+        .score-box.show{display:block;}
+        .score-box.great{background:#d5f5e3;border:2px solid #27ae60;color:#1a6e4a;}
+        .score-box.good{background:#fef9e7;border:2px solid #f39c12;color:#7d6608;}
+        .score-box.try{background:#fadbd8;border:2px solid #e74c3c;color:#922b21;}
+        .score-box.info{background:#d6eaf8;border:2px solid #2980b9;color:#1a4a7a;}
+        .score-meter{background:#e0e7ee;border-radius:30px;height:12px;margin:8px 0;overflow:hidden;}
+        .score-meter-fill{height:100%;border-radius:30px;transition:width 1s ease;}
+        .big-score{font-size:38px;font-weight:900;text-align:center;margin:4px 0;}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2c3e50;color:white;padding:12px 24px;border-radius:40px;font-size:14px;box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;transition:opacity .4s;pointer-events:none;z-index:999;max-width:90%;text-align:center;}
+        .toast.show{opacity:1;}
+        @media(max-width:650px){.header{padding:18px 16px;}.header h1{font-size:20px;}.section{padding:16px 14px;}.four-cols{grid-template-columns:1fr 1fr;}.num-fill-items{grid-template-columns:1fr;}}
+    </style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+    <div class="top-row">
+        <span class="lesson-number">📚 Bài 7</span>
+        <span style="font-size:13px;opacity:.7;">Section A · Vowels</span>
+    </div>
+    <h1>🎂 <span>My birthday's on Thursday</span></h1>
+    <div><span class="phoneme-badge">/ɜː/</span></div>
+    <div class="sub">Nguyên âm dài /ɜː/ — bird, Thursday, word, early, service</div>
+    <a href="../index.html" class="nav-link">← Về trang chủ</a>
+</div>
+
+<!-- A: /ɜː/ cách phát âm -->
+<div class="section">
+    <div class="section-title">🟢 A. Cách phát âm <span class="ipa-er">/ɜː/</span> — Nguyên âm DÀI <span class="badge audio">🔊 Nghe</span></div>
+    <div class="diagram-box">
+        <div class="diagram-card">
+            <div class="phoneme">/ɜː/</div>
+            <div style="text-align:center;font-size:13px;color:#1a4a2a;margin-top:4px;">"er/ir/ur" dài — bird, Thursday</div>
+            <ul class="desc">
+                <li>Miệng, lưỡi và hàm đều <strong>thư giãn hoàn toàn</strong>.</li>
+                <li>Lưỡi ở <strong>giữa miệng</strong> — không lên, không xuống.</li>
+                <li>Môi <strong>không tròn, không kéo ngang</strong> — trung tính.</li>
+                <li>Âm <strong>DÀI</strong> — như người do dự nói "errr..."</li>
+                <li>🎯 Target: <span class="ipa-er">/ɜː/</span></li>
+            </ul>
+        </div>
+        <div style="flex:1;min-width:220px;padding:10px 0;font-size:14px;line-height:2;color:#2c3e50;">
+            <p><strong>📌 Cách phát âm /ɜː/:</strong></p>
+            <p>1. Thư giãn hoàn toàn — không cố ý làm gì cả!</p>
+            <p>2. Miệng mở vừa, hàm xuống nhẹ.</p>
+            <p>3. Lưỡi nằm giữa, không chạm đâu.</p>
+            <p>4. Kéo dài âm: "biiird", "Thuursdaay".</p>
+            <p>💡 <strong>Bí quyết:</strong> Khi người Anh do dự, họ nói "Er..." — đó chính là âm /ɜː/!</p>
+            <p>🇻🇳 Gần giống "ơ" trong tiếng Việt nhưng <em>dài hơn và trung tính hơn</em>.</p>
+            <p>🇺🇸 Người Mỹ, Scotland, Ireland phát âm chữ r sau /ɜː/ — nên nghe hơi khác.</p>
+        </div>
+    </div>
+    <div class="note-box">
+        💡 <strong>/ɜː/ là âm mà người Anh thường nói khi chưa nghĩ ra câu trả lời:</strong><br>
+        A: What date is it today? B: <em>Er</em>, I think it's the tenth.<br>
+        → Âm "er" đó chính là /ɜː/ kéo dài!
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-er" onclick="speakText('bird birthday circle thirty turn Thursday early earth heard service Germany',0.75)">🔊 Nghe /ɜː/</button>
+        <button class="btn btn-success" onclick="speakText('bird turn early service',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- B: /ɜː/ chính tả + từ vựng -->
+<div class="section">
+    <div class="section-title">🟢 B. Chính tả &amp; Từ có âm <span class="ipa-er">/ɜː/</span> <span class="badge">Spelling &amp; Từ vựng</span></div>
+    <table class="spell-table">
+        <tr><th>Cách viết</th><th>Ví dụ</th><th>Chú ý</th></tr>
+        <tr><td class="spl">ir</td><td>bird, first, birthday, circle, thirty, girl, shirt, third, firm, sir, stir, thirst</td><td>Phổ biến</td></tr>
+        <tr><td class="spl">or</td><td>word, work, world, worse, worst, worm, worth, worry</td><td>Sau "w": or = /ɜː/!</td></tr>
+        <tr><td class="spl">ur</td><td>turn, Thursday, burn, hurt, nurse, purple, return, curve, suburb, fur, curl</td><td>Phổ biến</td></tr>
+        <tr><td class="spl">our</td><td>journey, journal, courtesy,ournament</td><td>Ít từ</td></tr>
+        <tr><td class="spl">ear</td><td>early, earth, heard, learn, earn, search, pearl, rehearse</td><td>Không phải /ɪər/!</td></tr>
+        <tr><td class="spl">er</td><td>service, Germany, prefer, dessert, weren't, verb, university, certain, person, nerve, term</td><td>Phổ biến</td></tr>
+    </table>
+    <div class="note-box">
+        ⚠️ <strong>Sau "w", chữ "or" đọc là /ɜː/:</strong> word /wɜːd/ · work /wɜːk/ · world /wɜːld/ · worse /wɜːs/ · worm /wɜːm/<br>
+        ⚠️ <strong>her, hers, were</strong> thường phát âm với /ɜː/ (xem bài 38 và 40)<br>
+        🇺🇸 Người Mỹ, Scotland, Ireland phát âm r sau /ɜː/: bird = /bɜːrd/, work = /wɜːrk/<br>
+        🇬🇧 Tiếng Anh Anh: bird = /bɜːd/, work = /wɜːk/ — r câm khi đứng trước phụ âm hoặc cuối từ
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 Bộ từ vựng /ɜː/ — Click để nghe:</strong></p>
+    <div class="word-grid">
+        <div class="word-card" onclick="speakText('bird',0.8)"><div class="word">b<span class="hl">ir</span>d</div><div class="ipa">/bɜːd/</div><div class="vi">🇻🇳 con chim</div></div>
+        <div class="word-card" onclick="speakText('birthday',0.8)"><div class="word">b<span class="hl">ir</span>thday</div><div class="ipa">/ˈbɜːθ.deɪ/</div><div class="vi">🇻🇳 sinh nhật</div></div>
+        <div class="word-card" onclick="speakText('Thursday',0.8)"><div class="word">Th<span class="hl">ur</span>sday</div><div class="ipa">/ˈθɜːz.deɪ/</div><div class="vi">🇻🇳 Thứ Năm</div></div>
+        <div class="word-card" onclick="speakText('word',0.8)"><div class="word">w<span class="hl">or</span>d</div><div class="ipa">/wɜːd/</div><div class="vi">🇻🇳 từ ngữ</div></div>
+        <div class="word-card" onclick="speakText('work',0.8)"><div class="word">w<span class="hl">or</span>k</div><div class="ipa">/wɜːk/</div><div class="vi">🇻🇳 làm việc / công việc</div></div>
+        <div class="word-card" onclick="speakText('world',0.8)"><div class="word">w<span class="hl">or</span>ld</div><div class="ipa">/wɜːld/</div><div class="vi">🇻🇳 thế giới</div></div>
+        <div class="word-card" onclick="speakText('early',0.8)"><div class="word"><span class="hl">ear</span>ly</div><div class="ipa">/ˈɜː.li/</div><div class="vi">🇻🇳 sớm</div></div>
+        <div class="word-card" onclick="speakText('earth',0.8)"><div class="word"><span class="hl">ear</span>th</div><div class="ipa">/ɜːθ/</div><div class="vi">🇻🇳 Trái Đất / đất</div></div>
+        <div class="word-card" onclick="speakText('heard',0.8)"><div class="word">h<span class="hl">ear</span>d</div><div class="ipa">/hɜːd/</div><div class="vi">🇻🇳 đã nghe (hear)</div></div>
+        <div class="word-card" onclick="speakText('learn',0.8)"><div class="word">l<span class="hl">ear</span>n</div><div class="ipa">/lɜːn/</div><div class="vi">🇻🇳 học / tìm hiểu</div></div>
+        <div class="word-card" onclick="speakText('service',0.8)"><div class="word">s<span class="hl">er</span>vice</div><div class="ipa">/ˈsɜː.vɪs/</div><div class="vi">🇻🇳 dịch vụ</div></div>
+        <div class="word-card" onclick="speakText('prefer',0.8)"><div class="word">pref<span class="hl">er</span></div><div class="ipa">/prɪˈfɜː/</div><div class="vi">🇻🇳 thích hơn / muốn hơn</div></div>
+        <div class="word-card" onclick="speakText('thirty',0.8)"><div class="word">th<span class="hl">ir</span>ty</div><div class="ipa">/ˈθɜː.ti/</div><div class="vi">🇻🇳 ba mươi</div></div>
+        <div class="word-card" onclick="speakText('girl',0.8)"><div class="word">g<span class="hl">ir</span>l</div><div class="ipa">/ɡɜːl/</div><div class="vi">🇻🇳 cô gái</div></div>
+        <div class="word-card" onclick="speakText('nurse',0.8)"><div class="word">n<span class="hl">ur</span>se</div><div class="ipa">/nɜːs/</div><div class="vi">🇻🇳 y tá</div></div>
+        <div class="word-card" onclick="speakText('search',0.8)"><div class="word">s<span class="hl">ear</span>ch</div><div class="ipa">/sɜːtʃ/</div><div class="vi">🇻🇳 tìm kiếm</div></div>
+        <div class="word-card" onclick="speakText('turn',0.8)"><div class="word">t<span class="hl">ur</span>n</div><div class="ipa">/tɜːn/</div><div class="vi">🇻🇳 rẽ / lần lượt</div></div>
+        <div class="word-card" onclick="speakText('Germany',0.8)"><div class="word">G<span class="hl">er</span>many</div><div class="ipa">/ˈdʒɜː.mə.ni/</div><div class="vi">🇻🇳 nước Đức</div></div>
+        <div class="word-card" onclick="speakText('worst',0.8)"><div class="word">w<span class="hl">or</span>st</div><div class="ipa">/wɜːst/</div><div class="vi">🇻🇳 tệ nhất</div></div>
+        <div class="word-card" onclick="speakText('journey',0.8)"><div class="word">j<span class="hl">our</span>ney</div><div class="ipa">/ˈdʒɜː.ni/</div><div class="vi">🇻🇳 hành trình</div></div>
+    </div>
+
+    <p style="margin-top:14px;"><strong>📌 Câu luyện /ɜː/ — click để nghe:</strong></p>
+    <ul class="sentence-list">
+        <li onclick="speakText('My birthday's on Thursday the thirty-first, and hers is a week later.',0.8)">My b<span class="hl">ir</span>thday's on Th<span class="hl">ur</span>sday the th<span class="hl">ir</span>ty-f<span class="hl">ir</span>st, and h<span class="hl">er</span>s is a week lat<span class="hl">er</span>.<span class="ipa-s">/maɪ ˈbɜːθ.deɪz ɒn ˈθɜːz.deɪ ðə ˌθɜːt.iˈfɜːst ænd hɜːz ɪz ə wiːk ˈleɪtər/</span><span class="vi-s">🇻🇳 Sinh nhật tôi là Thứ Năm ngày 31, và sinh nhật của cô ấy sau một tuần.</span></li>
+        <li onclick="speakText('When would you prefer, Tuesday or Thursday?',0.8)">When would you pref<span class="hl">er</span>, Tu<span class="hl">e</span>sday or Th<span class="hl">ur</span>sday?<span class="ipa-s">/wen wʊd ju prɪˈfɜː | ˈtjuːz.deɪ ɔː ˈθɜːz.deɪ/</span><span class="vi-s">🇻🇳 Bạn thích ngày nào hơn, Thứ Ba hay Thứ Năm?</span></li>
+        <li onclick="speakText('That was the worst journey in the world!',0.8)">That was the w<span class="hl">or</span>st j<span class="hl">our</span>ney in the w<span class="hl">or</span>ld!<span class="ipa-s">/ðæt wəz ðə wɜːst ˈdʒɜːni ɪn ðə wɜːld/</span><span class="vi-s">🇻🇳 Đó là hành trình tệ nhất trên đời!</span></li>
+        <li onclick="speakText('Have you ever heard this word?',0.8)">Have you ev<span class="hl">er</span> h<span class="hl">ear</span>d this w<span class="hl">or</span>d?<span class="ipa-s">/hæv ju ˈev.ər hɜːd ðɪs wɜːd/</span><span class="vi-s">🇻🇳 Bạn đã từng nghe từ này chưa?</span></li>
+        <li onclick="speakText('The cakes weren't very good. I thought they were.',0.8)">The cakes w<span class="hl">er</span>en't very good. I thought they w<span class="hl">er</span>e.<span class="ipa-s">/ðə keɪks ˈwɜːnt ˈver.i ɡʊd | aɪ θɔːt ðeɪ wɜː/</span><span class="vi-s">🇻🇳 Bánh không ngon lắm. Tôi tưởng ngon.</span></li>
+        <li onclick="speakText('She went to university to learn German.',0.8)">She went to univ<span class="hl">er</span>sity to l<span class="hl">ear</span>n G<span class="hl">er</span>man.<span class="ipa-s">/ʃiː went tə ˌjuː.nɪˈvɜː.sɪ.ti tə lɜːn ˈdʒɜː.mən/</span><span class="vi-s">🇻🇳 Cô ấy vào đại học để học tiếng Đức.</span></li>
+        <li onclick="speakText('The girl works at the service desk on the third floor.',0.75)">The g<span class="hl">ir</span>l w<span class="hl">or</span>ks at the s<span class="hl">er</span>vice desk on the th<span class="hl">ir</span>d fl<span class="hl">oo</span>r.<span class="ipa-s">/ðə ɡɜːl wɜːks æt ðə ˈsɜː.vɪs desk ɒn ðə θɜːd flɔː/</span><span class="vi-s">🇻🇳 Cô gái làm ở quầy dịch vụ tầng ba.</span></li>
+        <li onclick="speakText('She learned to search for information early in her career.',0.75)">She l<span class="hl">ear</span>ned to s<span class="hl">ear</span>ch for inf<span class="hl">or</span>mation <span class="hl">ear</span>ly in h<span class="hl">er</span> car<span class="hl">eer</span>.<span class="ipa-s">/ʃiː lɜːnd tə sɜːtʃ fɔːr ˌɪn.fəˈmeɪ.ʃən ˈɜːli ɪn hɜː kəˈrɪər/</span><span class="vi-s">🇻🇳 Cô ấy học tìm kiếm thông tin từ sớm trong sự nghiệp.</span></li>
+        <li onclick="speakText('The nurse returned to work on Thursday morning.',0.8)">The n<span class="hl">ur</span>se ret<span class="hl">ur</span>ned to w<span class="hl">or</span>k on Th<span class="hl">ur</span>sday morning.<span class="ipa-s">/ðə nɜːs rɪˈtɜːnd tə wɜːk ɒn ˈθɜːz.deɪ ˈmɔːnɪŋ/</span><span class="vi-s">🇻🇳 Y tá trở lại làm việc vào sáng Thứ Năm.</span></li>
+        <li onclick="speakText('I heard that Germany prefer shorter working hours.',0.8)">I h<span class="hl">ear</span>d that G<span class="hl">er</span>many pref<span class="hl">er</span> short<span class="hl">er</span> w<span class="hl">or</span>king hours.<span class="ipa-s">/aɪ hɜːd ðæt ˈdʒɜː.mə.ni prɪˈfɜː ˈʃɔː.tər ˈwɜːkɪŋ aʊəz/</span><span class="vi-s">🇻🇳 Tôi nghe nói người Đức thích giờ làm việc ngắn hơn.</span></li>
+        <li onclick="speakText('It's the thirty-first of October, my birthday.',0.8)">It's the th<span class="hl">ir</span>ty-f<span class="hl">ir</span>st of October, my b<span class="hl">ir</span>thday.<span class="ipa-s">/ɪts ðə ˌθɜːt.iˈfɜːst əv ɒkˈtəʊ.bər | maɪ ˈbɜːθ.deɪ/</span><span class="vi-s">🇻🇳 Hôm nay là ngày 31 tháng Mười, sinh nhật tôi.</span></li>
+        <li onclick="speakText('The world's worst traffic was in the city centre.',0.8)">The w<span class="hl">or</span>ld's w<span class="hl">or</span>st traffic was in the city c<span class="hl">er</span>tre.<span class="ipa-s">/ðə wɜːldz wɜːst ˈtræfɪk wəz ɪn ðə ˈsɪt.i ˈsen.tər/</span><span class="vi-s">🇻🇳 Tắc đường tệ nhất thế giới ở trung tâm thành phố.</span></li>
+        <li onclick="speakText('Turn left at the corner and the church is on your right.',0.8)">T<span class="hl">ur</span>n left at the corn<span class="hl">er</span> and the ch<span class="hl">ur</span>ch is on your right.<span class="ipa-s">/tɜːn left æt ðə ˈkɔːnər ænd ðə tʃɜːtʃ ɪz ɒn jɔː raɪt/</span><span class="vi-s">🇻🇳 Rẽ trái ở góc và nhà thờ ở bên phải bạn.</span></li>
+        <li onclick="speakText('The third survey found worse ground conditions than expected.',0.75)">The th<span class="hl">ir</span>d s<span class="hl">ur</span>vey found w<span class="hl">or</span>se ground conditions than expected.<span class="ipa-s">/ðə θɜːd ˈsɜːveɪ faʊnd wɜːs ɡraʊnd kənˈdɪʃ.ənz ðæn ɪkˈspek.tɪd/</span><span class="vi-s">🇻🇳 Khảo sát thứ ba phát hiện điều kiện nền đất tệ hơn dự kiến. <em>(địa kỹ thuật)</em></span></li>
+        <li onclick="speakText('The earth surface temperature was measured at thirty-one degrees.',0.75)">The <span class="hl">ear</span>th s<span class="hl">ur</span>face temp<span class="hl">er</span>ature was meas<span class="hl">ur</span>ed at th<span class="hl">ir</span>ty-one degr<span class="hl">ee</span>s.<span class="ipa-s">/ðɪ ɜːθ ˈsɜːfɪs ˈtem.prɪ.tʃər wəz ˈmeʒ.əd æt ˈθɜːt.i.wʌn dɪˈɡriːz/</span><span class="vi-s">🇻🇳 Nhiệt độ bề mặt đất được đo là 31 độ. <em>(địa kỹ thuật)</em></span></li>
+    </ul>
+    <div class="btn-group">
+        <button class="btn btn-er" onclick="speakText('My birthday's on Thursday the thirty-first, and hers is a week later. When would you prefer, Tuesday or Thursday? That was the worst journey in the world! Have you ever heard this word? The cakes weren't very good. I thought they were. She went to university to learn German.',0.8)">🔊 Nghe 6 câu sách gốc</button>
+        <button class="btn btn-success" onclick="speakText('My birthday's on Thursday. That was the worst journey in the world!',0.5)">🐢 Chậm</button>
+    </div>
+</div>
+
+<!-- GEO + CUỘC SỐNG -->
+<div class="section" style="border:2px solid #1abc9c;">
+    <div class="section-title">🏗️ Từ bổ sung <span class="badge geo">🪨 Geotech + 🏠 Life</span></div>
+    <div class="word-grid">
+        <div class="word-card" onclick="speakText('surface',0.8)"><div class="word">s<span class="hl">ur</span>face</div><div class="ipa">/ˈsɜː.fɪs/</div><div class="vi">🇻🇳 bề mặt</div></div>
+        <div class="word-card" onclick="speakText('survey',0.8)"><div class="word">s<span class="hl">ur</span>vey</div><div class="ipa">/ˈsɜː.veɪ/</div><div class="vi">🇻🇳 khảo sát</div></div>
+        <div class="word-card" onclick="speakText('curve',0.8)"><div class="word">c<span class="hl">ur</span>ve</div><div class="ipa">/kɜːv/</div><div class="vi">🇻🇳 đường cong</div></div>
+        <div class="word-card" onclick="speakText('disturb',0.8)"><div class="word">dist<span class="hl">ur</span>b</div><div class="ipa">/dɪˈstɜːb/</div><div class="vi">🇻🇳 làm xáo trộn</div></div>
+        <div class="word-card" onclick="speakText('vertical',0.8)"><div class="word">v<span class="hl">er</span>tical</div><div class="ipa">/ˈvɜː.tɪ.kəl/</div><div class="vi">🇻🇳 thẳng đứng</div></div>
+        <div class="word-card" onclick="speakText('determine',0.8)"><div class="word">det<span class="hl">er</span>mine</div><div class="ipa">/dɪˈtɜː.mɪn/</div><div class="vi">🇻🇳 xác định</div></div>
+    </div>
+    <div class="geo-box">
+        <div class="geo-title">🪨 Luyện phát âm từ chuyên ngành</div>
+        <div class="geo-content">
+            • <strong>surface</strong> /ˈsɜː.fɪs/ — SUR-face: /ɜː/ dài trong "sur"<br>
+            • <strong>survey</strong> /ˈsɜː.veɪ/ — SUR-vey: /ɜː/ dài trong "sur"<br>
+            • <strong>vertical</strong> /ˈvɜː.tɪ.kəl/ — VER-ti-cal: /ɜː/ trong "ver"<br>
+            • <strong>determine</strong> /dɪˈtɜː.mɪn/ — de-TER-mine: /ɜː/ trong "ter"<br>
+            • <strong>curve</strong> /kɜːv/ — một âm tiết, /ɜː/ dài · phân biệt với "carve" /kɑːv/ (/ɑː/)
+        </div>
+    </div>
+</div>
+
+<!-- KINH NGHIỆM -->
+<div class="section" style="border:2px solid #f39c12;">
+    <div class="section-title">💡 Kinh nghiệm luyện tập <span class="badge tip">🔥 Quan trọng</span></div>
+    <div class="tip-box">
+        <div class="tip-title">🎯 5 bí quyết nắm vững /ɜː/</div>
+        <div class="tip-content">
+            <p><strong>1. Thư giãn là chìa khóa!</strong><br>
+            /ɜː/ là âm "trung tính" nhất — lưỡi không cố ý làm gì. Miệng mở vừa, môi không tròn, không kéo ngang. Thư giãn!</p>
+            <p><strong>2. Nhớ "w + or = /ɜː/"</strong><br>
+            word /wɜːd/ · work /wɜːk/ · world /wɜːld/ · worse /wɜːs/ · worst /wɜːst/ · worm /wɜːm/<br>
+            Người học hay đọc nhầm "work" = /wɔːk/ — sai! /wɜːk/ mới đúng!</p>
+            <p><strong>3. "ear" trước phụ âm = /ɜː/ (không phải /ɪər/)</strong><br>
+            early /ˈɜːli/ · earth /ɜːθ/ · heard /hɜːd/ · learn /lɜːn/ · earn /ɜːn/<br>
+            Phân biệt: "ear" khi đứng một mình = /ɪər/ · "ear" + phụ âm = /ɜː/</p>
+            <p><strong>4. Luyện với các ngày trong tuần và số đếm</strong><br>
+            Thursday /ˈθɜːz.deɪ/ · thirty /ˈθɜːti/ · thirteen /ˌθɜːˈtiːn/ · first /fɜːst/ · third /θɜːd/<br>
+            Rất hay dùng — nhớ là bắt buộc!</p>
+            <p><strong>5. "Er..." khi do dự = chính là /ɜː/</strong><br>
+            Khi bạn chưa nghĩ ra, hãy nói "Er..." — đó là cách luyện âm /ɜː/ tự nhiên nhất!</p>
+        </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-er" onclick="speakText('word work world worse worst worm',0.65)">🔊 w+or = /ɜː/</button>
+        <button class="btn btn-teal" onclick="speakText('early earth heard learn earn search',0.7)">🔊 ear + phụ âm = /ɜː/</button>
+        <button class="btn btn-purple" onclick="speakText('Thursday thirty thirteen first third third birthday',0.7)">🔊 Ngày/số có /ɜː/</button>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 7.1 — Classify 4 columns
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 7.1 — Phân loại từ theo âm <span class="badge">Bài tập sách</span></div>
+    <p>Phân các từ vào 4 cột: <strong style="color:#1a4a2a;">/ɜː/</strong> · <strong style="color:#b85c00;">/ɔː/</strong> · <strong style="color:#a8184d;">/ɑː/</strong> · <strong style="color:#64748b;">Âm khác</strong></p>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            👆 Click từ ở pool bên dưới để đưa vào cột phù hợp → Click từ trong cột để trả về pool → <strong>"Chấm bài"</strong>.
+        </div>
+        <div class="chip-pool" id="ex71Pool"></div>
+        <div class="four-cols" id="ex71Cols">
+            <div class="sort-col col-er" id="col_er"><h4>/ɜː/</h4></div>
+            <div class="sort-col col-or" id="col_or"><h4>/ɔː/</h4></div>
+            <div class="sort-col col-ar" id="col_ar"><h4>/ɑː/</h4></div>
+            <div class="sort-col col-other" id="col_other"><h4>Khác</h4></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-warning" onclick="checkEx71()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx71()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx71()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score71" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 7.2 — Fill scene description
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 7.2 — Điền từ tả cảnh <span class="badge">Bài tập sách</span></div>
+    <p style="font-size:13px;color:#555;margin-bottom:10px;">Dùng các từ từ bài 7.1 để điền vào câu tả một bức tranh phòng bệnh viện.</p>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            ✏️ Điền từ có âm /ɜː/ hoặc /ɔː/ vào ô → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Từ gợi ý: nurse, chair, curtains, floor, door, warm, stars, purse, shirt, horse, girl, church, surfer, car, third, shorts</em>
+        </div>
+        <div class="fill-items" id="ex72Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="speakEx72()">🔊 Nghe tất cả</button>
+            <button class="btn btn-warning" onclick="checkEx72()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx72()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx72()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score72" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 7.3 — Listen and write numbers
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 7.3 — Nghe và ghi số <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🔊 Nhấn ▶️ trên từng ô → Ghi số nghe được → <strong>"Chấm bài"</strong>.<br>
+            💡 <em>Ví dụ: 42 → bốn mươi hai, các số từ 13–1000, đặc biệt các số có /ɜː/ như 30, 13, 31...</em>
+        </div>
+        <div class="num-fill-items" id="ex73Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-er" onclick="speakAllEx73()">🔊 Nghe tất cả</button>
+            <button class="btn btn-warning" onclick="checkEx73()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx73()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx73()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score73" class="score-box"></div>
+    </div>
+</div>
+
+<!-- ================================================================
+     EX 7.4 — Minimal pairs
+================================================================ -->
+<div class="section">
+    <div class="section-title">📝 Exercise 7.4 — Nghe chọn từ đúng <span class="badge">Bài tập sách</span></div>
+    <div class="ex-wrap">
+        <div class="ex-instruction">
+            🔊 Nhấn ▶️ → Chọn từ đúng → <strong>"Chấm bài"</strong>. Nhấn 🔀 để tạo bộ câu mới.
+        </div>
+        <div class="choice-items" id="ex74Items"></div>
+        <div class="btn-group">
+            <button class="btn btn-purple" onclick="randomizeEx74()">🔀 Tạo câu mới</button>
+            <button class="btn btn-warning" onclick="checkEx74()">✅ Chấm bài</button>
+            <button class="btn btn-danger" onclick="resetEx74()">🔄 Làm lại</button>
+            <button class="btn btn-teal" onclick="revealEx74()">👁️ Xem đáp án</button>
+        </div>
+        <div id="score74" class="score-box"></div>
+    </div>
+</div>
+
+<!-- TỔNG KẾT -->
+<div class="section" style="border:2px solid #8e44ad;">
+    <div class="section-title">📌 Tổng kết <span class="badge" style="background:#f5eef8;color:#7d3c98;">✅ Checklist</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px;line-height:1.9;">
+        <div style="background:#d5f5e3;padding:12px 14px;border-radius:10px;border:1px solid #1a4a2a;">✅ <strong>/ɜː/ DÀI</strong> — bird, Thursday, word, early, service</div>
+        <div style="background:#d5f5e3;padding:12px 14px;border-radius:10px;border:1px solid #1a4a2a;">✅ <strong>Thư giãn</strong> — miệng, lưỡi, hàm đều trung tính</div>
+        <div style="background:#d5f5e3;padding:12px 14px;border-radius:10px;border:1px solid #1a4a2a;">✅ <strong>ir</strong> (bird) · <strong>or sau w</strong> (work) · <strong>ur</strong> (turn)</div>
+        <div style="background:#d5f5e3;padding:12px 14px;border-radius:10px;border:1px solid #1a4a2a;">✅ <strong>ear+phụ âm</strong> (early) · <strong>er</strong> (service, Germany)</div>
+        <div style="background:#fff3cd;padding:12px 14px;border-radius:10px;border:1px solid #ffc107;">✅ <strong>w+or=/ɜː/</strong>: word/work/world/worse/worm</div>
+        <div style="background:#fff3cd;padding:12px 14px;border-radius:10px;border:1px solid #ffc107;">✅ <strong>Er...</strong> khi do dự = /ɜː/ — luyện tự nhiên!</div>
+    </div>
+</div>
+
+<div style="text-align:center;padding:20px 0 10px;color:#95a5a6;font-size:14px;border-top:1px solid #e2e8f0;margin-top:10px;">
+    <p>🎂 <strong>"My birthday's on Thursday"</strong> — bIRthday=/ɜː/ · THURSday=/ɜː/ · FIRST=/ɜː/!</p>
+    <p style="margin-top:4px;font-size:13px;"><a href="../index.html" style="color:#1a4a2a;font-weight:600;">← Về trang chủ</a></p>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let curUtt=null,_voices=[];
+function _loadVoices(){_voices=speechSynthesis.getVoices();if(_voices.length===0)setTimeout(_loadVoices,200);}
+function _bestVoice(){
+    const prefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
+    for(const p of prefs){const v=_voices.find(x=>x.name.includes(p));if(v)return v;}
+    return _voices.find(x=>x.lang.startsWith("en")&&!x.name.toLowerCase().includes("male"))||_voices.find(x=>x.lang.startsWith("en"))||null;
+}
+function speakText(t,rate=0.85){
+    if(!window.speechSynthesis)return;
+    speechSynthesis.cancel();
+    const clean=t.replace(/<[^>]*>/g,"").trim();
+    function doSpeak(){
+        const u=new SpeechSynthesisUtterance(clean);
+        u.lang="en-GB";u.rate=rate;u.pitch=1.05;u.volume=1.0;
+        const v=_bestVoice();if(v)u.voice=v;
+        curUtt=u;u.onend=()=>curUtt=null;speechSynthesis.speak(u);
+    }
+    if(_voices.length>0)doSpeak();else{_loadVoices();setTimeout(doSpeak,350);}
+}
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),3000);}
+function showScore(id,correct,total,extra){
+    const pct=Math.round(correct/total*100);
+    let cls="try",emoji="😅",msg="Cần luyện thêm!";
+    if(pct>=90){cls="great";emoji="🎉";msg="Xuất sắc!";}
+    else if(pct>=65){cls="good";emoji="👍";msg="Khá tốt!";}
+    const el=document.getElementById("score"+id);
+    el.className=`score-box show ${cls}`;
+    el.innerHTML=`<div class="big-score">${emoji} ${pct}%</div><strong>${msg}</strong> — Đúng <strong>${correct}/${total}</strong>.<div class="score-meter"><div class="score-meter-fill" style="width:${pct}%;background:${pct>=90?"#27ae60":pct>=65?"#f39c12":"#e74c3c"}"></div></div>${extra||""}`;
+    showToast("Kết quả: "+pct+"%");
+}
+if(window.speechSynthesis){_loadVoices();speechSynthesis.onvoiceschanged=_loadVoices;}
+setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(7)){c.push(7);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+
+// ================================================================
+// EX 7.1 — 4-column sort
+// ================================================================
+const EX71_WORDS=[
+    {w:"beard",t:"other"},{w:"car",t:"ar"},{w:"chair",t:"or"},{w:"church",t:"er"},
+    {w:"curtains",t:"er"},{w:"dirty",t:"er"},{w:"door",t:"or"},{w:"floor",t:"or"},
+    {w:"four",t:"or"},{w:"girl",t:"er"},{w:"horse",t:"or"},{w:"large",t:"ar"},
+    {w:"March",t:"ar"},{w:"near",t:"other"},{w:"nurse",t:"er"},{w:"pair",t:"other"},
+    {w:"parked",t:"ar"},{w:"purse",t:"er"},{w:"shirt",t:"er"},{w:"shorts",t:"or"},
+    {w:"stars",t:"ar"},{w:"surfer",t:"er"},{w:"third",t:"er"},{w:"warm",t:"or"},
+    {w:"wearing",t:"other"},
+];
+const ex71Placed={};
+function buildEx71(){
+    const pool=document.getElementById("ex71Pool");
+    pool.innerHTML="";
+    ["col_er","col_or","col_ar","col_other"].forEach(id=>{
+        const col=document.getElementById(id);
+        const h=col.querySelector("h4");
+        col.innerHTML="";col.appendChild(h);
+    });
+    const shuffled=[...EX71_WORDS].sort(()=>Math.random()-.5);
+    shuffled.forEach(item=>{
+        ex71Placed[item.w]="pool";
+        pool.innerHTML+=`<span class="sort-chip" id="chip71_${item.w}" onclick="placeChip71('${item.w}')" ondblclick="speakText('${item.w}',0.8)" title="Double-click để nghe">${item.w}</span>`;
+    });
+}
+const COL_ORDER=["pool","col_er","col_or","col_ar","col_other"];
+function placeChip71(w){
+    const cur=ex71Placed[w];
+    const next=COL_ORDER[(COL_ORDER.indexOf(cur)+1)%COL_ORDER.length];
+    ex71Placed[w]=next;
+    const chip=document.getElementById(`chip71_${w}`);
+    chip.style.background="";chip.style.color="";chip.style.borderColor="";
+    if(next==="pool"){document.getElementById("ex71Pool").appendChild(chip);}
+    else{
+        const col=document.getElementById(next);
+        chip.style.background=next==="col_er"?"#d5f5e3":next==="col_or"?"#fde8d0":next==="col_ar"?"#fce4ec":"#eef2f7";
+        col.appendChild(chip);
+    }
+    if(next!=="pool")speakText(w,0.8);
+}
+function checkEx71(){
+    let correct=0,total=EX71_WORDS.length;
+    EX71_WORDS.forEach(item=>{
+        const chip=document.getElementById(`chip71_${item.w}`);
+        const placed=ex71Placed[item.w];
+        const correctCol="col_"+item.t;
+        if(placed===correctCol){chip.style.background="#27ae60";chip.style.color="white";chip.style.borderColor="#27ae60";correct++;}
+        else{chip.style.background="#e74c3c";chip.style.color="white";chip.style.borderColor="#e74c3c";}
+    });
+    showScore("71",correct,total,"<br><em style='font-size:13px;'>🟢=/ɜː/ 🟠=/ɔː/ 🔴=/ɑː/ ⬜=Khác</em>");
+}
+function resetEx71(){Object.keys(ex71Placed).forEach(k=>delete ex71Placed[k]);buildEx71();document.getElementById("score71").className="score-box";showToast("Đã đặt lại!");}
+function revealEx71(){
+    EX71_WORDS.forEach(item=>{
+        const chip=document.getElementById(`chip71_${item.w}`);
+        const col=document.getElementById("col_"+item.t);
+        if(col){col.appendChild(chip);}
+        ex71Placed[item.w]="col_"+item.t;
+        const colors={col_er:"#1a4a2a",col_or:"#b85c00",col_ar:"#a8184d",col_other:"#64748b"};
+        chip.style.background=colors["col_"+item.t];chip.style.color="white";chip.style.borderColor=colors["col_"+item.t];
+    });
+    const grp=(t)=>EX71_WORDS.filter(x=>x.t===t).map(x=>x.w).join(", ");
+    document.getElementById("score71").className="score-box info show";
+    document.getElementById("score71").innerHTML=
+        `<strong>/ɜː/:</strong> ${grp("er")}<br><strong>/ɔː/:</strong> ${grp("or")}<br><strong>/ɑː/:</strong> ${grp("ar")}<br><strong>Khác:</strong> ${grp("other")}`;
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 7.2 — Fill scene sentences
+// ================================================================
+const EX72=[
+    {num:1,pre:"The",blank:"nurse",suf:"is sitting on a",blank2:"chair",suf2:"next to the",blank3:"door",suf3:".",
+     ans:["nurse","chair","door"],audio:"The nurse is sitting on a chair next to the door.",vi:"Y tá đang ngồi trên ghế cạnh cửa."},
+    {num:2,pre:"The boy's",blank:"purse",suf:"— a",blank2:"large",suf2:"",blank3:"",suf3:".",
+     ans:["wearing","purse"],
+     pre_alt:"The boy's wearing a",blank_alt:"shirt",suf_alt:",",blank2_alt:"shorts",suf2_alt:"and warm",blank3_alt:"curtains",suf3_alt:"beside him.",
+     audio:"The boy's wearing a shirt and shorts and there are warm curtains beside him.",vi:"Cậu bé mặc áo và quần short, có rèm ấm bên cạnh."},
+    {num:3,pre:"There's a man with a",blank:"beard",suf:"and",blank2:"large",suf2:"shoulders standing",blank3:"near",suf3:"the",blank4:"door",suf4:".",
+     ans:["beard","shirt","near","door"],
+     audio:"There's a man with a beard near the door.",vi:"Có một người đàn ông có râu đứng gần cửa."},
+    {num:5,pre:"It's",blank:"warm",suf:"in the room.",
+     ans:["warm"],audio:"It's warm in the room.",vi:"Phòng ấm áp."},
+    {num:6,pre:"The date is the",blank:"thirty-first",suf:"of",blank2:"March",suf2:".",
+     ans:["thirty-first","March"],audio:"The date is the thirty-first of March.",vi:"Ngày là 31 tháng Ba."},
+    {num:9,pre:"Through the windows, you can see a",blank:"church",suf:"with a",blank2:"large",suf2:"tower outside. There are some",blank3:"stars",suf3:"in the sky.",
+     ans:["church","large","stars"],audio:"Through the windows you can see a church and some stars in the sky.",vi:"Qua cửa sổ thấy nhà thờ và các ngôi sao trên bầu trời."},
+];
+// Simplified fill items
+const EX72_SIMPLE=[
+    {num:1,text:"The <i> </i> is sitting on a <i> </i> next to the <i> </i>.",
+     ids:["f72_1a","f72_1b","f72_1c"],ans:["nurse","chair","door"],
+     audio:"The nurse is sitting on a chair next to the door.",vi:"Y tá ngồi trên ghế cạnh cửa."},
+    {num:2,text:"The boy's wearing a <i> </i> and <i> </i>.",
+     ids:["f72_2a","f72_2b"],ans:["shirt","shorts"],
+     audio:"The boy's wearing a shirt and shorts.",vi:"Cậu bé mặc áo và quần short."},
+    {num:3,text:"There's a man with a <i> </i> standing near the <i> </i>.",
+     ids:["f72_3a","f72_3b"],ans:["beard","door"],
+     audio:"There's a man with a beard standing near the door.",vi:"Có người đàn ông có râu đứng gần cửa."},
+    {num:4,text:"The <i> </i>'s <i> </i> is on the <i> </i> next to the bed.",
+     ids:["f72_4a","f72_4b","f72_4c"],ans:["girl","purse","floor"],
+     audio:"The girl's purse is on the floor next to the bed.",vi:"Ví của cô gái trên sàn cạnh giường."},
+    {num:5,text:"It's <i> </i> in the room.",
+     ids:["f72_5a"],ans:["warm"],
+     audio:"It's warm in the room.",vi:"Phòng ấm áp."},
+    {num:6,text:"The date is the <i> </i> of <i> </i>.",
+     ids:["f72_6a","f72_6b"],ans:["thirty-first","March"],
+     audio:"The date is the thirty-first of March.",vi:"Ngày 31 tháng Ba."},
+    {num:7,text:"There's a picture of a <i> </i>, and a picture of a <i> </i>.",
+     ids:["f72_7a","f72_7b"],ans:["horse","surfer"],
+     audio:"There's a picture of a horse and a picture of a surfer.",vi:"Có ảnh con ngựa và một tay lướt sóng."},
+    {num:8,text:"There are flowers on the <i> </i>.",
+     ids:["f72_8a"],ans:["curtains"],
+     audio:"There are flowers on the curtains.",vi:"Có hoa trên rèm cửa."},
+    {num:9,text:"Through the windows, you can see a <i> </i>, with a <i> </i> outside. There are some <i> </i> in the sky.",
+     ids:["f72_9a","f72_9b","f72_9c"],ans:["church","car","stars"],
+     audio:"Through the windows you can see a church with a car outside and some stars in the sky.",vi:"Qua cửa sổ thấy nhà thờ, ô tô và sao trời."},
+];
+function buildEx72(){
+    const c=document.getElementById("ex72Items");c.innerHTML="";
+    EX72_SIMPLE.forEach(item=>{
+        let idx=0;
+        const html=item.text.replace(/<i> <\/i>/g,()=>{
+            const id=item.ids[idx++];
+            return `<input type="text" id="${id}" placeholder="?" autocomplete="off">`;
+        });
+        c.innerHTML+=`<div class="fill-item">
+            <span class="num">${item.num}.</span>
+            <span>${html}</span>
+            <button class="btn btn-er" style="padding:2px 9px;font-size:11px;" onclick="speakText('${item.audio}',0.8)">🔊</button>
+            <span style="font-size:12px;color:#27ae60;">🇻🇳 ${item.vi}</span>
+        </div>`;
+    });
+}
+function speakEx72(){EX72_SIMPLE.forEach(x=>speakText(x.audio,0.8));}
+function checkEx72(){
+    let correct=0,total=0;
+    EX72_SIMPLE.forEach(item=>{
+        item.ids.forEach((id,i)=>{
+            total++;
+            const inp=document.getElementById(id);if(!inp)return;
+            const val=inp.value.trim().toLowerCase().replace(/-/g," ");
+            const ans=item.ans[i].toLowerCase().replace(/-/g," ");
+            if(val===ans||ans.includes(val)&&val.length>=3){inp.classList.add("correct");inp.classList.remove("wrong");correct++;}
+            else{inp.classList.add("wrong");inp.classList.remove("correct");}
+        });
+    });
+    showScore("72",correct,total);
+}
+function resetEx72(){
+    EX72_SIMPLE.forEach(item=>{item.ids.forEach(id=>{const inp=document.getElementById(id);if(inp){inp.value="";inp.className="";}});});
+    document.getElementById("score72").className="score-box";showToast("Đã đặt lại!");
+}
+function revealEx72(){
+    EX72_SIMPLE.forEach(item=>{item.ids.forEach((id,i)=>{const inp=document.getElementById(id);if(inp){inp.value=item.ans[i];inp.classList.add("correct");}});});
+    document.getElementById("score72").className="score-box info show";
+    document.getElementById("score72").innerHTML="<strong>Đáp án:</strong><br>"+EX72_SIMPLE.map(x=>`${x.num}. `+x.ans.join(" / ")).join(" | ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 7.3 — Numbers with /ɜː/
+// ================================================================
+const EX73=[
+    {num:"Ex",val:42,word:"forty-two"},{num:1,val:13,word:"thirteen"},{num:2,val:30,word:"thirty"},
+    {num:3,val:33,word:"thirty-three"},{num:4,val:31,word:"thirty-one"},{num:5,val:3,word:"three"},
+    {num:6,val:130,word:"one hundred and thirty"},{num:7,val:303,word:"three hundred and three"},
+    {num:8,val:1330,word:"one thousand three hundred and thirty"},
+];
+function buildEx73(){
+    const c=document.getElementById("ex73Items");c.innerHTML="";
+    EX73.forEach((item,i)=>{
+        const isEx=item.num==="Ex";
+        c.innerHTML+=`<div class="num-fill-item">
+            <span class="num">${item.num}.</span>
+            <button class="btn btn-er" style="padding:2px 9px;font-size:11px;" onclick="speakText('${item.word}',0.75)">▶️ ${isEx?item.val:""}</button>
+            <input type="text" id="nf73_${i}" placeholder="số?" autocomplete="off"
+                ${isEx?`value="${item.val}" readonly style="background:#d5f5e3;color:#1a6e4a;border-color:#27ae60;"`:""}>
+        </div>`;
+    });
+}
+function speakAllEx73(){EX73.forEach(x=>speakText(x.word,0.75));}
+function checkEx73(){
+    let correct=0,total=0;
+    EX73.forEach((item,i)=>{
+        if(item.num==="Ex")return;total++;
+        const inp=document.getElementById(`nf73_${i}`);if(!inp)return;
+        const val=inp.value.trim().replace(/,/g,"").replace(/\./g,"");
+        if(val===String(item.val)){inp.classList.add("correct");inp.classList.remove("wrong");correct++;}
+        else{inp.classList.add("wrong");inp.classList.remove("correct");}
+    });
+    showScore("73",correct,total,"<br><em style='font-size:13px;'>Tip: thirteen=13 · thirty=30 · thirty-one=31 · ba trăm ba=303</em>");
+}
+function resetEx73(){EX73.forEach((item,i)=>{if(item.num==="Ex")return;const inp=document.getElementById(`nf73_${i}`);if(inp){inp.value="";inp.className="";}});document.getElementById("score73").className="score-box";showToast("Đã đặt lại!");}
+function revealEx73(){
+    EX73.forEach((item,i)=>{const inp=document.getElementById(`nf73_${i}`);if(inp){inp.value=item.val;inp.classList.add("correct");}});
+    document.getElementById("score73").className="score-box info show";
+    document.getElementById("score73").innerHTML="<strong>Đáp án:</strong> "+EX73.filter(x=>x.num!=="Ex").map(x=>`${x.num}. <strong>${x.val}</strong> (${x.word})`).join(" | ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+// ================================================================
+// EX 7.4 — Minimal pairs
+// ================================================================
+const EX74=[
+    {num:1,pair:["shirts","shorts"],hint:"sound pair 14",sounds:["er","or"]},
+    {num:2,pair:["first","fast"],hint:"sound pair 19",sounds:["er","ae"]},
+    {num:3,pair:["bird","beard"],hint:"sound pair 20",sounds:["er","other"]},
+    {num:4,pair:["heard","head"],hint:"sound pair 17",sounds:["er","e"]},
+    {num:5,pair:["turn","town"],hint:"/ɜː/ vs /aʊ/",sounds:["er","other"]},
+    {num:6,pair:["word","ward"],hint:"/ɜː/ vs /ɔː/",sounds:["er","or"]},
+    {num:7,pair:["work","walk"],hint:"/ɜː/ vs /ɔː/",sounds:["er","or"]},
+    {num:8,pair:["girl","gorilla"],hint:"/ɜː/ vs /ɒ/",sounds:["er","other"]},
+];
+let ex74Correct=[];
+function initEx74(){ex74Correct=EX74.map(()=>Math.floor(Math.random()*2));}
+function buildEx74(){
+    initEx74();
+    const c=document.getElementById("ex74Items");c.innerHTML="";
+    EX74.forEach((item,i)=>{
+        c.innerHTML+=`<div class="choice-item">
+            <span class="num">${item.num}.</span>
+            <small style="color:#888;font-style:italic;">${item.hint}</small><br>
+            ${item.pair.map((w,j)=>`<span class="choice-btn" id="cb74_${i}_${j}" onclick="selC74(${i},${j})">${w}</span>`).join("")}
+            <button class="btn btn-er" style="padding:3px 10px;font-size:11px;margin-left:6px;" onclick="speakText('${item.pair[ex74Correct[i]]}',0.7)">▶️ Nghe</button>
+        </div>`;
+    });
+}
+const ex74Sel={};
+function selC74(i,j){
+    ex74Sel[i]=j;
+    [0,1].forEach(k=>{const el=document.getElementById(`cb74_${i}_${k}`);el.classList.remove("sel-a");});
+    document.getElementById(`cb74_${i}_${j}`).classList.add("sel-a");
+}
+function randomizeEx74(){initEx74();buildEx74();Object.keys(ex74Sel).forEach(k=>delete ex74Sel[k]);document.getElementById("score74").className="score-box";showToast("Câu hỏi mới!");}
+function checkEx74(){
+    let correct=0;
+    EX74.forEach((_,i)=>{
+        const ans=ex74Correct[i];
+        [0,1].forEach(j=>{
+            const el=document.getElementById(`cb74_${i}_${j}`);if(!el)return;
+            el.style.pointerEvents="none";
+            if(j===ans){if(ex74Sel[i]===j){el.classList.add("correct-c");correct++;}else el.style.textDecoration="underline dotted #27ae60";}
+            else if(ex74Sel[i]===j)el.classList.add("wrong-c");
+        });
+    });
+    showScore("74",correct,EX74.length,"<br><em style='font-size:13px;'>Nhấn 🔀 để nghe bộ câu mới!</em>");
+}
+function resetEx74(){buildEx74();Object.keys(ex74Sel).forEach(k=>delete ex74Sel[k]);document.getElementById("score74").className="score-box";showToast("Đã đặt lại!");}
+function revealEx74(){
+    EX74.forEach((_,i)=>{const ans=ex74Correct[i];[0,1].forEach(j=>{const el=document.getElementById(`cb74_${i}_${j}`);if(!el)return;el.classList.remove("sel-a","wrong-c");el.style.pointerEvents="none";if(j===ans)el.classList.add("correct-c");});});
+    document.getElementById("score74").className="score-box info show";
+    document.getElementById("score74").innerHTML="<strong>Đáp án:</strong> "+EX74.map((x,i)=>`${x.num}. <strong>${x.pair[ex74Correct[i]]}</strong>`).join(" | ");
+    showToast("Đã hiển thị đáp án!");
+}
+
+document.addEventListener("DOMContentLoaded",()=>{buildEx71();buildEx72();buildEx73();buildEx74();});
+</script>
+</body>
+</html>
