@@ -27,8 +27,8 @@
 | Bài | File | Âm / nội dung | Đợt | Chủ đề X.4 | Người làm | Trạng thái |
 |:---:|------|---------------|:---:|------------|-----------|:----------:|
 | 2 | sectionA/02-i-i-sound.html | /iː/ /ɪ/ | 0 | Phòng khám | (mẫu) | ✅ |
-| 3 | sectionA/03-u-u-sound.html | /uː/ /ʊ/ | 1 | | | ⬜ |
-| 4 | sectionA/04-ah-uh-sound.html | /ɑː/ /ʌ/ | 1 | | | ⬜ |
+| 3 | sectionA/03-u-u-sound.html | /uː/ /ʊ/ | 1 | Mua sắm (cửa hàng giày) | Khoi | 🟡 |
+| 4 | sectionA/04-ah-uh-sound.html | /ɑː/ /ʌ/ | 1 | Đi lại/hỏi đường | Khoi | 🟡 |
 | 5 | sectionA/05-o-aw-sound.html | /ɒ/ /ɔː/ | 1 | | | ⬜ |
 | 6 | sectionA/06-e-ae-sound.html | /e/ /æ/ | 0 | Quán cà phê | (mẫu) | ✅ |
 | 7 | sectionA/07-er-sound.html | /ɜː/ (+ đối chiếu /ɔː/) | 1 | | | ⬜ |
