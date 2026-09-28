@@ -12,11 +12,13 @@
 (function () {
   "use strict";
   const E = window.EPU, esc = E.esc, acc = E.acc;
-  let L = null, app = null, bar = null;
+  let L = null, app = null, bar = null, lintHtml = null;
+  const CHECK = /[?&]check\b/.test(location.search);
 
   E.renderLesson = function (lesson) {
     L = lesson;
     app = document.getElementById("app");
+    if (CHECK) lintHtml = lintBox(lint());
     injectStyle();
     bar = E.accentBar();
     render();
@@ -77,6 +79,7 @@
   function render() {
     E.stop();
     app.innerHTML = "";
+    if (lintHtml) app.appendChild(node(lintHtml));
     app.appendChild(node(header()));
     app.appendChild(bar);
     let n = 0;
@@ -474,5 +477,143 @@
     button(x.btns, "🔀 Bộ mới", "btn-model", () => { build(); E.toast("Bộ câu hỏi mới!"); });
     build();
     return x.el;
+  }
+
+  // ================================================================ KIỂM TRA BÀI: mở trang với ?check
+  function lint() {
+    const err = [], warn = [];
+    const need = (cond, msg, soft) => { if (!cond) (soft ? warn : err).push(msg); };
+    const range = (n, lo, hi, what) => need(n >= lo && n <= hi, `${what}: ${n} (cần ${lo === hi ? lo : lo + "–" + hi})`, true);
+    const low = s => E.plain(s).toLowerCase();
+    const wordsIn = s => low(s).match(/[a-z][a-z'’]*/g) || [];
+    const vals = v => (v && typeof v === "object") ? Object.values(v) : [v];
+    const REQ = ["id", "section", "title", "sub", "theme", "sounds", "soundCards", "rules", "traps", "words", "sentences",
+      "x1", "x2", "x3", "x4", "x5", "summary"];
+    REQ.forEach(f => need(L[f] !== undefined, `Thiếu trường "${f}"`));
+    if (err.length) return { err, warn };
+    try {
+      const keys = Object.keys(L.sounds);
+      const fm = location.pathname.match(/\/(\d+)-[^/]*$/);
+      if (fm) need(Number(fm[1]) === L.id, `LESSON.id = ${L.id} nhưng tên file là bài ${Number(fm[1])}`);
+      range(keys.length, 2, 3, "Số âm trong sounds");
+
+      const specs = [], scan = (t, where) => {
+        const re = /\[([^\]|]+)\|([^\]]*)\]/g;
+        let m;
+        while ((m = re.exec(t))) specs.push({ w: m[1], spec: m[2], where });
+      };
+      keys.forEach(k => {
+        (L.words[k] || []).forEach(w => scan(w.w, `words.${k}`));
+        (L.sentences[k] || []).forEach(s => scan(s.t, `sentences.${k}`));
+      });
+      L.x1.bank.forEach(p => { scan(p.a.t, "X.1"); scan(p.b.t, "X.1"); });
+      L.x3.items.forEach(i => scan(i.t, "X.3"));
+      L.x4.lines.forEach(l => scan(l[1], "X.4"));
+      specs.forEach(({ w, spec, where }) => {
+        if (spec === "~" || spec.startsWith("!")) return;
+        keysOf(spec).forEach(o => {
+          need(L.sounds[o.k], `${where}: [${w}|${spec}] dùng âm "${o.k}" không có trong sounds`);
+          need(!o.a || o.a === "uk" || o.a === "us", `${where}: [${w}|${spec}] hậu tố chỉ được là @uk hoặc @us`);
+        });
+      });
+
+      const allRules = L.rules.concat(L.traps), codes = allRules.map(r => r.code);
+      need(new Set(codes).size === codes.length, "Mã quy tắc bị trùng giữa rules/traps");
+      L.rules.forEach(r => need(L.sounds[r.key], `rules ${r.code}: key "${r.key}" không có trong sounds`));
+      keys.forEach(k => {
+        range((L.words[k] || []).length, 10, 11, `Từ vựng âm ${k}`);
+        range((L.sentences[k] || []).length, 6, 6, `Câu âm ${k}`);
+      });
+      need(keys.some(k => (L.sentences[k] || []).some(s => s.geo)), "Chưa có câu địa kỹ thuật (geo:true)", true);
+      range((L.pairs || []).length, 6, 8, "Cặp tối thiểu (pairs)");
+      const ipas = [];
+      keys.forEach(k => (L.words[k] || []).forEach(w => ipas.push([w.w, w.ipa])));
+      L.x2.items.forEach(i => ipas.push([i.w, i.ipa]));
+      ipas.forEach(([w, v]) => {
+        need(v, `Thiếu IPA cho "${E.plain(w)}"`);
+        if (v) vals(v).forEach(s => need(!String(s).includes("/"), `IPA của "${E.plain(w)}" có dấu /, bỏ đi (engine tự thêm)`, true));
+      });
+
+      const theory = new Set(), add = t => wordsIn(t).forEach(w => theory.add(w));
+      keys.forEach(k => {
+        (L.words[k] || []).forEach(w => add(w.w));
+        (L.sentences[k] || []).forEach(s => add(s.t));
+        L.sounds[k].ex.forEach(add);
+      });
+      allRules.forEach(r => { add(r.ex || ""); add(r.note || ""); });
+      (L.pairs || []).forEach(p => { add(p[0]); add(p[2]); });
+      L.soundCards.forEach(c => [c.vn, c.ukus, c.mistake].concat(c.how).forEach(t => add(t || "")));
+      (L.tips || []).forEach(add);
+
+      need(L.x1.bank.length >= 8, `X.1 ngân hàng: ${L.x1.bank.length} cặp câu (cần ≥ 8)`, true);
+      L.x1.bank.forEach((p, i) => {
+        const a = wordsIn(p.a.t), b = wordsIn(p.b.t);
+        const d = a.length !== b.length ? -1 : a.filter((w, j) => w !== b[j]).length;
+        need(d === 1, `X.1 cặp ${i + 1} "${E.plain(p.a.t)}" / "${E.plain(p.b.t)}": ${d < 0 ? "khác số từ" : `khác ${d} từ`}, nên chỉ khác đúng 1 từ`, true);
+        need(p.a.m !== p.b.m, `X.1 cặp ${i + 1}: 2 nghĩa giống nhau`);
+      });
+
+      const items = L.x2.items, x2set = new Set();
+      range(items.length, 12, 13, "X.2 số từ");
+      items.forEach(it => {
+        const w = low(it.w);
+        x2set.add(w);
+        need(/\[[^\]|]+\]/.test(it.w), `X.2 "${w}": chưa đánh dấu phần chữ cần đoán bằng [..]`);
+        vals(it.s).forEach(s => need(s === "other" || L.sounds[s], `X.2 "${w}": s = "${s}" phải là key âm hoặc "other"`));
+        vals(it.rule).forEach(c => need(codes.includes(c), `X.2 "${w}": mã quy tắc "${c}" không có trong rules/traps`));
+        need(!theory.has(w), `X.2 "${w}" đã xuất hiện ở phần lý thuyết, phải là từ MỚI`);
+      });
+      range(items.filter(it => vals(it.s).includes("other")).length, 3, 4, `X.2 số từ bẫy (s:"other")`);
+      if (!items.some(it => typeof it.s === "object")) warn.push("X.2 chưa có từ khác nhau UK/US (bỏ qua nếu âm này không khác giữa 2 giọng)");
+
+      range(L.x3.items.length, 5, 5, "X.3 số cụm");
+      range((L.x3.checklist || []).length, 4, 4, "X.3 checklist");
+      range((L.x3.asr || []).length, 3, 3, "X.3 cặp nhận dạng giọng");
+
+      const tg = { A: 0, B: 0 };
+      let nT = 0, nTrap = 0;
+      L.x4.lines.forEach(([role, t, vi], i) => {
+        need(vi, `X.4 lượt ${i + 1} thiếu dịch tiếng Việt`, true);
+        tokenize(t).forEach(tk => {
+          if (tk.p !== undefined || !tk.spec || tk.spec === "~") return;
+          if (tk.spec.startsWith("!")) nTrap++;
+          else { nT++; tg[role] = (tg[role] || 0) + 1; }
+        });
+      });
+      range(L.x4.lines.length, 6, 8, "X.4 số lượt thoại");
+      need(nT >= 12, `X.4 từ đích: ${nT} (cần ≥ 12)`, true);
+      need(nTrap >= 4, `X.4 bẫy [..|!..]: ${nTrap} (cần ≥ 4)`, true);
+      need(L.x4.roles && L.x4.roles[L.x4.userRole], "X.4 thiếu roles hoặc userRole");
+      const ur = L.x4.userRole, other = ur === "A" ? "B" : "A";
+      need(tg[ur] >= tg[other], `X.4 vai người học (${ur}) có ít từ đích hơn vai kia (${tg[ur]} < ${tg[other]})`, true);
+
+      range(L.x5.groups.length, 7, 9, "X.5 số nhóm");
+      L.x5.groups.forEach((g, i) => {
+        range(g.length, 2, 4, `X.5 nhóm ${i + 1} số lựa chọn`);
+        g.forEach(o => {
+          const w = o.w.toLowerCase();
+          need(!theory.has(w), `X.5 "${w}" đã có ở phần lý thuyết, phải là từ MỚI`, true);
+          need(!x2set.has(w), `X.5 "${w}" trùng với X.2`, true);
+          need(o.ipa, `X.5 "${w}" thiếu IPA`, true);
+        });
+      });
+      range(L.summary.length, 6, 6, "summary");
+    } catch (e) {
+      err.push(`Dữ liệu sai cấu trúc: ${e.message}`);
+    }
+    return { err, warn };
+  }
+
+  function lintBox(r) {
+    r.err.forEach(m => console.error("[EPU check] ❌ " + m));
+    r.warn.forEach(m => console.warn("[EPU check] ⚠️ " + m));
+    console.info(`[EPU check] Bài ${L.id}: ${r.err.length} lỗi, ${r.warn.length} cảnh báo`);
+    const cls = r.err.length ? "bad" : r.warn.length ? "mid" : "good";
+    const li = (a, ic) => a.map(m => `<li>${ic} ${esc(m)}</li>`).join("");
+    return `<section class="sec lint lint-${cls}"><div class="sec-t">🧪 Kiểm tra bài ${L.id}: ` +
+      `${r.err.length} lỗi · ${r.warn.length} cảnh báo</div>` +
+      (r.err.length + r.warn.length ? `<ul>${li(r.err, "❌")}${li(r.warn, "⚠️")}</ul>` :
+        `<p>✅ Đạt mọi tiêu chí tự động. Còn phải tự rà: tô màu theo âm, IPA theo Cambridge, câu tự nhiên.</p>`) +
+      `<p class="muted small">❌ lỗi: phải sửa trước khi gửi PR · ⚠️ cảnh báo: sửa nếu được, nếu cố ý giữ thì ghi lý do trong PR.</p></section>`;
   }
 })();

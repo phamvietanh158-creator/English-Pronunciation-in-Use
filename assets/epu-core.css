@@ -151,6 +151,8 @@ a{color:var(--c1)}
 .meter div{height:100%;background:var(--c2);transition:width .8s}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#2c3e50;color:#fff;padding:11px 22px;border-radius:40px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;max-width:90%;text-align:center}
 .toast.show{opacity:1}
+.lint{border-width:3px}.lint ul{padding-left:4px;list-style:none;font-size:14px}.lint li{padding:3px 0;border-bottom:1px dashed var(--line)}
+.lint-bad{border-color:var(--bad);background:#fff7f6}.lint-mid{border-color:#f39c12;background:#fffbf0}.lint-good{border-color:var(--ok);background:#f4fbf6}
 .foot{text-align:center;color:var(--muted);font-size:14px;padding:16px 0}
 
 @media(max-width:650px){

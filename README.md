@@ -6,6 +6,16 @@ Hệ thống **50 bài học phát âm tiếng Anh** online, dựa trên sách *
 
 ---
 
+## 🔄 Đang nâng cấp lên V2
+
+Bài học đang được làm lại theo khung mới: giọng **🇬🇧 UK / 🇺🇸 US chuẩn**, tô màu theo âm, và 5 bài tập luyện **vận dụng quy tắc** (Nghe → Đoán từ mới → Nói → Tình huống → Ôn xen kẽ).
+
+- Bài mẫu V2: [Bài 2](sectionA/02-i-i-sound.html) · [Bài 6](sectionA/06-e-ae-sound.html)
+- 👥 **Thành viên làm bài:** đọc [CONTRIBUTING.md](CONTRIBUTING.md)
+- 📐 Luật soạn bài: [docs/EPU_BUILD_RULES_V2.md](docs/EPU_BUILD_RULES_V2.md) · 📊 Tiến độ: [docs/TIEN_DO.md](docs/TIEN_DO.md)
+
+---
+
 ## ✨ Tính năng
 
 - 🔊 **Phát âm TTS** — Web Speech API, không cần file audio

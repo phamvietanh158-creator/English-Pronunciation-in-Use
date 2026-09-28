@@ -7,9 +7,6 @@ desktop.ini
 .vscode/
 .idea/
 
-# Local dev server (không đưa lên GitHub)
-serve.ps1
-
 # Temp
 *.tmp
 *.bak
