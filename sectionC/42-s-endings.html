@@ -3,513 +3,252 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bài 42 – It's George's birthday – Pronouncing -s endings</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',sans-serif;background:#f0f4f8;color:#222}
-.header{background:linear-gradient(135deg,#1a4a7a 0%,#0d2d50 100%);color:#fff;padding:28px 24px 22px;position:relative}
-.header-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.badge-num{background:rgba(255,255,255,0.18);border-radius:10px;padding:6px 14px;font-size:1rem;font-weight:700}
-.phoneme-badge{background:#f5c518;color:#1a1a1a;border-radius:20px;padding:6px 16px;font-size:1.05rem;font-weight:800}
-.header h1{font-size:1.35rem;font-weight:800;margin-top:8px}
-.header .sub{font-size:0.93rem;opacity:0.85;margin-top:4px}
-.home-link{position:absolute;top:14px;right:18px;color:rgba(255,255,255,0.8);text-decoration:none;font-size:0.85rem;background:rgba(255,255,255,0.12);padding:5px 12px;border-radius:20px}
-.home-link:hover{background:rgba(255,255,255,0.22)}
-.container{max-width:860px;margin:0 auto;padding:18px 12px}
-.section{background:#fff;border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.07)}
-.section-title{font-size:1.08rem;font-weight:700;color:#1a4a7a;border-bottom:2px solid #c8ddf5;padding-bottom:8px;margin-bottom:14px}
-.rule-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
-.rule-card{background:#f0f6ff;border-radius:10px;padding:14px;border:1.5px solid #a8c8f0;text-align:center}
-.rule-card .icon{font-size:1.8rem;margin-bottom:6px}
-.rule-card h4{font-size:0.88rem;font-weight:700;color:#1a4a7a;margin-bottom:4px}
-.rule-card p{font-size:0.8rem;color:#555;line-height:1.5}
-.ipa{font-style:italic;color:#c0392b;font-weight:700}
-.syl-table{width:100%;border-collapse:collapse;font-size:0.87rem;margin:10px 0}
-.syl-table th{background:#1a4a7a;color:#fff;padding:9px 12px;text-align:left}
-.syl-table td{padding:8px 12px;border-bottom:1px solid #eee;vertical-align:middle}
-.syl-table tr:nth-child(even) td{background:#f5f9ff}
-.syl-badge{display:inline-block;background:#1a4a7a;color:#fff;border-radius:12px;padding:2px 10px;font-size:0.8rem;font-weight:700;min-width:24px;text-align:center}
-.syl-badge.two{background:#e67e22}
-.syl-badge.three{background:#8e44ad}
-.hl-s{color:#c0392b;font-weight:800}
-.tip-box{background:#fffbe6;border-left:4px solid #f5c518;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
-.tip-box b{color:#b8860b}
-.warn-box{background:#fde8e8;border-left:4px solid #e74c3c;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
-.warn-box b{color:#c0392b}
-.geo-box{background:#e0f7f4;border-left:4px solid #00897b;border-radius:8px;padding:12px 15px;margin:10px 0;font-size:0.88rem}
-.geo-box b{color:#00695c}
-.word-grid{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
-.word-card{background:#f0f6ff;border:1.5px solid #a8c8f0;border-radius:10px;padding:10px 13px;cursor:pointer;transition:all 0.2s;min-width:130px;text-align:center}
-.word-card:hover{background:#1a4a7a;color:#fff;transform:translateY(-2px)}
-.word-card .word{font-size:1rem;font-weight:700}
-.word-card .ipa2{font-size:0.78rem;color:#666;margin-top:3px}
-.word-card:hover .ipa2{color:#c8ddf5}
-.word-card .vn{font-size:0.78rem;color:#1a4a7a;margin-top:2px}
-.word-card:hover .vn{color:#ffe}
-.word-card .syl{font-size:0.72rem;background:#e8f0fe;color:#1a4a7a;border-radius:8px;padding:1px 6px;margin-top:3px;display:inline-block}
-.word-card:hover .syl{background:rgba(255,255,255,0.2);color:#fff}
-.sentence-list{list-style:none;display:flex;flex-direction:column;gap:8px;margin:10px 0}
-.sentence-list li{background:#f0f6ff;border-radius:9px;padding:10px 14px;cursor:pointer;border-left:4px solid #1a4a7a;transition:background 0.2s}
-.sentence-list li:hover{background:#d5e8fa}
-.sent-en{font-size:0.95rem;font-weight:600}
-.sent-ipa{font-size:0.8rem;color:#888;margin-top:2px;font-style:italic}
-.sent-vn{font-size:0.82rem;color:#1a4a7a;margin-top:2px}
-.btn-group{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-button{cursor:pointer;border:none;border-radius:8px;padding:8px 16px;font-size:0.88rem;font-weight:600;transition:all 0.18s}
-.btn-navy{background:#1a4a7a;color:#fff}.btn-navy:hover{background:#0d2d50}
-.btn-teal{background:#00897b;color:#fff}.btn-teal:hover{background:#00695c}
-.btn-success{background:#27ae60;color:#fff}.btn-success:hover{background:#219a52}
-.btn-warning{background:#f39c12;color:#fff}.btn-warning:hover{background:#d68910}
-.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
-.btn-blue{background:#2980b9;color:#fff}.btn-blue:hover{background:#2471a3}
-.btn-orange{background:#e67e22;color:#fff}.btn-orange:hover{background:#ca6f1e}
-.ex-wrap{border:1.5px solid #a8c8f0;border-radius:12px;padding:18px;margin-bottom:16px;background:#f8fbff}
-.ex-label{display:inline-block;background:#1a4a7a;color:#fff;border-radius:6px;padding:3px 11px;font-size:0.82rem;font-weight:700;margin-bottom:8px}
-.ex-instruction{color:#555;font-size:0.88rem;margin-bottom:12px;line-height:1.5}
-.score-box{margin-top:10px;padding:10px 14px;border-radius:8px;display:none;font-size:0.9rem}
-.score-box.show{display:block}
-.score-great{background:#d4edda;border:1px solid #27ae60;color:#155724}
-.score-good{background:#fff3cd;border:1px solid #f39c12;color:#856404}
-.score-try{background:#f8d7da;border:1px solid #e74c3c;color:#721c24}
-.big-score{font-size:1.8rem;font-weight:800}
-.score-meter{height:10px;background:#e0e0e0;border-radius:5px;margin:6px 0}
-.score-bar{height:100%;border-radius:5px;transition:width 0.4s}
-.fill-item{margin:8px 0;font-size:0.9rem;line-height:1.9}
-.fill-item input{border:none;border-bottom:2px solid #a8c8f0;background:transparent;font-size:0.9rem;padding:2px 5px;outline:none;width:140px;color:#1a4a7a;font-weight:600}
-.fill-item input.correct{border-bottom-color:#27ae60;background:#d4f5e2}
-.fill-item input.wrong{border-bottom-color:#e74c3c;background:#fde8e8}
-.syl-chip{display:inline-block;border-radius:20px;padding:6px 14px;cursor:pointer;font-size:0.87rem;font-weight:600;transition:all 0.18s;user-select:none;margin:3px;border:2px solid #ccc;background:#f5f5f5}
-.syl-chip:hover{background:#1a4a7a;color:#fff;border-color:#1a4a7a}
-.syl-chip.sel-1{background:#27ae60;color:#fff;border-color:#27ae60}
-.syl-chip.sel-2{background:#e67e22;color:#fff;border-color:#e67e22}
-.syl-chip.sel-3{background:#8e44ad;color:#fff;border-color:#8e44ad}
-.family-tree{text-align:center;margin:12px 0;font-size:0.85rem;background:#f8fbff;border-radius:10px;padding:14px;border:1.5px solid #a8c8f0}
-.family-tree .generation{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin:6px 0}
-.family-tree .person{background:#1a4a7a;color:#fff;border-radius:8px;padding:5px 12px;font-size:0.82rem;font-weight:700}
-.family-tree .connector{color:#888;font-size:0.8rem;text-align:center;margin:4px 0}
-.mp-item{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:0.9rem;flex-wrap:wrap}
-.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(40px);background:#333;color:#fff;padding:10px 22px;border-radius:25px;opacity:0;transition:all 0.3s;pointer-events:none;font-size:0.9rem;z-index:999}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-</style>
+<title>Bài 42 - Đuôi -s: /s/ /z/ /ɪz/ | It's George's birthday</title>
+<link rel="stylesheet" href="../assets/epu-core.css">
 </head>
 <body>
-<div class="header">
-  <a class="home-link" href="../index.html">← Về trang chủ</a>
-  <div class="header-top">
-    <span class="badge-num">📚 Bài 42</span>
-    <span class="phoneme-badge">/s/ · /z/ · /ɪz/ + số âm tiết</span>
-  </div>
-  <h1>It's George's birthday – Pronouncing -s endings</h1>
-  <div class="sub">Phát âm đuôi -s/-es: số nhiều, động từ, sở hữu cách, rút gọn</div>
-</div>
-<div id="toast" class="toast"></div>
-<div class="container">
-
-<!-- LÝ THUYẾT -->
-<div class="section">
-  <div class="section-title">🧠 Lý thuyết – 4 cách dùng đuôi -s</div>
-
-  <div class="rule-grid">
-    <div class="rule-card">
-      <div class="icon">📦</div>
-      <h4>Danh từ số nhiều</h4>
-      <p><em>phone<b>s</b>, day<b>s</b>, box<b>es</b>, page<b>s</b></em></p>
-    </div>
-    <div class="rule-card">
-      <div class="icon">⚙️</div>
-      <h4>Động từ ngôi 3 số ít</h4>
-      <p><em>she phone<b>s</b>, he finish<b>es</b>, it go<b>es</b></em></p>
-    </div>
-    <div class="rule-card">
-      <div class="icon">👤</div>
-      <h4>Sở hữu cách & Rút gọn</h4>
-      <p><em>Maria'<b>s</b> phone, film'<b>s</b> started, George'<b>s</b> birthday</em></p>
-    </div>
-  </div>
-
-  <div style="background:#f8fbff;border-radius:10px;padding:16px;border:1.5px solid #a8c8f0;margin-bottom:12px">
-    <h4 style="color:#1a4a7a;margin-bottom:10px;font-size:0.95rem">📐 Quy tắc số âm tiết khi thêm -s/-es</h4>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;font-size:0.85rem">
-      <div style="background:#fff;border-radius:8px;padding:10px;border:1.5px solid #27ae60">
-        <div style="font-weight:700;color:#27ae60;margin-bottom:6px">✅ Số âm tiết GIỮ NGUYÊN</div>
-        <p style="color:#555">Khi từ kết thúc bằng nguyên âm hoặc phụ âm khác (không phải /s z ʃ ʒ tʃ dʒ/)</p>
-        <p style="margin-top:6px"><em>day → day<b>s</b></em> (1→1)<br><em>glove → glove<b>s</b></em> (1→1)</p>
-      </div>
-      <div style="background:#fff;border-radius:8px;padding:10px;border:1.5px solid #e67e22">
-        <div style="font-weight:700;color:#e67e22;margin-bottom:6px">➕ THÊM 1 âm tiết /ɪz/</div>
-        <p style="color:#555">Khi từ kết thúc bằng:</p>
-        <p style="margin-top:4px"><span class="ipa">/s/ /z/ /ʃ/ /ʒ/ /tʃ/ /dʒ/</span></p>
-        <p style="margin-top:6px"><em>match → match<b>es</b></em> (1→2)<br><em>George → George'<b>s</b></em> (1→2)</p>
-      </div>
-      <div style="background:#fff8e1;border-radius:8px;padding:10px;border:1.5px solid #e74c3c">
-        <div style="font-weight:700;color:#e74c3c;margin-bottom:6px">⚠️ Không rút gọn 's sau âm /s z ʃ ʒ tʃ dʒ/</div>
-        <p style="color:#555">Không viết: <em>The food<b>'s</b> good.</em> khi food kết thúc bằng /d/ → OK<br>
-        Nhưng: <em>The match has started</em> (không phải match's) vì /tʃ/ → phải dùng <em>has</em> đầy đủ</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="tip-box">
-    <b>💡 Mẹo nhớ âm /ɪz/:</b> Nếu bạn phải "thêm tiếng" để đọc được hai âm liên tiếp → thêm /ɪz/.<br>
-    <em>bus + s</em> → /bʌsɪz/ ✅ (không thể nói /bʌss/) &nbsp;|&nbsp;
-    <em>match + es</em> → /mætʃɪz/ ✅
-  </div>
-
-  <table class="syl-table">
-    <tr><th>Từ gốc</th><th>Từ có -s</th><th>Số âm tiết</th><th>Âm cuối → quy tắc</th><th>Ví dụ câu</th></tr>
-    <tr><td>go</td><td>go<span class="hl-s">es</span></td><td><span class="syl-badge">1</span></td><td>/əʊ/ → giữ nguyên</td><td><em>Hit the ball and watch where it goes.</em></td></tr>
-    <tr><td>finish</td><td>finish<span class="hl-s">es</span></td><td><span class="syl-badge two">3</span></td><td>/ʃ/ → thêm /ɪz/</td><td><em>Do you know when the course finishes?</em></td></tr>
-    <tr><td>George</td><td>George<span class="hl-s">'s</span></td><td><span class="syl-badge two">2</span></td><td>/dʒ/ → thêm /ɪz/</td><td><em>It's George's birthday.</em></td></tr>
-    <tr><td>train</td><td>train<span class="hl-s">'s</span></td><td><span class="syl-badge">1</span></td><td>/n/ → giữ nguyên</td><td><em>The train's late again.</em></td></tr>
-    <tr><td>box</td><td>box<span class="hl-s">es</span></td><td><span class="syl-badge two">2</span></td><td>/ks/ → thêm /ɪz/</td><td><em>Open the boxes.</em></td></tr>
-    <tr><td>boss</td><td>boss<span class="hl-s">'s</span></td><td><span class="syl-badge two">2</span></td><td>/s/ → thêm /ɪz/</td><td><em>That's the boss's office.</em></td></tr>
-    <tr><td>glove</td><td>glove<span class="hl-s">s</span></td><td><span class="syl-badge">1</span></td><td>/v/ → giữ nguyên</td><td><em>Are these your gloves?</em></td></tr>
-    <tr><td>page</td><td>page<span class="hl-s">s</span></td><td><span class="syl-badge two">2</span></td><td>/dʒ/ → thêm /ɪz/</td><td><em>This book's got 120 pages.</em></td></tr>
-  </table>
-
-  <div class="warn-box">
-    <b>⚠️ Không rút gọn 's sau /s z ʃ ʒ tʃ dʒ/:</b><br>
-    ✅ <em>The food<b>'s</b> good.</em> (food = /d/ → OK dùng 's)<br>
-    ✅ <em>The game<b>'s</b> started.</em> (game = /m/ → OK)<br>
-    ❌ <em>~~The match's started.~~</em> → phải nói: <em>The match <b>has</b> started.</em>
-  </div>
-
-  <div class="btn-group">
-    <button class="btn-navy" onclick="speakText(`It's time to go. Hit the ball and watch where it goes. When does the course finish? Do you know when the course finishes? Have you met George? It's George's birthday. We're waiting for the train. The train's late again. Open the box. Open the boxes. That's the boss. That's the boss's office. Is this your glove? Are these your gloves? Which is the right page? This book's got one hundred and twenty pages.`)">🔊 Nghe bảng âm tiết</button>
-    <button class="btn-teal" onclick="speakText(`The food is good. The service is good. The game has started. The match has started.`)">🔊 Nghe ví dụ không rút gọn</button>
-  </div>
-</div>
-
-<!-- WORD GRID -->
-<div class="section">
-  <div class="section-title">📚 Từ vựng – Phân biệt số âm tiết</div>
-  <div class="word-grid" id="wordGrid"></div>
-  <div class="btn-group"><button class="btn-navy" onclick="speakAllWords()">🔊 Nghe tất cả</button></div>
-</div>
-
-<!-- SENTENCES -->
-<div class="section">
-  <div class="section-title">🗣️ Câu luyện tập</div>
-  <ul class="sentence-list" id="sentList"></ul>
-  <div class="geo-box">
-    <b>🏗️ Geotech:</b> Đuôi -s/-es rất phổ biến trong báo cáo địa kỹ thuật:<br>
-    <em>The bore<b>hole's</b> log shows sandy layers. The pile<b>s</b> reach bedrock. Test<b>s</b> were conducted at three site<b>s</b>. The engineer finish<b>es</b> the report today.</em>
-  </div>
-</div>
-
-<!-- BÀI TẬP -->
-<div class="section">
-  <div class="section-title">✏️ Bài tập</div>
-
-  <!-- 42.1: điền đúng dạng động từ/danh từ -->
-  <div class="ex-wrap">
-    <span class="ex-label">42.1</span>
-    <div class="ex-instruction">Điền dạng đúng (thêm <b>-s</b> hay <b>-es</b>) của từ trong ngoặc. Chú ý số âm tiết thay đổi hay không.</div>
-    <div id="ex1Content"></div>
-    <div class="btn-group">
-      <button class="btn-success" onclick="checkEx1()">✅ Chấm bài</button>
-      <button class="btn-warning" onclick="resetEx1()">🔄 Làm lại</button>
-      <button class="btn-danger" onclick="revealEx1()">👁️ Xem đáp án</button>
-      <button class="btn-blue" onclick="speakEx1()">🔊 Nghe câu</button>
-    </div>
-    <div id="score1" class="score-box"></div>
-  </div>
-
-  <!-- 42.2: family tree - điền quan hệ -->
-  <div class="ex-wrap">
-    <span class="ex-label">42.2</span>
-    <div class="ex-instruction">Nhìn sơ đồ gia đình và điền vào chỗ trống. Dùng sở hữu cách <b>'s</b> đúng cách.</div>
-    <div class="family-tree">
-      <div style="font-weight:700;color:#1a4a7a;margin-bottom:8px">George &amp; Joan Birch</div>
-      <div class="connector">↓ con cái ↓</div>
-      <div class="generation">
-        <span class="person">James</span>
-        <span class="person">Joyce &amp; Mike Jones</span>
-      </div>
-      <div class="connector">↓ con cái của Joyce &amp; Mike ↓</div>
-      <div class="generation">
-        <span class="person">Dennis</span>
-        <span class="person">Tom</span>
-      </div>
-    </div>
-    <div id="ex2Content"></div>
-    <div class="btn-group">
-      <button class="btn-success" onclick="checkEx2()">✅ Chấm bài</button>
-      <button class="btn-warning" onclick="resetEx2()">🔄 Làm lại</button>
-      <button class="btn-danger" onclick="revealEx2()">👁️ Xem đáp án</button>
-      <button class="btn-blue" onclick="speakEx2()">🔊 Nghe câu</button>
-    </div>
-    <div id="score2" class="score-box"></div>
-  </div>
-
-  <!-- 42.3: click số âm tiết -->
-  <div class="ex-wrap">
-    <span class="ex-label">42.3</span>
-    <div class="ex-instruction">Click vào số âm tiết đúng cho mỗi từ có đuôi -s/-es (dựa vào quy tắc âm cuối).</div>
-    <div id="ex3Content"></div>
-    <div class="btn-group">
-      <button class="btn-success" onclick="checkEx3()">✅ Chấm bài</button>
-      <button class="btn-warning" onclick="resetEx3()">🔄 Làm lại</button>
-      <button class="btn-danger" onclick="revealEx3()">👁️ Xem đáp án</button>
-    </div>
-    <div id="score3" class="score-box"></div>
-  </div>
-
-  <!-- 42.4: whose is it? possessive 's -->
-  <div class="ex-wrap">
-    <span class="ex-label">42.4</span>
-    <div class="ex-instruction">Điền sở hữu cách (<b>Name's</b>) vào chỗ trống. Chú ý số âm tiết của tên khi thêm <b>'s</b>.</div>
-    <div id="ex4Content"></div>
-    <div class="btn-group">
-      <button class="btn-success" onclick="checkEx4()">✅ Chấm bài</button>
-      <button class="btn-warning" onclick="resetEx4()">🔄 Làm lại</button>
-      <button class="btn-danger" onclick="revealEx4()">👁️ Xem đáp án</button>
-      <button class="btn-blue" onclick="speakEx4()">🔊 Nghe câu</button>
-    </div>
-    <div id="score4" class="score-box"></div>
-  </div>
-
-  <!-- 42.5: minimal pairs /s/ /z/ /ɪz/ -->
-  <div class="ex-wrap">
-    <span class="ex-label">42.5</span>
-    <div class="ex-instruction">Nghe và chọn âm đúng của đuôi -s trong từ gạch chân: <b>/s/</b>, <b>/z/</b> hay <b>/ɪz/</b>?</div>
-    <div id="ex5Content"></div>
-    <div class="btn-group">
-      <button class="btn-success" onclick="checkEx5()">✅ Chấm bài</button>
-      <button class="btn-warning" onclick="resetEx5()">🔄 Làm lại</button>
-      <button class="btn-danger" onclick="revealEx5()">👁️ Xem đáp án</button>
-    </div>
-    <div id="score5" class="score-box"></div>
-  </div>
-</div>
-</div>
-
+<div id="app"></div>
+<script src="../assets/epu-core.js"></script>
+<script src="../assets/epu-lesson.js"></script>
 <script>
-const voicePrefs=["Google US English","Google UK English Female","Samantha","Karen","Moira","Victoria"];
-let cachedVoice=null;
-function getVoice(){if(cachedVoice)return cachedVoice;const vs=speechSynthesis.getVoices();for(const p of voicePrefs){const v=vs.find(x=>x.name===p);if(v){cachedVoice=v;return v;}}return vs.find(v=>v.lang.startsWith('en'))||null;}
-function speakText(t,rate=0.85){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.voice=getVoice();u.lang='en-GB';u.rate=rate;u.pitch=1.05;speechSynthesis.speak(u);}
-speechSynthesis.onvoiceschanged=()=>{cachedVoice=null;};
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
-function showScore(id,correct,total){const el=document.getElementById(id);const pct=Math.round(correct/total*100);let cls,emoji,msg;if(pct>=90){cls='score-great';emoji='🎉';msg='Xuất sắc!';}else if(pct>=65){cls='score-good';emoji='👍';msg='Khá tốt!';}else{cls='score-try';emoji='😅';msg='Cần luyện thêm!';}el.className='score-box show '+cls;el.innerHTML=`<div class="big-score">${pct}%</div><div class="score-meter"><div class="score-bar" style="width:${pct}%;background:${pct>=90?'#27ae60':pct>=65?'#f39c12':'#e74c3c'}"></div></div>${emoji} ${msg} — Đúng ${correct}/${total}`;}
+/* ===================== BÀI 42 — Đuôi -s: /s/ /z/ /ɪz/ (EPU V2) =====================
+   Bài quy tắc đuôi (mục 5 bộ luật): coi 3 cách đọc là 3 "âm": s = /s/ · z = /z/ · iz = /ɪz/.
+   Markup tô phần đuôi: cat[s|s] · dog[s|z] · bus[es|iz]
+   Chỉ có DỮ LIỆU. Giao diện + bài tập do ../assets/epu-lesson.js dựng.
+   IPA: "x" dùng chung, hoặc {uk:"…", us:"…"} khi 2 giọng khác nhau.            */
+const LESSON = {
+  id: 42,
+  section: "Section C · Endings",
+  title: "It's George's birthday",
+  emoji: "🎂",
+  sub: "Đuôi -s / -es: số nhiều, động từ ngôi thứ ba, sở hữu cách. Ba cách đọc /s/ /z/ /ɪz/",
+  theme: ["#4c1d95", "#7c3aed"],
+  footer: "<p>🎂 <b>“It's George's birthday”</b>: cats /s/ · dogs /z/ · George's /ɪz/. Đuôi -s đọc thế nào <b>phụ thuộc âm cuối</b> của từ đứng trước.</p>",
 
-// WORDS
-const words=[
-  {w:"days",base:"day",syl:1,ipa:"/deɪz/",vn:"những ngày",rule:"giữ nguyên"},
-  {w:"phones",base:"phone",syl:1,ipa:"/fəʊnz/",vn:"điện thoại (nhiều)",rule:"giữ nguyên"},
-  {w:"matches",base:"match",syl:2,ipa:"/ˈmætʃɪz/",vn:"các trận đấu",rule:"+/ɪz/"},
-  {w:"finishes",base:"finish",syl:3,ipa:"/ˈfɪnɪʃɪz/",vn:"kết thúc (hiện tại)",rule:"+/ɪz/"},
-  {w:"George's",base:"George",syl:2,ipa:"/ˈdʒɔːdʒɪz/",vn:"của George",rule:"+/ɪz/"},
-  {w:"boxes",base:"box",syl:2,ipa:"/ˈbɒksɪz/",vn:"các hộp",rule:"+/ɪz/"},
-  {w:"boss's",base:"boss",syl:2,ipa:"/ˈbɒsɪz/",vn:"của sếp",rule:"+/ɪz/"},
-  {w:"pages",base:"page",syl:2,ipa:"/ˈpeɪdʒɪz/",vn:"các trang",rule:"+/ɪz/"},
-  {w:"gloves",base:"glove",syl:1,ipa:"/ɡlʌvz/",vn:"những găng tay",rule:"giữ nguyên"},
-  {w:"train's",base:"train",syl:1,ipa:"/treɪnz/",vn:"của tàu (hoặc 'tàu đang')",rule:"giữ nguyên"},
-  {w:"goes",base:"go",syl:1,ipa:"/ɡəʊz/",vn:"đi (ngôi 3)",rule:"giữ nguyên"},
-  {w:"watches",base:"watch",syl:2,ipa:"/ˈwɒtʃɪz/",vn:"các đồng hồ / xem (ngôi 3)",rule:"+/ɪz/"},
-  {w:"piles",base:"pile",syl:1,ipa:"/paɪlz/",vn:"các cọc móng",rule:"giữ nguyên"},
-  {w:"bridges",base:"bridge",syl:2,ipa:"/ˈbrɪdʒɪz/",vn:"các cây cầu",rule:"+/ɪz/"},
-  {w:"drains",base:"drain",syl:1,ipa:"/dreɪnz/",vn:"các hệ thống thoát nước",rule:"giữ nguyên"},
-  {w:"stresses",base:"stress",syl:2,ipa:"/ˈstresɪz/",vn:"các ứng suất",rule:"+/ɪz/"},
-];
-function renderWords(){document.getElementById('wordGrid').innerHTML=words.map(w=>`<div class="word-card" onclick="speakText('${w.w.replace(/'/g,"\\'")}')"><div class="word">${w.w}</div><div class="ipa2">${w.ipa}</div><div class="vn">🇻🇳 ${w.vn}</div><div class="syl">${w.syl} âm tiết · ${w.rule}</div></div>`).join('');}
-function speakAllWords(){speakText(words.map(w=>w.w).join('. '),0.8);}
+  sounds: {
+    s: { ipa: "/s/", name: "-s đọc /s/", color: "#b45309", bg: "#fef3c7", ex: ["cats", "books", "maps", "walks", "stops"] },
+    z: { ipa: "/z/", name: "-s đọc /z/", color: "#1d4ed8", bg: "#dbeafe", ex: ["dogs", "bags", "plays", "pens", "eyes"] },
+    iz: { ipa: "/ɪz/", name: "-es đọc /ɪz/ (thêm âm tiết)", color: "#be123c", bg: "#ffe4e6", ex: ["buses", "watches", "judges", "boxes", "places"] }
+  },
 
-// SENTENCES
-const sents=[
-  {en:"Why have you got three phones on your desk?",ipa:"/waɪ həv jə ɡɒt θriː fəʊnz ɒn jə desk/",vn:"Sao bạn có ba điện thoại trên bàn vậy?"},
-  {en:"She phones him every day.",ipa:"/ʃi fəʊnz hɪm ˈevri deɪ/",vn:"Cô ấy gọi điện cho anh ta mỗi ngày."},
-  {en:"Have you got Maria's phone number?",ipa:"/həv jə ɡɒt məˈriːəz fəʊn ˈnʌmbə/",vn:"Bạn có số điện thoại của Maria không?"},
-  {en:"It's George's birthday.",ipa:"/ɪts ˈdʒɔːdʒɪz ˈbɜːθdeɪ/",vn:"Hôm nay là sinh nhật của George."},
-  {en:"Do you know when the course finishes?",ipa:"/də jə nəʊ wen ðə kɔːs ˈfɪnɪʃɪz/",vn:"Bạn có biết khi nào khóa học kết thúc không?"},
-  {en:"Open the boxes.",ipa:"/ˈəʊpən ðə ˈbɒksɪz/",vn:"Mở các hộp ra."},
-  {en:"That's the boss's office.",ipa:"/ðæts ðə ˈbɒsɪz ˈɒfɪs/",vn:"Đó là văn phòng của sếp."},
-  {en:"This book's got 120 pages.",ipa:"/ðɪs bʊks ɡɒt wʌn ˈhʌndrəd ənd ˈtwenti ˈpeɪdʒɪz/",vn:"Cuốn sách này có 120 trang."},
-  {en:"The train's late again.",ipa:"/ðə treɪnz leɪt əˈɡen/",vn:"Tàu lại trễ nữa rồi."},
-  {en:"The food's good. The service is good.",ipa:"/ðə fuːdz ɡʊd ðə ˈsɜːvɪs ɪz ɡʊd/",vn:"Đồ ăn ngon. Dịch vụ tốt."},
-  {en:"The match has started. The game's started.",ipa:"/ðə mætʃ həz ˈstɑːtɪd ðə ɡeɪmz ˈstɑːtɪd/",vn:"Trận đấu đã bắt đầu. Trò chơi đã bắt đầu."},
-  {en:"The piles reach bedrock at 15 metres.",ipa:"/ðə paɪlz riːtʃ ˈbedrɒk ət ˈfɪftiːn ˈmiːtəz/",vn:"Các cọc chạm đến tầng đá gốc ở độ sâu 15 mét."},
-  {en:"The engineer's report shows three layers.",ipa:"/ðɪ ˌendʒɪˈnɪəz rɪˈpɔːt ʃəʊz θriː ˈleɪəz/",vn:"Báo cáo của kỹ sư cho thấy ba lớp đất."},
-  {en:"Stresses in the soil increase with depth.",ipa:"/ˈstresɪz ɪn ðə sɔɪl ɪnˈkriːs wɪð depθ/",vn:"Ứng suất trong đất tăng theo chiều sâu."},
-];
-function renderSents(){document.getElementById('sentList').innerHTML=sents.map(s=>`<li onclick="speakText('${s.en.replace(/'/g,"\\'")}')"><div class="sent-en">${s.en}</div><div class="sent-ipa">${s.ipa}</div><div class="sent-vn">🇻🇳 ${s.vn}</div></li>`).join('');}
+  soundCards: [
+    { key: "s",
+      how: ["Dùng khi từ gốc kết thúc bằng âm <b>vô thanh</b>: /p/, /t/, /k/, /f/, /θ/.",
+            "Phát âm đuôi là /s/: hơi xì, <b>dây thanh KHÔNG rung</b>.",
+            "Không thêm âm tiết. <i>cats</i> chỉ có một âm tiết: /kæts/.",
+            "Mẹo nhớ: <b>PaT KeFTh</b> (p, t, k, f, th)."],
+      vn: "Đuôi là “xờ” nhẹ, ngắn: <i>cats</i> ≈ “két-xờ”, nhưng không kéo dài và <b>không thêm “ơ”</b>.",
+      ukus: "Hai giọng giống nhau.",
+      mistake: "Bỏ hẳn đuôi -s (<i>book</i> và <i>books</i> nghe như nhau). Đọc thành /ɪz/ (“cát-iz”). Thêm “ơ” sau s." },
+    { key: "z",
+      how: ["Dùng khi từ gốc kết thúc bằng <b>nguyên âm</b> hoặc âm <b>hữu thanh</b>: /b/, /d/, /ɡ/, /v/, /ð/, /m/, /n/, /ŋ/, /l/, /r/.",
+            "Phát âm đuôi là /z/: <b>dây thanh RUNG</b>, vo vo.",
+            "Không thêm âm tiết. <i>dogs</i> chỉ có một âm tiết: /dɒɡz/.",
+            "Đây là cách đọc <b>phổ biến nhất</b>: số nhiều, ngôi thứ ba, ’s."],
+      vn: "Đuôi là “dờ” nhẹ có rung, gần “z”: <i>dogs</i> ≈ “đóc-dz”. Người Việt hay đọc thành /s/ (<i>dogs</i> thành <i>docks</i>).",
+      ukus: "Hai giọng giống nhau.",
+      mistake: "Đọc /z/ như /s/ (<i>bags</i> nghe như <i>backs</i>). Bỏ đuôi hoàn toàn. Thêm “ơ”." },
+    { key: "iz",
+      how: ["Dùng khi từ gốc kết thúc bằng âm <b>rít</b>: /s/, /z/, /ʃ/, /ʒ/, /tʃ/, /dʒ/.",
+            "Phát âm đuôi là /ɪz/ và <b>thêm một âm tiết mới</b>.",
+            "Thường viết <b>-es</b>: bus<b>es</b>, watch<b>es</b>, box<b>es</b>.",
+            "Nếu từ gốc đã kết thúc bằng e câm (place, size, judge) thì chỉ thêm <b>-s</b>, vẫn đọc /ɪz/."],
+      vn: "Đuôi là một âm tiết riêng “ít” ngắn: <i>buses</i> ≈ “bớt-xíz”. Thêm một nhịp, không đọc dồn.",
+      ukus: "Hai giọng giống nhau. Nguyên âm của đuôi có thể là /ɪ/ hoặc /ə/ tuỳ giọng.",
+      mistake: "Quên âm tiết thêm (<i>watches</i> nghe như <i>watch</i>, <i>boxes</i> nghe như <i>box</i>) hoặc đọc thành /s/, /z/ đơn." }
+  ],
 
-// EX 1: correct -s/-es form (from book 42.1)
-const ex1Data=[
-  {sent:"Let's see who ___ (finish) these ___ (exercise) first.",blanks:["finishes","exercises"],speak:"Let's see who finishes these exercises first."},
-  {sent:"The bar ___ (close) when the last customer ___ (leave).",blanks:["closes","leaves"],speak:"The bar closes when the last customer leaves."},
-  {sent:"Don't make ___ (promise) you can't keep.",blanks:["promises"],speak:"Don't make promises you can't keep."},
-  {sent:"Nobody ___ (use) a typewriter nowadays, do they?",blanks:["uses"],speak:"Nobody uses a typewriter nowadays, do they?"},
-  {sent:"My dad's so tall that when he ___ (reach) his hand up he ___ (touch) the ceiling.",blanks:["reaches","touches"],speak:"My dad's so tall that when he reaches his hand up he touches the ceiling."},
-];
-function renderEx1(){
-  let html='',gi=0;
-  ex1Data.forEach((d,si)=>{
-    let sent=d.sent;
-    let bi=0;
-    sent=sent.replace(/___/g,()=>{
-      const idx=gi++;
-      return `<input id="e1_${idx}" type="text" placeholder="${d.blanks[bi++] ? d.blanks[bi-1].substring(0,3)+'...' : '...'}" data-ans="${d.blanks[bi-1]}" style="width:110px">`;
-    });
-    html+=`<div class="fill-item">${si+1}. ${sent} <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button></div>`;
-  });
-  document.getElementById('ex1Content').innerHTML=html;
-}
-function speakEx1(){speakText(ex1Data.map(d=>d.speak).join(' '));}
-function checkEx1(){
-  const inputs=document.querySelectorAll('[id^="e1_"]');
-  let c=0;
-  inputs.forEach(inp=>{
-    const ans=inp.dataset.ans;
-    if(inp.value.trim().toLowerCase()===ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}
-    else{inp.classList.add('wrong');inp.classList.remove('correct');}
-  });
-  showScore('score1',c,inputs.length);
-  showToast(c===inputs.length?'🎉 Hoàn hảo!':'😅 Xem lại ô đỏ nhé!');
-}
-function resetEx1(){document.querySelectorAll('[id^="e1_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score1').className='score-box';showToast('🔄 Đã làm lại!');}
-function revealEx1(){document.querySelectorAll('[id^="e1_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+  pairs: [["ice","aɪs","eyes","aɪz"], ["bus","bʌs","buzz","bʌz"], ["rice","raɪs","rise","raɪz"], ["peace","piːs","peas","piːz"],
+          ["race","reɪs","raise","reɪz"], ["face","feɪs","phase","feɪz"]],
 
-// EX 2: family tree
-// George & Joan Birch → children: James, Joyce & Mike Jones → Joyce&Mike's children: Dennis, Tom
-const ex2Data=[
-  {sent:"Joyce and Mike ___ Dennis ___.",blanks:["are","'s parents"],ans:["are","'s parents"],speak:"Joyce and Mike are Dennis's parents."},
-  {sent:"Tom ___ Dennis ___.",blanks:["is","'s brother"],ans:["is","'s brother"],speak:"Tom is Dennis's brother."},
-  {sent:"James and Joyce ___ Mr and Mrs Birch ___.",blanks:["are","'s children"],ans:["are","'s children"],speak:"James and Joyce are Mr and Mrs Birch's children."},
-  {sent:"Dennis ___ George ___.",blanks:["is","'s grandson"],ans:["is","'s grandson"],speak:"Dennis is George's grandson."},
-  {sent:"Joyce ___ Mike Jones ___.",blanks:["is","'s wife"],ans:["is","'s wife"],speak:"Joyce is Mike Jones's wife."},
-];
-function renderEx2(){
-  let html='<div style="margin-bottom:8px;font-size:0.85rem;color:#555">📌 Ví dụ: Joyce <u>is</u> George<u>\'s daughter</u>.</div>';
-  let gi=0;
-  ex2Data.forEach((d,si)=>{
-    let sent=d.sent;
-    let bi=0;
-    sent=sent.replace(/___/g,()=>{
-      const idx=gi++;
-      const a=d.ans[bi++];
-      return `<input id="e2_${idx}" type="text" placeholder="..." data-ans="${a}" style="width:${a.length>5?130:80}px">`;
-    });
-    html+=`<div class="fill-item">${si+1}. ${sent} <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button></div>`;
-  });
-  document.getElementById('ex2Content').innerHTML=html;
-}
-function speakEx2(){speakText(ex2Data.map(d=>d.speak).join(' '));}
-function checkEx2(){
-  const inputs=document.querySelectorAll('[id^="e2_"]');
-  let c=0;
-  inputs.forEach(inp=>{
-    const ans=inp.dataset.ans.toLowerCase();
-    if(inp.value.trim().toLowerCase()===ans){inp.classList.add('correct');inp.classList.remove('wrong');c++;}
-    else{inp.classList.add('wrong');inp.classList.remove('correct');}
-  });
-  showScore('score2',c,inputs.length);
-}
-function resetEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value='';inp.className='';});document.getElementById('score2').className='score-box';showToast('🔄 Đã làm lại!');}
-function revealEx2(){document.querySelectorAll('[id^="e2_"]').forEach(inp=>{inp.value=inp.dataset.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+  rules: [
+    { code: "S1", key: "s", spell: "-s sau âm vô thanh /p t k f θ/", ex: "cats, books, maps, laughs, months", note: "Số nhiều danh từ, ngôi thứ ba động từ (walks), sở hữu cách (Kate’s)" },
+    { code: "Z1", key: "z", spell: "-s sau nguyên âm hoặc âm hữu thanh /b d ɡ v ð m n ŋ l r/", ex: "dogs, bags, plays, pens, bells, cars", note: "Phổ biến nhất" },
+    { code: "Z2", key: "z", spell: "Từ chức năng và động từ đặc biệt", ex: "is, has, his, does, goes", note: "does /dʌz/, goes /ɡəʊz/. (says /sez/ là bất quy tắc)" },
+    { code: "I1", key: "iz", spell: "-es sau âm rít /s z ʃ ʒ tʃ dʒ/ (thêm âm tiết)", ex: "buses, watches, boxes, dishes, glasses", note: "Chữ cuối là s, x, z, sh, ch thì thêm -es" },
+    { code: "I2", key: "iz", spell: "-s sau từ kết thúc bằng e câm + âm rít", ex: "places, judges, sizes, languages, roses", note: "Chỉ thêm -s nhưng vẫn là âm tiết mới /ɪz/" },
+    { code: "I3", key: "iz", spell: "Sở hữu cách và rút gọn sau âm rít", ex: "George’s, Alice’s, church’s, Max’s", note: "Quy tắc giống số nhiều: ’s sau âm rít đọc /ɪz/" }
+  ],
+  traps: [
+    { code: "T1", sound: "(không phải đuôi)", spell: "s cuối từ gốc, không phải số nhiều", ex: "bus, class, this, yes, please", note: "Đây là /s/ hoặc /z/ của chính từ gốc, không áp dụng quy tắc đuôi -s" },
+    { code: "T2", sound: "/vz/", spell: "f / fe → ves (danh từ đổi f thành v)", ex: "knives, wives, leaves, shelves", note: "Âm cuối đổi /f/ thành /v/ rồi thêm /z/" },
+    { code: "T3", sound: "/ðz/", spell: "một số danh từ tận cùng th", ex: "baths, paths, mouths", note: "Số nhiều đổi /θ/ thành /ð/ rồi thêm /z/" },
+    { code: "T4", sound: "(s câm)", spell: "s câm trong vài từ", ex: "isle, corps, Illinois", note: "Chữ s không đọc" }
+  ],
 
-// EX 3: syllable count click
-const ex3Words=[
-  {w:"churches",syl:2,hint:"/tʃ/ → +/ɪz/"},
-  {w:"phones",syl:1,hint:"/n/ → giữ nguyên"},
-  {w:"bridges",syl:2,hint:"/dʒ/ → +/ɪz/"},
-  {w:"dates",syl:1,hint:"/t/ → giữ nguyên"},
-  {w:"washes",syl:2,hint:"/ʃ/ → +/ɪz/"},
-  {w:"days",syl:1,hint:"/eɪ/ → giữ nguyên"},
-  {w:"buses",syl:2,hint:"/s/ → +/ɪz/"},
-  {w:"books",syl:1,hint:"/k/ → giữ nguyên"},
-  {w:"charges",syl:2,hint:"/dʒ/ → +/ɪz/"},
-  {w:"trains",syl:1,hint:"/n/ → giữ nguyên"},
-  {w:"stresses",syl:2,hint:"/s/ → +/ɪz/"},
-  {w:"layers",syl:2,hint:"/ə/ → 'lay·ers' đã 2 âm tiết"},
-];
-let ex3sel={};
-function renderEx3(){
-  document.getElementById('ex3Content').innerHTML=ex3Words.map((d,i)=>`
-    <div style="display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap">
-      <span style="min-width:100px;font-weight:700;font-size:0.95rem" onclick="speakText('${d.w}')" style="cursor:pointer">🔊 ${d.w}</span>
-      <span style="font-size:0.78rem;color:#888;min-width:130px">${d.hint}</span>
-      ${[1,2,3].map(n=>`<span class="syl-chip" id="e3_${i}_${n}" onclick="selectSyl(${i},${n})">${n} âm tiết</span>`).join('')}
-    </div>`).join('');
-}
-function selectSyl(i,n){
-  [1,2,3].forEach(x=>{const el=document.getElementById(`e3_${i}_${x}`);if(el)el.className='syl-chip';});
-  const el=document.getElementById(`e3_${i}_${n}`);
-  if(el){el.classList.add(`sel-${n===1?'1':n===2?'2':'3'}`);ex3sel[i]=n;}
-}
-function checkEx3(){
-  let c=0;
-  ex3Words.forEach((d,i)=>{
-    if(ex3sel[i]===d.syl)c++;
-    [1,2,3].forEach(x=>{
-      const el=document.getElementById(`e3_${i}_${x}`);
-      if(!el)return;
-      el.className='syl-chip';
-      if(x===d.syl)el.classList.add('sel-1');
-      else if(ex3sel[i]===x)el.style.opacity='0.4';
-    });
-  });
-  showScore('score3',c,ex3Words.length);
-}
-function resetEx3(){ex3sel={};document.querySelectorAll('[id^="e3_"]').forEach(el=>{el.className='syl-chip';el.style.opacity='1';});document.getElementById('score3').className='score-box';showToast('🔄 Đã làm lại!');}
-function revealEx3(){ex3Words.forEach((d,i)=>{ex3sel[i]=d.syl;[1,2,3].forEach(x=>{const el=document.getElementById(`e3_${i}_${x}`);if(!el)return;el.className='syl-chip';el.style.opacity='1';if(x===d.syl)el.classList.add('sel-1');});});showToast('👁️ Đây là đáp án!');}
+  words: {
+    s: [
+      { w: "cat[s|s]", ipa: "kæts", vi: "những con mèo" },
+      { w: "book[s|s]", ipa: "bʊks", vi: "những cuốn sách" },
+      { w: "map[s|s]", ipa: "mæps", vi: "những tấm bản đồ" },
+      { w: "cup[s|s]", ipa: "kʌps", vi: "những cái tách" },
+      { w: "hat[s|s]", ipa: "hæts", vi: "những cái mũ" },
+      { w: "walk[s|s]", ipa: "wɔːks", vi: "(anh ấy) đi bộ" },
+      { w: "stop[s|s]", ipa: { uk: "stɒps", us: "stɑːps" }, vi: "(nó) dừng lại · trạm dừng" },
+      { w: "week[s|s]", ipa: "wiːks", vi: "những tuần" },
+      { w: "laugh[s|s]", ipa: { uk: "lɑːfs", us: "læfs" }, vi: "(cô ấy) cười" },
+      { w: "street[s|s]", ipa: "striːts", vi: "những con phố" },
+      { w: "lamp[s|s]", ipa: "læmps", vi: "những cái đèn" }
+    ],
+    z: [
+      { w: "dog[s|z]", ipa: { uk: "dɒɡz", us: "dɑːɡz" }, vi: "những con chó" },
+      { w: "bag[s|z]", ipa: "bæɡz", vi: "những cái túi" },
+      { w: "day[s|z]", ipa: "deɪz", vi: "những ngày" },
+      { w: "boy[s|z]", ipa: "bɔɪz", vi: "những cậu bé" },
+      { w: "play[s|z]", ipa: "pleɪz", vi: "(anh ấy) chơi" },
+      { w: "pen[s|z]", ipa: "penz", vi: "những cây bút" },
+      { w: "bell[s|z]", ipa: "belz", vi: "những cái chuông" },
+      { w: "car[s|z]", ipa: { uk: "kɑːz", us: "kɑːrz" }, vi: "những chiếc xe" },
+      { w: "room[s|z]", ipa: "ruːmz", vi: "những căn phòng" },
+      { w: "friend[s|z]", ipa: "frendz", vi: "những người bạn" },
+      { w: "eye[s|z]", ipa: "aɪz", vi: "đôi mắt" }
+    ],
+    iz: [
+      { w: "bus[es|iz]", ipa: "ˈbʌs.ɪz", vi: "những chiếc xe buýt" },
+      { w: "watch[es|iz]", ipa: { uk: "ˈwɒtʃ.ɪz", us: "ˈwɑːtʃ.ɪz" }, vi: "(anh ấy) xem · những chiếc đồng hồ" },
+      { w: "judg[es|iz]", ipa: "ˈdʒʌdʒ.ɪz", vi: "những thẩm phán" },
+      { w: "box[es|iz]", ipa: { uk: "ˈbɒk.sɪz", us: "ˈbɑːk.sɪz" }, vi: "những cái hộp" },
+      { w: "ros[es|iz]", ipa: { uk: "ˈrəʊ.zɪz", us: "ˈroʊ.zɪz" }, vi: "những bông hồng" },
+      { w: "dish[es|iz]", ipa: "ˈdɪʃ.ɪz", vi: "những cái đĩa" },
+      { w: "glass[es|iz]", ipa: { uk: "ˈɡlɑː.sɪz", us: "ˈɡlæs.ɪz" }, vi: "những cái ly · cặp kính" },
+      { w: "church[es|iz]", ipa: { uk: "ˈtʃɜː.tʃɪz", us: "ˈtʃɝː.tʃɪz" }, vi: "những nhà thờ" },
+      { w: "languag[es|iz]", ipa: "ˈlæŋ.ɡwɪ.dʒɪz", vi: "những ngôn ngữ" },
+      { w: "plac[es|iz]", ipa: "ˈpleɪ.sɪz", vi: "những địa điểm" },
+      { w: "siz[es|iz]", ipa: "ˈsaɪ.zɪz", vi: "những kích cỡ" }
+    ]
+  },
 
-// EX 4: possessive 's - whose? (from book 42.3 style)
-const ex4Data=[
-  {q:"Whose is the hat?",ans:"Joyce's",speak:"The hat is Joyce's."},
-  {q:"Whose is the camera?",ans:"Charles's",speak:"The camera is Charles's."},
-  {q:"Whose are the skis?",ans:"Rose's",speak:"The skis are Rose's."},
-  {q:"Whose is the map?",ans:"George's",speak:"The map is George's."},
-  {q:"Whose is the jacket?",ans:"Jez's",speak:"The jacket is Jez's."},
-  {q:"Whose are the shoes?",ans:"Joyce's",speak:"The shoes are Joyce's."},
-  {q:"Whose is the suitcase?",ans:"Rose's",speak:"The suitcase is Rose's."},
-];
-function renderEx4(){
-  let gi=0;
-  document.getElementById('ex4Content').innerHTML=`<div style="font-size:0.85rem;color:#555;margin-bottom:8px">Người trong ảnh: Charles, Joyce, George, Rose, Jez. Điền tên + 's.</div>`+
-  ex4Data.map((d,i)=>`<div class="fill-item">${i+1}. ${d.q} → <input id="e4_${i}" type="text" placeholder="Name's" data-ans="${d.ans}" style="width:120px"> <button class="btn-blue" style="padding:3px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button></div>`).join('');
-}
-function speakEx4(){speakText(ex4Data.map(d=>d.speak).join(' '));}
-function checkEx4(){
-  let c=0;
-  ex4Data.forEach((d,i)=>{
-    const inp=document.getElementById('e4_'+i);
-    if(inp.value.trim().toLowerCase()===d.ans.toLowerCase()){inp.classList.add('correct');inp.classList.remove('wrong');c++;}
-    else{inp.classList.add('wrong');inp.classList.remove('correct');}
-  });
-  showScore('score4',c,ex4Data.length);
-}
-function resetEx4(){ex4Data.forEach((_,i)=>{const inp=document.getElementById('e4_'+i);inp.value='';inp.className='';});document.getElementById('score4').className='score-box';showToast('🔄 Đã làm lại!');}
-function revealEx4(){ex4Data.forEach((d,i)=>{const inp=document.getElementById('e4_'+i);inp.value=d.ans;inp.classList.add('correct');});showToast('👁️ Đây là đáp án!');}
+  sentences: {
+    s: [
+      { t: "The cat[s|s] sit on the map[s|s].", ipa: { uk: "ðə kæts sɪt ɒn ðə mæps", us: "ðə kæts sɪt ɑːn ðə mæps" }, vi: "Những con mèo ngồi trên bản đồ." },
+      { t: "She walk[s|s] and stop[s|s] at the corner.", ipa: { uk: "ʃi wɔːks ənd stɒps æt ðə ˈkɔː.nə", us: "ʃi wɔːks ənd stɑːps æt ðə ˈkɔːr.nɚ" }, vi: "Cô ấy đi bộ rồi dừng ở góc phố." },
+      { t: "Tom laugh[s|s] when he read[s|z] book[s|s].", ipa: { uk: "tɒm lɑːfs wen hi riːdz bʊks", us: "tɑːm læfs wen hi riːdz bʊks" }, vi: "Tom bật cười khi đọc sách." },
+      { t: "Hat[s|s] and cup[s|s] are on sale.", ipa: { uk: "hæts ənd kʌps ɑː ɒn seɪl", us: "hæts ənd kʌps ɑːr ɑːn seɪl" }, vi: "Mũ và cốc đang giảm giá." },
+      { t: "Her street[s|s] have lamp[s|s].", ipa: { uk: "hɜː striːts hæv læmps", us: "hɝː striːts hæv læmps" }, vi: "Các con phố của cô ấy có đèn." },
+      { t: "The soil contain[s|z] rock[s|s] and root[s|s].", ipa: { uk: "ðə sɔɪl kənˈteɪnz rɒks ənd ruːts", us: "ðə sɔɪl kənˈteɪnz rɑːks ənd ruːts" }, vi: "Đất chứa đá và rễ cây.", geo: true }
+    ],
+    z: [
+      { t: "The dog[s|z] play in the garden[s|z].", ipa: { uk: "ðə dɒɡz pleɪ ɪn ðə ˈɡɑː.dənz", us: "ðə dɑːɡz pleɪ ɪn ðə ˈɡɑːr.dənz" }, vi: "Những con chó chơi trong các khu vườn." },
+      { t: "He play[s|z] and she sing[s|z].", ipa: "hi pleɪz ənd ʃi sɪŋz", vi: "Anh ấy chơi, cô ấy hát." },
+      { t: "The boy[s|z] have pen[s|z] and bag[s|z].", ipa: "ðə bɔɪz hæv penz ənd bæɡz", vi: "Các cậu bé có bút và túi." },
+      { t: "My friend[s|z] come on day[s|z] off.", ipa: { uk: "maɪ frendz kʌm ɒn deɪz ɒf", us: "maɪ frendz kʌm ɑːn deɪz ɔːf" }, vi: "Bạn tôi đến vào những ngày nghỉ." },
+      { t: "It goe[s|z] and doe[s|z] well.", ipa: { uk: "ɪt ɡəʊz ənd dʌz wel", us: "ɪt ɡoʊz ənd dʌz wel" }, vi: "Nó chạy và làm tốt." },
+      { t: "The layer[s|z] and clay[s|z] hold water.", ipa: { uk: "ðə ˈleɪ.əz ənd kleɪz həʊld ˈwɔː.tə", us: "ðə ˈleɪ.ɚz ənd kleɪz hoʊld ˈwɑː.t̬ɚ" }, vi: "Các lớp và các loại đất sét giữ nước.", geo: true }
+    ],
+    iz: [
+      { t: "The bus[es|iz] stop at the church[es|iz].", ipa: { uk: "ðə ˈbʌs.ɪz stɒp æt ðə ˈtʃɜː.tʃɪz", us: "ðə ˈbʌs.ɪz stɑːp æt ðə ˈtʃɝː.tʃɪz" }, vi: "Các xe buýt dừng ở các nhà thờ." },
+      { t: "She wash[es|iz] dish[es|iz].", ipa: { uk: "ʃi ˈwɒʃ.ɪz ˈdɪʃ.ɪz", us: "ʃi ˈwɑːʃ.ɪz ˈdɪʃ.ɪz" }, vi: "Cô ấy rửa bát đĩa." },
+      { t: "He watch[es|iz] the box[es|iz].", ipa: { uk: "hi ˈwɒtʃ.ɪz ðə ˈbɒk.sɪz", us: "hi ˈwɑːtʃ.ɪz ðə ˈbɑːk.sɪz" }, vi: "Anh ấy trông chừng các cái hộp." },
+      { t: "The judg[es|iz] visit the plac[es|iz].", ipa: "ðə ˈdʒʌdʒ.ɪz ˈvɪz.ɪt ðə ˈpleɪ.sɪz", vi: "Các thẩm phán đến thăm các địa điểm." },
+      { t: "The ros[es|iz] have different siz[es|iz].", ipa: { uk: "ðə ˈrəʊ.zɪz hæv ˈdɪf.rənt ˈsaɪ.zɪz", us: "ðə ˈroʊ.zɪz hæv ˈdɪf.rənt ˈsaɪ.zɪz" }, vi: "Những bông hồng có kích cỡ khác nhau." },
+      { t: "Check the siz[es|iz] of the box[es|iz].", ipa: { uk: "tʃek ðə ˈsaɪ.zɪz əv ðə ˈbɒk.sɪz", us: "tʃek ðə ˈsaɪ.zɪz əv ðə ˈbɑːk.sɪz" }, vi: "Kiểm tra kích thước các hộp.", geo: true }
+    ]
+  },
 
-// EX 5: /s/ /z/ /ɪz/ minimal pairs
-const ex5Data=[
-  {w:"books",sent:"He reads books every night.",ans:"/s/",speak:"He reads books every night."},
-  {w:"days",sent:"She works five days a week.",ans:"/z/",speak:"She works five days a week."},
-  {w:"matches",sent:"How many matches are there?",ans:"/ɪz/",speak:"How many matches are there?"},
-  {w:"trains",sent:"Two trains arrive at 8am.",ans:"/z/",speak:"Two trains arrive at eight am."},
-  {w:"pages",sent:"The report has fifty pages.",ans:"/ɪz/",speak:"The report has fifty pages."},
-  {w:"piles",sent:"The piles reach bedrock.",ans:"/z/",speak:"The piles reach bedrock."},
-  {w:"stresses",sent:"Stresses increase with depth.",ans:"/ɪz/",speak:"Stresses increase with depth."},
-  {w:"tests",sent:"Three tests were completed.",ans:"/s/",speak:"Three tests were completed."},
-];
-function renderEx5(){
-  document.getElementById('ex5Content').innerHTML=ex5Data.map((d,i)=>`
-    <div class="mp-item">
-      <span style="min-width:80px;font-weight:700">${d.w}</span>
-      <span style="font-style:italic;min-width:220px">"${d.sent}"</span>
-      <button class="btn-teal" style="padding:4px 8px;font-size:0.78rem" onclick="speakText('${d.speak.replace(/'/g,"\\'")}')">🔊</button>
-      ${["/s/","/z/","/ɪz/"].map(opt=>`<label><input type="radio" name="mp5_${i}" value="${opt}"> <span class="ipa">${opt}</span></label>`).join('')}
-    </div>`).join('');
-}
-function checkEx5(){let c=0;ex5Data.forEach((d,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel&&sel.value===d.ans)c++;});showScore('score5',c,ex5Data.length);}
-function resetEx5(){ex5Data.forEach((_,i)=>{const sel=document.querySelector(`input[name="mp5_${i}"]:checked`);if(sel)sel.checked=false;});document.getElementById('score5').className='score-box';showToast('🔄 Đã làm lại!');}
-function revealEx5(){ex5Data.forEach((d,i)=>{const inp=document.querySelector(`input[name="mp5_${i}"][value="${d.ans}"]`);if(inp)inp.checked=true;});showToast('👁️ Đây là đáp án!');}
+  tips: [
+    "<b>Chỉ cần nhìn âm cuối của từ gốc, không nhìn chữ:</b> <i>laugh</i> kết thúc bằng /f/ nên thêm /s/ (laughs); <i>judge</i> kết thúc bằng /dʒ/ nên thêm /ɪz/ (judges). Chữ cái cuối không quyết định.",
+    "<b>Mẹo PaT KeFTh → /s/:</b> p, t, k, f, th là các âm vô thanh nên -s đọc /s/. Nguyên âm và các âm hữu thanh còn lại thì -s đọc /z/. Các âm rít (s, z, sh, ch, j…) thì thêm âm tiết /ɪz/.",
+    "<b>Đừng bỏ đuôi -s:</b> với người nghe, <i>book</i> và <i>books</i>, <i>he walk</i> và <i>he walks</i> khác nghĩa và khác ngữ pháp. Đuôi -s dù ngắn nhưng bắt buộc phải có.",
+    "🏗️ <b>Từ chuyên ngành:</b> rock<b>s</b> /s/ · layer<b>s</b> /z/ · box<b>es</b> /ɪz/ · site<b>s</b> /s/ · sample<b>s</b> /z/. Đừng nhầm <i>rock</i> với <i>rocks</i> trong báo cáo!"
+  ],
 
-// INIT
-renderWords();renderSents();renderEx1();renderEx2();renderEx3();renderEx4();renderEx5();
+  // ---------- X.1 Nghe câu, chọn nghĩa ----------
+  x1: {
+    n: 6,
+    after: "Đuôi -s ngắn nhưng quyết định nghĩa: /s/ vô thanh, /z/ hữu thanh, /ɪz/ là một âm tiết riêng. Nếu nghe nhầm, hãy quay lại mục <b>So sánh cặp tối thiểu</b>.",
+    bank: [
+      { a: { t: "Where are the [cats|s]?", m: "🐱 những con mèo" }, b: { t: "Where are the [cabs|z]?", m: "🚕 những chiếc taxi" } },
+      { a: { t: "Look at the [books|s].", m: "📚 những cuốn sách" }, b: { t: "Look at the [bugs|z].", m: "🐛 những con bọ" } },
+      { a: { t: "I need the [maps|s].", m: "🗺️ các bản đồ" }, b: { t: "I need the [mugs|z].", m: "☕ các cái cốc" } },
+      { a: { t: "Count the [cups|s].", m: "☕ các cái tách" }, b: { t: "Count the [cubs|z].", m: "🐻 các con gấu con" } },
+      { a: { t: "Check the [packs|s].", m: "🎒 các gói hàng" }, b: { t: "Check the [bags|z].", m: "👜 các cái túi" } },
+      { a: { t: "I see the [boxes|iz].", m: "📦 những cái hộp" }, b: { t: "I see the [boys|z].", m: "👦 những cậu bé" } },
+      { a: { t: "Wash the [dishes|iz].", m: "🍽️ những cái đĩa" }, b: { t: "Wash the [dogs|z].", m: "🐕 những con chó" } },
+      { a: { t: "Visit the [churches|iz].", m: "⛪ những nhà thờ" }, b: { t: "Visit the [chiefs|s].", m: "👑 những vị thủ lĩnh" } }
+    ]
+  },
 
-setTimeout(()=>{try{let c=[];try{const d=localStorage.getItem("epu_completed");if(d)c=JSON.parse(d);}catch{}if(!c.includes(42)){c.push(42);localStorage.setItem("epu_completed",JSON.stringify(c));}}catch{}},1000);
+  // ---------- X.2 Từ lạ: đoán trước, nghe sau (100% từ mới) ----------
+  x2: {
+    items: [
+      { w: "shop[s]", s: "s", ipa: { uk: "ʃɒps", us: "ʃɑːps" }, rule: "S1" },
+      { w: "sock[s]", s: "s", ipa: { uk: "sɒks", us: "sɑːks" }, rule: "S1" },
+      { w: "roof[s]", s: "s", ipa: "ruːfs", rule: "S1" },
+      { w: "pig[s]", s: "z", ipa: "pɪɡz", rule: "Z1" },
+      { w: "door[s]", s: "z", ipa: { uk: "dɔːz", us: "dɔːrz" }, rule: "Z1" },
+      { w: "lion[s]", s: "z", ipa: "ˈlaɪ.ənz", rule: "Z1" },
+      { w: "bridg[es]", s: "iz", ipa: "ˈbrɪdʒ.ɪz", rule: "I2" },
+      { w: "dress[es]", s: "iz", ipa: "ˈdres.ɪz", rule: "I1" },
+      { w: "peach[es]", s: "iz", ipa: "ˈpiː.tʃɪz", rule: "I1" },
+      { w: "priz[es]", s: "iz", ipa: "ˈpraɪ.zɪz", rule: "I2" },
+      { w: "i[s]land", s: "other", real: "(câm)", ipa: "ˈaɪ.lənd", rule: "T4", note: "⚠️ s câm: <i>island</i> đọc là /ˈaɪ.lənd/." },
+      { w: "ai[s]le", s: "other", real: "(câm)", ipa: "aɪl", rule: "T4" },
+      { w: "debri[s]", s: "other", real: "(câm)", ipa: { uk: "ˈdeb.riː", us: "dəˈbriː" }, rule: "T4" }
+    ]
+  },
+
+  // ---------- X.3 Nói & so sánh ----------
+  x3: {
+    items: [
+      { t: "The cat[s|s] and dog[s|z] are here.", tip: "cats kết thúc /s/ không rung; dogs kết thúc /z/ rung." },
+      { t: "He walk[s|s] and she play[s|z].", tip: "walks /s/ sau /k/; plays /z/ sau nguyên âm." },
+      { t: "Bus[es|iz] and church[es|iz].", tip: "Thêm một âm tiết /ɪz/: bus-ĭz, church-ĭz." },
+      { t: "My friend[s|z] watch the cat[s|s].", tip: "friends /z/ sau /d/; cats /s/ sau /t/." },
+      { t: "Tom’[s|z] bag, Kate’[s|s] book, George’[s|iz] hat.", tip: "’s theo cùng quy tắc: Tom’s /z/, Kate’s /s/, George’s /ɪz/." }
+    ],
+    checklist: [
+      "Nhìn âm cuối của từ gốc để chọn /s/, /z/ hay /ɪz/.",
+      "/s/ không rung; /z/ rung; /ɪz/ thêm một âm tiết.",
+      "Không bỏ đuôi -s (book ≠ books).",
+      "Không thêm “ơ” sau /s/ và /z/."
+    ],
+    asr: [["ice", "eyes"], ["bus", "buzz"], ["rice", "rise"]]
+  },
+
+  // ---------- X.4 Tình huống ----------
+  x4: {
+    title: "Gọi chăm sóc khách hàng",
+    place: "📞 Cuộc gọi đến tổng đài của một cửa hàng giày online",
+    roles: { A: "Khách hàng", B: "Nhân viên tổng đài" },
+    userRole: "A",
+    lines: [
+      ["B", "Hello, shop line. How can I help?", "Xin chào, tổng đài cửa hàng. Tôi giúp gì được ạ?"],
+      ["A", "Hello. I ordered [shoes|z] and [socks|s], but the [boxes|iz] had no [labels|z].", "Chào chị. Tôi đã đặt giày và tất, nhưng các hộp không có nhãn."],
+      ["B", "Sorry! [Mistakes|s] happen. It [seems|z] the [boxes|iz] got mixed up. [Please|!s cuối từ gốc, không phải đuôi (bẫy T1).] wait.", "Xin lỗi! Sai sót vẫn xảy ra. Có vẻ các hộp bị nhầm lẫn. Xin chờ một chút."],
+      ["A", "[Yes|!s cuối từ gốc, không phải đuôi (bẫy T1).]. [This|!s cuối từ gốc, không phải đuôi (bẫy T1).] [happens|z] often.", "Vâng. Chuyện này xảy ra thường xuyên."],
+      ["B", "Your [shoes|z] and [socks|s] arrive tomorrow. Delivery [takes|s] two [days|z].", "Giày và tất của anh/chị sẽ đến vào ngày mai. Giao hàng mất hai ngày."],
+      ["A", "Great. My [kids|z] love [colours|z], and my [friends|z] like cheap [prices|iz].", "Tuyệt. Con tôi thích màu sắc và bạn tôi thích giá rẻ."],
+      ["B", "Anything else?", "Anh/chị cần gì nữa không?"],
+      ["A", "No, [thanks|s]. [Bus|!s cuối từ gốc, không phải đuôi (bẫy T1).] [lines|z] are late, so [Fridays|z] suit me.", "Không, cảm ơn. Các tuyến xe buýt hay trễ nên thứ Sáu là phù hợp với tôi."]
+    ]
+  },
+
+  // ---------- X.5 Ôn xen kẽ ----------
+  x5: {
+    rounds: 8,
+    goal: "Trộn ba cách đọc đuôi -s (/s/, /z/, /ɪz/) với các từ gần giống nhau về âm cuối. Không ai báo trước đang luyện âm nào. Nghe và chọn từ đúng.",
+    groups: [
+      [{ w: "taps", ipa: "tæps" }, { w: "tabs", ipa: "tæbz" }, { w: "tags", ipa: "tæɡz" }, { w: "tans", ipa: "tænz" }],
+      [{ w: "tips", ipa: "tɪps" }, { w: "tins", ipa: "tɪnz" }, { w: "tills", ipa: "tɪlz" }, { w: "ticks", ipa: "tɪks" }],
+      [{ w: "pits", ipa: "pɪts" }, { w: "pins", ipa: "pɪnz" }, { w: "pills", ipa: "pɪlz" }, { w: "pips", ipa: "pɪps" }],
+      [{ w: "puts", ipa: "pʊts" }, { w: "pubs", ipa: "pʌbz" }, { w: "pugs", ipa: "pʌɡz" }, { w: "puns", ipa: "pʌnz" }],
+      [{ w: "ropes", ipa: { uk: "rəʊps", us: "roʊps" } }, { w: "robes", ipa: { uk: "rəʊbz", us: "roʊbz" } }, { w: "roads", ipa: { uk: "rəʊdz", us: "roʊdz" } }, { w: "rows", ipa: { uk: "rəʊz", us: "roʊz" } }],
+      [{ w: "rafts", ipa: { uk: "rɑːfts", us: "ræfts" } }, { w: "rags", ipa: "ræɡz" }, { w: "rams", ipa: "ræmz" }, { w: "ranks", ipa: "ræŋks" }],
+      [{ w: "wraps", ipa: "ræps" }, { w: "wrens", ipa: "renz" }, { w: "wrecks", ipa: "reks" }, { w: "wigs", ipa: "wɪɡz" }],
+      [{ w: "mixes", ipa: "ˈmɪk.sɪz" }, { w: "misses", ipa: "ˈmɪs.ɪz" }, { w: "wishes", ipa: "ˈwɪʃ.ɪz" }, { w: "wins", ipa: "wɪnz" }]
+    ]
+  },
+
+  summary: [
+    "<b>/s/</b>: sau âm vô thanh /p t k f θ/ (PaT KeFTh): cats, books, laughs",
+    "<b>/z/</b>: sau nguyên âm hoặc âm hữu thanh: dogs, plays, bags, is, does",
+    "<b>/ɪz/</b>: sau âm rít /s z ʃ ʒ tʃ dʒ/, thêm một âm tiết: buses, watches, judges",
+    "<b>Áp dụng cho</b> số nhiều, ngôi thứ ba số ít của động từ và sở hữu cách ’s",
+    "<b>Bẫy:</b> s cuối của bus, yes, this không phải đuôi; knives /vz/; baths /ðz/; island s câm",
+    "Đừng bỏ đuôi -s: book ≠ books, he walk ≠ he walks"
+  ]
+};
+EPU.renderLesson(LESSON);
 </script>
 </body>
 </html>
